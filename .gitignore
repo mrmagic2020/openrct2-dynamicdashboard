@@ -108,3 +108,6 @@ dist
 
 # Visual Studio
 .vs/
+
+# macOS
+.DS_Store
