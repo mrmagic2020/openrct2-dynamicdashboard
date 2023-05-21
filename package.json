@@ -16,5 +16,8 @@
 		"platform-folders": "^0.6.0",
 		"rollup": "^3.15.0",
 		"tslib": "^2.5.0"
+	},
+	"dependencies": {
+		"openrct2-flexui": "^0.1.0-prerelease.12"
 	}
 }
