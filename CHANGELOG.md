@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Add
+### Added
 
 - Toolbox menu item. 
 - In-game menu item. 
@@ -12,3 +12,4 @@ All notable changes to this project will be documented in this file.
 - Language: zh-CN.
 - Multiplayer player statistics.
 - Player online real-time / in-game duration statistics. 
+- Player action execution statistics. 
