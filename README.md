@@ -4,7 +4,7 @@
 
 ![](https://img.shields.io/badge/type-intransient-important?style=flat-square) 
 ![](https://img.shields.io/badge/language-Typescript-3178C6?style=flat-square) 
-![](https://img.shields.io/badge/version-v0.1.0-inactive?style=flat-square) 
+![](https://img.shields.io/badge/version-unreleased-inactive?style=flat-square) 
 ![](https://img.shields.io/badge/status-developing-inactive?style=flat-square) 
 ![](https://img.shields.io/github/license/mrmagic2020/openrct2-remotehandymen?color=informational&style=flat-square)
 
