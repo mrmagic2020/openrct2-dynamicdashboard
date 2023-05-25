@@ -10,6 +10,5 @@ All notable changes to this project will be documented in this file.
 - In-game menu item. 
 - Language: en-US.
 - Language: zh-CN.
-- Multiplayer player statistics.
-- Player online real-time / in-game duration statistics. 
-- Player action execution statistics. 
+- Player-related data statistics. 
+- Park-related data statistics. 
