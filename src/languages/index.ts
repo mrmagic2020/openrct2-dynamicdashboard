@@ -1,4 +1,4 @@
-import { dataStructure } from "../data";
+import { baseData } from "../data/main";
 import { Language } from "./template";
 import { en_US } from "./en-US"
 import { zh_CN } from "./zh-CN";
@@ -39,7 +39,7 @@ const languageList = [
   index.zh_CN.ui.toolbox.language_item
 ];
 
-const languageStore : WritableStore<Language> = store<Language>(index[dataStructure.global.language.get()]);
+const languageStore : WritableStore<Language> = store<Language>(index[baseData.global.language.get()]);
 
 /**
  * Export extracted Language type for easy use. 
@@ -76,13 +76,13 @@ function initLang() {
    * 
    * @see languageStore
    */
-  dataStructure.global.language.subscribe((_value) => {
-    languageStore.set(index[dataStructure.global.language.get()]);
+  baseData.global.language.subscribe((_value) => {
+    languageStore.set(index[baseData.global.language.get()]);
   });
 
   // update language
-  dataStructure.global.language_index.subscribe((value : number) => {
-    dataStructure.global.language.set(idList[value]);
+  baseData.global.language_index.subscribe((value : number) => {
+    baseData.global.language.set(idList[value]);
   });
 
   // update exported language object

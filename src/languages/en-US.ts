@@ -7,7 +7,9 @@ export const en_US : Language = {
     toolbox: {
       title: "Dynamic Dashboard",
       language_selection_label: "Select your preferred language:",
-      language_item: "English (US)"
+      language_item: "English (US)",
+      update_ratio_spinner: "Update raio (requires game restart):",
+      update_ratio_spinner_unit: "seconds"
     },
     main: {
       title: "Dynamic Dashboard",
@@ -15,6 +17,11 @@ export const en_US : Language = {
         player: {
           title: "{PALEGOLD}Player",
           action_statistics: "{PALEGOLD}Action Statistics"
+        },
+        park_and_scenario: {
+          title: "{PALEGOLD}Park & Scenario",
+          park_rating: "Park Rating",
+          entity_count: "Entity Count"
         }
       },
       label: {
@@ -33,7 +40,24 @@ export const en_US : Language = {
         action_pop_balloon: "Pop balloon: {PALESILVER}",
         action_set_cheats: "Set cheats: {PALESILVER}",
         action_server_join: "Join server: {PALESILVER}",
-        action_server_chat: "Chat: {PALESILVER}"
+        action_server_chat: "Chat: {PALESILVER}",
+
+        park_value: "Park value: {PALESILVER}<NUMBER><UNIT>",
+        park_size: "Park size: {PALESILVER}<NUMBER> tiles",
+        park_rating_current: "Current: {PALESILVER}",
+        park_rating_ave: "Average (all time): {PALESILVER}",
+        park_rating_year_ave: "Average (year): {PALESILVER}",
+        park_rating_month_ave: "Average (month): {PALESILVER}",
+
+        entity_count_total: "Total: {PALESILVER}",
+        entity_count_guest: "Guest: {PALESILVER}",
+        entity_count_staff: "Staff: {PALESILVER}",
+        entity_count_balloon: "Balloon: {PALESILVER}",
+        entity_count_duck: "Duck: {PALESILVER}",
+        entity_count_litter: "Litter: {PALESILVER}"
+      },
+      tooltip: {
+        entity_count_total_limitation: "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."
       }
     }
   }

@@ -1,8 +1,8 @@
 import {
-  window, label, dropdown
+  window, label, dropdown, spinner
 } from "openrct2-flexui"
 import { language, languageList } from "../languages";
-import { dataStructure } from "../data";
+import { baseData } from "../data/main";
 
 let isOpen = false;
 export function toolboxMenu() {
@@ -17,10 +17,21 @@ export function toolboxMenu() {
       }),
       dropdown({
         items: languageList,
-        selectedIndex: dataStructure.global.language_index,
-        onChange: (index : number) => {
-          dataStructure.global.language_index.set(index);
+        selectedIndex: baseData.global.language_index,
+        onChange: (index: number) => {
+          baseData.global.language_index.set(index);
           win_template.close();
+        }
+      }),
+      label({
+        text: language.ui.toolbox.update_ratio_spinner
+      }),
+      spinner({
+        value: baseData.global.update_ratio,
+        minimum: 1,
+        format: (value) => (value.toString() + " " + language.ui.toolbox.update_ratio_spinner_unit),
+        onChange: (value: number) => {
+          baseData.global.update_ratio.set(value);
         }
       })
     ],

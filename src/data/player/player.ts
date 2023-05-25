@@ -1,4 +1,4 @@
-import { dataStructure } from "..";
+import { baseData } from "../main";
 
 interface ActionClass {
   [key: string]: ActionType[]
@@ -7,11 +7,11 @@ interface ActionClass {
 /**
  * Classifications of all recorded actions. 
  * 
- * Keys **must** be indentical to that of `dataStructure.local.player`
+ * Keys **must** be indentical to that of `baseData.local.player`
  * 
- * @see dataStructure.local.player
+ * @see baseData.local.player
  */
-const actionClass : ActionClass = {
+const actionClass: ActionClass = {
   action_track_design: ["trackdesign", "trackplace", "trackremove", "tracksetbrakespeed"],
   action_stall_and_facility_placement: ["ridecreate", "ridedemolish"],
   action_footpath_placement: ["footpathplace", "footpathremove"],
@@ -23,19 +23,19 @@ const actionClass : ActionClass = {
   action_set_cheats: ["cheatset"]
 };
 
-function initPlayerData() {
+function initPlayerData(): void {
   /**
    * Real-time game time recording (minutes). Updates every 15 seconds. 
    */
   context.setInterval(() => {
-    dataStructure.local.player.game_time_real.store.set(dataStructure.local.player.game_time_real.store.get() + 0.25);
+    baseData.local.player.game_time_real.store.set(baseData.local.player.game_time_real.store.get() + 0.25);
   }, 15 * 1000);
 
   /**
    * In-game game time recording (days). Hooks to day interval. 
    */
   context.subscribe("interval.day", () => {
-    dataStructure.local.player.game_time_fake.store.set(dataStructure.local.player.game_time_fake.store.get() + 1);
+    baseData.local.player.game_time_fake.store.set(baseData.local.player.game_time_fake.store.get() + 1);
   });
 
   context.subscribe("action.execute", (e) => {
@@ -47,7 +47,7 @@ function initPlayerData() {
        */
       for (let key in actionClass) {
         if (actionClass[key].indexOf(e.action) !== -1) {
-          dataStructure.local.player[key].store.set(dataStructure.local.player[key].store.get() + 1);
+          baseData.local.player[key].store.set(baseData.local.player[key].store.get() + 1);
         }
       }
     }
@@ -55,13 +55,13 @@ function initPlayerData() {
 
   context.subscribe("network.join", (e) => {
     if (e.player === network.currentPlayer.id) {
-      dataStructure.local.player.action_server_join.store.set(dataStructure.local.player.action_server_join.store.get() + 1);
+      baseData.local.player.action_server_join.store.set(baseData.local.player.action_server_join.store.get() + 1);
     }
   });
 
   context.subscribe("network.chat", (e) => {
     if (e.player === network.currentPlayer.id) {
-      dataStructure.local.player.action_server_chat.store.set(dataStructure.local.player.action_server_chat.store.get() + 1);
+      baseData.local.player.action_server_chat.store.set(baseData.local.player.action_server_chat.store.get() + 1);
     }
   })
 }

@@ -4,6 +4,8 @@ export interface Language {
       title: string;
       language_selection_label: string;
       language_item: string;
+      update_ratio_spinner: string;
+      update_ratio_spinner_unit: string;
     };
     main: {
       title: string;
@@ -11,6 +13,11 @@ export interface Language {
         player: {
           title: string;
           action_statistics: string;
+        };
+        park_and_scenario: {
+          title: string;
+          park_rating: string;
+          entity_count: string;
         };
       };
       label: {
@@ -30,7 +37,24 @@ export interface Language {
         action_set_cheats: string;
         action_server_join: string;
         action_server_chat: string;
-      }
+
+        park_value: string;
+        park_size: string;
+        park_rating_current: string;
+        park_rating_ave: string;
+        park_rating_year_ave: string;
+        park_rating_month_ave: string;
+
+        entity_count_total: string;
+        entity_count_guest: string;
+        entity_count_staff: string;
+        entity_count_balloon: string;
+        entity_count_duck: string;
+        entity_count_litter: string;
+      };
+      tooltip: {
+        entity_count_total_limitation: string;
+      };
     };
   };
 }
