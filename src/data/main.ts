@@ -230,6 +230,15 @@ const baseData : BaseData = {
       entity_count_litter: {
         key: LOCAL + ".entity_count_litter",
         store: store<number>(context.getParkStorage().get(LOCAL + ".entity_count_litter", map.getAllEntities("litter").length))
+      },
+
+      reseach_invented_items: {
+        key: LOCAL + ".research_invented_items",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".research_invented_items", park.research.inventedItems.length))
+      },
+      reseach_uninvented_items: {
+        key: LOCAL + ".reseach_uninvented_items",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".reseach_uninvented_items", park.research.uninventedItems.length))
       }
     }
   }

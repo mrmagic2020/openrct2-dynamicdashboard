@@ -19,7 +19,8 @@ export const zh_CN : Language = {
         park_and_scenario: {
           title: "{PALEGOLD}园区及地图",
           park_rating: "园区评分",
-          entity_count: "实体统计"
+          entity_count: "实体统计",
+          research: "调查数据"
         }
       },
       label: {
@@ -52,7 +53,10 @@ export const zh_CN : Language = {
         entity_count_staff: "员工：{PALESILVER}",
         entity_count_balloon: "气球：{PALESILVER}",
         entity_count_duck: "鸭子：{PALESILVER}",
-        entity_count_litter: "垃圾：{PALESILVER}"
+        entity_count_litter: "垃圾：{PALESILVER}",
+
+        research_invented_items: "已发明: {PALESILVER}",
+        research_uninvented_items: "未发明: {PALESILVER}"
       },
       tooltip: {
         entity_count_total_limitation: "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。"

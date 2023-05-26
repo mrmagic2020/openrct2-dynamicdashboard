@@ -21,7 +21,8 @@ export const en_US : Language = {
         park_and_scenario: {
           title: "{PALEGOLD}Park & Scenario",
           park_rating: "Park Rating",
-          entity_count: "Entity Count"
+          entity_count: "Entity Count",
+          research: "Research"
         }
       },
       label: {
@@ -54,7 +55,10 @@ export const en_US : Language = {
         entity_count_staff: "Staff: {PALESILVER}",
         entity_count_balloon: "Balloon: {PALESILVER}",
         entity_count_duck: "Duck: {PALESILVER}",
-        entity_count_litter: "Litter: {PALESILVER}"
+        entity_count_litter: "Litter: {PALESILVER}",
+
+        research_invented_items: "Invented items: {PALESILVER}",
+        research_uninvented_items: "Uninvented items: {PALESILVER}"
       },
       tooltip: {
         entity_count_total_limitation: "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."

@@ -52,6 +52,9 @@ function initParkAndScenarioData(): void {
       baseData.local.park_and_scenario.entity_count_balloon.store.set(map.getAllEntities("balloon").length);
       baseData.local.park_and_scenario.entity_count_duck.store.set(map.getAllEntities("duck").length);
       baseData.local.park_and_scenario.entity_count_litter.store.set(map.getAllEntities("litter").length);
+
+      baseData.local.park_and_scenario.reseach_invented_items.store.set(park.research.inventedItems.length);
+      baseData.local.park_and_scenario.reseach_uninvented_items.store.set(park.research.uninventedItems.length);
     }
 
     if (tickCount_4096 < 4096) tickCount_4096 ++;

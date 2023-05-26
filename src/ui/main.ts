@@ -27,6 +27,7 @@ function menu() {
           groupbox({ // Player
             text: language.ui.main.groupbox.player.title,
             width: "30%",
+            height: "50%",
             content: [
               label({
                 text: language.ui.main.label.player_name + network.currentPlayer.name,
@@ -88,14 +89,17 @@ function menu() {
           }),
           groupbox({ // Park & Scenario
             text: language.ui.main.groupbox.park_and_scenario.title,
-            width: "30%",
+            width: "40%",
+            height: "50%",
             content: [
-              label({
-                text: compute(baseData.local.park_and_scenario.park_value.store, (value) => tr(language.ui.main.label.park_value, getCurrencyUnit(value)))
-              }),
-              label({
-                text: compute(baseData.local.park_and_scenario.park_size.store, (value) => tr(language.ui.main.label.park_size, value))
-              }),
+              horizontal([
+                label({
+                  text: compute(baseData.local.park_and_scenario.park_value.store, (value) => tr(language.ui.main.label.park_value, getCurrencyUnit(value)))
+                }),
+                label({
+                  text: compute(baseData.local.park_and_scenario.park_size.store, (value) => tr(language.ui.main.label.park_size, value))
+                })
+              ]),
               groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.park_rating,
                 content: [
@@ -116,25 +120,42 @@ function menu() {
               groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.entity_count,
                 content: [
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_total.store, (value) => language.ui.main.label.entity_count_total + value.toString()),
-                    tooltip: language.ui.main.tooltip.entity_count_total_limitation
-                  }),
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_guest.store, (value) => language.ui.main.label.entity_count_guest + value.toString())
-                  }),
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_staff.store, (value) => language.ui.main.label.entity_count_staff + value.toString())
-                  }),
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_balloon.store, (value) => language.ui.main.label.entity_count_balloon + value.toString())
-                  }),
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_duck.store, (value) => language.ui.main.label.entity_count_duck + value.toString())
-                  }),
-                  label({
-                    text: compute(baseData.local.park_and_scenario.entity_count_litter.store, (value) => language.ui.main.label.entity_count_litter + value.toString())
-                  })
+                  horizontal([ // horizontally organize statistics in group of two
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_total.store, (value) => language.ui.main.label.entity_count_total + value.toString()),
+                      tooltip: language.ui.main.tooltip.entity_count_total_limitation
+                    }),
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_guest.store, (value) => language.ui.main.label.entity_count_guest + value.toString())
+                    }),
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_staff.store, (value) => language.ui.main.label.entity_count_staff + value.toString())
+                    })
+                  ]),
+                  horizontal([
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_balloon.store, (value) => language.ui.main.label.entity_count_balloon + value.toString())
+                    }),
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_duck.store, (value) => language.ui.main.label.entity_count_duck + value.toString())
+                    }),
+                    label({
+                      text: compute(baseData.local.park_and_scenario.entity_count_litter.store, (value) => language.ui.main.label.entity_count_litter + value.toString())
+                    })
+                  ])
+                ]
+              }),
+              groupbox({
+                text: language.ui.main.groupbox.park_and_scenario.research,
+                content: [
+                  horizontal([
+                    label({
+                      text: compute(baseData.local.park_and_scenario.reseach_invented_items.store, (value) => language.ui.main.label.research_invented_items + value.toString())
+                    }),
+                    label({
+                      text: compute(baseData.local.park_and_scenario.reseach_uninvented_items.store, (value) => language.ui.main.label.research_uninvented_items + value.toString())
+                    })
+                  ])
                 ]
               })
             ]

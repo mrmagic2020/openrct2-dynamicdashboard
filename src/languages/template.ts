@@ -18,6 +18,7 @@ export interface Language {
           title: string;
           park_rating: string;
           entity_count: string;
+          research: string;
         };
       };
       label: {
@@ -51,6 +52,9 @@ export interface Language {
         entity_count_balloon: string;
         entity_count_duck: string;
         entity_count_litter: string;
+
+        research_invented_items: string;
+        research_uninvented_items: string;
       };
       tooltip: {
         entity_count_total_limitation: string;
