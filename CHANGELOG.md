@@ -6,9 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Toolbox menu item. 
+- Toolbox menu item. (unstable)
 - In-game menu item. 
 - Language: en-US.
 - Language: zh-CN.
 - Player-related data statistics. 
 - Park-related data statistics. 
+- Rides-related data statistics. 
