@@ -1,4 +1,4 @@
-import { baseData } from "../main";
+import { baseData } from "./main";
 
 interface ActionClass {
   [key: string]: ActionType[]

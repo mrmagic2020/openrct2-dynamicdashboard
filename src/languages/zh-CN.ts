@@ -18,9 +18,16 @@ export const zh_CN : Language = {
         },
         park_and_scenario: {
           title: "{PALEGOLD}园区及地图",
-          park_rating: "园区评分",
-          entity_count: "实体统计",
-          research: "调查数据"
+          park_rating: "{PALEGOLD}园区评分",
+          entity_count: "{PALEGOLD}实体统计",
+          research: "{PALEGOLD}调查数据"
+        },
+        rides: {
+          title: "{PALEGOLD}游乐设施",
+          crashes: "{PALEGOLD}事故统计"
+        },
+        guest: {
+          title: "{PALEGOLD}游客"
         }
       },
       label: {
@@ -56,7 +63,36 @@ export const zh_CN : Language = {
         entity_count_litter: "垃圾：{PALESILVER}",
 
         research_invented_items: "已发明: {PALESILVER}",
-        research_uninvented_items: "未发明: {PALESILVER}"
+        research_uninvented_items: "未发明: {PALESILVER}",
+        
+        ride_count_total: "总数：{PALESILVER}",
+        ride_count_flat: "平面：{PALESILVER}",
+        ride_count_tracked: "有轨：{PALESILVER}",
+
+        crash_count_total: "总数：{PALESILVER}",
+        crash_count_into_vehicle: "撞车：{PALESILVER}",
+        crash_count_into_land: "撞地：{PALESILVER}",
+        crash_count_into_water: "撞水：{PALESILVER}",
+
+        ride_excitement_ave: "兴奋度平均值：{PALESILVER}",
+        ride_intensity_ave: "强度平均值：{PALESILVER}",
+        ride_nausea_ave: "眩晕度平均值：{PALESILVER}",
+        ride_value_ave: "价值平均值：{PALESILVER}",
+        ride_price_ave: "价格平均值：{PALESILVER}",
+        ride_admission_ave: "总顾客平均值：{PALESILVER}",
+
+        guest_generation_total: "总顾客生成：{PALESILVER}",
+        guest_admission_total: "总顾客入园：{PALESILVER}",
+        guest_count_current: "当前顾客：{PALESILVER}",
+        guest_soft_cap: "软上限：{PALESILVER}",
+        guest_weight_ave: "平均体重：{PALESILVER}",
+        guest_wealth_ave: "平均财富：{PALESILVER}",
+        guest_happiness_ave: "平均快乐度：{PALESILVER}",
+        guest_energy_ave: "平均精力：{PALESILVER}",
+        guest_nausea_ave: "平均眩晕度：{PALESILVER}",
+        guest_hunger_ave: "平均饥饿度：{PALESILVER}",
+        guest_thirst_ave: "平均口渴度：{PALESILVER}",
+        guest_toilet_ave: "平均厕所需求：{PALESILVER}"
       },
       tooltip: {
         entity_count_total_limitation: "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。"

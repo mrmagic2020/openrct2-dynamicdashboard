@@ -1,4 +1,4 @@
-import { baseData, branchData } from "../main"
+import { baseData, branchData } from "./main"
 
 function initParkAndScenarioData(): void {
   let tickCount_512 = 0;

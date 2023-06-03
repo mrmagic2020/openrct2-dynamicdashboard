@@ -20,6 +20,13 @@ export interface Language {
           entity_count: string;
           research: string;
         };
+        rides: {
+          title: string;
+          crashes: string;
+        };
+        guest: {
+          title: string;
+        }
       };
       label: {
         player_name: string;
@@ -55,6 +62,35 @@ export interface Language {
 
         research_invented_items: string;
         research_uninvented_items: string;
+        
+        ride_count_total: string;
+        ride_count_flat: string;
+        ride_count_tracked: string;
+        
+        crash_count_total: string;
+        crash_count_into_vehicle: string;
+        crash_count_into_land: string;
+        crash_count_into_water: string;
+
+        ride_excitement_ave: string;
+        ride_intensity_ave: string;
+        ride_nausea_ave: string;
+        ride_value_ave: string;
+        ride_price_ave: string;
+        ride_admission_ave: string;
+
+        guest_generation_total: string;
+        guest_admission_total: string;
+        guest_count_current: string;
+        guest_soft_cap: string;
+        guest_weight_ave: string;
+        guest_wealth_ave: string;
+        guest_happiness_ave: string;
+        guest_energy_ave: string;
+        guest_nausea_ave: string;
+        guest_hunger_ave: string;
+        guest_thirst_ave: string;
+        guest_toilet_ave: string;
       };
       tooltip: {
         entity_count_total_limitation: string;

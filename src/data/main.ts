@@ -27,6 +27,18 @@ interface BaseData {
         key: string;
         store: WritableStore<number>;
       };
+    };
+    rides: {
+      [key: string]: {
+        key: string;
+        store: WritableStore<number>;
+      };
+    };
+    guest: {
+      [key: string]: {
+        key: string;
+        store: WritableStore<number>;
+      }
     }
   };
 }
@@ -35,6 +47,18 @@ interface BranchData {
   global: {},
   local: {
     park_and_scenario: {
+      [key: string]: {
+        key: string,
+        store: WritableStore<any>
+      }[]
+    },
+    rides: {
+      [key: string]: {
+        key: string,
+        store: WritableStore<any>
+      }[]
+    },
+    guest: {
       [key: string]: {
         key: string,
         store: WritableStore<any>
@@ -100,6 +124,94 @@ const branchData: BranchData = {
         {
           key: BRANCH + ".park_rating_year_ave_sum",
           store: store<number>(context.getParkStorage().get(BRANCH + ".park_rating_year_ave_sum", 0))
+        }
+      ]
+    },
+    rides: {
+      ride_excitement_ave_sum: [
+        {
+          key: BRANCH + ".ride_excitement_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_excitement_ave_sum", 0))
+        }
+      ],
+      ride_intensity_ave_sum: [
+        {
+          key: BRANCH + ".ride_intensity_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_intensity_ave_sum", 0))
+        }
+      ],
+      ride_nausea_ave_sum: [
+        {
+          key: BRANCH + ".ride_nausea_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_nausea_ave_sum", 0))
+        }
+      ],
+      ride_value_ave_sum: [
+        {
+          key: BRANCH + ".ride_value_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_value_ave_sum", 0))
+        }
+      ],
+      ride_price_ave_sum: [
+        {
+          key: BRANCH + ".ride_price_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_price_ave_sum", 0))
+        }
+      ],
+      ride_admission_ave_sum: [
+        {
+          key: BRANCH + ".ride_admission_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".ride_admission_ave_sum", 0))
+        }
+      ]
+    },
+    guest: {
+      guest_weight_ave_sum: [
+        {
+          key: BRANCH + ".guest_weight_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_weight_ave_sum", 0))
+        }
+      ],
+      guest_wealth_ave_sum: [
+        {
+          key: BRANCH + ".guest_wealth_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_wealth_ave_sum", 0))
+        }
+      ],
+      guest_happiness_ave_sum: [
+        {
+          key: BRANCH + ".guest_happiness_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_happiness_ave_sum", 0))
+        }
+      ],
+      guest_energy_ave_sum: [
+        {
+          key: BRANCH + ".guest_enery_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_enery_ave_sum", 0))
+        }
+      ],
+      guest_nausea_ave_sum: [
+        {
+          key: BRANCH + ".guest_nausea_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_nausea_ave_sum", 0))
+        }
+      ],
+      guest_hunger_ave_sum: [
+        {
+          key: BRANCH + ".guest_hunger_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_hunger_ave_sum", 0))
+        }
+      ],
+      guest_thirst_ave_sum: [
+        {
+          key: BRANCH + ".guest_thirst_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_thirst_ave_sum", 0))
+        }
+      ],
+      guest_toitel_ave_sum: [
+        {
+          key: BRANCH + ".guest_toitel_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_toitel_ave_sum", 0))
         }
       ]
     }
@@ -240,6 +352,141 @@ const baseData : BaseData = {
         key: LOCAL + ".reseach_uninvented_items",
         store: store<number>(context.getParkStorage().get(LOCAL + ".reseach_uninvented_items", park.research.uninventedItems.length))
       }
+    },
+    rides: {
+      ride_count_total: {
+        key: LOCAL + ".ride_count_total",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".ride_count_total", map.rides.filter(ride => ride.classification === "ride").length))
+      },
+      ride_count_flat: {
+        key: LOCAL + ".ride_count_flat",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".ride_count_flat", 0))
+      },
+      ride_count_tracked: {
+        key: LOCAL + ".ride_count_tracked",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".ride_count_tracked", 0))
+      },
+
+      crash_count_total: {
+        key: LOCAL + ".crash_count_total",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".crash_count_total", 0))
+      },
+      crash_count_into_vehicle: {
+        key: LOCAL + ".crash_count_into_vehicle",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".crash_count_into_vehicle", 0))
+      },
+      crash_count_into_land: {
+        key: LOCAL + ".crash_count_into_land",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".crash_count_into_land", 0))
+      },
+      crash_count_into_water: {
+        key: LOCAL + ".crash_count_into_water",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".crash_count_into_water", 0))
+      },
+
+      ride_excitement_ave: {
+        key: LOCAL + ".ride_excitement_ave",
+        store: compute(branchData.local.rides.ride_excitement_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_excitement_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(2));
+        })
+      },
+      ride_intensity_ave: {
+        key: LOCAL + ".ride_intensity_ave",
+        store: compute(branchData.local.rides.ride_intensity_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_intensity_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(2));
+        })
+      },
+      ride_nausea_ave: {
+        key: LOCAL + ".ride_nausea_ave",
+        store: compute(branchData.local.rides.ride_nausea_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_nausea_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(2));
+        })
+      },
+      ride_value_ave: {
+        key: LOCAL + ".ride_value_ave",
+        store: compute(branchData.local.rides.ride_value_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_value_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(2));
+        })
+      },
+      ride_price_ave: {
+        key: LOCAL + ".ride_price_ave",
+        store: compute(branchData.local.rides.ride_price_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_price_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(2));
+        })
+      },
+      ride_admission_ave: {
+        key: LOCAL + ".ride_admission_ave",
+        store: compute(branchData.local.rides.ride_admission_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.rides.ride_admission_ave_sum[0].store.get() / map.rides.filter(ride => ride.classification === "ride").length).toFixed(0));
+        })
+      }
+    },
+    guest: {
+      guest_generation_total: {
+        key: LOCAL + ".guest_generation_total",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".guest_generation_total", 0))
+      },
+      guest_admission_total: {
+        key: LOCAL + ".guest_admission_total",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".guest_admission_total", 0))
+      },
+      guest_count_current: {
+        key: LOCAL + ".guest_count_current",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".guest_count_current", 0))
+      },
+      guest_soft_cap: {
+        key: LOCAL + ".guest_soft_cap",
+        store: store<number>(context.getParkStorage().get(LOCAL + ".guest_soft_cap", 0))
+      },
+      guest_weight_ave: {
+        key: LOCAL + ".guest_weight_ave",
+        store: compute(branchData.local.guest.guest_weight_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_weight_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_wealth_ave: {
+        key: LOCAL + ".guest_wealth_ave",
+        store: compute(branchData.local.guest.guest_wealth_ave_sum[0].store, () => {
+          console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
+          return parseFloat((branchData.local.guest.guest_wealth_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_happiness_ave: {
+        key: LOCAL + ".guest_happiness_ave",
+        store: compute(branchData.local.guest.guest_happiness_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_happiness_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_energy_ave: {
+        key: LOCAL + ".guest_energy_ave",
+        store: compute(branchData.local.guest.guest_energy_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_energy_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_nausea_ave: {
+        key: LOCAL + ".guest_nausea_ave",
+        store: compute(branchData.local.guest.guest_nausea_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_nausea_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_hunger_ave: {
+        key: LOCAL + ".guest_hunger_ave",
+        store: compute(branchData.local.guest.guest_hunger_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_hunger_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_thirst_ave: {
+        key: LOCAL + ".guest_thirst_ave",
+        store: compute(branchData.local.guest.guest_thirst_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_thirst_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      },
+      guest_toilet_ave: {
+        key: LOCAL + ".guest_toilet_ave",
+        store: compute(branchData.local.guest.guest_toitel_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_toitel_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        })
+      }
     }
   }
 };
@@ -262,8 +509,20 @@ function initData() {
     baseData.local.park_and_scenario[key].store.subscribe((value) => context.getParkStorage().set(baseData.local.park_and_scenario[key].key, value));
   }
 
+  for (let key in baseData.local.rides) {
+    baseData.local.rides[key].store.subscribe((value) => context.getParkStorage().set(baseData.local.rides[key].key, value));
+  }
+
+  for (let key in baseData.local.guest) {
+    baseData.local.guest[key].store.subscribe((value) => context.getParkStorage().set(baseData.local.guest[key].key, value));
+  }
+
   for (let key in branchData.local.park_and_scenario) {
     branchData.local.park_and_scenario[key].forEach(item => item.store.subscribe((value) => context.getParkStorage().set(item.key, value)));
+  }
+
+  for (let key in branchData.local.rides) {
+    branchData.local.rides[key].forEach(item => item.store.subscribe((value) => context.getParkStorage().set(item.key, value)));
   }
 }
 

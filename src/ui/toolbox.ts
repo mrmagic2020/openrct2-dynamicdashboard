@@ -9,7 +9,7 @@ export function toolboxMenu() {
   const win_template = window({
     title: language.ui.toolbox.title,
     width: 200,
-    height: 300,
+    height: 100,
     position: "center",
     content: [
       label({

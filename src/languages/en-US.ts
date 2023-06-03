@@ -20,9 +20,16 @@ export const en_US : Language = {
         },
         park_and_scenario: {
           title: "{PALEGOLD}Park & Scenario",
-          park_rating: "Park Rating",
-          entity_count: "Entity Count",
-          research: "Research"
+          park_rating: "{PALEGOLD}Park Rating",
+          entity_count: "{PALEGOLD}Entity Count",
+          research: "{PALEGOLD}Research"
+        },
+        rides: {
+          title: "{PALEGOLD}Rides",
+          crashes: "{PALEGOLD}Crashes"
+        },
+        guest: {
+          title: "{PALEGOLD}Guest"
         }
       },
       label: {
@@ -58,7 +65,36 @@ export const en_US : Language = {
         entity_count_litter: "Litter: {PALESILVER}",
 
         research_invented_items: "Invented items: {PALESILVER}",
-        research_uninvented_items: "Uninvented items: {PALESILVER}"
+        research_uninvented_items: "Uninvented items: {PALESILVER}",
+
+        ride_count_total: "Total: {PALESILVER}",
+        ride_count_flat: "Flat: {PALESILVER}",
+        ride_count_tracked: "Tracked: {PALESILVER}",
+
+        crash_count_total: "Total: {PALESILVER}",
+        crash_count_into_vehicle: "Into vehicle: {PALESILVER}",
+        crash_count_into_land: "Into land: {PALESILVER}",
+        crash_count_into_water: "Into water: {PALESILVER}",
+
+        ride_excitement_ave: "Average excitement: {PALESILVER}",
+        ride_intensity_ave: "Average intensity: {PALESILVER}",
+        ride_nausea_ave: "Average nausea: {PALESILVER}",
+        ride_value_ave: "Average value: {PALESILVER}",
+        ride_price_ave: "Average price: {PALESILVER}",
+        ride_admission_ave: "Average admission: {PALESILVER}",
+
+        guest_generation_total: "Total Guest Generation: {PALESILVER}",
+        guest_admission_total: "Total Guest Admission: {PALESILVER}",
+        guest_count_current: "Current Guest Count: {PALESILVER}",
+        guest_soft_cap: "Soft Cap: {PALESILVER}",
+        guest_weight_ave: "Average Weight: {PALESILVER}",
+        guest_wealth_ave: "Average Wealth: {PALESILVER}",
+        guest_happiness_ave: "Average Happiness: {PALESILVER}",
+        guest_energy_ave: "Average Energy: {PALESILVER}",
+        guest_nausea_ave: "Average Nausea: {PALESILVER}",
+        guest_hunger_ave: "Average Hunger: {PALESILVER}",
+        guest_thirst_ave: "Average Thirst: {PALESILVER}",
+        guest_toilet_ave: "Average Toilet: {PALESILVER}"
       },
       tooltip: {
         entity_count_total_limitation: "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."
