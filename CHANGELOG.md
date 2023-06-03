@@ -13,3 +13,4 @@ All notable changes to this project will be documented in this file.
 - Player-related data statistics. 
 - Park-related data statistics. 
 - Rides-related data statistics. 
+- Guest-related data statistics. 
