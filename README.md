@@ -11,3 +11,7 @@
 ## Features (Preview)
 
 ![](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Dashboard%20Structure.png?raw=true)
+
+## Screenshot (Preview)
+
+![](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Screenshot.jpg?raw=true)
