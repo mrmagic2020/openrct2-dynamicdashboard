@@ -70,15 +70,26 @@ function getCurrencySymbol(): string {
  */
 function formatMoney(value: number): string {
   let value_s = value.toString();
-  let value_a = value_s.split("");
+
+  // Split the integer and decimal part
+  let integers = value_s.split(".")[0];
+  let decimals = value_s.split(".")[1];
+
+  /**
+   * The array representation of the integer part.
+   */
+  let integert_a = integers.split(".")[0].split("");
+
+  // Insert commas
   let diff = 0;
-  for (let i = 1; i < value_s.length; i++) {
+  for (let i = 1; i < integers.length; i++) {
     if ((value_s.length - i) % 3 === 0) {
-      value_a.splice(i + diff, 0, ",");
+      integert_a.splice(i + diff, 0, ",");
       diff ++;
     }
   }
-  return value_a.join("");
+  
+  return integert_a.join("").concat(decimals ? "." + decimals : "");
 }
 
 /**
