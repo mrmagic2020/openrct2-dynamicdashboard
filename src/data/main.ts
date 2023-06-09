@@ -208,10 +208,10 @@ const branchData: BranchData = {
           store: store<number>(context.getParkStorage().get(BRANCH + ".guest_thirst_ave_sum", 0))
         }
       ],
-      guest_toitel_ave_sum: [
+      guest_toilet_ave_sum: [
         {
-          key: BRANCH + ".guest_toitel_ave_sum",
-          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_toitel_ave_sum", 0))
+          key: BRANCH + ".guest_toilet_ave_sum",
+          store: store<number>(context.getParkStorage().get(BRANCH + ".guest_toilet_ave_sum", 0))
         }
       ]
     }
@@ -483,8 +483,8 @@ const baseData : BaseData = {
       },
       guest_toilet_ave: {
         key: LOCAL + ".guest_toilet_ave",
-        store: compute(branchData.local.guest.guest_toitel_ave_sum[0].store, () => {
-          return parseFloat((branchData.local.guest.guest_toitel_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
+        store: compute(branchData.local.guest.guest_toilet_ave_sum[0].store, () => {
+          return parseFloat((branchData.local.guest.guest_toilet_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
         })
       }
     }
