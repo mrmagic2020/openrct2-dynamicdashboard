@@ -61,6 +61,7 @@ function tr(str: string, ...items: any[]) {
       for (let j = i + 1; j < str.length; j++) {
         if (str[j] === ">") {
           end = j + 1;
+          break;
         }
       }
       str = str.replace(str.substring(start, end), items[0].toString());
