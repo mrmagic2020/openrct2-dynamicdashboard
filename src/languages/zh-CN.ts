@@ -48,7 +48,7 @@ export const zh_CN : Language = {
         action_server_join: "进入服务器：{PALESILVER}",
         action_server_chat: "聊天消息：{PALESILVER}",
 
-        park_value: "园区价值：{PALESILVER}",
+        park_value: "园区价值：{PALESILVER}<NUMBER&UNIT>",
         park_size: "园区面积：{PALESILVER}<NUMBER> tiles",
         park_rating_current: "当前：{PALESILVER}",
         park_rating_ave: "平均值：{PALESILVER}",
@@ -86,7 +86,7 @@ export const zh_CN : Language = {
         guest_count_current: "当前顾客：{PALESILVER}",
         guest_soft_cap: "软上限：{PALESILVER}",
         guest_weight_ave: "平均体重：{PALESILVER}",
-        guest_wealth_ave: "平均财富：{PALESILVER}",
+        guest_wealth_ave: "平均财富：{PALESILVER}<NUMBER&UNIT>",
         guest_happiness_ave: "平均快乐度：{PALESILVER}",
         guest_energy_ave: "平均精力：{PALESILVER}",
         guest_nausea_ave: "平均眩晕度：{PALESILVER}",

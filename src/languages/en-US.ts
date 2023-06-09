@@ -50,7 +50,7 @@ export const en_US : Language = {
         action_server_join: "Join server: {PALESILVER}",
         action_server_chat: "Chat: {PALESILVER}",
 
-        park_value: "Park value: {PALESILVER}<NUMBER><UNIT>",
+        park_value: "Park value: {PALESILVER}<NUMBER&UNIT>",
         park_size: "Park size: {PALESILVER}<NUMBER> tiles",
         park_rating_current: "Current: {PALESILVER}",
         park_rating_ave: "Average (all time): {PALESILVER}",
@@ -88,7 +88,7 @@ export const en_US : Language = {
         guest_count_current: "Current Guest Count: {PALESILVER}",
         guest_soft_cap: "Soft Cap: {PALESILVER}",
         guest_weight_ave: "Average Weight: {PALESILVER}",
-        guest_wealth_ave: "Average Wealth: {PALESILVER}",
+        guest_wealth_ave: "Average Wealth: {PALESILVER}<NUMBER&UNIT>",
         guest_happiness_ave: "Average Happiness: {PALESILVER}",
         guest_energy_ave: "Average Energy: {PALESILVER}",
         guest_nausea_ave: "Average Nausea: {PALESILVER}",
