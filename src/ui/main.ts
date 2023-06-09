@@ -108,7 +108,25 @@ function menu() {
                     text: compute(baseData.local.guest.guest_weight_ave.store, (value) => language.ui.main.label.guest_weight_ave + value.toString())
                   }),
                   label({
-                    text: compute(baseData.local.guest.guest_wealth_ave.store, (value) => language.ui.main.label.guest_wealth_ave + value.toString())
+                    text: compute(baseData.local.guest.guest_wealth_ave.store, (value) => tr(language.ui.main.label.guest_wealth_ave, getCurrencyUnit(value)))
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_happiness_ave.store, (value) => language.ui.main.label.guest_happiness_ave + value.toString())
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_energy_ave.store, (value) => language.ui.main.label.guest_energy_ave + value.toString())
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_nausea_ave.store, (value) => language.ui.main.label.guest_nausea_ave + value.toString())
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_hunger_ave.store, (value) => language.ui.main.label.guest_hunger_ave + value.toString())
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_thirst_ave.store, (value) => language.ui.main.label.guest_thirst_ave + value.toString())
+                  }),
+                  label({
+                    text: compute(baseData.local.guest.guest_toilet_ave.store, (value) => language.ui.main.label.guest_toilet_ave + value.toString())
                   })
                 ]
               })
