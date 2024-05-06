@@ -1,5 +1,8 @@
 import { baseData, branchData } from "./main"
 
+/**
+ * Initialize park and scenario data. 
+ */
 function initParkAndScenarioData(): void {
   let tickCount_512 = 0;
   let tickCount_4096 = 0;
@@ -53,6 +56,9 @@ function initParkAndScenarioData(): void {
       baseData.local.park_and_scenario.entity_count_duck.store.set(map.getAllEntities("duck").length);
       baseData.local.park_and_scenario.entity_count_litter.store.set(map.getAllEntities("litter").length);
 
+      /**
+       * Research progress calculations.
+       */
       baseData.local.park_and_scenario.reseach_invented_items.store.set(park.research.inventedItems.length);
       baseData.local.park_and_scenario.reseach_uninvented_items.store.set(park.research.uninventedItems.length);
     }
@@ -60,6 +66,10 @@ function initParkAndScenarioData(): void {
     if (tickCount_4096 < 4096) tickCount_4096 ++;
     else {
       tickCount_4096 = 0;
+
+      /**
+       * Park size value calculations.
+       */
       baseData.local.park_and_scenario.park_size.store.set(park.parkSize);
     }
   });

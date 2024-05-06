@@ -1,6 +1,11 @@
 import { baseData, branchData } from "./main";
 
-function initGuestData() {
+/**
+ * Initialize guest data.
+ * 
+ * @return {void}
+ */
+function initGuestData() : void {
   /**
    * Update the total number of guests generated.
    */

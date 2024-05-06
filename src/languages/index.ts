@@ -39,6 +39,9 @@ const languageList = [
   index.zh_CN.ui.toolbox.language_item
 ];
 
+/**
+ * Store for language selection.
+ */
 const languageStore : WritableStore<Language> = store<Language>(index[baseData.global.language.get()]);
 
 /**
@@ -50,9 +53,9 @@ let language : Language = languageStore.get();
  * Replace `<insertable segments>` in a translation text with specified value. 
  * @param str Translation text. 
  * @param items Values to be inserted in order. 
- * @returns Finalized text. 
+ * @returns {string} Finalized text. 
  */
-function tr(str: string, ...items: any[]) {
+function tr(str: string, ...items: any[]) : string {
   for (let i = 0; i < str.length; i++) {
     if (items.length === 0) break;
     let start, end;
@@ -71,7 +74,12 @@ function tr(str: string, ...items: any[]) {
   return str;
 }
 
-function initLang() {
+/**
+ * Initialize language. 
+ * 
+ * @returns {void}
+ */
+function initLang() : void {
   /**
    * Update `language Store`
    * 

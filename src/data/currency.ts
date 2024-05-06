@@ -2,7 +2,7 @@ import { store } from "openrct2-flexui";
 import { baseData } from "./main";
 
 /**
- * The currency settings from user configuration file. 
+ * Reads the currency settings from user configuration file. 
  */
 const currency = {
   format: store<string>(context.configuration.get("general.currency_format", "USD")),
@@ -16,6 +16,10 @@ interface CurrencySymbolReference{
   [key: string] : string
 }
 
+/**
+ * The reference list of currency symbols.
+ * @see CurrencySymbolReference
+ */
 const currencySymbolReference: CurrencySymbolReference = {
   GBP: "£",
   USD: "$",
@@ -36,6 +40,11 @@ const currencySymbolReference: CurrencySymbolReference = {
   HUF: "Ft"
 };
 
+/**
+ * Initialize currency data.
+ * 
+ * @returns {void}
+ */
 function initCurrencyData(): void {
   context.setInterval(() => {
     currency.format.set(context.configuration.get("general.currency_format", "USD"));
@@ -48,7 +57,8 @@ function initCurrencyData(): void {
 
 /**
  * Gets the currency character. 
- * @returns 
+ * 
+ * @returns {string}
  */
 function getCurrencySymbol(): string {
   let symbol = "?";
@@ -62,13 +72,15 @@ function getCurrencySymbol(): string {
 
 /**
  * Format a number into money notation.
- * @param value 
- * @returns 
+ * @param value The value to format.
+ * @param separator The separator to use. Default is ",".
+ * @returns {string}
  * 
  * @example
  * formatMoney(1000); // returns "1,000"
+ * formatMonkey(1000000, "."); // returns "1.000.000"
  */
-function formatMoney(value: number): string {
+function formatMoney(value: number, separator: string = ","): string {
   let value_s = value.toString();
 
   // Split the integer and decimal part
@@ -84,7 +96,7 @@ function formatMoney(value: number): string {
   let diff = 0;
   for (let i = 1; i < integers.length; i++) {
     if ((value_s.length - i) % 3 === 0) {
-      integert_a.splice(i + diff, 0, ",");
+      integert_a.splice(i + diff, 0, separator);
       diff ++;
     }
   }
@@ -94,9 +106,10 @@ function formatMoney(value: number): string {
 
 /**
  * Gets the entire currency unit. 
- * @param value 
- * @param symbol
- * @returns 
+ * @param value The value to format.
+ * @param symbol The currency symbol to use. Default is the current currency symbol.
+ * @returns {string}
+ * 
  * @example 
  * getCurrencyUnit(2, "$"); // returns "2$"
  */

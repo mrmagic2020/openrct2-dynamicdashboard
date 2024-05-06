@@ -91,6 +91,10 @@ const BRANCH = LOCAL + ".branch";
 
 /**
  * Branch data object for access to all data for calculations.
+ * 
+ * This is used to store data that is used to calculate other data.
+ * Accessed by BaseData to compute average values.
+ * @see BaseData
  */
 const branchData: BranchData = {
   global: {},
@@ -220,6 +224,10 @@ const branchData: BranchData = {
 
 /**
  * Base data object for access to all data to be displayed. 
+ * 
+ * This is used to store data that is displayed on the dashboard.
+ * Accessed by the UI to display data.
+ * @see BranchData
  */
 const baseData : BaseData = {
   global: {
@@ -491,10 +499,17 @@ const baseData : BaseData = {
   }
 };
 
-function initData() {
+/**
+ * Initialize data. 
+ * @returns {void}
+ */
+function initData(): void {
   /**
    * Iterate throught every data unit to automatically write data to 
    * local file whenever the store receives an update. 
+   * 
+   * Performance impact is unknown. Since the values are updated according
+   * to the update ratio set by the user, the impact should be controllable.
    */
 
   baseData.global.update_ratio.subscribe((value) => {

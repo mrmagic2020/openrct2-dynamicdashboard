@@ -1,7 +1,7 @@
 import { baseData } from "./main";
 
 interface ActionClass {
-  [key: string]: ActionType[]
+  [key: string]: string[]
 };
 
 /**

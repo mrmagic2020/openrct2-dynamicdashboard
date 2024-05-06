@@ -4,8 +4,17 @@ import {
 import { language, languageList } from "../languages";
 import { baseData } from "../data/main";
 
+/**
+ * Records whether the toolbox menu is open.
+ */
 let isOpen = false;
-export function toolboxMenu() {
+
+/**
+ * Toolbox menu.
+ * 
+ * @returns {void}
+ */
+export function toolboxMenu() : void {
   const win_template = window({
     title: language.ui.toolbox.title,
     width: 200,

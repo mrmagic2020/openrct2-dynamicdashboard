@@ -8,7 +8,10 @@ import { initLang, language } from "./languages";
 import { menu } from "./ui/main";
 import { toolboxMenu } from "./ui/toolbox"
 
-export function startup() {
+/**
+ * Startup function. Calls all the initialization functions.
+ */
+export function startup(): void {
   /**
    * Initialize data.
    */

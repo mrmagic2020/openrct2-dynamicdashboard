@@ -194,6 +194,9 @@ const trackedRides = [
   RideType.RIDE_TYPE_CLASSIC_WOODEN_ROLLER_COASTER
 ];
 
+/**
+ * Initialize ride data.
+ */
 function initRideData() {
   context.setInterval(() => {
     /**

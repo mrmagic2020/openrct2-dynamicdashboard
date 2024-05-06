@@ -10,8 +10,10 @@ let isOpen = false;
 
 /**
  * Open the main menu.
+ * 
+ * @returns {void}
  */
-function menu() {
+function menu() : void {
   /**
    * Main window template.
    */
