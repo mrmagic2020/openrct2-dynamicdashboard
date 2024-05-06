@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix language option not syncing with game configuration.
+
+- Fix text overflow when showing statistics in servers.
+
 ## [1.0.0-pre.1] - 2024-05-06
 
 Initial release.
