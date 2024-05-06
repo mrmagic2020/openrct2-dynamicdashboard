@@ -109,6 +109,10 @@ dist
 
 # Visual Studio
 .vs/
+.vscode/
 
 # macOS
 .DS_Store
+
+# Alias
+lib/
