@@ -20,7 +20,8 @@ function menu() : void {
   const win_template = window({
     title: language.ui.main.title,
     width: 800,
-    height: 500,
+    // Accomodate more statistics when playing in servers.
+    height: network.mode === "none" ? 500 : 570,
     position: "center",
     // direction: LayoutDirection.Horizontal,
     content: [
