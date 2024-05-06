@@ -14,7 +14,7 @@ let isOpen = false;
  * 
  * @returns {void}
  */
-export function toolboxMenu() : void {
+export function toolboxMenu(): void {
   const win_template = window({
     title: language.ui.toolbox.title,
     width: 200,

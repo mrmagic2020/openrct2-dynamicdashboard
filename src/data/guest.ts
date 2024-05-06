@@ -5,7 +5,7 @@ import { baseData, branchData } from "./main";
  * 
  * @return {void}
  */
-function initGuestData() : void {
+function initGuestData(): void {
   /**
    * Update the total number of guests generated.
    */
@@ -28,7 +28,7 @@ function initGuestData() : void {
 
     // Update guest weight, wealth, happiness, energy, nausea, hunger, thirst and toilet average.
     let weightSum = 0, wealthSum = 0, happinessSum = 0, energySum = 0, nauseaSum = 0, hungerSum = 0, thirstSum = 0, toiletSum = 0;
-    console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
+    // console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
     map.getAllEntities("guest").forEach(guest => {
       weightSum += guest.mass;
       wealthSum += guest.cash;
@@ -47,7 +47,7 @@ function initGuestData() : void {
     branchData.local.guest.guest_hunger_ave_sum[0].store.set(hungerSum);
     branchData.local.guest.guest_thirst_ave_sum[0].store.set(thirstSum);
     branchData.local.guest.guest_toilet_ave_sum[0].store.set(toiletSum);
-  }, baseData.global.update_ratio.get()*1000)
+  }, baseData.global.update_ratio.get() * 1000)
 }
 
 export { initGuestData };

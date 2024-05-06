@@ -2,7 +2,7 @@ import {
   Language
 } from "./template";
 
-export const en_US : Language = {
+export const en_US: Language = {
   ui: {
     toolbox: {
       title: "Dynamic Dashboard",
@@ -37,7 +37,7 @@ export const en_US : Language = {
         player_id: "ID: {PALESILVER}",
         game_time_real: "Game time (real-life): {PALESILVER}<NUMBER> minutes",
         game_time_fake: "Game time (in-game): {PALESILVER}<NUMBER> days",
-        
+
         action_track_design: "Track design: {PALESILVER}",
         action_stall_and_facility_placement: "Stall / facility placement: {PALESILVER}",
         action_footpath_placement: "Footpath placement: {PALESILVER}",

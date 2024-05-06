@@ -1,6 +1,6 @@
 import { Language } from "./template";
 
-export const zh_CN : Language = {
+export const zh_CN: Language = {
   ui: {
     toolbox: {
       title: "动态仪表",
@@ -35,7 +35,7 @@ export const zh_CN : Language = {
         player_id: "ID：{PALESILVER}",
         game_time_real: "游戏时间（实际时间）：{PALESILVER}<NUMBER>分钟",
         game_time_fake: "游戏时间：{PALESILVER}<NUMBER>天",
-        
+
         action_track_design: "过山车设计：{PALESILVER}",
         action_stall_and_facility_placement: "商店/公共设施设计：{PALESILVER}",
         action_footpath_placement: "道路设计：{PALESILVER}",
@@ -64,7 +64,7 @@ export const zh_CN : Language = {
 
         research_invented_items: "已发明: {PALESILVER}",
         research_uninvented_items: "未发明: {PALESILVER}",
-        
+
         ride_count_total: "总数：{PALESILVER}",
         ride_count_flat: "平面：{PALESILVER}",
         ride_count_tracked: "有轨：{PALESILVER}",
