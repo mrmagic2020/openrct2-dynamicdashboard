@@ -1,25 +1,27 @@
 {
-	"name": "openrct2-typescript-plugin",
-	"version": "1.0.0",
-	"type": "module",
-	"license": "MIT",
-	"scripts": {
-		"start": "nodemon --watch ./src --ext js,ts --exec \"npm run build:dev\"",
-		"build": "rollup --config rollup.config.js --environment BUILD:production",
-		"build:dev": "rollup --config rollup.config.js",
-		"docs": "npx typedoc --entryPointStrategy expand ./src"
-	},
-	"devDependencies": {
-		"@rollup/plugin-node-resolve": "^15.0.1",
-		"@rollup/plugin-terser": "^0.4.0",
-		"@rollup/plugin-typescript": "^11.0.0",
-		"nodemon": "^2.0.22",
-		"platform-folders": "^0.6.0",
-		"rollup": "^3.15.0",
-		"tslib": "^2.5.0",
-		"typedoc": "^0.25.13"
-	},
-	"dependencies": {
-		"openrct2-flexui": "^0.1.0-prerelease.12"
-	}
+  "name": "openrct2-typescript-plugin",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch ./src --ext js,ts --exec \"npm run build:dev\"",
+    "build": "rollup --config rollup.config.js --environment BUILD:production",
+    "build:dev": "rollup --config rollup.config.js",
+    "docs": "npx typedoc --entryPointStrategy expand ./src",
+    "format": "npx prettier --write \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "nodemon": "^2.0.22",
+    "platform-folders": "^0.6.0",
+    "prettier": "3.2.5",
+    "rollup": "^3.15.0",
+    "tslib": "^2.5.0",
+    "typedoc": "^0.25.13"
+  },
+  "dependencies": {
+    "openrct2-flexui": "^0.1.0-prerelease.12"
+  }
 }
