@@ -1,4 +1,4 @@
-import { Language } from "./template";
+import { Language } from "./template"
 
 export const zh_CN: Language = {
   ui: {
@@ -95,7 +95,8 @@ export const zh_CN: Language = {
         guest_toilet_ave: "平均厕所需求：{PALESILVER}"
       },
       tooltip: {
-        entity_count_total_limitation: "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。"
+        entity_count_total_limitation:
+          "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。"
       }
     }
   }

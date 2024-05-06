@@ -1,6 +1,4 @@
-import {
-  Language
-} from "./template";
+import { Language } from "./template"
 
 export const en_US: Language = {
   ui: {
@@ -39,7 +37,8 @@ export const en_US: Language = {
         game_time_fake: "Game time (in-game): {PALESILVER}<NUMBER> days",
 
         action_track_design: "Track design: {PALESILVER}",
-        action_stall_and_facility_placement: "Stall / facility placement: {PALESILVER}",
+        action_stall_and_facility_placement:
+          "Stall / facility placement: {PALESILVER}",
         action_footpath_placement: "Footpath placement: {PALESILVER}",
         action_scenery_placement: "Scenery placement: {PALESILVER}",
         action_landscaping: "Landscaping: {PALESILVER}",
@@ -97,7 +96,8 @@ export const en_US: Language = {
         guest_toilet_ave: "Average Toilet: {PALESILVER}"
       },
       tooltip: {
-        entity_count_total_limitation: "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."
+        entity_count_total_limitation:
+          "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."
       }
     }
   }

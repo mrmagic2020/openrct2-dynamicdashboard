@@ -1,9 +1,9 @@
-import { baseData, branchData } from "./main";
+import { baseData, branchData } from "./main"
 
 /**
- * List of ride type IDs. 
+ * List of ride type IDs.
  * Used for identifying the type of a ride.
- * 
+ *
  * Extracted from {@link https://github.com/OpenRCT2/OpenRCT2/blob/develop/src/openrct2/ride/Ride.h OpenRCT2 source code}.
  */
 enum RideType {
@@ -136,7 +136,7 @@ const flatRides = [
   RideType.RIDE_TYPE_SPIRAL_SLIDE,
   RideType.RIDE_TYPE_ROTO_DROP,
   RideType.RIDE_TYPE_LIFT
-];
+]
 
 const trackedRides = [
   RideType.RIDE_TYPE_SPIRAL_ROLLER_COASTER,
@@ -192,7 +192,7 @@ const trackedRides = [
   RideType.RIDE_TYPE_SINGLE_RAIL_ROLLER_COASTER,
   RideType.RIDE_TYPE_ALPINE_COASTER,
   RideType.RIDE_TYPE_CLASSIC_WOODEN_ROLLER_COASTER
-];
+]
 
 /**
  * Initialize ride data.
@@ -202,47 +202,78 @@ function initRideData() {
     /**
      * Update ride count.
      */
-    baseData.local.rides.ride_count_total.store.set(map.rides.filter(ride => ride.classification === "ride").length);
-    baseData.local.rides.ride_count_flat.store.set(map.rides.filter(ride => flatRides.indexOf(ride.type) !== -1).length);
-    baseData.local.rides.ride_count_tracked.store.set(map.rides.filter(ride => trackedRides.indexOf(ride.type) !== -1).length);
+    baseData.local.rides.ride_count_total.store.set(
+      map.rides.filter((ride) => ride.classification === "ride").length
+    )
+    baseData.local.rides.ride_count_flat.store.set(
+      map.rides.filter((ride) => flatRides.indexOf(ride.type) !== -1).length
+    )
+    baseData.local.rides.ride_count_tracked.store.set(
+      map.rides.filter((ride) => trackedRides.indexOf(ride.type) !== -1).length
+    )
 
     /**
-     * Update ride excitement, intensity, nausea, value, price and admission average. 
+     * Update ride excitement, intensity, nausea, value, price and admission average.
      */
-    let excitementSum = 0, intensitySum = 0, nauseaSum = 0, valueSum = 0, priceSum = 0, admissionSum = 0;
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => excitementSum += (ride.excitement / 100));
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => intensitySum += (ride.intensity / 100));
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => nauseaSum += (ride.nausea / 100));
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => valueSum += ride.value);
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => priceSum += ride.price[0]);
-    map.rides.filter(ride => ride.classification === "ride").forEach(ride => admissionSum += ride.totalCustomers);
-    branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum);
-    branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum);
-    branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum);
-    branchData.local.rides.ride_value_ave_sum[0].store.set(valueSum);
-    branchData.local.rides.ride_price_ave_sum[0].store.set(priceSum);
-    branchData.local.rides.ride_admission_ave_sum[0].store.set(admissionSum);
-  }, baseData.global.update_ratio.get()*1000);
+    let excitementSum = 0,
+      intensitySum = 0,
+      nauseaSum = 0,
+      valueSum = 0,
+      priceSum = 0,
+      admissionSum = 0
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (excitementSum += ride.excitement / 100))
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (intensitySum += ride.intensity / 100))
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (nauseaSum += ride.nausea / 100))
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (valueSum += ride.value))
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (priceSum += ride.price[0]))
+    map.rides
+      .filter((ride) => ride.classification === "ride")
+      .forEach((ride) => (admissionSum += ride.totalCustomers))
+    branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum)
+    branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum)
+    branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum)
+    branchData.local.rides.ride_value_ave_sum[0].store.set(valueSum)
+    branchData.local.rides.ride_price_ave_sum[0].store.set(priceSum)
+    branchData.local.rides.ride_admission_ave_sum[0].store.set(admissionSum)
+  }, baseData.global.update_ratio.get() * 1000)
 
   /**
    * Record the number of crashes of each type.
    */
   context.subscribe("vehicle.crash", (e) => {
-    baseData.local.rides.crash_count_total.store.set(baseData.local.rides.crash_count_total.store.get() + 1);
+    baseData.local.rides.crash_count_total.store.set(
+      baseData.local.rides.crash_count_total.store.get() + 1
+    )
     switch (e.crashIntoType) {
       case "another_vehicle":
-        baseData.local.rides.crash_count_into_vehicle.store.set(baseData.local.rides.crash_count_into_vehicle.store.get() + 1);
-        break;
+        baseData.local.rides.crash_count_into_vehicle.store.set(
+          baseData.local.rides.crash_count_into_vehicle.store.get() + 1
+        )
+        break
       case "land":
-        baseData.local.rides.crash_count_into_land.store.set(baseData.local.rides.crash_count_into_land.store.get() + 1);
-        break;
+        baseData.local.rides.crash_count_into_land.store.set(
+          baseData.local.rides.crash_count_into_land.store.get() + 1
+        )
+        break
       case "water":
-        baseData.local.rides.crash_count_into_water.store.set(baseData.local.rides.crash_count_into_water.store.get() + 1);
-        break;
+        baseData.local.rides.crash_count_into_water.store.set(
+          baseData.local.rides.crash_count_into_water.store.get() + 1
+        )
+        break
       default:
-        break;
+        break
     }
-  });
+  })
 }
 
 export { initRideData }
