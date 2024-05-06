@@ -34,6 +34,8 @@ We're excited to have you here and appreciate your interest in contributing to o
 
 4. **Documentation:** Help insert comments to code, imrpove markdown files or fix typos.
 
+5. **Localisation:** Help us translate! Start by making a copy of [`en-US.ts`](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/src/languages/en-US.ts), renaming it according to the language code. Once finished, create a pull request!
+
 ---
 
 Special thanks to [OpenRCT2](https://openrct2.org), the OpenRCT2 Community, [Basssiiie](https://github.com/Basssiiie)'s wonderful [typescript plugin template](https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template) and [OpenRCT2-FlexUI](https://github.com/Basssiiie/OpenRCT2-FlexUI)! This wouldn't be possible without them.
