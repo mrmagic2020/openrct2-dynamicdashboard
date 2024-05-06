@@ -11,7 +11,7 @@ interface BaseData {
      * **Language code ordered according to `index`.**
      * @see `./src/languages/index.ts`
      */
-    language: WritableStore<"en_US" | "zh_CN">;
+    language: WritableStore<string>;
     language_index: WritableStore<number>;
     update_ratio: WritableStore<number>;
   };
@@ -231,7 +231,7 @@ const branchData: BranchData = {
  */
 const baseData : BaseData = {
   global: {
-    language: store<"en_US" | "zh_CN">(context.sharedStorage.get(GOBAL + ".language", "en_US")),
+    language: store<string>(context.sharedStorage.get(GOBAL + ".language", "en_US")),
     language_index: twoway(store<number>(context.sharedStorage.get(GOBAL + ".language_index", 0))).twoway,
     update_ratio: twoway(store<number>(context.sharedStorage.get(GOBAL + ".update_ratio", 10))).twoway
   },
@@ -455,7 +455,7 @@ const baseData : BaseData = {
       guest_wealth_ave: {
         key: LOCAL + ".guest_wealth_ave",
         store: compute(branchData.local.guest.guest_wealth_ave_sum[0].store, () => {
-          console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
+          // console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
           return parseFloat((branchData.local.guest.guest_wealth_ave_sum[0].store.get() / map.getAllEntities("guest").length).toFixed(2));
         })
       },
