@@ -12,9 +12,28 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 ## Features (Preview)
 
+<details open>
+<summary>Feature Preview</summary>
+
 ![feature-preview](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Dashboard%20Structure.png?raw=true)
 
-![screenshot](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Screenshot.jpg?raw=true)
+</details>
+
+<details open>
+<summary>Preview v1.0.0-pre.2</summary>
+
+![screenshot_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.2.png?raw=true)
+
+![screenshot_toolbox_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_toolbox_v1.0.0-pre.2.png?raw=true)
+
+</details>
+
+<details>
+<summary>Preview v1.0.0-pre.1</summary>
+
+![screenshot_v1.0.0-pre.1](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.1.jpg?raw=true)
+
+</details>
 
 ## Installation
 

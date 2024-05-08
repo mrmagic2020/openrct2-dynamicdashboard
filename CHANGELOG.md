@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+- /
+
+## [1.0.0-pre.2] - 2024-05-08
+
 ### Added
 
 - Add statistics for total count of stalls and facilities.
@@ -40,4 +44,5 @@ Initial release.
 <!-- Versions -->
 
 [unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.1...HEAD
+[1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.1-pre.2
 [1.0.0-pre.1]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/tag/v1.0.0-pre.1
