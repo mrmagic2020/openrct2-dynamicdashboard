@@ -1,4 +1,5 @@
 import { baseData, branchData } from "./main"
+import { increment } from "../storeutil"
 
 /**
  * List of ride type IDs.
@@ -251,24 +252,28 @@ function initRideData() {
    * Record the number of crashes of each type.
    */
   context.subscribe("vehicle.crash", (e) => {
-    baseData.local.rides.crash_count_total.store.set(
-      baseData.local.rides.crash_count_total.store.get() + 1
-    )
+    increment(baseData.local.rides.crash_count_total.store)
+    // baseData.local.rides.crash_count_total.store.set(
+    //   baseData.local.rides.crash_count_total.store.get() + 1
+    // )
     switch (e.crashIntoType) {
       case "another_vehicle":
-        baseData.local.rides.crash_count_into_vehicle.store.set(
-          baseData.local.rides.crash_count_into_vehicle.store.get() + 1
-        )
+        increment(baseData.local.rides.crash_count_into_vehicle.store)
+        // baseData.local.rides.crash_count_into_vehicle.store.set(
+        //   baseData.local.rides.crash_count_into_vehicle.store.get() + 1
+        // )
         break
       case "land":
-        baseData.local.rides.crash_count_into_land.store.set(
-          baseData.local.rides.crash_count_into_land.store.get() + 1
-        )
+        increment(baseData.local.rides.crash_count_into_land.store)
+        // baseData.local.rides.crash_count_into_land.store.set(
+        //   baseData.local.rides.crash_count_into_land.store.get() + 1
+        // )
         break
       case "water":
-        baseData.local.rides.crash_count_into_water.store.set(
-          baseData.local.rides.crash_count_into_water.store.get() + 1
-        )
+        increment(baseData.local.rides.crash_count_into_water.store)
+        // baseData.local.rides.crash_count_into_water.store.set(
+        //   baseData.local.rides.crash_count_into_water.store.get() + 1
+        // )
         break
       default:
         break

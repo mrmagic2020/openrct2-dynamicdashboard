@@ -1,4 +1,5 @@
 import { baseData } from "./main"
+import { increment } from "../storeutil"
 
 interface ActionClass {
   [key: string]: string[]
@@ -56,18 +57,20 @@ function initPlayerData(): void {
    * Real-time game time recording (minutes). Updates every 15 seconds.
    */
   context.setInterval(() => {
-    baseData.local.player.game_time_real.store.set(
-      baseData.local.player.game_time_real.store.get() + 0.25
-    )
+    increment(baseData.local.player.game_time_real.store, 0.25)
+    // baseData.local.player.game_time_real.store.set(
+    //   baseData.local.player.game_time_real.store.get() + 0.25
+    // )
   }, 15 * 1000)
 
   /**
    * In-game game time recording (days). Hooks to day interval.
    */
   context.subscribe("interval.day", () => {
-    baseData.local.player.game_time_fake.store.set(
-      baseData.local.player.game_time_fake.store.get() + 1
-    )
+    increment(baseData.local.player.game_time_fake.store)
+    // baseData.local.player.game_time_fake.store.set(
+    //   baseData.local.player.game_time_fake.store.get() + 1
+    // )
   })
 
   context.subscribe("action.execute", (e) => {
@@ -79,9 +82,10 @@ function initPlayerData(): void {
        */
       for (let key in actionClass) {
         if (actionClass[key].indexOf(e.action) !== -1) {
-          baseData.local.player[key].store.set(
-            baseData.local.player[key].store.get() + 1
-          )
+          increment(baseData.local.player[key].store)
+          // baseData.local.player[key].store.set(
+          //   baseData.local.player[key].store.get() + 1
+          // )
         }
       }
     }
@@ -89,17 +93,19 @@ function initPlayerData(): void {
 
   context.subscribe("network.join", (e) => {
     if (e.player === network.currentPlayer.id) {
-      baseData.local.player.action_server_join.store.set(
-        baseData.local.player.action_server_join.store.get() + 1
-      )
+      increment(baseData.local.player.action_server_join.store)
+      // baseData.local.player.action_server_join.store.set(
+      //   baseData.local.player.action_server_join.store.get() + 1
+      // )
     }
   })
 
   context.subscribe("network.chat", (e) => {
     if (e.player === network.currentPlayer.id) {
-      baseData.local.player.action_server_chat.store.set(
-        baseData.local.player.action_server_chat.store.get() + 1
-      )
+      increment(baseData.local.player.action_server_chat.store)
+      // baseData.local.player.action_server_chat.store.set(
+      //   baseData.local.player.action_server_chat.store.get() + 1
+      // )
     }
   })
 }

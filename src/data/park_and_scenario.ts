@@ -1,4 +1,5 @@
 import { baseData, branchData } from "./main"
+import { increment } from "../storeutil"
 
 /**
  * Initialize park and scenario data.
@@ -25,27 +26,41 @@ function initParkAndScenarioData(): void {
       baseData.local.park_and_scenario.park_value.store.set(park.value / 10)
       baseData.local.park_and_scenario.park_rating.store.set(park.rating)
 
-      branchData.local.park_and_scenario.park_rating_ave[0].store.set(
-        branchData.local.park_and_scenario.park_rating_ave[0].store.get() + 1
-      ) // increase denominator by 1
-      branchData.local.park_and_scenario.park_rating_ave[1].store.set(
-        branchData.local.park_and_scenario.park_rating_ave[1].store.get() +
-          park.rating
+      increment(branchData.local.park_and_scenario.park_rating_ave[0].store) // increase denominator by 1
+      // branchData.local.park_and_scenario.park_rating_ave[0].store.set(
+      //   branchData.local.park_and_scenario.park_rating_ave[0].store.get() + 1
+      // )
+
+      increment(
+        branchData.local.park_and_scenario.park_rating_ave[1].store,
+        park.rating
       ) // add current rating to sum
+      // branchData.local.park_and_scenario.park_rating_ave[1].store.set(
+      //   branchData.local.park_and_scenario.park_rating_ave[1].store.get() +
+      //     park.rating
+      // )
 
       /**
        * Month average calculations.
        */
       if (thisMonth !== date.month) {
         thisMonth = date.month
-        branchData.local.park_and_scenario.park_rating_month_ave[0].store.set(
-          branchData.local.park_and_scenario.park_rating_month_ave[0].store.get() +
-            1
+        increment(
+          branchData.local.park_and_scenario.park_rating_month_ave[0].store
         )
-        branchData.local.park_and_scenario.park_rating_month_ave[1].store.set(
-          branchData.local.park_and_scenario.park_rating_month_ave[1].store.get() +
-            park.rating
+        // branchData.local.park_and_scenario.park_rating_month_ave[0].store.set(
+        //   branchData.local.park_and_scenario.park_rating_month_ave[0].store.get() +
+        //     1
+        // )
+
+        increment(
+          branchData.local.park_and_scenario.park_rating_month_ave[1].store,
+          park.rating
         )
+        // branchData.local.park_and_scenario.park_rating_month_ave[1].store.set(
+        //   branchData.local.park_and_scenario.park_rating_month_ave[1].store.get() +
+        //     park.rating
+        // )
       }
 
       /**
@@ -53,14 +68,22 @@ function initParkAndScenarioData(): void {
        */
       if (thisYear !== date.year) {
         thisYear = date.year
-        branchData.local.park_and_scenario.park_rating_year_ave[0].store.set(
-          branchData.local.park_and_scenario.park_rating_year_ave[0].store.get() +
-            1
+        increment(
+          branchData.local.park_and_scenario.park_rating_year_ave[0].store
         )
-        branchData.local.park_and_scenario.park_rating_year_ave[1].store.set(
-          branchData.local.park_and_scenario.park_rating_year_ave[1].store.get() +
-            park.rating
+        // branchData.local.park_and_scenario.park_rating_year_ave[0].store.set(
+        //   branchData.local.park_and_scenario.park_rating_year_ave[0].store.get() +
+        //     1
+        // )
+
+        increment(
+          branchData.local.park_and_scenario.park_rating_year_ave[1].store,
+          park.rating
         )
+        // branchData.local.park_and_scenario.park_rating_year_ave[1].store.set(
+        //   branchData.local.park_and_scenario.park_rating_year_ave[1].store.get() +
+        //     park.rating
+        // )
       }
 
       /**

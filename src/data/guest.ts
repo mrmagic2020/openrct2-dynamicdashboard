@@ -1,4 +1,5 @@
 import { baseData, branchData } from "./main"
+import { increment } from "../storeutil"
 
 /**
  * Initialize guest data.
@@ -11,9 +12,10 @@ function initGuestData(): void {
    */
   context.subscribe("guest.generation", (e) => {
     if (e.id) {
-      baseData.local.guest.guest_generation_total.store.set(
-        baseData.local.guest.guest_generation_total.store.get() + 1
-      )
+      increment(baseData.local.guest.guest_generation_total.store)
+      // baseData.local.guest.guest_generation_total.store.set(
+      //   baseData.local.guest.guest_generation_total.store.get() + 1
+      // )
       // console.log("guest generated");
     }
   })
