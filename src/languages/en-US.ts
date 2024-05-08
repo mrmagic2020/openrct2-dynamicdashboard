@@ -22,6 +22,9 @@ export const en_US: Language = {
           entity_count: "{PALEGOLD}Entity Count",
           research: "{PALEGOLD}Research"
         },
+        stalls_and_facilities: {
+          title: "{PALEGOLD}Stalls & Facilities"
+        },
         rides: {
           title: "{PALEGOLD}Rides",
           crashes: "{PALEGOLD}Crashes"
@@ -65,6 +68,8 @@ export const en_US: Language = {
 
         research_invented_items: "Invented items: {PALESILVER}",
         research_uninvented_items: "Uninvented items: {PALESILVER}",
+
+        stalls_and_facilities_count_total: "Total: {PALESILVER}<NUMBER>",
 
         ride_count_total: "Total: {PALESILVER}",
         ride_count_flat: "Flat: {PALESILVER}",

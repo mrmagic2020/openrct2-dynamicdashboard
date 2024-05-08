@@ -410,6 +410,23 @@ function menu(): void {
                 ]
               })
             ]
+          }),
+          groupbox({
+            text: language.ui.main.groupbox.stalls_and_facilities.title,
+            height: "25%",
+            content: [
+              label({
+                text: compute(
+                  baseData.local.stalls_and_facilities
+                    .stalls_and_facilities_count_total.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.stalls_and_facilities_count_total,
+                      value
+                    )
+                )
+              })
+            ]
           })
         ]),
         vertical([

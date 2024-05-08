@@ -23,6 +23,12 @@ interface BaseData {
         store: WritableStore<number>
       }
     }
+    stalls_and_facilities: {
+      [key: string]: {
+        key: string
+        store: WritableStore<number>
+      }
+    }
     rides: {
       [key: string]: {
         key: string
@@ -523,6 +529,16 @@ const baseData: BaseData = {
               LOCAL + ".reseach_uninvented_items",
               park.research.uninventedItems.length
             )
+        )
+      }
+    },
+    stalls_and_facilities: {
+      stalls_and_facilities_count_total: {
+        key: LOCAL + ".stalls_and_facilities_count_total",
+        store: store<number>(
+          context
+            .getParkStorage()
+            .get(LOCAL + ".stalls_and_facilities_count_total", 0)
         )
       }
     },

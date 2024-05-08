@@ -3,6 +3,7 @@ import { initGuestData } from "./data/guest"
 import { baseData, initData } from "./data/main"
 import { initParkAndScenarioData } from "./data/park_and_scenario"
 import { initPlayerData } from "./data/player"
+import { initStallsAndFacilitiesData } from "./data/stalls_and_facilities"
 import { initRideData } from "./data/rides"
 import { initLang, language } from "./languages"
 import { menu } from "./ui/main"
@@ -20,6 +21,7 @@ export function startup(): void {
   initCurrencyData()
   initPlayerData()
   initParkAndScenarioData()
+  initStallsAndFacilitiesData()
   initRideData()
   initGuestData()
 
@@ -43,6 +45,13 @@ export function startup(): void {
           context
             .getParkStorage()
             .get(baseData.local.park_and_scenario[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.stalls_and_facilities) {
+        baseData.local.stalls_and_facilities[key].store.set(
+          context
+            .getParkStorage()
+            .get(baseData.local.stalls_and_facilities[key].key, 0)
         )
       }
       for (let key in baseData.local.rides) {

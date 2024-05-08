@@ -20,6 +20,9 @@ export interface Language {
           entity_count: string
           research: string
         }
+        stalls_and_facilities: {
+          title: string
+        }
         rides: {
           title: string
           crashes: string
@@ -62,6 +65,8 @@ export interface Language {
 
         research_invented_items: string
         research_uninvented_items: string
+
+        stalls_and_facilities_count_total: string
 
         ride_count_total: string
         ride_count_flat: string

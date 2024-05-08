@@ -22,6 +22,9 @@ export const zh_CN: Language = {
           entity_count: "{PALEGOLD}实体统计",
           research: "{PALEGOLD}调查数据"
         },
+        stalls_and_facilities: {
+          title: "{PALEGOLD}商店及设施"
+        },
         rides: {
           title: "{PALEGOLD}游乐设施",
           crashes: "{PALEGOLD}事故统计"
@@ -64,6 +67,8 @@ export const zh_CN: Language = {
 
         research_invented_items: "已发明: {PALESILVER}",
         research_uninvented_items: "未发明: {PALESILVER}",
+
+        stalls_and_facilities_count_total: "总数：{PALESILVER}<NUMBER>",
 
         ride_count_total: "总数：{PALESILVER}",
         ride_count_flat: "平面：{PALESILVER}",
