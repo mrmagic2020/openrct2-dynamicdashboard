@@ -415,17 +415,36 @@ function menu(): void {
             text: language.ui.main.groupbox.stalls_and_facilities.title,
             height: "25%",
             content: [
-              label({
-                text: compute(
-                  baseData.local.stalls_and_facilities
-                    .stalls_and_facilities_count_total.store,
-                  (value) =>
-                    tr(
-                      language.ui.main.label.stalls_and_facilities_count_total,
-                      value
-                    )
-                )
-              })
+              horizontal([
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities
+                      .stalls_and_facilities_count_total.store,
+                    (value) =>
+                      tr(
+                        language.ui.main.label
+                          .stalls_and_facilities_count_total,
+                        value
+                      )
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.stalls_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.stalls_count_total, value)
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.facilities_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.facilities_count_total, value)
+                  )
+                })
+              ])
             ]
           })
         ]),

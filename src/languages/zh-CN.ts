@@ -69,6 +69,8 @@ export const zh_CN: Language = {
         research_uninvented_items: "未发明: {PALESILVER}",
 
         stalls_and_facilities_count_total: "总数：{PALESILVER}<NUMBER>",
+        stalls_count_total: "商店：{PALESILVER}<NUMBER>",
+        facilities_count_total: "设施：{PALESILVER}<NUMBER>",
 
         ride_count_total: "总数：{PALESILVER}",
         ride_count_flat: "平面：{PALESILVER}",

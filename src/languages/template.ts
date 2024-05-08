@@ -67,6 +67,8 @@ export interface Language {
         research_uninvented_items: string
 
         stalls_and_facilities_count_total: string
+        stalls_count_total: string
+        facilities_count_total: string
 
         ride_count_total: string
         ride_count_flat: string

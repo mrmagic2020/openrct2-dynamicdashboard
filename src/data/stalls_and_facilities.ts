@@ -19,8 +19,12 @@ function initStallsAndFacilitiesData(): void {
     baseData.local.stalls_and_facilities.stalls_and_facilities_count_total.store.set(
       getSum()
     )
-
-    console.log("Stalls and facilities count: ", getSum())
+    baseData.local.stalls_and_facilities.stalls_count_total.store.set(
+      getSum("stall")
+    )
+    baseData.local.stalls_and_facilities.facilities_count_total.store.set(
+      getSum("facility")
+    )
   }, baseData.global.update_ratio.get() * 1000)
 }
 

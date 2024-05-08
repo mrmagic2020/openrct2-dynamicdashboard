@@ -540,6 +540,18 @@ const baseData: BaseData = {
             .getParkStorage()
             .get(LOCAL + ".stalls_and_facilities_count_total", 0)
         )
+      },
+      stalls_count_total: {
+        key: LOCAL + ".stalls_count_total",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".stalls_count_total", 0)
+        )
+      },
+      facilities_count_total: {
+        key: LOCAL + ".facilities_count_total",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".facilities_count_total", 0)
+        )
       }
     },
     rides: {

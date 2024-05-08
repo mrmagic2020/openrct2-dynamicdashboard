@@ -70,6 +70,8 @@ export const en_US: Language = {
         research_uninvented_items: "Uninvented items: {PALESILVER}",
 
         stalls_and_facilities_count_total: "Total: {PALESILVER}<NUMBER>",
+        stalls_count_total: "Stalls: {PALESILVER}<NUMBER>",
+        facilities_count_total: "Facilities: {PALESILVER}<NUMBER>",
 
         ride_count_total: "Total: {PALESILVER}",
         ride_count_flat: "Flat: {PALESILVER}",
