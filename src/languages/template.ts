@@ -22,6 +22,7 @@ export interface Language {
         }
         stalls_and_facilities: {
           title: string
+          prices: string
         }
         rides: {
           title: string

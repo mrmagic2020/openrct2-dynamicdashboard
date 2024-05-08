@@ -23,7 +23,8 @@ export const zh_CN: Language = {
           research: "{PALEGOLD}调查数据"
         },
         stalls_and_facilities: {
-          title: "{PALEGOLD}商店及设施"
+          title: "{PALEGOLD}商店及设施",
+          prices: "{PALEGOLD}价格统计"
         },
         rides: {
           title: "{PALEGOLD}游乐设施",

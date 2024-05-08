@@ -23,7 +23,8 @@ export const en_US: Language = {
           research: "{PALEGOLD}Research"
         },
         stalls_and_facilities: {
-          title: "{PALEGOLD}Stalls & Facilities"
+          title: "{PALEGOLD}Stalls & Facilities",
+          prices: "{PALEGOLD}Prices"
         },
         rides: {
           title: "{PALEGOLD}Rides",
