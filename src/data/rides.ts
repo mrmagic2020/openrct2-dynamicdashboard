@@ -196,6 +196,36 @@ const trackedRides = [
 ]
 
 /**
+ * Retrieves a list of rides based on the specified type.
+ * @param type - The type of rides to retrieve. Possible values are "flat", "tracked", or "all". Defaults to "all".
+ * @returns An array of Ride objects that match the specified type.
+ */
+function getRides(type: "flat" | "tracked" | "all" = "all"): Ride[] {
+  if (type === "all")
+    return map.rides.filter((ride) => ride.classification === "ride")
+  if (type === "flat")
+    return map.rides.filter(
+      (ride) =>
+        ride.classification === "ride" && flatRides.indexOf(ride.type) !== -1
+    )
+  if (type === "tracked")
+    return map.rides.filter(
+      (ride) =>
+        ride.classification === "ride" && trackedRides.indexOf(ride.type) !== -1
+    )
+  return []
+}
+
+/**
+ * Returns the total number of rides based on the specified type.
+ * @param type - The type of rides to count. Valid values are "flat", "tracked", or "all". Default is "all".
+ * @returns The total number of rides.
+ */
+function getRideSum(type: "flat" | "tracked" | "all" = "all"): number {
+  return getRides(type).length
+}
+
+/**
  * Initialize ride data.
  */
 function initRideData() {
@@ -203,15 +233,9 @@ function initRideData() {
     /**
      * Update ride count.
      */
-    baseData.local.rides.ride_count_total.store.set(
-      map.rides.filter((ride) => ride.classification === "ride").length
-    )
-    baseData.local.rides.ride_count_flat.store.set(
-      map.rides.filter((ride) => flatRides.indexOf(ride.type) !== -1).length
-    )
-    baseData.local.rides.ride_count_tracked.store.set(
-      map.rides.filter((ride) => trackedRides.indexOf(ride.type) !== -1).length
-    )
+    baseData.local.rides.ride_count_total.store.set(getRideSum())
+    baseData.local.rides.ride_count_flat.store.set(getRideSum("flat"))
+    baseData.local.rides.ride_count_tracked.store.set(getRideSum("tracked"))
 
     /**
      * Update ride excitement, intensity, nausea, value, price and admission average.
@@ -222,24 +246,13 @@ function initRideData() {
       valueSum = 0,
       priceSum = 0,
       admissionSum = 0
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (excitementSum += ride.excitement / 100))
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (intensitySum += ride.intensity / 100))
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (nauseaSum += ride.nausea / 100))
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (valueSum += ride.value))
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (priceSum += ride.price[0]))
-    map.rides
-      .filter((ride) => ride.classification === "ride")
-      .forEach((ride) => (admissionSum += ride.totalCustomers))
+    const rides: Ride[] = getRides()
+    rides.forEach((ride) => (excitementSum += ride.excitement / 100))
+    rides.forEach((ride) => (intensitySum += ride.intensity / 100))
+    rides.forEach((ride) => (nauseaSum += ride.nausea / 100))
+    rides.forEach((ride) => (valueSum += ride.value))
+    rides.forEach((ride) => (priceSum += ride.price[0]))
+    rides.forEach((ride) => (admissionSum += ride.totalCustomers))
     branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum)
     branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum)
     branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum)
