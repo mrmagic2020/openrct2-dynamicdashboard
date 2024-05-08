@@ -133,8 +133,8 @@ function initLang(): void {
    * Set language to user's preference or default language.
    */
   baseData.global.language_index.set(getLanguageIndex(getUserLanguage()))
-  console.log("User set lang: " + context.configuration.get("general.language"))
-  console.log("Language index set to " + baseData.global.language_index.get())
+  // console.log("User set lang: " + context.configuration.get("general.language"))
+  // console.log("Language index set to " + baseData.global.language_index.get())
 
   /**
    * Update language every `update_ratio` seconds.
