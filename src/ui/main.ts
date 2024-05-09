@@ -6,7 +6,7 @@ import {
   vertical,
   window
 } from "openrct2-flexui"
-import { language, tr } from "../languages"
+import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import { getCurrencyUnit } from "../data/currency"
 

@@ -5,7 +5,8 @@ import { initParkAndScenarioData } from "./data/park_and_scenario"
 import { initPlayerData } from "./data/player"
 import { initStallsAndFacilitiesData } from "./data/stalls_and_facilities"
 import { initRideData } from "./data/rides"
-import { initLang, language } from "./languages"
+// import { initLang } from "./languages"
+import { initLang_new, language } from "./languages/lang"
 import { menu } from "./ui/main"
 import { toolboxMenu } from "./ui/toolbox"
 
@@ -16,7 +17,10 @@ export function startup(): void {
   /**
    * Initialize data.
    */
-  initLang()
+
+  initLang_new()
+
+  // initLang()
   initData()
   initCurrencyData()
   initPlayerData()
