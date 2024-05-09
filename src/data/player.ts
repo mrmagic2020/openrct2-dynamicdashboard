@@ -52,62 +52,70 @@ const actionClass: ActionClass = {
   action_set_cheats: ["cheatset"]
 }
 
+/**
+ * Updates the player's real-time game time (minutes).
+ */
+function updatePlayerRealTimeGameTime(): void {
+  increment(baseData.local.player.game_time_real.store, 0.25)
+}
+
+/**
+ * Updates the fake (in-game) game time for the player.
+ */
+function updatePlayerFakeGameTime(): void {
+  increment(baseData.local.player.game_time_fake.store)
+}
+
+/**
+ * Updates the action count for the player based on the provided GameActionEventArgs.
+ * @param e - The GameActionEventArgs object containing information about the game action.
+ */
+function updatePlayerActionCount(e: GameActionEventArgs<object>): void {
+  if (!e.isClientOnly) {
+    /**
+     * Iterate through every action classification.
+     */
+    for (let key in actionClass) {
+      if (actionClass[key].indexOf(e.action) !== -1) {
+        increment(baseData.local.player[key].store)
+      }
+    }
+  }
+}
+
+/**
+ * Updates the player's network join count.
+ * @param e The network event arguments.
+ */
+function updatePlayerNetworkJoinCount(e: NetworkEventArgs): void {
+  if (e.player === network.currentPlayer.id) {
+    increment(baseData.local.player.action_server_join.store)
+  }
+}
+
+/**
+ * Updates the player's network chat count.
+ * @param e The network event arguments.
+ */
+function updatePlayerNetworkChatCount(e: NetworkEventArgs): void {
+  if (e.player === network.currentPlayer.id) {
+    increment(baseData.local.player.action_server_chat.store)
+  }
+}
+
 function initPlayerData(): void {
   /**
    * Real-time game time recording (minutes). Updates every 15 seconds.
    */
-  context.setInterval(() => {
-    increment(baseData.local.player.game_time_real.store, 0.25)
-    // baseData.local.player.game_time_real.store.set(
-    //   baseData.local.player.game_time_real.store.get() + 0.25
-    // )
-  }, 15 * 1000)
+  context.setInterval(updatePlayerRealTimeGameTime, 15 * 1000)
 
-  /**
-   * In-game game time recording (days). Hooks to day interval.
-   */
-  context.subscribe("interval.day", () => {
-    increment(baseData.local.player.game_time_fake.store)
-    // baseData.local.player.game_time_fake.store.set(
-    //   baseData.local.player.game_time_fake.store.get() + 1
-    // )
-  })
+  context.subscribe("interval.day", updatePlayerFakeGameTime)
 
-  context.subscribe("action.execute", (e) => {
-    if (!e.isClientOnly) {
-      // console.log(e.action);
+  context.subscribe("action.execute", updatePlayerActionCount)
 
-      /**
-       * Iterate throught every action classification.
-       */
-      for (let key in actionClass) {
-        if (actionClass[key].indexOf(e.action) !== -1) {
-          increment(baseData.local.player[key].store)
-          // baseData.local.player[key].store.set(
-          //   baseData.local.player[key].store.get() + 1
-          // )
-        }
-      }
-    }
-  })
+  context.subscribe("network.join", updatePlayerNetworkJoinCount)
 
-  context.subscribe("network.join", (e) => {
-    if (e.player === network.currentPlayer.id) {
-      increment(baseData.local.player.action_server_join.store)
-      // baseData.local.player.action_server_join.store.set(
-      //   baseData.local.player.action_server_join.store.get() + 1
-      // )
-    }
-  })
-
-  context.subscribe("network.chat", (e) => {
-    if (e.player === network.currentPlayer.id) {
-      increment(baseData.local.player.action_server_chat.store)
-      // baseData.local.player.action_server_chat.store.set(
-      //   baseData.local.player.action_server_chat.store.get() + 1
-      // )
-    }
-  })
+  context.subscribe("network.chat", updatePlayerNetworkChatCount)
 }
 
 export { initPlayerData }

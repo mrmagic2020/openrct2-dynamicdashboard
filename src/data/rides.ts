@@ -226,78 +226,87 @@ function getRideSum(type: "flat" | "tracked" | "all" = "all"): number {
 }
 
 /**
+ * Updates the ride count for different types of rides.
+ */
+function updateRideCount(): void {
+  baseData.local.rides.ride_count_total.store.set(getRideSum())
+  baseData.local.rides.ride_count_flat.store.set(getRideSum("flat"))
+  baseData.local.rides.ride_count_tracked.store.set(getRideSum("tracked"))
+}
+
+/**
+ * Updates the statistics for all the rides.
+ */
+function updateRideStats(): void {
+  let excitementSum = 0,
+    intensitySum = 0,
+    nauseaSum = 0,
+    valueSum = 0,
+    priceSum = 0,
+    admissionSum = 0,
+    ageSum = 0,
+    downtimeSum = 0
+  const rides: Ride[] = getRides()
+  rides.forEach((ride) => (excitementSum += ride.excitement / 100))
+  rides.forEach((ride) => (intensitySum += ride.intensity / 100))
+  rides.forEach((ride) => (nauseaSum += ride.nausea / 100))
+  rides.forEach((ride) => (valueSum += ride.value))
+  rides.forEach((ride) => (priceSum += ride.price[0]))
+  rides.forEach((ride) => (admissionSum += ride.totalCustomers))
+  rides.forEach((ride) => (ageSum += ride.age))
+  rides.forEach((ride) => (downtimeSum += ride.downtime))
+  branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum)
+  branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum)
+  branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum)
+  branchData.local.rides.ride_value_ave_sum[0].store.set(valueSum)
+  branchData.local.rides.ride_price_ave_sum[0].store.set(priceSum)
+  branchData.local.rides.ride_admission_ave_sum[0].store.set(admissionSum)
+  branchData.local.rides.ride_age_ave_sum[0].store.set(ageSum)
+  branchData.local.rides.ride_downtime_ave_sum[0].store.set(downtimeSum)
+}
+
+/**
+ * Updates the crash count for different types of ride crashes.
+ * @param e - The VehicleCrashArgs object containing information about the crash.
+ */
+function updateRideCrashCount(e: VehicleCrashArgs): void {
+  // baseData.local.rides.crash_count_total.store.set(
+  //   baseData.local.rides.crash_count_total.store.get() + 1
+  // )
+  switch (e.crashIntoType) {
+    case "another_vehicle":
+      increment(baseData.local.rides.crash_count_into_vehicle.store)
+      // baseData.local.rides.crash_count_into_vehicle.store.set(
+      //   baseData.local.rides.crash_count_into_vehicle.store.get() + 1
+      // )
+      break
+    case "land":
+      increment(baseData.local.rides.crash_count_into_land.store)
+      // baseData.local.rides.crash_count_into_land.store.set(
+      //   baseData.local.rides.crash_count_into_land.store.get() + 1
+      // )
+      break
+    case "water":
+      increment(baseData.local.rides.crash_count_into_water.store)
+      // baseData.local.rides.crash_count_into_water.store.set(
+      //   baseData.local.rides.crash_count_into_water.store.get() + 1
+      // )
+      break
+    default:
+      break
+  }
+}
+
+/**
  * Initialize ride data.
  */
 function initRideData() {
   context.setInterval(() => {
-    /**
-     * Update ride count.
-     */
-    baseData.local.rides.ride_count_total.store.set(getRideSum())
-    baseData.local.rides.ride_count_flat.store.set(getRideSum("flat"))
-    baseData.local.rides.ride_count_tracked.store.set(getRideSum("tracked"))
-
-    /**
-     * Update ride excitement, intensity, nausea, value, price, admission, age and downtime average.
-     */
-    let excitementSum = 0,
-      intensitySum = 0,
-      nauseaSum = 0,
-      valueSum = 0,
-      priceSum = 0,
-      admissionSum = 0,
-      ageSum = 0,
-      downtimeSum = 0
-    const rides: Ride[] = getRides()
-    rides.forEach((ride) => (excitementSum += ride.excitement / 100))
-    rides.forEach((ride) => (intensitySum += ride.intensity / 100))
-    rides.forEach((ride) => (nauseaSum += ride.nausea / 100))
-    rides.forEach((ride) => (valueSum += ride.value))
-    rides.forEach((ride) => (priceSum += ride.price[0]))
-    rides.forEach((ride) => (admissionSum += ride.totalCustomers))
-    rides.forEach((ride) => (ageSum += ride.age))
-    rides.forEach((ride) => (downtimeSum += ride.downtime))
-    branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum)
-    branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum)
-    branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum)
-    branchData.local.rides.ride_value_ave_sum[0].store.set(valueSum)
-    branchData.local.rides.ride_price_ave_sum[0].store.set(priceSum)
-    branchData.local.rides.ride_admission_ave_sum[0].store.set(admissionSum)
-    branchData.local.rides.ride_age_ave_sum[0].store.set(ageSum)
-    branchData.local.rides.ride_downtime_ave_sum[0].store.set(downtimeSum)
+    updateRideCount()
+    updateRideStats()
   }, baseData.global.update_ratio.get() * 1000)
 
-  /**
-   * Record the number of crashes of each type.
-   */
-  context.subscribe("vehicle.crash", (e) => {
-    increment(baseData.local.rides.crash_count_total.store)
-    // baseData.local.rides.crash_count_total.store.set(
-    //   baseData.local.rides.crash_count_total.store.get() + 1
-    // )
-    switch (e.crashIntoType) {
-      case "another_vehicle":
-        increment(baseData.local.rides.crash_count_into_vehicle.store)
-        // baseData.local.rides.crash_count_into_vehicle.store.set(
-        //   baseData.local.rides.crash_count_into_vehicle.store.get() + 1
-        // )
-        break
-      case "land":
-        increment(baseData.local.rides.crash_count_into_land.store)
-        // baseData.local.rides.crash_count_into_land.store.set(
-        //   baseData.local.rides.crash_count_into_land.store.get() + 1
-        // )
-        break
-      case "water":
-        increment(baseData.local.rides.crash_count_into_water.store)
-        // baseData.local.rides.crash_count_into_water.store.set(
-        //   baseData.local.rides.crash_count_into_water.store.get() + 1
-        // )
-        break
-      default:
-        break
-    }
-  })
+  context.subscribe("vehicle.crash", updateRideCrashCount)
 }
 
 export { initRideData }
