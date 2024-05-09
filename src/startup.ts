@@ -11,31 +11,27 @@ import { menu } from "./ui/main"
 import { toolboxMenu } from "./ui/toolbox"
 
 /**
- * Startup function. Calls all the initialization functions.
+ * Initialises the user interface.
+ *
+ * @returns {void}
  */
-export function startup(): void {
-  /**
-   * Initialize data.
-   */
+function initUI(): void {
+  if (typeof ui !== "undefined") {
+    ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
+    ui.registerMenuItem(language.ui.main.title, menu)
+  }
+}
 
-  initLang_new()
-
-  // initLang()
-  initData()
-  initCurrencyData()
-  initPlayerData()
-  initParkAndScenarioData()
-  initStallsAndFacilitiesData()
-  initRideData()
-  initGuestData()
-
-  /**
-   * Restore stored data after entering new scenario.
-   *
-   * ***IMPOERTANT:***
-   * Intransient plugins remained loaded all the time,
-   * thus all the data need to be reset after quitting a scenario.
-   */
+/**
+ * Subscribes to the map change event and restore stored data after entering new scenario.
+ *
+ * **Important:**
+ * Intransient plugins remained loaded all the time,
+ * thus all the data need to be reset after quitting a scenario.
+ *
+ * @returns {void}
+ */
+function onMapChanged(): void {
   context.subscribe("map.changed", () => {
     if (context.mode === "normal") {
       console.log("New scenario.")
@@ -70,9 +66,27 @@ export function startup(): void {
       }
     }
   })
+}
 
-  if (typeof ui !== "undefined") {
-    ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
-    ui.registerMenuItem(language.ui.main.title, menu)
-  }
+/**
+ * Startup function. Calls all the initialisation functions.
+ */
+export function startup(): void {
+  /**
+   * Initialise data.
+   */
+
+  initLang_new()
+  // initLang()
+  initData()
+  initCurrencyData()
+  initPlayerData()
+  initParkAndScenarioData()
+  initStallsAndFacilitiesData()
+  initRideData()
+  initGuestData()
+
+  initUI()
+
+  onMapChanged()
 }
