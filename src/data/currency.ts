@@ -48,8 +48,6 @@ const currencySymbolReference: CurrencySymbolReference = {
 
 /**
  * Initialize currency data.
- *
- * @returns {void}
  */
 function initCurrencyData(): void {
   context.setInterval(() => {
@@ -68,9 +66,9 @@ function initCurrencyData(): void {
 }
 
 /**
- * Gets the currency character.
+ * Gets the currency symbol.
  *
- * @returns {string}
+ * @returns {string} The currency symbol.
  */
 function getCurrencySymbol(): string {
   let symbol = "?"
@@ -86,7 +84,7 @@ function getCurrencySymbol(): string {
  * Format a number into money notation.
  * @param value The value to format.
  * @param separator The separator to use. Default is ",".
- * @returns {string}
+ * @returns {string} The formatted money notation.
  *
  * @example
  * formatMoney(1000); // returns "1,000"
@@ -120,7 +118,7 @@ function formatMoney(value: number, separator: string = ","): string {
  * Gets the entire currency unit.
  * @param value The value to format.
  * @param symbol The currency symbol to use. Default is the current currency symbol.
- * @returns {string}
+ * @returns {string} The formatted currency unit.
  *
  * @example
  * getCurrencyUnit(2, "$"); // returns "2$"
