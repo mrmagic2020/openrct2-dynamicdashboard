@@ -6,13 +6,62 @@ type LanguageKey = "en_US" | "zh_CN"
 
 const defaultLanguage: LanguageKey = "en_US"
 const languageStore = store()
-const locales = {
+const locales: { [key: string]: any } = {
   en_US,
   zh_CN
 }
 
 let currentLanguage: LanguageKey = defaultLanguage
 let language: any
+
+/**
+ * Fills missing keys in the target object with values from the source object.
+ * If a key exists in the source object but not in the target object, the value
+ * of that key will be copied to the target object.
+ * If a key exists in both the source and target objects, and the value of the
+ * key in the source object is an object, the function will recursively fill
+ * missing keys in the nested objects.
+ *
+ * @param source - The source object containing the keys and values to fill.
+ * @param target - The target object to fill with missing keys.
+ * @returns {void}
+ */
+function fillMissingKeys(
+  source: { [key: string]: any },
+  target: { [key: string]: any }
+): void {
+  Object.keys(source).forEach((key) => {
+    if (typeof source[key] === "object" && source[key] !== null) {
+      // Ensure the target key is an object too
+      if (!target[key] || typeof target[key] !== "object") {
+        target[key] = {}
+      }
+      // Recursive call for nested objects
+      fillMissingKeys(source[key], target[key])
+    } else {
+      // Copy the value if the key does not exist in target
+      if (!target.hasOwnProperty(key)) {
+        target[key] = source[key]
+      }
+    }
+  })
+}
+
+/**
+ * Synchronises the locale objects by filling missing keys from the default language.
+ *
+ * Since OpenRCT2 scripting does not support file I/O, this function is used to
+ * fallback to the default language when a key is missing in a specific language.
+ *
+ * @returns {void}
+ */
+function syncLocale(): void {
+  Object.keys(locales).forEach((key) => {
+    if (key !== defaultLanguage) {
+      fillMissingKeys(locales[defaultLanguage], locales[key])
+    }
+  })
+}
 
 /**
  * Get user's preferred language.
@@ -24,7 +73,7 @@ function getUserLanguage(): LanguageKey {
   let lang: string =
     context.configuration.get("general.language") || defaultLanguage
   lang = lang.replace("-", "_") // replace hyphen with underscore
-  console.log("User set lang: " + lang)
+  // console.log("User set lang: " + lang)
   return lang in locales ? (lang as LanguageKey) : defaultLanguage
 }
 
@@ -34,17 +83,20 @@ function getUserLanguage(): LanguageKey {
  * @returns {void}
  */
 function initLang_new(): void {
+  syncLocale()
+
   currentLanguage = getUserLanguage()
   languageStore.set(locales[currentLanguage])
   language = languageStore.get()
 
-  console.log(`Current language: ${currentLanguage}`)
-  console.log(`Language: ${language}`)
+  // console.log(`Current language: ${currentLanguage}`)
+  // console.log(`Language: ${language}`)
 
   /**
    * Update language with user config every `update_ratio` seconds.
    */
   context.setInterval(() => {
+    currentLanguage = getUserLanguage()
     baseData.global.language.set(currentLanguage)
   }, baseData.global.update_ratio.get() * 1000)
 
@@ -65,6 +117,7 @@ function initLang_new(): void {
 
 /**
  * Replace `<insertable segments>` in a translation text with specified value.
+ * If there are more values than insertable segments, the remaining values will be appended to the end of the text.
  * @param str Translation text.
  * @param items Values to be inserted in order.
  * @returns {string} Finalized text.
@@ -85,6 +138,16 @@ function tr(str: string, ...items: any[]): string {
       items.shift()
     }
   }
+
+  /**
+   * If there are still items left, append them to the end of the string.
+   */
+  if (items.length > 0) {
+    items.forEach((item) => {
+      str += item.toString()
+    })
+  }
+
   return str
 }
 
