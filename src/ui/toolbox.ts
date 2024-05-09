@@ -7,12 +7,18 @@ import { baseData } from "../data/main"
  */
 let isOpen = false
 
+function initToolboxMenu(): void {
+  if (typeof ui !== "undefined") {
+    ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
+  }
+}
+
 /**
  * Toolbox menu.
  *
  * @returns {void}
  */
-export function toolboxMenu(): void {
+function toolboxMenu(): void {
   const win_template = window({
     title: language.ui.toolbox.title,
     width: 200,
@@ -51,3 +57,5 @@ export function toolboxMenu(): void {
   if (!isOpen) win_template.open()
   else win_template.focus()
 }
+
+export { initToolboxMenu }

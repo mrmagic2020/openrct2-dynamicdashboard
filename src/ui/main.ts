@@ -15,6 +15,12 @@ import { getCurrencyUnit } from "../data/currency"
  */
 let isOpen = false
 
+function initMainMenu(): void {
+  if (typeof ui !== "undefined") {
+    ui.registerMenuItem(language.ui.main.title, menu)
+  }
+}
+
 /**
  * Open the main menu.
  *
@@ -583,4 +589,4 @@ function menu(): void {
   else win_template.focus()
 }
 
-export { menu }
+export { initMainMenu }

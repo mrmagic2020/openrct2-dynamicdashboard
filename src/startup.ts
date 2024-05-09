@@ -6,21 +6,8 @@ import { initPlayerData } from "./data/player"
 import { initStallsAndFacilitiesData } from "./data/stalls_and_facilities"
 import { initRideData } from "./data/rides"
 // import { initLang } from "./languages"
-import { initLang_new, language } from "./languages/lang"
-import { menu } from "./ui/main"
-import { toolboxMenu } from "./ui/toolbox"
-
-/**
- * Initialises the user interface.
- *
- * @returns {void}
- */
-function initUI(): void {
-  if (typeof ui !== "undefined") {
-    ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
-    ui.registerMenuItem(language.ui.main.title, menu)
-  }
-}
+import { initLang_new } from "./languages/lang"
+import { initUI } from "./ui/ui"
 
 /**
  * Subscribes to the map change event and restore stored data after entering new scenario.
@@ -72,10 +59,6 @@ function onMapChanged(): void {
  * Startup function. Calls all the initialisation functions.
  */
 export function startup(): void {
-  /**
-   * Initialise data.
-   */
-
   initLang_new()
   // initLang()
   initData()
