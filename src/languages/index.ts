@@ -4,12 +4,16 @@ import { en_US } from "./en-US"
 import { zh_CN } from "./zh-CN"
 import { WritableStore, store } from "openrct2-flexui"
 
+/**
+ * @deprecated v1.0.0-pre.3
+ */
 interface LanguageIndex {
   [key: string]: Language
 }
 
 /**
  * Index of all languages. **Do not alter order.**
+ * @deprecated v1.0.0-pre.3
  */
 const index: LanguageIndex = {
   en_US: en_US,
@@ -18,6 +22,7 @@ const index: LanguageIndex = {
 
 /**
  * Language id of all languages.
+ * @deprecated v1.0.0-pre.3
  *
  * **Ordered according to `index`.**
  *
@@ -27,6 +32,7 @@ const idList: string[] = ["en_US", "zh_CN"]
 
 /**
  * Index of all string representatives of languages.
+ * @deprecated v1.0.0-pre.3
  *
  * **Ordered according to `index`.**
  *
@@ -67,6 +73,7 @@ function getUserLanguage(): string {
 
 /**
  * Get language index.
+ * @deprecated v1.0.0-pre.3
  *
  * @param lang Language id.
  * @returns {number} Language index.
@@ -104,6 +111,7 @@ function tr(str: string, ...items: any[]): string {
 
 /**
  * Initialize language.
+ * @deprecated v1.0.0-pre.3
  *
  * @returns {void}
  */
