@@ -4,6 +4,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ES2020",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
