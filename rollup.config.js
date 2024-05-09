@@ -1,6 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
 import typescript from "@rollup/plugin-typescript"
+import json from "@rollup/plugin-json"
 import { getConfigHome, getDocumentsFolder } from "platform-folders"
 
 const options = {
@@ -53,6 +54,7 @@ const config = {
   plugins: [
     resolve(),
     typescript(),
+    json(),
     terser({
       compress: {
         passes: 5,
