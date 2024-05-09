@@ -238,14 +238,16 @@ function initRideData() {
     baseData.local.rides.ride_count_tracked.store.set(getRideSum("tracked"))
 
     /**
-     * Update ride excitement, intensity, nausea, value, price and admission average.
+     * Update ride excitement, intensity, nausea, value, price, admission, age and downtime average.
      */
     let excitementSum = 0,
       intensitySum = 0,
       nauseaSum = 0,
       valueSum = 0,
       priceSum = 0,
-      admissionSum = 0
+      admissionSum = 0,
+      ageSum = 0,
+      downtimeSum = 0
     const rides: Ride[] = getRides()
     rides.forEach((ride) => (excitementSum += ride.excitement / 100))
     rides.forEach((ride) => (intensitySum += ride.intensity / 100))
@@ -253,12 +255,16 @@ function initRideData() {
     rides.forEach((ride) => (valueSum += ride.value))
     rides.forEach((ride) => (priceSum += ride.price[0]))
     rides.forEach((ride) => (admissionSum += ride.totalCustomers))
+    rides.forEach((ride) => (ageSum += ride.age))
+    rides.forEach((ride) => (downtimeSum += ride.downtime))
     branchData.local.rides.ride_excitement_ave_sum[0].store.set(excitementSum)
     branchData.local.rides.ride_intensity_ave_sum[0].store.set(intensitySum)
     branchData.local.rides.ride_nausea_ave_sum[0].store.set(nauseaSum)
     branchData.local.rides.ride_value_ave_sum[0].store.set(valueSum)
     branchData.local.rides.ride_price_ave_sum[0].store.set(priceSum)
     branchData.local.rides.ride_admission_ave_sum[0].store.set(admissionSum)
+    branchData.local.rides.ride_age_ave_sum[0].store.set(ageSum)
+    branchData.local.rides.ride_downtime_ave_sum[0].store.set(downtimeSum)
   }, baseData.global.update_ratio.get() * 1000)
 
   /**

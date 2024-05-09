@@ -531,6 +531,23 @@ function menu(): void {
                     language.ui.main.label.ride_admission_ave + value.toString()
                 )
               }),
+              label({
+                text: compute(
+                  baseData.local.rides.ride_age_ave.store,
+                  (value) =>
+                    tr(language.ui.main.label.ride_age_ave, value.toString())
+                )
+              }),
+              label({
+                text: compute(
+                  baseData.local.rides.ride_downtime_ave.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.ride_downtime_ave,
+                      value.toString()
+                    )
+                )
+              }),
               groupbox({
                 // Crashes
                 text: language.ui.main.groupbox.rides.crashes,

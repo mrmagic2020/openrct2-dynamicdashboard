@@ -86,6 +86,8 @@
         "ride_value_ave": "Average value: {PALESILVER}",
         "ride_price_ave": "Average price: {PALESILVER}",
         "ride_admission_ave": "Average admission: {PALESILVER}",
+        "ride_age_ave": "Average age: {PALESILVER}<NUMBER> months",
+        "ride_downtime_ave": "Average downtime: {PALESILVER}<NUMBER>%",
 
         "guest_generation_total": "Total Guest Generation: {PALESILVER}",
         "guest_admission_total": "Total Guest Admission: {PALESILVER}",

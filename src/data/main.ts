@@ -202,6 +202,22 @@ const branchData: BranchData = {
             context.getParkStorage().get(BRANCH + ".ride_admission_ave_sum", 0)
           )
         }
+      ],
+      ride_age_ave_sum: [
+        {
+          key: BRANCH + ".ride_age_ave_sum",
+          store: store<number>(
+            context.getParkStorage().get(BRANCH + ".ride_age_ave_sum", 0)
+          )
+        }
+      ],
+      ride_downtime_ave_sum: [
+        {
+          key: BRANCH + ".ride_downtime_ave_sum",
+          store: store<number>(
+            context.getParkStorage().get(BRANCH + ".ride_downtime_ave_sum", 0)
+          )
+        }
       ]
     },
     guest: {
@@ -690,6 +706,32 @@ const baseData: BaseData = {
                 map.rides.filter((ride) => ride.classification === "ride")
                   .length
               ).toFixed(0)
+            )
+          }
+        )
+      },
+      ride_age_ave: {
+        key: LOCAL + ".ride_age_ave",
+        store: compute(branchData.local.rides.ride_age_ave_sum[0].store, () => {
+          return parseFloat(
+            (
+              branchData.local.rides.ride_age_ave_sum[0].store.get() /
+              map.rides.filter((ride) => ride.classification === "ride").length
+            ).toFixed(2)
+          )
+        })
+      },
+      ride_downtime_ave: {
+        key: LOCAL + ".ride_downtime_ave",
+        store: compute(
+          branchData.local.rides.ride_downtime_ave_sum[0].store,
+          () => {
+            return parseFloat(
+              (
+                branchData.local.rides.ride_downtime_ave_sum[0].store.get() /
+                map.rides.filter((ride) => ride.classification === "ride")
+                  .length
+              ).toFixed(2)
             )
           }
         )
