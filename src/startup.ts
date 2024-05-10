@@ -1,10 +1,10 @@
 import { initCurrencyData } from "./data/currency"
-import { initGuestData } from "./data/guest"
+import { GuestData } from "./data/guest"
 import { baseData, initData } from "./data/main"
-import { initParkAndScenarioData } from "./data/park_and_scenario"
-import { initPlayerData } from "./data/player"
-import { initStallsAndFacilitiesData } from "./data/stalls_and_facilities"
-import { initRideData } from "./data/rides"
+import { ParkAndScenarioData } from "./data/park_and_scenario"
+import { PlayerData } from "./data/player"
+import { StallsAndFacilitiesData } from "./data/stalls_and_facilities"
+import { RideData } from "./data/rides"
 // import { initLang } from "./languages"
 import { initLang_new } from "./languages/lang"
 import { initUI } from "./ui/ui"
@@ -60,14 +60,13 @@ function onMapChanged(): void {
  */
 export function startup(): void {
   initLang_new()
-  // initLang()
   initData()
   initCurrencyData()
-  initPlayerData()
-  initParkAndScenarioData()
-  initStallsAndFacilitiesData()
-  initRideData()
-  initGuestData()
+  PlayerData.init()
+  ParkAndScenarioData.init()
+  StallsAndFacilitiesData.init()
+  RideData.init()
+  GuestData.init()
 
   initUI()
 
