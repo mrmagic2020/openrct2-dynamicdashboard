@@ -30,6 +30,9 @@
         },
         "guest": {
           "title": "{PALEGOLD}Guest"
+        },
+        "options": {
+          "title": "{YELLOW}Options"
         }
       },
       "label": {
@@ -100,10 +103,16 @@
         "guest_nausea_ave": "Average Nausea: {PALESILVER}",
         "guest_hunger_ave": "Average Hunger: {PALESILVER}",
         "guest_thirst_ave": "Average Thirst: {PALESILVER}",
-        "guest_toilet_ave": "Average Toilet: {PALESILVER}"
+        "guest_toilet_ave": "Average Toilet: {PALESILVER}",
+
+        "options_update_running": "{GREEN}Running",
+        "options_update_manual": "{YELLOW}Manual",
+        "options_update_paused": "{TOPAZ}Paused",
+        "options_sync_now": "Sync now"
       },
       "tooltip": {
-        "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change."
+        "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
+        "pause_update_button": "Pause/Resume the update of the dashboard. Any action happening during the pause will not be recorded."
       }
     }
   }

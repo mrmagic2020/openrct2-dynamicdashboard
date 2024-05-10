@@ -1,4 +1,5 @@
 import {
+  button,
   compute,
   groupbox,
   horizontal,
@@ -9,6 +10,10 @@ import {
 import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import { getCurrencyUnit } from "../data/currency"
+import interval from "../utils/interval"
+import Sprites from "./sprites"
+import Options from "../data/options"
+import Data from "../data/index"
 
 /**
  * Whether the window is open.
@@ -594,7 +599,93 @@ function menu(): void {
           }),
           groupbox({
             text: language.ui.main.groupbox.options.title,
-            content: []
+            content: [
+              horizontal({
+                content: [
+                  button({
+                    width: "25px",
+                    height: "25px",
+                    tooltip: language.ui.main.tooltip.pause_update_button,
+                    border: false,
+                    image: compute(
+                      baseData.local.options.update_status.store,
+                      (value) => {
+                        console.log(`Button pressed: ${value}`)
+                        switch (value) {
+                          case Options.UpdateStatus.RUNNING:
+                            return Sprites.SYNC_RUNNING
+                          case Options.UpdateStatus.MANUAL:
+                            return Sprites.SYNC_MANUAL
+                          case Options.UpdateStatus.PAUSED:
+                            return Sprites.SYNC_PAUSED
+                          default:
+                            return -1
+                        }
+                      }
+                    ),
+                    onClick: () => {
+                      baseData.local.options.update_status.store.set(
+                        Options.UpdateStatus.next(
+                          baseData.local.options.update_status.store.get()
+                        )
+                      )
+                      switch (
+                        baseData.local.options.update_status.store.get()
+                      ) {
+                        case Options.UpdateStatus.RUNNING:
+                          interval.resumeAll()
+                          break
+                        case Options.UpdateStatus.MANUAL:
+                          interval.pauseManual()
+                          break
+                        case Options.UpdateStatus.PAUSED:
+                          interval.pauseAll()
+                          break
+                        default:
+                          break
+                      }
+                      console.log(
+                        `Paused: ${baseData.local.options.update_status.store.get()}`
+                      )
+                    }
+                  }),
+                  label({
+                    padding: ["5px", "0px", "0px", "0px"],
+                    text: compute(
+                      baseData.local.options.update_status.store,
+                      (value) => {
+                        switch (value) {
+                          case Options.UpdateStatus.RUNNING:
+                            return language.ui.main.label.options_update_running
+                          case Options.UpdateStatus.MANUAL:
+                            return language.ui.main.label.options_update_manual
+                          case Options.UpdateStatus.PAUSED:
+                            return language.ui.main.label.options_update_paused
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  })
+                ]
+              }),
+              horizontal({
+                content: [
+                  button({
+                    width: "25px",
+                    height: "25px",
+                    image: Sprites.SYNC_RELOAD,
+                    onClick: () => {
+                      Data.updateAll()
+                    }
+                  }),
+                  label({
+                    padding: ["5px", "0px", "0px", "0px"],
+                    text: language.ui.main.label.options_sync_now
+                  })
+                ]
+              })
+            ]
           })
         ])
       ])

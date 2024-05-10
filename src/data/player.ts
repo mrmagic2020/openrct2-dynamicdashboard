@@ -126,7 +126,7 @@ namespace PlayerData {
     /**
      * Real-time game time recording (minutes). Updates every 15 seconds.
      */
-    interval.register(updatePlayerRealTimeGameTime, 15 * 1000)
+    interval.register(updatePlayerRealTimeGameTime, 15 * 1000, false)
 
     context.subscribe("interval.day", updatePlayerFakeGameTime)
 

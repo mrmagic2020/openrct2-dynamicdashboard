@@ -41,6 +41,12 @@ interface BaseData {
         store: WritableStore<number>
       }
     }
+    options: {
+      [key: string]: {
+        key: string
+        store: WritableStore<number>
+      }
+    }
   }
 }
 
@@ -873,6 +879,15 @@ const baseData: BaseData = {
               ).toFixed(2)
             )
           }
+        )
+      }
+    },
+    options: {
+      update_status: {
+        key: LOCAL + ".update_paused",
+        store: store<number>(
+          // 0 for false, 1 for true
+          context.getParkStorage().get(LOCAL + ".update_paused", 0)
         )
       }
     }
