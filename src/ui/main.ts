@@ -30,7 +30,7 @@ function menu(): void {
   /**
    * Main window template.
    */
-  const win_template = window({
+  const main_ui = window({
     title: language.ui.main.title,
     width: 800,
     // Accomodate more statistics when playing in servers.
@@ -591,6 +591,10 @@ function menu(): void {
                 ]
               })
             ]
+          }),
+          groupbox({
+            text: language.ui.main.groupbox.options.title,
+            content: []
           })
         ])
       ])
@@ -601,9 +605,9 @@ function menu(): void {
 
   if (!isOpen)
     // Open the window if it is not open.
-    win_template.open()
+    main_ui.open()
   // Focus the window if it is open.
-  else win_template.focus()
+  else main_ui.focus()
 }
 
 export { initMainMenu }
