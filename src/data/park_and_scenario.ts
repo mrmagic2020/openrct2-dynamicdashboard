@@ -1,5 +1,5 @@
 import { baseData, branchData } from "./main"
-import { increment } from "../storeutil"
+import { increment } from "../utils/storeutil"
 
 /**
  * Updates the park and scenario data based on the current month and year.

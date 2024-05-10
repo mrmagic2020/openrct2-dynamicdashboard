@@ -1,5 +1,5 @@
 import { baseData } from "./main"
-import { increment } from "../storeutil"
+import { increment } from "../utils/storeutil"
 
 interface ActionClass {
   [key: string]: string[]
