@@ -3,78 +3,19 @@ import { increment } from "../utils/storeutil"
 import interval from "../utils/interval"
 
 namespace ParkAndScenarioData {
-  /**
-   * Updates the park and scenario data based on the current month and year.
-   * @param thisMonth - The current month.
-   * @param thisYear - The current year.
-   */
-  function updateParkAndScenarioData(
-    thisMonth: number,
-    thisYear: number
-  ): void {
+  function updateParkData(): void {
     baseData.local.park_and_scenario.park_value.store.set(park.value / 10)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
 
     increment(branchData.local.park_and_scenario.park_rating_ave[0].store) // increase denominator by 1
-    // branchData.local.park_and_scenario.park_rating_ave[0].store.set(
-    //   branchData.local.park_and_scenario.park_rating_ave[0].store.get() + 1
-    // )
 
     increment(
       branchData.local.park_and_scenario.park_rating_ave[1].store,
       park.rating
     ) // add current rating to sum
-    // branchData.local.park_and_scenario.park_rating_ave[1].store.set(
-    //   branchData.local.park_and_scenario.park_rating_ave[1].store.get() +
-    //     park.rating
-    // )
+  }
 
-    /**
-     * Month average calculations.
-     */
-    if (thisMonth !== date.month) {
-      thisMonth = date.month
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave[0].store
-      )
-      // branchData.local.park_and_scenario.park_rating_month_ave[0].store.set(
-      //   branchData.local.park_and_scenario.park_rating_month_ave[0].store.get() +
-      //     1
-      // )
-
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave[1].store,
-        park.rating
-      )
-      // branchData.local.park_and_scenario.park_rating_month_ave[1].store.set(
-      //   branchData.local.park_and_scenario.park_rating_month_ave[1].store.get() +
-      //     park.rating
-      // )
-    }
-
-    /**
-     * Year average calculations.
-     */
-    if (thisYear !== date.year) {
-      thisYear = date.year
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave[0].store
-      )
-      // branchData.local.park_and_scenario.park_rating_year_ave[0].store.set(
-      //   branchData.local.park_and_scenario.park_rating_year_ave[0].store.get() +
-      //     1
-      // )
-
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave[1].store,
-        park.rating
-      )
-      // branchData.local.park_and_scenario.park_rating_year_ave[1].store.set(
-      //   branchData.local.park_and_scenario.park_rating_year_ave[1].store.get() +
-      //     park.rating
-      // )
-    }
-
+  function updateEntityCount(): void {
     /**
      * Entity count calculations.
      */
@@ -96,7 +37,9 @@ namespace ParkAndScenarioData {
     baseData.local.park_and_scenario.entity_count_litter.store.set(
       map.getAllEntities("litter").length
     )
+  }
 
+  function updateResearchProgress(): void {
     /**
      * Research progress calculations.
      */
@@ -109,6 +52,43 @@ namespace ParkAndScenarioData {
   }
 
   /**
+   * Updates the park and scenario data based on the current month and year.
+   * @param thisMonth - The current month.
+   * @param thisYear - The current year.
+   */
+  function updateAverageData(thisMonth: number, thisYear: number): void {
+    /**
+     * Month average calculations.
+     */
+    if (thisMonth !== date.month) {
+      thisMonth = date.month
+      increment(
+        branchData.local.park_and_scenario.park_rating_month_ave[0].store
+      )
+
+      increment(
+        branchData.local.park_and_scenario.park_rating_month_ave[1].store,
+        park.rating
+      )
+    }
+
+    /**
+     * Year average calculations.
+     */
+    if (thisYear !== date.year) {
+      thisYear = date.year
+      increment(
+        branchData.local.park_and_scenario.park_rating_year_ave[0].store
+      )
+
+      increment(
+        branchData.local.park_and_scenario.park_rating_year_ave[1].store,
+        park.rating
+      )
+    }
+  }
+
+  /**
    * Updates the value of the park size in the local data store.
    */
   function updateParkSizeValue(): void {
@@ -117,6 +97,9 @@ namespace ParkAndScenarioData {
 
   export function update(): void {
     // updateParkAndScenarioData(date.month, date.year)
+    updateParkData()
+    updateEntityCount()
+    updateResearchProgress()
     updateParkSizeValue()
   }
 
@@ -131,7 +114,7 @@ namespace ParkAndScenarioData {
     let thisYear = date.year
 
     context.subscribe("interval.tick", () => {
-      if (interval.isPaused) return
+      if (interval.isPaused || interval.isPausedOnManual) return
 
       /**
        * Park value and company value are updated every 512 ticks.
@@ -143,7 +126,7 @@ namespace ParkAndScenarioData {
       if (tickCount_512 < 512) tickCount_512++
       else {
         tickCount_512 = 0
-        updateParkAndScenarioData(thisMonth, thisYear)
+        updateAverageData(thisMonth, thisYear)
       }
 
       if (tickCount_4096 < 4096) tickCount_4096++
@@ -152,6 +135,8 @@ namespace ParkAndScenarioData {
         updateParkSizeValue()
       }
     })
+
+    interval.register(update, baseData.global.update_ratio.get() * 1000)
   }
 }
 
