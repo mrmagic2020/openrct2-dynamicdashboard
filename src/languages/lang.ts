@@ -1,12 +1,13 @@
-import { zh_CN, en_US } from "./locale/index"
+import { en_GB, en_US, zh_CN } from "./locale/index"
 import { baseData } from "../data/main"
 import { store } from "openrct2-flexui"
 
-type LanguageKey = "en_US" | "zh_CN"
+type LanguageKey = "en_GB" | "en_US" | "zh_CN"
 
-const defaultLanguage: LanguageKey = "en_US"
+const defaultLanguage: LanguageKey = "en_GB"
 const languageStore = store()
 const locales: { [key: string]: any } = {
+  en_GB,
   en_US,
   zh_CN
 }
