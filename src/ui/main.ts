@@ -610,7 +610,6 @@ function menu(): void {
                     image: compute(
                       baseData.local.options.update_status.store,
                       (value) => {
-                        console.log(`Button pressed: ${value}`)
                         switch (value) {
                           case Options.UpdateStatus.RUNNING:
                             return Sprites.SYNC_RUNNING
@@ -644,9 +643,6 @@ function menu(): void {
                         default:
                           break
                       }
-                      console.log(
-                        `Paused: ${baseData.local.options.update_status.store.get()}`
-                      )
                     }
                   }),
                   label({

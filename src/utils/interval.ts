@@ -44,9 +44,6 @@ class IntervalManager {
       pause_on_manual: pause_on_manual
     }
     this.registered.push(info)
-    console.log(
-      `Registered interval function ${func.toString()} with ID ${ID}.`
-    )
     return ID
   }
 
@@ -55,9 +52,6 @@ class IntervalManager {
     this.registered.forEach((f) => {
       if (f.pause_on_manual && !f.paused) {
         context.clearInterval(f.ID)
-        console.log(
-          `Paused interval function ${f.func.toString()} with ID ${f.ID}.`
-        )
         f.paused = true
       }
     })
@@ -72,9 +66,6 @@ class IntervalManager {
     this.registered.forEach((f) => {
       if (f.paused) return
       context.clearInterval(f.ID)
-      console.log(
-        `Paused interval function ${f.func.toString()} with ID ${f.ID}.`
-      )
     })
     this.paused = true
   }
