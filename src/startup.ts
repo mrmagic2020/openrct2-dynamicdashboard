@@ -1,13 +1,9 @@
 import { initCurrencyData } from "./data/currency"
-import { GuestData } from "./data/guest"
-import { baseData, initData } from "./data/main"
-import { ParkAndScenarioData } from "./data/park_and_scenario"
-import { PlayerData } from "./data/player"
-import { StallsAndFacilitiesData } from "./data/stalls_and_facilities"
-import { RideData } from "./data/rides"
+import { baseData } from "./data/main"
 // import { initLang } from "./languages"
 import { initLang_new } from "./languages/lang"
 import { initUI } from "./ui/ui"
+import Data from "./data"
 
 /**
  * Subscribes to the map change event and restore stored data after entering new scenario.
@@ -60,13 +56,9 @@ function onMapChanged(): void {
  */
 export function startup(): void {
   initLang_new()
-  initData()
   initCurrencyData()
-  PlayerData.init()
-  ParkAndScenarioData.init()
-  StallsAndFacilitiesData.init()
-  RideData.init()
-  GuestData.init()
+
+  Data.init()
 
   initUI()
 
