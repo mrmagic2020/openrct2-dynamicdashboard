@@ -61,8 +61,6 @@ function initCurrencyData(): void {
       context.configuration.get("general.custom_currency_symbol", "Ctm")
     )
   }, baseData.global.update_ratio.get() * 1000)
-
-  console.log(context.configuration.getAll("general"))
 }
 
 /**
@@ -136,4 +134,4 @@ function getCurrencyUnit(value: number, symbol?: string): string {
   return unit
 }
 
-export { currency, initCurrencyData, getCurrencyUnit }
+export { initCurrencyData, getCurrencyUnit }
