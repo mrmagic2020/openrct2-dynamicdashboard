@@ -965,4 +965,4 @@ function initData(): void {
   }
 }
 
-export { baseData, branchData, initData }
+export { BaseData, baseData, BranchData, branchData, initData }

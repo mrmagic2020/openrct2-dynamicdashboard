@@ -1,7 +1,7 @@
 import { baseData } from "../data/main"
 import { increment } from "./storeutil"
 
-interface FunctionInfo {
+export interface FunctionInfo {
   ID: number
   func: Function
   interval: number
@@ -12,7 +12,7 @@ interface FunctionInfo {
 /**
  * Manages intervals for executing functions at specified intervals.
  */
-class IntervalManager {
+export class IntervalManager {
   private intervalIDs: number[] = []
   private registered: FunctionInfo[] = []
   private paused: boolean = false
