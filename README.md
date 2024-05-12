@@ -9,6 +9,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 ![GitHub Release](https://img.shields.io/github/v/release/mrmagic2020/openrct2-dynamicdashboard?include_prereleases&style=flat-square)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mrmagic2020/openrct2-dynamicdashboard/total?style=flat-square)
+![Static Badge](https://img.shields.io/badge/Contributions-Welcome-%23EA4AAA?style=flat-square&logo=githubsponsors)
 
 ## Features (Preview)
 
@@ -20,6 +21,13 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 </details>
 
 <details open>
+<summary>Preview v1.0.0-pre.3</summary>
+
+![screenshot_v1.0.0-pre.3](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.3.png?raw=true)
+
+</details>
+
+<details>
 <summary>Preview v1.0.0-pre.2</summary>
 
 ![screenshot_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.2.png?raw=true)
@@ -28,12 +36,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 </details>
 
-<details>
-<summary>Preview v1.0.0-pre.1</summary>
-
-![screenshot_v1.0.0-pre.1](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.1.jpg?raw=true)
-
-</details>
+More screenshots for previous versions can be found [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard/tree/main/Assets).
 
 ## Installation
 
@@ -55,7 +58,7 @@ We're excited to have you here and appreciate your interest in contributing to o
 
 4. **Documentation:** Help insert comments to code, imrpove markdown files or fix typos.
 
-5. **Localisation:** Help us translate! Start by making a copy of [`en-US.ts`](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/src/languages/en-US.ts), renaming it according to the language code. Once finished, create a pull request!
+5. **Localisation:** Help us translate! Start by making a copy of [`en-GB.json`](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/src/languages/locale/en-GB.json) and renaming it according to the language code. Once finished, create a pull request!
 
 ---
 
