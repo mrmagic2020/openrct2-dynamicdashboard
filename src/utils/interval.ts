@@ -1,3 +1,6 @@
+import { baseData } from "../data/main"
+import { increment } from "./storeutil"
+
 interface FunctionInfo {
   ID: number
   func: Function
@@ -15,6 +18,28 @@ class IntervalManager {
   private paused: boolean = false
   private pausedOnManual: boolean = false
 
+  private counterInitialised: boolean = false
+  private counterID: number = -1
+
+  private initCounter(): void {
+    this.counterInitialised = true
+    this.counterID = context.setInterval(() => {
+      increment(baseData.local.options.countdown_progress.store)
+      if (
+        baseData.local.options.countdown_progress.store.get() >
+        baseData.global.update_ratio.get()
+      ) {
+        baseData.local.options.countdown_progress.store.set(1)
+      }
+    }, 1 * 1000)
+  }
+
+  private clearCounter(): void {
+    context.clearInterval(this.counterID)
+    this.counterInitialised = false
+    baseData.local.options.countdown_progress.store.set(0)
+  }
+
   static init(): IntervalManager {
     const interval = new IntervalManager()
     return interval
@@ -23,17 +48,23 @@ class IntervalManager {
   constructor() {}
 
   /**
-   * Registers a function to be executed at the specified interval.
+   * Registers a function to be executed at a specified interval.
+   *
    * @param func The function to be executed.
-   * @param interval The interval in milliseconds.
-   * @param pause_on_manual Whether the interval should be paused when update status is set to MANUAL. Functions like game time updates should not be paused.
-   * @returns The ID of the interval.
+   * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_ratio.get() * 1000`.
+   * @param pause_on_manual Specifies whether the interval should be paused when the user manually pauses the execution. Defaults to `true`.
+   * @returns The ID of the registered interval.
    */
   register(
     func: Function,
-    interval: number,
+    interval: number = baseData.global.update_ratio.get() * 1000,
     pause_on_manual: boolean = true
   ): number {
+    if (
+      !this.counterInitialised &&
+      interval === baseData.global.update_ratio.get() * 1000
+    )
+      this.initCounter()
     const ID = context.setInterval(func, interval)
     this.intervalIDs.push(ID)
     let info: FunctionInfo = {
@@ -67,6 +98,7 @@ class IntervalManager {
       if (f.paused) return
       context.clearInterval(f.ID)
     })
+    this.clearCounter()
     this.paused = true
   }
 
@@ -80,6 +112,7 @@ class IntervalManager {
       f.ID = id
       this.intervalIDs.push(id)
     })
+    this.initCounter()
     this.paused = false
   }
 
@@ -98,6 +131,7 @@ class IntervalManager {
     this.intervalIDs.forEach((id) => {
       context.clearInterval(id)
     })
+    this.counterInitialised = false
   }
 
   get isPaused(): boolean {

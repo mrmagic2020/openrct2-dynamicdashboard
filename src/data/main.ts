@@ -886,8 +886,13 @@ const baseData: BaseData = {
       update_status: {
         key: LOCAL + ".update_paused",
         store: store<number>(
-          // 0 for false, 1 for true
           context.getParkStorage().get(LOCAL + ".update_paused", 0)
+        )
+      },
+      countdown_progress: {
+        key: LOCAL + ".countdown_progress",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".countdown_progress", 0)
         )
       }
     }
@@ -934,6 +939,12 @@ function initData(): void {
   for (let key in baseData.local.guest) {
     baseData.local.guest[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.guest[key].key, value)
+    )
+  }
+
+  for (let key in baseData.local.options) {
+    baseData.local.options[key].store.subscribe((value) =>
+      context.getParkStorage().set(baseData.local.options[key].key, value)
     )
   }
 

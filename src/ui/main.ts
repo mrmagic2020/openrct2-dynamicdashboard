@@ -1,4 +1,6 @@
 import {
+  FlexiblePosition,
+  WidgetCreator,
   button,
   compute,
   groupbox,
@@ -18,13 +20,59 @@ import Data from "../data/index"
 /**
  * Whether the window is open.
  */
-let isOpen = false
+let isOpen: boolean = false
+
+let manualIndicatorLit: boolean = false
 
 function initMainMenu(): void {
   if (typeof ui !== "undefined") {
     ui.registerMenuItem(language.ui.main.title, menu)
   }
 }
+
+/**
+ * Creates an indicator widget based on the provided position.
+ * @param pos The position of the indicator.
+ * @returns A widget creator function that creates the indicator widget.
+ */
+function createIndicator(pos: number): WidgetCreator<FlexiblePosition> {
+  return button({
+    height: "25px",
+    image: compute(
+      baseData.local.options.update_status.store,
+      baseData.local.options.countdown_progress.store,
+      (v1, v2) => {
+        switch (v1) {
+          case Options.UpdateStatus.RUNNING:
+            if (pos <= v2 * (10 / baseData.global.update_ratio.get()))
+              return Sprites.INDICATOR_RUNNING_LIT
+            return Sprites.INDICATOR_RUNNING_UNLIT
+          case Options.UpdateStatus.MANUAL:
+            return manualIndicatorLit
+              ? Sprites.INDICATOR_MANUAL_LIT
+              : Sprites.INDICATOR_MANUAL_UNLIT
+          case Options.UpdateStatus.PAUSED:
+            return Sprites.INDICATOR_PAUSED_LIT
+          default:
+            return -1
+        }
+      }
+    )
+  })
+}
+
+const Indicators: WidgetCreator<FlexiblePosition>[] = [
+  createIndicator(1),
+  createIndicator(2),
+  createIndicator(3),
+  createIndicator(4),
+  createIndicator(5),
+  createIndicator(6),
+  createIndicator(7),
+  createIndicator(8),
+  createIndicator(9),
+  createIndicator(10)
+]
 
 /**
  * Open the main menu.
@@ -600,6 +648,7 @@ function menu(): void {
           groupbox({
             text: language.ui.main.groupbox.options.title,
             content: [
+              // Update Status
               horizontal({
                 content: [
                   button({
@@ -665,14 +714,41 @@ function menu(): void {
                   })
                 ]
               }),
+              // Sync Now Button
               horizontal({
                 content: [
                   button({
                     width: "25px",
                     height: "25px",
                     image: Sprites.SYNC_RELOAD,
+                    disabled: compute(
+                      baseData.local.options.update_status.store,
+                      (value) => value === Options.UpdateStatus.PAUSED
+                    ),
                     onClick: () => {
                       Data.updateAll()
+                      if (
+                        baseData.local.options.update_status.store.get() ===
+                        Options.UpdateStatus.MANUAL
+                      ) {
+                        manualIndicatorLit = true
+                        baseData.local.options.update_status.store.set(
+                          Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
+                        )
+                        context.setTimeout(() => {
+                          manualIndicatorLit = false
+                          baseData.local.options.update_status.store.set(
+                            Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
+                          )
+                        }, 1000 * 3)
+                      } else if (
+                        baseData.local.options.update_status.store.get() ===
+                        Options.UpdateStatus.RUNNING
+                      ) {
+                        // Reset the countdown progress when the sync now button is clicked.
+                        interval.pauseAll()
+                        interval.resumeAll()
+                      }
                     }
                   }),
                   label({
@@ -680,6 +756,10 @@ function menu(): void {
                     text: language.ui.main.label.options_sync_now
                   })
                 ]
+              }),
+              // Indicator Lights
+              horizontal({
+                content: Indicators
               })
             ]
           })
