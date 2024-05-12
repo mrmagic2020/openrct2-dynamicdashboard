@@ -9,6 +9,38 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.0-pre.3] - 2024-05-12
+
+### Added
+
+- Ride stats
+
+  - Average ride age (months)
+
+  - Average ride downtime (percent)
+
+- Options to pause statistic updates / manually update.
+
+- Light indicator for data update progress.
+
+- Localisation: new locale directory `src/languages/locale/`. Use `.json` files to store locales.
+
+### Deprecated
+
+- Localisation
+
+  - `.ts` language locales will be removed in the next release.
+
+  - `src/languages/index.ts` will be removed in the next release.
+
+### Removed
+
+- Remove language settings in the toolbox menu. Interface language changes with global user settings.
+
+### Fixed
+
+- Localisation: fallback to the default language when a key is missing in a specific language.
+
 ## [1.0.0-pre.2] - 2024-05-08
 
 ### Added
@@ -43,6 +75,7 @@ Initial release.
 
 <!-- Versions -->
 
-[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.1...HEAD
-[1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.1-pre.2
-[1.0.0-pre.1]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/tag/v1.0.0-pre.1
+[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[1.0.0-pre.3]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.3
+[1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.2
+[1.0.0-pre.1]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.1
