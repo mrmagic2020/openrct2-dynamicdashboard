@@ -16,27 +16,27 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 <details open>
 <summary>Feature Preview</summary>
 
-![feature-preview](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/release/Assets/Dashboard%20Structure.png?raw=true)
+![feature-preview](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Dashboard%20Structure.png?raw=true)
 
 </details>
 
 <details open>
 <summary>Preview v1.0.0-pre.3</summary>
 
-![screenshot_v1.0.0-pre.3](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/release/Assets/screenshot_v1.0.0-pre.3.png?raw=true)
+![screenshot_v1.0.0-pre.3](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.3.png?raw=true)
 
 </details>
 
 <details>
 <summary>Preview v1.0.0-pre.2</summary>
 
-![screenshot_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/release/Assets/screenshot_v1.0.0-pre.2.png?raw=true)
+![screenshot_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.2.png?raw=true)
 
-![screenshot_toolbox_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/release/Assets/screenshot_toolbox_v1.0.0-pre.2.png?raw=true)
+![screenshot_toolbox_v1.0.0-pre.2](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_toolbox_v1.0.0-pre.2.png?raw=true)
 
 </details>
 
-More screenshots for previous versions can be found [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard/tree/release/Assets).
+More screenshots for previous versions can be found [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard/tree/main/Assets).
 
 ## Installation
 
