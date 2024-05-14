@@ -7,10 +7,12 @@ namespace ParkAndScenarioData {
     baseData.local.park_and_scenario.park_value.store.set(park.value / 10)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
 
-    increment(branchData.local.park_and_scenario.park_rating_ave[0].store) // increase denominator by 1
+    increment(
+      branchData.local.park_and_scenario.park_rating_ave_sample_count.store
+    ) // increase denominator by 1
 
     increment(
-      branchData.local.park_and_scenario.park_rating_ave[1].store,
+      branchData.local.park_and_scenario.park_rating_ave.store,
       park.rating
     ) // add current rating to sum
   }
@@ -63,11 +65,12 @@ namespace ParkAndScenarioData {
     if (thisMonth !== date.month) {
       thisMonth = date.month
       increment(
-        branchData.local.park_and_scenario.park_rating_month_ave[0].store
+        branchData.local.park_and_scenario.park_rating_month_ave_sample_count
+          .store
       )
 
       increment(
-        branchData.local.park_and_scenario.park_rating_month_ave[1].store,
+        branchData.local.park_and_scenario.park_rating_month_ave.store,
         park.rating
       )
     }
@@ -78,11 +81,12 @@ namespace ParkAndScenarioData {
     if (thisYear !== date.year) {
       thisYear = date.year
       increment(
-        branchData.local.park_and_scenario.park_rating_year_ave[0].store
+        branchData.local.park_and_scenario.park_rating_year_ave_sample_count
+          .store
       )
 
       increment(
-        branchData.local.park_and_scenario.park_rating_year_ave[1].store,
+        branchData.local.park_and_scenario.park_rating_year_ave.store,
         park.rating
       )
     }
