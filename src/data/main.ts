@@ -823,14 +823,14 @@ function initData(): void {
   })
 
   for (let key in baseData.local.player) {
-    if (!baseData.local.player[key].saveToStorage) continue
+    if (baseData.local.player[key].saveToStorage) continue
     baseData.local.player[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.player[key].key, value)
     )
   }
 
   for (let key in baseData.local.park_and_scenario) {
-    if (!baseData.local.park_and_scenario[key].saveToStorage) continue
+    if (baseData.local.park_and_scenario[key].saveToStorage) continue
     baseData.local.park_and_scenario[key].store.subscribe((value) =>
       context
         .getParkStorage()
@@ -839,21 +839,21 @@ function initData(): void {
   }
 
   for (let key in baseData.local.rides) {
-    if (!baseData.local.rides[key].saveToStorage) continue
+    if (baseData.local.rides[key].saveToStorage) continue
     baseData.local.rides[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.rides[key].key, value)
     )
   }
 
   for (let key in baseData.local.guest) {
-    if (!baseData.local.guest[key].saveToStorage) continue
+    if (baseData.local.guest[key].saveToStorage) continue
     baseData.local.guest[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.guest[key].key, value)
     )
   }
 
   for (let key in baseData.local.options) {
-    if (!baseData.local.options[key].saveToStorage) continue
+    if (baseData.local.options[key].saveToStorage) continue
     baseData.local.options[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.options[key].key, value)
     )
