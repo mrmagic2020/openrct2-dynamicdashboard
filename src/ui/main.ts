@@ -814,14 +814,20 @@ function menu(): void {
                 text: compute(
                   baseData.local.rides.ride_value_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_value_ave + value.toString()
+                    tr(
+                      language.ui.main.label.ride_value_ave,
+                      getCurrencyUnit(value)
+                    )
                 )
               }),
               label({
                 text: compute(
                   baseData.local.rides.ride_price_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_price_ave + value.toString()
+                    tr(
+                      language.ui.main.label.ride_price_ave,
+                      getCurrencyUnit(value)
+                    )
                 )
               }),
               label({
@@ -902,7 +908,24 @@ function menu(): void {
                   button({
                     width: "25px",
                     height: "25px",
-                    tooltip: language.ui.main.tooltip.pause_update_button,
+                    tooltip: compute(
+                      baseData.local.options.update_status.store,
+                      (value) => {
+                        switch (value) {
+                          case Options.UpdateStatus.RUNNING:
+                            return language.ui.main.tooltip
+                              .options_update_running
+                          case Options.UpdateStatus.MANUAL:
+                            return language.ui.main.tooltip
+                              .options_update_manual
+                          case Options.UpdateStatus.PAUSED:
+                            return language.ui.main.tooltip
+                              .options_update_paused
+                          default:
+                            return ""
+                        }
+                      }
+                    ),
                     border: false,
                     image: compute(
                       baseData.local.options.update_status.store,

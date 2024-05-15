@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning].
 
 - Fix money format parsing issues.
 
+- Fix ride average value and price not showing currency units.
+
 ### Security
 
 ## [1.0.0-pre.3] - 2024-05-12
