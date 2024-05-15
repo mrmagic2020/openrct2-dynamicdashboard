@@ -108,7 +108,9 @@
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",
         "options_update_paused": "{TOPAZ}Paused",
-        "options_sync_now": "Sync now"
+        "options_sync_now": "Sync now",
+        "options_display_progress_bar": "Show progress bar",
+        "options_display_value": "Show value"
       },
       "tooltip": {
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
