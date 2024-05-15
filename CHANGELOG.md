@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+- Option to view guest stats as progress bars.
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+- Fix update indicators not syncing with actual data updates on startup.
+
+- Fix money format parsing issues.
+
+### Security
 
 ## [1.0.0-pre.3] - 2024-05-12
 
