@@ -114,7 +114,9 @@
       },
       "tooltip": {
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
-        "pause_update_button": "Pause/Resume the update of the dashboard. Any action happening during the pause will not be recorded."
+        "options_update_running": "Dynamic Dashboard is running and updating automatically.",
+        "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
+        "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
       }
     }
   }
