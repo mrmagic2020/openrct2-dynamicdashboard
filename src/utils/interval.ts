@@ -21,7 +21,8 @@ export class IntervalManager {
   private counterInitialised: boolean = false
   private counterID: number = -1
 
-  private initCounter(): void {
+  initCounter(): void {
+    if (this.counterInitialised) return
     this.counterInitialised = true
     this.counterID = context.setInterval(() => {
       increment(baseData.local.options.countdown_progress.store)
@@ -60,11 +61,6 @@ export class IntervalManager {
     interval: number = baseData.global.update_ratio.get() * 1000,
     pause_on_manual: boolean = true
   ): number {
-    if (
-      !this.counterInitialised &&
-      interval === baseData.global.update_ratio.get() * 1000
-    )
-      this.initCounter()
     const ID = context.setInterval(func, interval)
     this.intervalIDs.push(ID)
     let info: FunctionInfo = {
@@ -132,6 +128,11 @@ export class IntervalManager {
       context.clearInterval(id)
     })
     this.counterInitialised = false
+  }
+
+  syncCounter(): void {
+    this.pauseAll()
+    this.resumeAll()
   }
 
   get isPaused(): boolean {

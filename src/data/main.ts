@@ -3,6 +3,7 @@ import Options from "./options"
 
 interface DataEntry<T> {
   key: string
+  saveToStorage?: boolean
   store: WritableStore<T>
 }
 
@@ -789,9 +790,8 @@ const baseData: BaseData = {
       },
       countdown_progress: {
         key: LOCAL + ".countdown_progress",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".countdown_progress", 0)
-        )
+        saveToStorage: false,
+        store: store<number>(0)
       },
       display_mode: {
         key: LOCAL + ".display_mode",
@@ -823,12 +823,14 @@ function initData(): void {
   })
 
   for (let key in baseData.local.player) {
+    if (!baseData.local.player[key].saveToStorage) continue
     baseData.local.player[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.player[key].key, value)
     )
   }
 
   for (let key in baseData.local.park_and_scenario) {
+    if (!baseData.local.park_and_scenario[key].saveToStorage) continue
     baseData.local.park_and_scenario[key].store.subscribe((value) =>
       context
         .getParkStorage()
@@ -837,18 +839,21 @@ function initData(): void {
   }
 
   for (let key in baseData.local.rides) {
+    if (!baseData.local.rides[key].saveToStorage) continue
     baseData.local.rides[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.rides[key].key, value)
     )
   }
 
   for (let key in baseData.local.guest) {
+    if (!baseData.local.guest[key].saveToStorage) continue
     baseData.local.guest[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.guest[key].key, value)
     )
   }
 
   for (let key in baseData.local.options) {
+    if (!baseData.local.options[key].saveToStorage) continue
     baseData.local.options[key].store.subscribe((value) =>
       context.getParkStorage().set(baseData.local.options[key].key, value)
     )

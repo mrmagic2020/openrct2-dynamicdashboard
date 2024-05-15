@@ -1,3 +1,4 @@
+import interval from "../utils/interval"
 import { GuestData as GD } from "./guest"
 import { initData } from "./main"
 import { ParkAndScenarioData as PASD } from "./park_and_scenario"
@@ -27,6 +28,7 @@ namespace Data {
     ParkAndScenarioData.init()
     StallsAndFacilitiesData.init()
     RideData.init()
+    interval.initCounter()
   }
 }
 
