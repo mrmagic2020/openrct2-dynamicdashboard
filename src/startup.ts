@@ -1,6 +1,5 @@
 import { initCurrencyData } from "./data/currency"
 import { baseData } from "./data/main"
-// import { initLang } from "./languages"
 import { initLang_new } from "./languages/lang"
 import { initUI } from "./ui/ui"
 import Data from "./data"
