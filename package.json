@@ -1,6 +1,6 @@
 {
   "name": "openrct2-dynamicdashboard",
-  "version": "1.0.0-pre.3",
+  "version": "1.0.0-pre.4",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -23,11 +23,15 @@
     "typedoc": "^0.25.13"
   },
   "dependencies": {
-    "openrct2-flexui": "^0.1.0-prerelease.12"
+    "openrct2-flexui": "^0.1.0-prerelease.18"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrmagic2020/openrct2-dynamicdashboard"
+    "url": "git+https://github.com/mrmagic2020/openrct2-dynamicdashboard.git"
+  },
+  "homepage": "https://github.com/mrmagic2020/openrct2-dynamicdashboard#readme",
+  "bugs": {
+    "url": "https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues"
   },
   "contributors": [
     {

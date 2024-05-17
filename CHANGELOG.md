@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.0-pre.4] - 2024-05-17
+
+### Added
+
+- Add option to view guest stats as progress bars.
+
+### Fixed
+
+- Fix update indicators not syncing with actual data updates on startup.
+
+- Fix money format parsing issues.
+
+- Fix ride average value and price not showing currency units.
+
 ## [1.0.0-pre.3] - 2024-05-12
 
 ### Added
@@ -76,6 +90,7 @@ Initial release.
 <!-- Versions -->
 
 [unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[1.0.0-pre.4]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.4
 [1.0.0-pre.3]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.3
 [1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.2
 [1.0.0-pre.1]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.1

@@ -89,27 +89,32 @@ function getCurrencySymbol(): string {
  * formatMonkey(1000000, "."); // returns "1.000.000"
  */
 function formatMoney(value: number, separator: string = ","): string {
-  let value_s = value.toString()
+  if (isNaN(value)) return value.toString()
+  if (Math.abs(value) < 1000) return value.toString()
+
+  let value_s: string = value.toString()
+  const negative = value < 0
+  if (negative) value_s = value_s.slice(1)
 
   // Split the integer and decimal part
-  let integers = value_s.split(".")[0]
-  let decimals = value_s.split(".")[1]
+  const sliced: string[] = value_s.split(".")
+  const integers: string = sliced[0]
+  const decimals: string = sliced[1]
 
   /**
    * The array representation of the integer part.
    */
-  let integert_a = integers.split(".")[0].split("")
+  let integert_a: string[] = integers.split("")
 
   // Insert commas
-  let diff = 0
-  for (let i = 1; i < integers.length; i++) {
-    if ((value_s.length - i) % 3 === 0) {
-      integert_a.splice(i + diff, 0, separator)
-      diff++
-    }
+  for (let i = integert_a.length - 3; i > 0; i -= 3) {
+    integert_a.splice(i, 0, separator)
   }
 
-  return integert_a.join("").concat(decimals ? "." + decimals : "")
+  return (
+    (negative ? "-" : "") +
+    integert_a.join("").concat(decimals ? "." + decimals : "")
+  )
 }
 
 /**

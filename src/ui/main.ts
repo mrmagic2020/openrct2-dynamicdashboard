@@ -1,4 +1,5 @@
 import {
+  Colour,
   FlexiblePosition,
   WidgetCreator,
   button,
@@ -13,9 +14,10 @@ import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import { getCurrencyUnit } from "../data/currency"
 import interval from "../utils/interval"
-import Sprites from "./sprites"
+import Sprites from "./custom/sprites"
 import Options from "../data/options"
 import Data from "../data/index"
+import { progressBar } from "./custom/progress_bar"
 
 /**
  * Whether the window is open.
@@ -37,7 +39,7 @@ function initMainMenu(): void {
  */
 function createIndicator(pos: number): WidgetCreator<FlexiblePosition> {
   return button({
-    height: "25px",
+    height: "20px",
     image: compute(
       baseData.local.options.update_status.store,
       baseData.local.options.countdown_progress.store,
@@ -89,12 +91,11 @@ function menu(): void {
     // Accomodate more statistics when playing in servers.
     height: network.mode === "none" ? 500 : 570,
     position: "center",
-    // direction: LayoutDirection.Horizontal,
     content: [
       horizontal([
         vertical([
+          // Player
           groupbox({
-            // Player
             text: language.ui.main.groupbox.player.title,
             // width: "30%",
             content: [
@@ -210,8 +211,8 @@ function menu(): void {
               })
             ]
           }),
+          // Guest
           groupbox({
-            // Guest
             text: language.ui.main.groupbox.guest.title,
             // width: "40%",
             content: [
@@ -263,55 +264,300 @@ function menu(): void {
                     )
                 )
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_happiness_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_happiness_ave +
-                    value.toString()
-                )
+              // Guest happiness average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_happiness_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_happiness_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_happiness_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_happiness_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_happiness_ave.store,
+                      (value) => {
+                        if (value / 255 < 0.5) return Colour.BrightRed
+                        return Colour.BrightGreen
+                      }
+                    )
+                  })
+                ]
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_energy_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_energy_ave + value.toString()
-                )
+              // Guest energy average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_energy_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_energy_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_energy_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_energy_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_energy_ave.store,
+                      (value) => {
+                        if (value / 255 < 0.5) return Colour.BrightRed
+                        return Colour.BrightGreen
+                      }
+                    )
+                  })
+                ]
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_nausea_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_nausea_ave + value.toString()
-                )
+              // Guest nausea average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_nausea_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_nausea_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_nausea_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_nausea_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_nausea_ave.store,
+                      (value) => {
+                        if (value / 255 < 0.5) return Colour.BrightGreen
+                        return Colour.BrightRed
+                      }
+                    )
+                  })
+                ]
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_hunger_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_hunger_ave + value.toString()
-                )
+              // Guest hunger average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_hunger_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_hunger_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_hunger_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_hunger_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_hunger_ave.store,
+                      (value) => {
+                        if (value / 255 > 0.5) return Colour.BrightRed
+                        return Colour.BrightGreen
+                      }
+                    )
+                  })
+                ]
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_thirst_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_thirst_ave + value.toString()
-                )
+              // Guest thirst average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_thirst_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_thirst_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_thirst_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_thirst_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_thirst_ave.store,
+                      (value) => {
+                        if (value / 255 > 0.5) return Colour.BrightRed
+                        return Colour.BrightGreen
+                      }
+                    )
+                  })
+                ]
               }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_toilet_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_toilet_ave + value.toString()
-                )
+              // Guest toilet average
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_toilet_ave.store,
+                      baseData.local.options.display_mode.store,
+                      (value, mode) => {
+                        switch (mode) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label.guest_toilet_ave
+                          case Options.DisplayMode.VALUE:
+                            return (
+                              language.ui.main.label.guest_toilet_ave +
+                              value.toString()
+                            )
+                          default:
+                            return ""
+                        }
+                      }
+                    )
+                  }),
+                  progressBar({
+                    visibility: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        return value === Options.DisplayMode.PROGRESS_BAR
+                          ? "visible"
+                          : "none"
+                      }
+                    ),
+                    percentFilled: compute(
+                      baseData.local.guest.guest_toilet_ave.store,
+                      (value) => {
+                        return value / 255
+                      }
+                    ),
+                    background: Colour.Grey,
+                    foreground: compute(
+                      baseData.local.guest.guest_toilet_ave.store,
+                      (value) => {
+                        if (value / 255 > 0.5) return Colour.BrightRed
+                        return Colour.BrightGreen
+                      }
+                    )
+                  })
+                ]
               })
             ]
           })
         ]),
         vertical([
+          // Park & Scenario
           groupbox({
-            // Park & Scenario
             text: language.ui.main.groupbox.park_and_scenario.title,
             // width: "40%",
             height: "50%",
@@ -470,6 +716,7 @@ function menu(): void {
               })
             ]
           }),
+          // Stalls & Facilities
           groupbox({
             text: language.ui.main.groupbox.stalls_and_facilities.title,
             height: "25%",
@@ -512,8 +759,8 @@ function menu(): void {
           })
         ]),
         vertical([
+          // Rides
           groupbox({
-            // Rides
             text: language.ui.main.groupbox.rides.title,
             // width: "30%",
             content: [
@@ -567,14 +814,20 @@ function menu(): void {
                 text: compute(
                   baseData.local.rides.ride_value_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_value_ave + value.toString()
+                    tr(
+                      language.ui.main.label.ride_value_ave,
+                      getCurrencyUnit(value)
+                    )
                 )
               }),
               label({
                 text: compute(
                   baseData.local.rides.ride_price_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_price_ave + value.toString()
+                    tr(
+                      language.ui.main.label.ride_price_ave,
+                      getCurrencyUnit(value)
+                    )
                 )
               }),
               label({
@@ -645,6 +898,7 @@ function menu(): void {
               })
             ]
           }),
+          // Options
           groupbox({
             text: language.ui.main.groupbox.options.title,
             content: [
@@ -654,7 +908,24 @@ function menu(): void {
                   button({
                     width: "25px",
                     height: "25px",
-                    tooltip: language.ui.main.tooltip.pause_update_button,
+                    tooltip: compute(
+                      baseData.local.options.update_status.store,
+                      (value) => {
+                        switch (value) {
+                          case Options.UpdateStatus.RUNNING:
+                            return language.ui.main.tooltip
+                              .options_update_running
+                          case Options.UpdateStatus.MANUAL:
+                            return language.ui.main.tooltip
+                              .options_update_manual
+                          case Options.UpdateStatus.PAUSED:
+                            return language.ui.main.tooltip
+                              .options_update_paused
+                          default:
+                            return ""
+                        }
+                      }
+                    ),
                     border: false,
                     image: compute(
                       baseData.local.options.update_status.store,
@@ -746,14 +1017,57 @@ function menu(): void {
                         Options.UpdateStatus.RUNNING
                       ) {
                         // Reset the countdown progress when the sync now button is clicked.
-                        interval.pauseAll()
-                        interval.resumeAll()
+                        interval.syncCounter()
                       }
                     }
                   }),
                   label({
                     padding: ["5px", "0px", "0px", "0px"],
                     text: language.ui.main.label.options_sync_now
+                  })
+                ]
+              }),
+              // Toggle progress bar / exact values
+              horizontal({
+                content: [
+                  button({
+                    width: "25px",
+                    height: "25px",
+                    image: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        switch (value) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return Sprites.SHOW_PROGRESS_BAR
+                          case Options.DisplayMode.VALUE:
+                            return Sprites.SHOW_VALUE
+                          default:
+                            return -1
+                        }
+                      }
+                    ),
+                    onClick: () => {
+                      baseData.local.options.display_mode.store.set(
+                        (baseData.local.options.display_mode.store.get() + 1) %
+                          2
+                      )
+                    }
+                  }),
+                  label({
+                    text: compute(
+                      baseData.local.options.display_mode.store,
+                      (value) => {
+                        switch (value) {
+                          case Options.DisplayMode.PROGRESS_BAR:
+                            return language.ui.main.label
+                              .options_display_progress_bar
+                          case Options.DisplayMode.VALUE:
+                            return language.ui.main.label.options_display_value
+                          default:
+                            return ""
+                        }
+                      }
+                    )
                   })
                 ]
               }),
