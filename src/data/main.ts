@@ -1,5 +1,5 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
-import Options from "./options"
+import { Options } from "./options"
 
 interface DataEntry<T> {
   key: string
@@ -27,6 +27,7 @@ interface BaseData {
     stalls_and_facilities: DataSet<number>
     rides: DataSet<number>
     guest: DataSet<number>
+    finance: DataSet<number>
     options: DataSet<number>
   }
 }
@@ -37,6 +38,7 @@ interface BranchData {
     park_and_scenario: DataSet<number>
     rides: DataSet<number>
     guest: DataSet<number>
+    finance: DataSet<number>
   }
 }
 
@@ -215,6 +217,19 @@ const branchData: BranchData = {
           context.getParkStorage().get(BRANCH + ".guest_toilet_ave_sum", 0)
         )
       }
+    },
+    finance: {
+      income_player_action: {
+        key: BRANCH + ".income_player_action",
+        store: store<number>(
+          context.getParkStorage().get(BRANCH + ".income_player_action", 0)
+        )
+      },
+      income_park: {
+        key: BRANCH + ".income_park",
+        temporary: true,
+        store: store<number>(0)
+      }
     }
   }
 }
@@ -336,9 +351,8 @@ const baseData: BaseData = {
       },
       park_rating: {
         key: LOCAL + ".park_rating",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_rating", 999)
-        )
+        temporary: true,
+        store: store<number>(park.rating)
       },
       /**
        * Average stores are computed from two branch stores.
@@ -380,136 +394,80 @@ const baseData: BaseData = {
 
       entity_count_total: {
         key: LOCAL + ".entity_count_total",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(LOCAL + ".entity_count_total", map.numEntities)
-        )
+        temporary: true,
+        store: store<number>(map.numEntities)
       },
       entity_count_guest: {
         key: LOCAL + ".entity_count_guest",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_guest",
-              map.getAllEntities("guest").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("guest").length)
       },
       entity_count_staff: {
         key: LOCAL + ".entity_count_staff",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_staff",
-              map.getAllEntities("staff").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("staff").length)
       },
       entity_count_balloon: {
         key: LOCAL + ".entity_count_balloon",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_balloon",
-              map.getAllEntities("balloon").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("balloon").length)
       },
       entity_count_duck: {
         key: LOCAL + ".entity_count_duck",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_duck",
-              map.getAllEntities("duck").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("duck").length)
       },
       entity_count_litter: {
         key: LOCAL + ".entity_count_litter",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_litter",
-              map.getAllEntities("litter").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("litter").length)
       },
 
       reseach_invented_items: {
         key: LOCAL + ".research_invented_items",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".research_invented_items",
-              park.research.inventedItems.length
-            )
-        )
+        temporary: true,
+        store: store<number>(park.research.inventedItems.length)
       },
       reseach_uninvented_items: {
         key: LOCAL + ".reseach_uninvented_items",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".reseach_uninvented_items",
-              park.research.uninventedItems.length
-            )
-        )
+        temporary: true,
+        store: store<number>(park.research.uninventedItems.length)
       }
     },
     stalls_and_facilities: {
       stalls_and_facilities_count_total: {
         key: LOCAL + ".stalls_and_facilities_count_total",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(LOCAL + ".stalls_and_facilities_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       stalls_count_total: {
         key: LOCAL + ".stalls_count_total",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".stalls_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       facilities_count_total: {
         key: LOCAL + ".facilities_count_total",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".facilities_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       }
     },
     rides: {
       ride_count_total: {
         key: LOCAL + ".ride_count_total",
+        temporary: true,
         store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".ride_count_total",
-              map.rides.filter((ride) => ride.classification === "ride").length
-            )
+          map.rides.filter((ride) => ride.classification === "ride").length
         )
       },
       ride_count_flat: {
         key: LOCAL + ".ride_count_flat",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".ride_count_flat", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       ride_count_tracked: {
         key: LOCAL + ".ride_count_tracked",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".ride_count_tracked", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
 
       crash_count_total: {
@@ -657,15 +615,13 @@ const baseData: BaseData = {
       },
       guest_count_current: {
         key: LOCAL + ".guest_count_current",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".guest_count_current", 0)
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("guest").length)
       },
       guest_soft_cap: {
         key: LOCAL + ".guest_soft_cap",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".guest_soft_cap", 0)
-        )
+        temporary: true,
+        store: store<number>(park.suggestedGuestMaximum)
       },
       guest_weight_ave: {
         key: LOCAL + ".guest_weight_ave",
@@ -781,6 +737,35 @@ const baseData: BaseData = {
         )
       }
     },
+    finance: {
+      total_income: {
+        key: LOCAL + ".total_income",
+        temporary: true,
+        store: compute(
+          branchData.local.finance.income_player_action.store,
+          branchData.local.finance.income_park.store,
+          (player, park) => {
+            return player + park
+          }
+        )
+      },
+      total_expenditure: {
+        key: LOCAL + ".total_expenditure",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".total_expenditure", 0)
+        )
+      },
+      total_profit: {
+        key: LOCAL + ".total_profit",
+        temporary: true, // computed at runtime from total_income and total_expenditure
+        store: store<number>(0)
+      },
+      company_value: {
+        key: LOCAL + ".company_value",
+        temporary: true,
+        store: store<number>(park.companyValue)
+      }
+    },
     options: {
       update_status: {
         key: LOCAL + ".update_paused",
@@ -803,6 +788,52 @@ const baseData: BaseData = {
       }
     }
   }
+}
+
+/**
+ * Subscribes to the map change event and restore stored data after entering new scenario.
+ *
+ * **Important:**
+ * Intransient plugins remained loaded all the time,
+ * thus all the data need to be reset after quitting a scenario.
+ *
+ * @returns {void}
+ */
+function onMapChanged(): void {
+  context.subscribe("map.changed", () => {
+    if (context.mode === "normal") {
+      console.log("New scenario.")
+      for (let key in baseData.local.player) {
+        baseData.local.player[key].store.set(
+          context.getParkStorage().get(baseData.local.player[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.park_and_scenario) {
+        baseData.local.park_and_scenario[key].store.set(
+          context
+            .getParkStorage()
+            .get(baseData.local.park_and_scenario[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.stalls_and_facilities) {
+        baseData.local.stalls_and_facilities[key].store.set(
+          context
+            .getParkStorage()
+            .get(baseData.local.stalls_and_facilities[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.rides) {
+        baseData.local.rides[key].store.set(
+          context.getParkStorage().get(baseData.local.rides[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.guest) {
+        baseData.local.guest[key].store.set(
+          context.getParkStorage().get(baseData.local.guest[key].key, 0)
+        )
+      }
+    }
+  })
 }
 
 /**
@@ -852,6 +883,13 @@ function initData(): void {
     )
   }
 
+  for (let key in baseData.local.finance) {
+    if (baseData.local.finance[key].temporary) continue
+    baseData.local.finance[key].store.subscribe((value) =>
+      context.getParkStorage().set(baseData.local.finance[key].key, value)
+    )
+  }
+
   for (let key in baseData.local.options) {
     if (baseData.local.options[key].temporary) continue
     baseData.local.options[key].store.subscribe((value) =>
@@ -870,6 +908,8 @@ function initData(): void {
       context.getParkStorage().set(key, value)
     )
   }
+
+  onMapChanged()
 }
 
 export {

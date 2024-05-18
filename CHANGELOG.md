@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.0-pre.5] - 2024-05-18
+
+### Added
+
+- Add shortcut key to open Dynamic Dashboard. Default is `SHIFT+D`.
+
+- Add new statistics group: Finance.
+
+  - Total Income.
+
+  - Total Expenditure.
+
+  - Company Value.
+
+### Fixed
+
+- Fix ride average price appearing 10 times bigger than actual.
+
+- Fix guest energy progress bar always below half.
+
+- Fix monthly & yearly park rating average not calculating properly.
+
+- Fix groupbox alignment issues.
+
+- General speed optimisations.
+
 ## [1.0.0-pre.4] - 2024-05-17
 
 ### Added
@@ -90,6 +116,7 @@ Initial release.
 <!-- Versions -->
 
 [unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[1.0.0-pre.5]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.5
 [1.0.0-pre.4]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.4
 [1.0.0-pre.3]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.3
 [1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.2

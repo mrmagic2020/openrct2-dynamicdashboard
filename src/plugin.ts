@@ -4,7 +4,7 @@ import { startup } from "./startup"
 
 registerPlugin({
   name: "dynamicdashboard",
-  version: "1.0.0-pre.3",
+  version: "1.0.0-pre.5",
   authors: ["mrmagic2020"],
   type: "intransient",
   licence: "MIT",
