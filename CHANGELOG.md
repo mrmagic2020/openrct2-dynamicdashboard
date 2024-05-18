@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning].
 
 - Add shortcut key to open Dynamic Dashboard. Default is `SHIFT+D`.
 
+- Add new statistics group: Finance.
+
+  - Total Income.
+
+  - Total Expenditure.
+
+  - Company Value.
+
 ### Changed
 
 ### Deprecated
@@ -24,6 +32,8 @@ and this project adheres to [Semantic Versioning].
 - Fix guest energy progress bar always below half.
 
 - Fix monthly & yearly park rating average not calculating properly.
+
+- Fix groupbox alignment issues.
 
 - General speed optimisations.
 
