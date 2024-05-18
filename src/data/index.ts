@@ -5,6 +5,7 @@ import { ParkAndScenarioData as PASD } from "./park_and_scenario"
 import { PlayerData as PD } from "./player"
 import { RideData as RD } from "./rides"
 import { SFData as SAFD } from "./stalls_and_facilities"
+import { Options as OPT } from "./options"
 
 namespace Data {
   export import GuestData = GD
@@ -12,6 +13,7 @@ namespace Data {
   export import PlayerData = PD
   export import RideData = RD
   export import SFData = SAFD
+  export import Options = OPT
 
   export function updateAll(): void {
     PlayerData.update()

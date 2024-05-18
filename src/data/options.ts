@@ -14,4 +14,4 @@ namespace Options {
   }
 }
 
-export default Options
+export { Options }

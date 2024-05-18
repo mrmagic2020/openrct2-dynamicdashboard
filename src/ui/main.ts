@@ -15,7 +15,6 @@ import { baseData } from "../data/main"
 import { getCurrencyUnit } from "../data/currency"
 import interval from "../utils/interval"
 import Sprites from "./custom/sprites"
-import Options from "../data/options"
 import Data from "../data/index"
 import { progressBar } from "./custom/progress_bar"
 import { GuestData } from "../data/guest"
@@ -48,15 +47,15 @@ function createIndicator(pos: number): WidgetCreator<FlexiblePosition> {
       baseData.local.options.countdown_progress.store,
       (v1, v2) => {
         switch (v1) {
-          case Options.UpdateStatus.RUNNING:
+          case Data.Options.UpdateStatus.RUNNING:
             if (pos <= v2 * (10 / baseData.global.update_ratio.get()))
               return Sprites.INDICATOR_RUNNING_LIT
             return Sprites.INDICATOR_RUNNING_UNLIT
-          case Options.UpdateStatus.MANUAL:
+          case Data.Options.UpdateStatus.MANUAL:
             return manualIndicatorLit
               ? Sprites.INDICATOR_MANUAL_LIT
               : Sprites.INDICATOR_MANUAL_UNLIT
-          case Options.UpdateStatus.PAUSED:
+          case Data.Options.UpdateStatus.PAUSED:
             return Sprites.INDICATOR_PAUSED_LIT
           default:
             return -1
@@ -276,9 +275,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_happiness_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_happiness_ave +
                               value.toString()
@@ -293,7 +292,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -325,9 +324,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_energy_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_energy_ave +
                               value.toString()
@@ -342,7 +341,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -374,9 +373,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_nausea_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_nausea_ave +
                               value.toString()
@@ -391,7 +390,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -423,9 +422,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_hunger_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_hunger_ave +
                               value.toString()
@@ -440,7 +439,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -472,9 +471,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_thirst_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_thirst_ave +
                               value.toString()
@@ -489,7 +488,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -521,9 +520,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value, mode) => {
                         switch (mode) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_toilet_ave
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_toilet_ave +
                               value.toString()
@@ -538,7 +537,7 @@ function menu(): void {
                     visibility: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
-                        return value === Options.DisplayMode.PROGRESS_BAR
+                        return value === Data.Options.DisplayMode.PROGRESS_BAR
                           ? "visible"
                           : "none"
                       }
@@ -921,13 +920,13 @@ function menu(): void {
                       baseData.local.options.update_status.store,
                       (value) => {
                         switch (value) {
-                          case Options.UpdateStatus.RUNNING:
+                          case Data.Options.UpdateStatus.RUNNING:
                             return language.ui.main.tooltip
                               .options_update_running
-                          case Options.UpdateStatus.MANUAL:
+                          case Data.Options.UpdateStatus.MANUAL:
                             return language.ui.main.tooltip
                               .options_update_manual
-                          case Options.UpdateStatus.PAUSED:
+                          case Data.Options.UpdateStatus.PAUSED:
                             return language.ui.main.tooltip
                               .options_update_paused
                           default:
@@ -940,11 +939,11 @@ function menu(): void {
                       baseData.local.options.update_status.store,
                       (value) => {
                         switch (value) {
-                          case Options.UpdateStatus.RUNNING:
+                          case Data.Options.UpdateStatus.RUNNING:
                             return Sprites.SYNC_RUNNING
-                          case Options.UpdateStatus.MANUAL:
+                          case Data.Options.UpdateStatus.MANUAL:
                             return Sprites.SYNC_MANUAL
-                          case Options.UpdateStatus.PAUSED:
+                          case Data.Options.UpdateStatus.PAUSED:
                             return Sprites.SYNC_PAUSED
                           default:
                             return -1
@@ -953,20 +952,20 @@ function menu(): void {
                     ),
                     onClick: () => {
                       baseData.local.options.update_status.store.set(
-                        Options.UpdateStatus.next(
+                        Data.Options.UpdateStatus.next(
                           baseData.local.options.update_status.store.get()
                         )
                       )
                       switch (
                         baseData.local.options.update_status.store.get()
                       ) {
-                        case Options.UpdateStatus.RUNNING:
+                        case Data.Options.UpdateStatus.RUNNING:
                           interval.resumeAll()
                           break
-                        case Options.UpdateStatus.MANUAL:
+                        case Data.Options.UpdateStatus.MANUAL:
                           interval.pauseManual()
                           break
-                        case Options.UpdateStatus.PAUSED:
+                        case Data.Options.UpdateStatus.PAUSED:
                           interval.pauseAll()
                           break
                         default:
@@ -980,11 +979,11 @@ function menu(): void {
                       baseData.local.options.update_status.store,
                       (value) => {
                         switch (value) {
-                          case Options.UpdateStatus.RUNNING:
+                          case Data.Options.UpdateStatus.RUNNING:
                             return language.ui.main.label.options_update_running
-                          case Options.UpdateStatus.MANUAL:
+                          case Data.Options.UpdateStatus.MANUAL:
                             return language.ui.main.label.options_update_manual
-                          case Options.UpdateStatus.PAUSED:
+                          case Data.Options.UpdateStatus.PAUSED:
                             return language.ui.main.label.options_update_paused
                           default:
                             return ""
@@ -1003,27 +1002,27 @@ function menu(): void {
                     image: Sprites.SYNC_RELOAD,
                     disabled: compute(
                       baseData.local.options.update_status.store,
-                      (value) => value === Options.UpdateStatus.PAUSED
+                      (value) => value === Data.Options.UpdateStatus.PAUSED
                     ),
                     onClick: () => {
                       Data.updateAll()
                       if (
                         baseData.local.options.update_status.store.get() ===
-                        Options.UpdateStatus.MANUAL
+                        Data.Options.UpdateStatus.MANUAL
                       ) {
                         manualIndicatorLit = true
                         baseData.local.options.update_status.store.set(
-                          Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
+                          Data.Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
                         )
                         context.setTimeout(() => {
                           manualIndicatorLit = false
                           baseData.local.options.update_status.store.set(
-                            Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
+                            Data.Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
                           )
                         }, 1000 * 3)
                       } else if (
                         baseData.local.options.update_status.store.get() ===
-                        Options.UpdateStatus.RUNNING
+                        Data.Options.UpdateStatus.RUNNING
                       ) {
                         // Reset the countdown progress when the sync now button is clicked.
                         interval.syncCounter()
@@ -1046,9 +1045,9 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value) => {
                         switch (value) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return Sprites.SHOW_PROGRESS_BAR
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return Sprites.SHOW_VALUE
                           default:
                             return -1
@@ -1067,10 +1066,10 @@ function menu(): void {
                       baseData.local.options.display_mode.store,
                       (value) => {
                         switch (value) {
-                          case Options.DisplayMode.PROGRESS_BAR:
+                          case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label
                               .options_display_progress_bar
-                          case Options.DisplayMode.VALUE:
+                          case Data.Options.DisplayMode.VALUE:
                             return language.ui.main.label.options_display_value
                           default:
                             return ""
