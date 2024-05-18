@@ -11,6 +11,26 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mrmagic2020/openrct2-dynamicdashboard/total?style=flat-square)
 ![Static Badge](https://img.shields.io/badge/Contributions-Welcome-%23EA4AAA?style=flat-square&logo=githubsponsors)
 
+## Contents
+
+- [Features](#features-preview)
+
+- [Installation](#installation)
+
+- [Usage](#usage)
+
+  - [Update Mode](#update-mode)
+
+  - [Sync Now](#sync-now)
+
+  - [Show Progress Bar / Value](#show-progress-bar--value)
+
+  - [Indicators](#indicators)
+
+  - [Update Frequency](#update-frequency)
+
+- [Contributing](#contributing)
+
 ## Features (Preview)
 
 <details open>
@@ -85,7 +105,7 @@ The update frequency can be customised via global settings, found in the toolbox
 ![toolbox_menu_item](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu_item.png?raw=true)
 ![toolbox_menu](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu.png?raw=true)
 
-## Contribution
+## Contributing
 
 We're excited to have you here and appreciate your interest in contributing to our OpenRCT2 plugin project, whether you're a seasoned developer, a passionate designer, or simply an avid fan. Here are a few ways you can contribute:
 
