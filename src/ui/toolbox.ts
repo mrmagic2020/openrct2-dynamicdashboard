@@ -8,9 +8,7 @@ import { baseData } from "../data/main"
 let isOpen = false
 
 function initToolboxMenu(): void {
-  if (typeof ui !== "undefined") {
-    ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
-  }
+  ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
 }
 
 /**

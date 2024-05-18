@@ -7,6 +7,7 @@ import { initToolboxMenu } from "./toolbox"
  * @returns {void}
  */
 function initUI(): void {
+  if (typeof ui === "undefined") return
   initMainMenu()
   initToolboxMenu()
 }

@@ -28,9 +28,7 @@ let isOpen: boolean = false
 let manualIndicatorLit: boolean = false
 
 function initMainMenu(): void {
-  if (typeof ui !== "undefined") {
-    ui.registerMenuItem(language.ui.main.title, menu)
-  }
+  ui.registerMenuItem(language.ui.main.title, menu)
 }
 
 /**
