@@ -38,6 +38,7 @@ interface BranchData {
     park_and_scenario: DataSet<number>
     rides: DataSet<number>
     guest: DataSet<number>
+    finance: DataSet<number>
   }
 }
 
@@ -215,6 +216,19 @@ const branchData: BranchData = {
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".guest_toilet_ave_sum", 0)
         )
+      }
+    },
+    finance: {
+      income_player_action: {
+        key: BRANCH + ".income_player_action",
+        store: store<number>(
+          context.getParkStorage().get(BRANCH + ".income_player_action", 0)
+        )
+      },
+      income_park: {
+        key: BRANCH + ".income_park",
+        temporary: true,
+        store: store<number>(0)
       }
     }
   }
@@ -726,8 +740,13 @@ const baseData: BaseData = {
     finance: {
       total_income: {
         key: LOCAL + ".total_income",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".total_income", 0)
+        temporary: true,
+        store: compute(
+          branchData.local.finance.income_player_action.store,
+          branchData.local.finance.income_park.store,
+          (player, park) => {
+            return player + park
+          }
         )
       },
       total_expenditure: {

@@ -31,6 +31,9 @@
         "guest": {
           "title": "{PALEGOLD}Guest"
         },
+        "finance": {
+          "title": "{PALEGOLD}Finance"
+        },
         "options": {
           "title": "{YELLOW}Options"
         }
@@ -104,6 +107,11 @@
         "guest_hunger_ave": "Average Hunger: {PALESILVER}",
         "guest_thirst_ave": "Average Thirst: {PALESILVER}",
         "guest_toilet_ave": "Average Toilet: {PALESILVER}",
+
+        "finance_total_income": "Total Income: {PALESILVER}<NUMBER&UNIT>",
+        "finance_total_expenditure": "Total Expenditure: {PALESILVER}<NUMBER&UNIT>",
+        "finance_total_profit": "Total Profit: {PALESILVER}<NUMBER&UNIT>",
+        "finance_company_value": "Company Value: {PALESILVER}<NUMBER&UNIT>",
 
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",

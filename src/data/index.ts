@@ -6,6 +6,7 @@ import { PlayerData as PD } from "./player"
 import { RideData as RD } from "./rides"
 import { SFData as SAFD } from "./stalls_and_facilities"
 import { Options as OPT } from "./options"
+import { FinanceData } from "./finance"
 
 namespace Data {
   export import GuestData = GD
@@ -21,6 +22,7 @@ namespace Data {
     ParkAndScenarioData.update()
     SFData.update()
     RideData.update()
+    FinanceData.update()
   }
 
   export function init() {
@@ -30,6 +32,7 @@ namespace Data {
     ParkAndScenarioData.init()
     SFData.init()
     RideData.init()
+    FinanceData.init()
     interval.initCounter()
   }
 }

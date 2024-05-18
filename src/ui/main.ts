@@ -727,7 +727,7 @@ function menu(): void {
           // Stalls & Facilities
           groupbox({
             text: language.ui.main.groupbox.stalls_and_facilities.title,
-            height: "25%",
+            height: "10%",
             content: [
               horizontal([
                 label({
@@ -759,6 +759,43 @@ function menu(): void {
                   )
                 })
               ])
+            ]
+          }),
+          // Finance
+          groupbox({
+            text: language.ui.main.groupbox.finance.title,
+            height: "40%",
+            content: [
+              label({
+                text: compute(
+                  baseData.local.finance.total_income.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.finance_total_income,
+                      getCurrencyUnit(value)
+                    )
+                )
+              }),
+              label({
+                text: compute(
+                  baseData.local.finance.total_expenditure.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.finance_total_expenditure,
+                      getCurrencyUnit(value)
+                    )
+                )
+              }),
+              label({
+                text: compute(
+                  baseData.local.finance.company_value.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.finance_company_value,
+                      getCurrencyUnit(value)
+                    )
+                )
+              })
             ]
           })
         ]),
