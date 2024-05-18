@@ -1,5 +1,5 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
-import Data from "."
+import { Options } from "./options"
 
 interface DataEntry<T> {
   key: string
@@ -764,7 +764,7 @@ const baseData: BaseData = {
         store: store<number>(
           context
             .getParkStorage()
-            .get(LOCAL + ".display_mode", Data.Options.DisplayMode.VALUE)
+            .get(LOCAL + ".display_mode", Options.DisplayMode.VALUE)
         )
       }
     }
