@@ -27,8 +27,6 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 </details>
 
-More screenshots for previous versions can be found [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard/tree/main/Assets).
-
 ## Installation
 
 1. Download the latest release [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/latest).
@@ -36,6 +34,56 @@ More screenshots for previous versions can be found [here](https://github.com/mr
 2. Drag `dynamicdashboard.js` into the plugin folder of OpenRCT2.
 
 3. Enjoy the stats!
+
+## Usage
+
+**Shortcut Key:** Press `SHIFT+D` to open dynamic dashboard. Customisable in OpenRCT2 game options.
+
+### Update Mode
+
+With each click of the button, dynamic dashboard iterates through the following modes.
+
+| Mode                                                                                                                        | Description                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![update_running](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_running.png?raw=true) | All statistics will update automatically, or [Sync Now](#sync-now) at any time.                                                                                                                                                                                                              |
+| ![update_manual](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_manual.png?raw=true)   | Statistics that are obtained by reading map values (e.g. entity count, guest stats, park ratings) will be paused. Statistics based on detecting game events (e.g. player action, guest generation, ride crashes) will continue to update. Manually update by pressing [Sync Now](#sync-now). |
+| ![update_paused](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_paused.png?raw=true)   | All statistics will cease to update.                                                                                                                                                                                                                                                         |
+
+### Sync Now
+
+![sync_now_enabled](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/sync_now_enabled.png?raw=true)
+![sync_now_disabled](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/sync_now_disabled.png?raw=true)
+
+Use this button to update statistics manually. Disabled when [Update Mode](#update-mode) is set to `Paused`.
+
+### Show Progress Bar / Value
+
+![show_progressbar](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/show_progressbar.png?raw=true)
+![show_value](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/show_value.png?raw=true)
+
+Toggles progress bar / exact value display for applicable statistics (currently supports guest stats).
+
+### Indicators
+
+![indicators_running](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_running.png?raw=true)
+
+Seen when [Update Mode](#update-mode) is set to `Running`. Statistics are updated when all lights turn green (at least it is intended to do so).
+
+![indicators_manual_idle](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_manual_idle.png?raw=trueg)
+![indicators_manual_activated](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_manual_activated.png?raw=true)
+
+Seen when [Update Mode](#update-mode) is set to `Manual`. All lights flash yellow when [Sync Now](#sync-now) is pressed.
+
+![indicator_paused](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicator_paused.png?raw=true)
+
+Seen when [Update Mode](#update-mode) is set to `Paused`.
+
+### Update Frequency
+
+The update frequency can be customised via global settings, found in the toolbox menu item.
+
+![toolbox_menu_item](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu_item.png?raw=true)
+![toolbox_menu](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu.png?raw=true)
 
 ## Contribution
 
