@@ -36,7 +36,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 <details open>
 <summary>Feature Preview</summary>
 
-![feature-preview](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Dashboard%20Structure.png?raw=true)
+![feature-preview](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/Dashboard%20Structure.png?raw=true)
 
 </details>
 
