@@ -11,7 +11,7 @@ namespace SFData {
    * Represents the available shop items.
    * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/919cef7f559fe30939ae8c47b5086cc071709847/src/openrct2/ride/ShopItem.h#L20~L75 | ShopItem.h}
    */
-  enum ShopItem {
+  export enum ShopItem {
     Balloon,
     Toy,
     Map,
