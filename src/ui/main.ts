@@ -18,6 +18,7 @@ import Sprites from "./custom/sprites"
 import Options from "../data/options"
 import Data from "../data/index"
 import { progressBar } from "./custom/progress_bar"
+import { GuestData } from "../data/guest"
 
 /**
  * Whether the window is open.
@@ -298,14 +299,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_happiness_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_HAPPINESS
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_happiness_ave.store,
                       (value) => {
-                        if (value / 255 < 0.5) return Colour.BrightRed
+                        if (value / GuestData.MAX_HAPPINESS < 0.5)
+                          return Colour.BrightRed
                         return Colour.BrightGreen
                       }
                     )
@@ -346,14 +348,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_energy_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_ENERGY
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_energy_ave.store,
                       (value) => {
-                        if (value / 255 < 0.5) return Colour.BrightRed
+                        if (value / GuestData.MAX_ENERGY < 0.5)
+                          return Colour.BrightRed
                         return Colour.BrightGreen
                       }
                     )
@@ -394,14 +397,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_nausea_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_NAUSEA
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_nausea_ave.store,
                       (value) => {
-                        if (value / 255 < 0.5) return Colour.BrightGreen
+                        if (value / GuestData.MAX_NAUSEA < 0.5)
+                          return Colour.BrightGreen
                         return Colour.BrightRed
                       }
                     )
@@ -442,14 +446,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_HUNGER
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        if (value / 255 > 0.5) return Colour.BrightRed
+                        if (value / GuestData.MAX_HUNGER > 0.5)
+                          return Colour.BrightRed
                         return Colour.BrightGreen
                       }
                     )
@@ -490,14 +495,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_THIRST
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        if (value / 255 > 0.5) return Colour.BrightRed
+                        if (value / GuestData.MAX_THIRST > 0.5)
+                          return Colour.BrightRed
                         return Colour.BrightGreen
                       }
                     )
@@ -538,14 +544,15 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_toilet_ave.store,
                       (value) => {
-                        return value / 255
+                        return value / GuestData.MAX_TOILET
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_toilet_ave.store,
                       (value) => {
-                        if (value / 255 > 0.5) return Colour.BrightRed
+                        if (value / GuestData.MAX_TOILET > 0.5)
+                          return Colour.BrightRed
                         return Colour.BrightGreen
                       }
                     )

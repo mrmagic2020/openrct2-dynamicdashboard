@@ -3,6 +3,16 @@ import { increment } from "../utils/storeutil"
 import interval from "../utils/interval"
 
 namespace GuestData {
+  export const MAX_HAPPINESS = 255
+  /**
+   * Max energy is, unlike all other stats, capped at 128.
+   */
+  export const MAX_ENERGY = 128
+  export const MAX_NAUSEA = 255
+  export const MAX_HUNGER = 255
+  export const MAX_THIRST = 255
+  export const MAX_TOILET = 255
+
   /**
    * Updates the guest generation count based on the provided arguments.
    * If the interval is paused or the guest ID is not provided, the function returns early.
