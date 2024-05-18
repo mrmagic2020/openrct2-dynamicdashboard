@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+- /
+
+## [1.0.0-pre.5] - 2024-05-18
+
 ### Added
 
 - Add shortcut key to open Dynamic Dashboard. Default is `SHIFT+D`.
@@ -18,12 +22,6 @@ and this project adheres to [Semantic Versioning].
   - Total Expenditure.
 
   - Company Value.
-
-### Changed
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -118,6 +116,7 @@ Initial release.
 <!-- Versions -->
 
 [unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[1.0.0-pre.5]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.5
 [1.0.0-pre.4]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.4
 [1.0.0-pre.3]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.3
 [1.0.0-pre.2]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.2
