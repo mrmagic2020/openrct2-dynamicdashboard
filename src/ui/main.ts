@@ -758,11 +758,7 @@ function menu(): void {
                       tr(language.ui.main.label.facilities_count_total, value)
                   )
                 })
-              ]),
-              groupbox({
-                text: language.ui.main.groupbox.stalls_and_facilities.prices,
-                content: []
-              })
+              ])
             ]
           })
         ]),
