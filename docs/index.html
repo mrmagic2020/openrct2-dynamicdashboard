@@ -6,19 +6,40 @@
 <p><img src="https://img.shields.io/github/v/release/mrmagic2020/openrct2-dynamicdashboard?include_prereleases&style=flat-square" alt="GitHub Release">
 <img src="https://img.shields.io/github/downloads/mrmagic2020/openrct2-dynamicdashboard/total?style=flat-square" alt="GitHub Downloads (all assets, all releases)">
 <img src="https://img.shields.io/badge/Contributions-Welcome-%23EA4AAA?style=flat-square&logo=githubsponsors" alt="Static Badge"></p>
+<a id="md:contents" class="tsd-anchor"></a><h2><a href="#md:contents">Contents</a></h2><ul>
+<li><p><a href="#md:features-preview">Features</a></p>
+</li>
+<li><p><a href="#md:installation">Installation</a></p>
+</li>
+<li><p><a href="#md:usage">Usage</a></p>
+<ul>
+<li><p><a href="#md:update-mode">Update Mode</a></p>
+</li>
+<li><p><a href="#md:sync-now">Sync Now</a></p>
+</li>
+<li><p><a href="#md:show-progress-bar--value">Show Progress Bar / Value</a></p>
+</li>
+<li><p><a href="#md:indicators">Indicators</a></p>
+</li>
+<li><p><a href="#md:update-frequency">Update Frequency</a></p>
+</li>
+</ul>
+</li>
+<li><p><a href="#md:contributing">Contributing</a></p>
+</li>
+</ul>
 <a id="md:features-preview" class="tsd-anchor"></a><h2><a href="#md:features-preview">Features (Preview)</a></h2><details open>
 <summary>Feature Preview</summary>
 
-<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/Dashboard%20Structure.png?raw=true" alt="feature-preview"></p>
+<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/Dashboard%20Structure.png?raw=true" alt="feature-preview"></p>
 </details>
 
 <details open>
-<summary>Preview v1.0.0-pre.4</summary>
+<summary>Preview v1.0.0-pre.5</summary>
 
-<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/main/Assets/screenshot_v1.0.0-pre.4.png?raw=true" alt="screenshot_v1.0.0-pre.4"></p>
+<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/dynamic_dashboard.png?raw=true" alt="screenshot"></p>
 </details>
 
-<p>More screenshots for previous versions can be found <a href="https://github.com/mrmagic2020/openrct2-dynamicdashboard/tree/main/Assets">here</a>.</p>
 <a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><ol>
 <li><p>Download the latest release <a href="https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/latest">here</a>.</p>
 </li>
@@ -27,7 +48,45 @@
 <li><p>Enjoy the stats!</p>
 </li>
 </ol>
-<a id="md:contribution" class="tsd-anchor"></a><h2><a href="#md:contribution">Contribution</a></h2><p>We&#39;re excited to have you here and appreciate your interest in contributing to our OpenRCT2 plugin project, whether you&#39;re a seasoned developer, a passionate designer, or simply an avid fan. Here are a few ways you can contribute:</p>
+<a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p><strong>Shortcut Key:</strong> Press <code>SHIFT+D</code> to open dynamic dashboard. Customisable in OpenRCT2 game options.</p>
+<a id="md:update-mode" class="tsd-anchor"></a><h3><a href="#md:update-mode">Update Mode</a></h3><p>With each click of the button, dynamic dashboard iterates through the following modes.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_running.png?raw=true" alt="update_running"></td>
+<td>All statistics will update automatically, or <a href="#md:sync-now">Sync Now</a> at any time.</td>
+</tr>
+<tr>
+<td><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_manual.png?raw=true" alt="update_manual"></td>
+<td>Statistics that are obtained by reading map values (e.g. entity count, guest stats, park ratings) will be paused. Statistics based on detecting game events (e.g. player action, guest generation, ride crashes) will continue to update. Manually update by pressing <a href="#md:sync-now">Sync Now</a>.</td>
+</tr>
+<tr>
+<td><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/update_paused.png?raw=true" alt="update_paused"></td>
+<td>All statistics will cease to update.</td>
+</tr>
+</tbody></table>
+<a id="md:sync-now" class="tsd-anchor"></a><h3><a href="#md:sync-now">Sync Now</a></h3><p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/sync_now_enabled.png?raw=true" alt="sync_now_enabled">
+<img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/sync_now_disabled.png?raw=true" alt="sync_now_disabled"></p>
+<p>Use this button to update statistics manually. Disabled when <a href="#md:update-mode">Update Mode</a> is set to <code>Paused</code>.</p>
+<a id="md:show-progress-bar--value" class="tsd-anchor"></a><h3><a href="#md:show-progress-bar--value">Show Progress Bar / Value</a></h3><p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/show_progressbar.png?raw=true" alt="show_progressbar">
+<img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/show_value.png?raw=true" alt="show_value"></p>
+<p>Toggles progress bar / exact value display for applicable statistics (currently supports guest stats).</p>
+<a id="md:indicators" class="tsd-anchor"></a><h3><a href="#md:indicators">Indicators</a></h3><p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_running.png?raw=true" alt="indicators_running"></p>
+<p>Seen when <a href="#md:update-mode">Update Mode</a> is set to <code>Running</code>. Statistics are updated when all lights turn green (at least it is intended to do so).</p>
+<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_manual_idle.png?raw=trueg" alt="indicators_manual_idle">
+<img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_manual_activated.png?raw=true" alt="indicators_manual_activated"></p>
+<p>Seen when <a href="#md:update-mode">Update Mode</a> is set to <code>Manual</code>. All lights flash yellow when <a href="#md:sync-now">Sync Now</a> is pressed.</p>
+<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicator_paused.png?raw=true" alt="indicator_paused"></p>
+<p>Seen when <a href="#md:update-mode">Update Mode</a> is set to <code>Paused</code>.</p>
+<a id="md:update-frequency" class="tsd-anchor"></a><h3><a href="#md:update-frequency">Update Frequency</a></h3><p>The update frequency can be customised via global settings, found in the toolbox menu item.</p>
+<p><img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu_item.png?raw=true" alt="toolbox_menu_item">
+<img src="https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu.png?raw=true" alt="toolbox_menu"></p>
+<a id="md:contributing" class="tsd-anchor"></a><h2><a href="#md:contributing">Contributing</a></h2><p>We&#39;re excited to have you here and appreciate your interest in contributing to our OpenRCT2 plugin project, whether you&#39;re a seasoned developer, a passionate designer, or simply an avid fan. Here are a few ways you can contribute:</p>
 <ol>
 <li><p><strong>Code Contributions:</strong> Help us expand functionality, fix bugs, or add new features. Fork and pull!</p>
 </li>
@@ -43,4 +102,4 @@
 <hr>
 <p>Special thanks to <a href="https://openrct2.org">OpenRCT2</a>, the OpenRCT2 Community, <a href="https://github.com/Basssiiie">Basssiiie</a>&#39;s wonderful <a href="https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template">typescript plugin template</a> and <a href="https://github.com/Basssiiie/OpenRCT2-FlexUI">OpenRCT2-FlexUI</a>! This wouldn&#39;t be possible without them.</p>
 <p>🌟 Support us by starring the repo and spreading the word!</p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:openrct2-dynamicdashboard"><span>openrct2-<wbr/>dynamicdashboard</span></a><ul><li><a href="#md:features-preview"><span>Features (<wbr/>Preview)</span></a></li><li><a href="#md:installation"><span>Installation</span></a></li><li><a href="#md:contribution"><span>Contribution</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>openrct2-dynamicdashboard</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:openrct2-dynamicdashboard"><span>openrct2-<wbr/>dynamicdashboard</span></a><ul><li><a href="#md:contents"><span>Contents</span></a></li><li><a href="#md:features-preview"><span>Features (<wbr/>Preview)</span></a></li><li><a href="#md:installation"><span>Installation</span></a></li><li><a href="#md:usage"><span>Usage</span></a></li><li><ul><li><a href="#md:update-mode"><span>Update <wbr/>Mode</span></a></li><li><a href="#md:sync-now"><span>Sync <wbr/>Now</span></a></li><li><a href="#md:show-progress-bar--value"><span>Show <wbr/>Progress <wbr/>Bar / <wbr/>Value</span></a></li><li><a href="#md:indicators"><span>Indicators</span></a></li><li><a href="#md:update-frequency"><span>Update <wbr/>Frequency</span></a></li></ul></li><li><a href="#md:contributing"><span>Contributing</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>openrct2-dynamicdashboard</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
