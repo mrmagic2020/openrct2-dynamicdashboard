@@ -99,7 +99,7 @@ function menu(): void {
           // Player
           groupbox({
             text: language.ui.main.groupbox.player.title,
-            // width: "30%",
+            height: "50%",
             content: [
               label({
                 text:
@@ -216,7 +216,7 @@ function menu(): void {
           // Guest
           groupbox({
             text: language.ui.main.groupbox.guest.title,
-            // width: "40%",
+            height: "50%",
             content: [
               label({
                 text: compute(
@@ -406,8 +406,8 @@ function menu(): void {
                       baseData.local.guest.guest_nausea_ave.store,
                       (value) => {
                         if (value > GuestData.NAUSEA_WARNING_THRESHOLD)
-                          return Colour.BrightGreen
-                        return Colour.BrightRed
+                          return Colour.BrightRed
+                        return Colour.BrightGreen
                       }
                     )
                   })
@@ -567,7 +567,6 @@ function menu(): void {
           // Park & Scenario
           groupbox({
             text: language.ui.main.groupbox.park_and_scenario.title,
-            // width: "40%",
             height: "50%",
             content: [
               horizontal([
@@ -803,7 +802,7 @@ function menu(): void {
           // Rides
           groupbox({
             text: language.ui.main.groupbox.rides.title,
-            // width: "30%",
+            height: "50%",
             content: [
               horizontal([
                 label({
@@ -942,6 +941,7 @@ function menu(): void {
           // Options
           groupbox({
             text: language.ui.main.groupbox.options.title,
+            height: "50%",
             content: [
               // Update Status
               horizontal({
