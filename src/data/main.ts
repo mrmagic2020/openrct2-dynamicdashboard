@@ -27,6 +27,7 @@ interface BaseData {
     stalls_and_facilities: DataSet<number>
     rides: DataSet<number>
     guest: DataSet<number>
+    finance: DataSet<number>
     options: DataSet<number>
   }
 }
@@ -781,6 +782,7 @@ const baseData: BaseData = {
         )
       }
     },
+    finance: {},
     options: {
       update_status: {
         key: LOCAL + ".update_paused",
@@ -803,6 +805,52 @@ const baseData: BaseData = {
       }
     }
   }
+}
+
+/**
+ * Subscribes to the map change event and restore stored data after entering new scenario.
+ *
+ * **Important:**
+ * Intransient plugins remained loaded all the time,
+ * thus all the data need to be reset after quitting a scenario.
+ *
+ * @returns {void}
+ */
+function onMapChanged(): void {
+  context.subscribe("map.changed", () => {
+    if (context.mode === "normal") {
+      console.log("New scenario.")
+      for (let key in baseData.local.player) {
+        baseData.local.player[key].store.set(
+          context.getParkStorage().get(baseData.local.player[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.park_and_scenario) {
+        baseData.local.park_and_scenario[key].store.set(
+          context
+            .getParkStorage()
+            .get(baseData.local.park_and_scenario[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.stalls_and_facilities) {
+        baseData.local.stalls_and_facilities[key].store.set(
+          context
+            .getParkStorage()
+            .get(baseData.local.stalls_and_facilities[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.rides) {
+        baseData.local.rides[key].store.set(
+          context.getParkStorage().get(baseData.local.rides[key].key, 0)
+        )
+      }
+      for (let key in baseData.local.guest) {
+        baseData.local.guest[key].store.set(
+          context.getParkStorage().get(baseData.local.guest[key].key, 0)
+        )
+      }
+    }
+  })
 }
 
 /**
@@ -852,6 +900,13 @@ function initData(): void {
     )
   }
 
+  for (let key in baseData.local.finance) {
+    if (baseData.local.finance[key].temporary) continue
+    baseData.local.finance[key].store.subscribe((value) =>
+      context.getParkStorage().set(baseData.local.finance[key].key, value)
+    )
+  }
+
   for (let key in baseData.local.options) {
     if (baseData.local.options[key].temporary) continue
     baseData.local.options[key].store.subscribe((value) =>
@@ -870,6 +925,8 @@ function initData(): void {
       context.getParkStorage().set(key, value)
     )
   }
+
+  onMapChanged()
 }
 
 export {
