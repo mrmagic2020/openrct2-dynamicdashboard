@@ -337,9 +337,8 @@ const baseData: BaseData = {
       },
       park_rating: {
         key: LOCAL + ".park_rating",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_rating", 999)
-        )
+        temporary: true,
+        store: store<number>(park.rating)
       },
       /**
        * Average stores are computed from two branch stores.
@@ -381,136 +380,80 @@ const baseData: BaseData = {
 
       entity_count_total: {
         key: LOCAL + ".entity_count_total",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(LOCAL + ".entity_count_total", map.numEntities)
-        )
+        temporary: true,
+        store: store<number>(map.numEntities)
       },
       entity_count_guest: {
         key: LOCAL + ".entity_count_guest",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_guest",
-              map.getAllEntities("guest").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("guest").length)
       },
       entity_count_staff: {
         key: LOCAL + ".entity_count_staff",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_staff",
-              map.getAllEntities("staff").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("staff").length)
       },
       entity_count_balloon: {
         key: LOCAL + ".entity_count_balloon",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_balloon",
-              map.getAllEntities("balloon").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("balloon").length)
       },
       entity_count_duck: {
         key: LOCAL + ".entity_count_duck",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_duck",
-              map.getAllEntities("duck").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("duck").length)
       },
       entity_count_litter: {
         key: LOCAL + ".entity_count_litter",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".entity_count_litter",
-              map.getAllEntities("litter").length
-            )
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("litter").length)
       },
 
       reseach_invented_items: {
         key: LOCAL + ".research_invented_items",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".research_invented_items",
-              park.research.inventedItems.length
-            )
-        )
+        temporary: true,
+        store: store<number>(park.research.inventedItems.length)
       },
       reseach_uninvented_items: {
         key: LOCAL + ".reseach_uninvented_items",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".reseach_uninvented_items",
-              park.research.uninventedItems.length
-            )
-        )
+        temporary: true,
+        store: store<number>(park.research.uninventedItems.length)
       }
     },
     stalls_and_facilities: {
       stalls_and_facilities_count_total: {
         key: LOCAL + ".stalls_and_facilities_count_total",
-        store: store<number>(
-          context
-            .getParkStorage()
-            .get(LOCAL + ".stalls_and_facilities_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       stalls_count_total: {
         key: LOCAL + ".stalls_count_total",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".stalls_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       facilities_count_total: {
         key: LOCAL + ".facilities_count_total",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".facilities_count_total", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       }
     },
     rides: {
       ride_count_total: {
         key: LOCAL + ".ride_count_total",
+        temporary: true,
         store: store<number>(
-          context
-            .getParkStorage()
-            .get(
-              LOCAL + ".ride_count_total",
-              map.rides.filter((ride) => ride.classification === "ride").length
-            )
+          map.rides.filter((ride) => ride.classification === "ride").length
         )
       },
       ride_count_flat: {
         key: LOCAL + ".ride_count_flat",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".ride_count_flat", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       ride_count_tracked: {
         key: LOCAL + ".ride_count_tracked",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".ride_count_tracked", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
 
       crash_count_total: {
@@ -658,15 +601,13 @@ const baseData: BaseData = {
       },
       guest_count_current: {
         key: LOCAL + ".guest_count_current",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".guest_count_current", 0)
-        )
+        temporary: true,
+        store: store<number>(map.getAllEntities("guest").length)
       },
       guest_soft_cap: {
         key: LOCAL + ".guest_soft_cap",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".guest_soft_cap", 0)
-        )
+        temporary: true,
+        store: store<number>(park.suggestedGuestMaximum)
       },
       guest_weight_ave: {
         key: LOCAL + ".guest_weight_ave",
@@ -782,7 +723,30 @@ const baseData: BaseData = {
         )
       }
     },
-    finance: {},
+    finance: {
+      total_income: {
+        key: LOCAL + ".total_income",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".total_income", 0)
+        )
+      },
+      total_expenditure: {
+        key: LOCAL + ".total_expenditure",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".total_expenditure", 0)
+        )
+      },
+      total_profit: {
+        key: LOCAL + ".total_profit",
+        temporary: true, // computed at runtime from total_income and total_expenditure
+        store: store<number>(0)
+      },
+      company_value: {
+        key: LOCAL + ".company_value",
+        temporary: true,
+        store: store<number>(park.companyValue)
+      }
+    },
     options: {
       update_status: {
         key: LOCAL + ".update_paused",
