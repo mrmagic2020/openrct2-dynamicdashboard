@@ -6,12 +6,24 @@ namespace GuestData {
   export const MAX_HAPPINESS = 255
   /**
    * Max energy is, unlike all other stats, capped at 128.
+   * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/14828e441678485cc7582651ce2f9a63869c1e93/src/openrct2/entity/Peep.h#L24}
    */
   export const MAX_ENERGY = 128
   export const MAX_NAUSEA = 255
   export const MAX_HUNGER = 255
   export const MAX_THIRST = 255
   export const MAX_TOILET = 255
+
+  /**
+   * The thresholds for the guest stats that trigger a warning.
+   * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/14828e441678485cc7582651ce2f9a63869c1e93/src/openrct2-ui/windows/Guest.cpp#L1096-L1149}
+   */
+  export const HAPINESS_WARNING_THRESHOLD = 50
+  export const ENERGY_WARNING_THRESHOLD = 50
+  export const NAUSEA_WARNING_THRESHOLD = 120
+  export const HUNGER_WARNING_THRESHOLD = 170
+  export const THIRST_WARNING_THRESHOLD = 170
+  export const TOILET_WARNING_THRESHOLD = 160
 
   /**
    * Updates the guest generation count based on the provided arguments.

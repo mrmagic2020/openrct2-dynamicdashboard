@@ -306,7 +306,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_happiness_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_HAPPINESS < 0.5)
+                        if (value < GuestData.HAPINESS_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
@@ -355,7 +355,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_energy_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_ENERGY < 0.5)
+                        if (value < GuestData.ENERGY_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
@@ -404,7 +404,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_nausea_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_NAUSEA < 0.5)
+                        if (value > GuestData.NAUSEA_WARNING_THRESHOLD)
                           return Colour.BrightGreen
                         return Colour.BrightRed
                       }
@@ -453,7 +453,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_HUNGER > 0.5)
+                        if (value > GuestData.HUNGER_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
@@ -502,7 +502,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_THIRST > 0.5)
+                        if (value > GuestData.THIRST_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
@@ -551,7 +551,7 @@ function menu(): void {
                     foreground: compute(
                       baseData.local.guest.guest_toilet_ave.store,
                       (value) => {
-                        if (value / GuestData.MAX_TOILET > 0.5)
+                        if (value > GuestData.TOILET_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
