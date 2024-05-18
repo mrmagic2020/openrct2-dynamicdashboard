@@ -1,4 +1,4 @@
-import { initMainMenu } from "./main"
+import { initMainMenu, openMainMenu } from "./main"
 import { initToolboxMenu } from "./toolbox"
 
 /**
@@ -10,6 +10,14 @@ function initUI(): void {
   if (typeof ui === "undefined") return
   initMainMenu()
   initToolboxMenu()
+  ui.registerShortcut({
+    id: "dynamicdashboard.main.open",
+    text: "Open Dynamic Dashboard",
+    bindings: ["SHIFT+D"],
+    callback: () => {
+      openMainMenu()
+    }
+  })
 }
 
 export { initUI }

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning].
 
 ### Added
 
+- Add shortcut key to open Dynamic Dashboard. Default is `SHIFT+D`.
+
 ### Changed
 
 ### Deprecated

@@ -31,6 +31,10 @@ function initMainMenu(): void {
   ui.registerMenuItem(language.ui.main.title, menu)
 }
 
+function openMainMenu(): void {
+  menu()
+}
+
 /**
  * Creates an indicator widget based on the provided position.
  * @param pos The position of the indicator.
@@ -1096,4 +1100,4 @@ function menu(): void {
   else main_ui.focus()
 }
 
-export { initMainMenu }
+export { initMainMenu, openMainMenu }
