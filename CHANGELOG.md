@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+- Fix ride average price appearing 10 times bigger than actual.
+
+- Fix guest energy progress bar always below half.
+
+- General speed optimisations.
 
 ## [1.0.0-pre.4] - 2024-05-17
 
