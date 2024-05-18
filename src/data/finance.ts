@@ -21,9 +21,6 @@ namespace FinanceData {
         -e.result.cost
       )
     }
-    console.log(
-      `Type: ${e.result.expenditureType ?? "Unknown"}, Cost: ${e.result.cost}`
-    )
   }
 
   function updateParkIncomeAndExpenditure(): void {
