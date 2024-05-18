@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning].
 
 - Fix guest energy progress bar always below half.
 
+- Fix monthly & yearly park rating average not calculating properly.
+
 - General speed optimisations.
 
 ## [1.0.0-pre.4] - 2024-05-17

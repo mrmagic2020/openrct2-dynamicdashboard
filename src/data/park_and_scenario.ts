@@ -3,6 +3,9 @@ import { increment } from "../utils/storeutil"
 import interval from "../utils/interval"
 
 namespace ParkAndScenarioData {
+  /**
+   * Updates the park data by setting the park value, park rating, and calculating the average park rating.
+   */
   function updateParkData(): void {
     baseData.local.park_and_scenario.park_value.store.set(park.value / 10)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
@@ -100,7 +103,6 @@ namespace ParkAndScenarioData {
   }
 
   export function update(): void {
-    // updateParkAndScenarioData(date.month, date.year)
     updateParkData()
     updateEntityCount()
     updateResearchProgress()
@@ -131,6 +133,9 @@ namespace ParkAndScenarioData {
       else {
         tickCount_512 = 0
         updateAverageData(thisMonth, thisYear)
+        // Update thisMonth and thisYear every 512 ticks.
+        thisMonth = date.month
+        thisYear = date.year
       }
 
       if (tickCount_4096 < 4096) tickCount_4096++
