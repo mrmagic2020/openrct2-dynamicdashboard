@@ -99,7 +99,6 @@ function menu(): void {
           // Player
           groupbox({
             text: language.ui.main.groupbox.player.title,
-            height: "50%",
             content: [
               label({
                 text:
@@ -216,7 +215,6 @@ function menu(): void {
           // Guest
           groupbox({
             text: language.ui.main.groupbox.guest.title,
-            height: "50%",
             content: [
               label({
                 text: compute(
