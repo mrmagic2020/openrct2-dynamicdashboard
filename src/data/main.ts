@@ -1,6 +1,15 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 
+type DataType =
+  | "player"
+  | "park_and_scenario"
+  | "stalls_and_facilities"
+  | "rides"
+  | "guest"
+  | "finance"
+  | "options"
+
 interface DataEntry<T> {
   key: string
   temporary?: boolean
@@ -9,6 +18,10 @@ interface DataEntry<T> {
 
 interface DataSet<T> {
   [key: string]: DataEntry<T>
+}
+
+type DataGroup = {
+  [key in DataType]: DataSet<number>
 }
 
 interface BaseData {
@@ -21,25 +34,12 @@ interface BaseData {
     language_index: WritableStore<number>
     update_ratio: WritableStore<number>
   }
-  local: {
-    player: DataSet<number>
-    park_and_scenario: DataSet<number>
-    stalls_and_facilities: DataSet<number>
-    rides: DataSet<number>
-    guest: DataSet<number>
-    finance: DataSet<number>
-    options: DataSet<number>
-  }
+  local: DataGroup
 }
 
 interface BranchData {
   global: {}
-  local: {
-    park_and_scenario: DataSet<number>
-    rides: DataSet<number>
-    guest: DataSet<number>
-    finance: DataSet<number>
-  }
+  local: Omit<DataGroup, "player" | "stalls_and_facilities" | "options">
 }
 
 /**
@@ -171,51 +171,43 @@ const branchData: BranchData = {
     guest: {
       guest_weight_ave_sum: {
         key: BRANCH + ".guest_weight_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_weight_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_wealth_ave_sum: {
         key: BRANCH + ".guest_wealth_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_wealth_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_happiness_ave_sum: {
         key: BRANCH + ".guest_happiness_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_happiness_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_energy_ave_sum: {
         key: BRANCH + ".guest_enery_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_enery_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_nausea_ave_sum: {
         key: BRANCH + ".guest_nausea_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_nausea_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_hunger_ave_sum: {
         key: BRANCH + ".guest_hunger_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_hunger_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_thirst_ave_sum: {
         key: BRANCH + ".guest_thirst_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_thirst_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       },
       guest_toilet_ave_sum: {
         key: BRANCH + ".guest_toilet_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".guest_toilet_ave_sum", 0)
-        )
+        temporary: true,
+        store: store<number>(0)
       }
     },
     finance: {
@@ -609,9 +601,8 @@ const baseData: BaseData = {
       },
       guest_admission_total: {
         key: LOCAL + ".guest_admission_total",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".guest_admission_total", 0)
-        )
+        temporary: true,
+        store: store<number>(park.totalAdmissions)
       },
       guest_count_current: {
         key: LOCAL + ".guest_count_current",
@@ -790,6 +781,20 @@ const baseData: BaseData = {
   }
 }
 
+function eraseTempData(): void {
+  for (let key in baseData.local) {
+    const dataSet = baseData.local[key as DataType]
+    for (let subKey in dataSet) {
+      if (
+        dataSet[subKey].temporary &&
+        context.getParkStorage().has(dataSet[subKey].key)
+      ) {
+        context.getParkStorage().set(dataSet[subKey].key, undefined)
+      }
+    }
+  }
+}
+
 /**
  * Subscribes to the map change event and restore stored data after entering new scenario.
  *
@@ -803,34 +808,18 @@ function onMapChanged(): void {
   context.subscribe("map.changed", () => {
     if (context.mode === "normal") {
       console.log("New scenario.")
-      for (let key in baseData.local.player) {
-        baseData.local.player[key].store.set(
-          context.getParkStorage().get(baseData.local.player[key].key, 0)
-        )
-      }
-      for (let key in baseData.local.park_and_scenario) {
-        baseData.local.park_and_scenario[key].store.set(
-          context
-            .getParkStorage()
-            .get(baseData.local.park_and_scenario[key].key, 0)
-        )
-      }
-      for (let key in baseData.local.stalls_and_facilities) {
-        baseData.local.stalls_and_facilities[key].store.set(
-          context
-            .getParkStorage()
-            .get(baseData.local.stalls_and_facilities[key].key, 0)
-        )
-      }
-      for (let key in baseData.local.rides) {
-        baseData.local.rides[key].store.set(
-          context.getParkStorage().get(baseData.local.rides[key].key, 0)
-        )
-      }
-      for (let key in baseData.local.guest) {
-        baseData.local.guest[key].store.set(
-          context.getParkStorage().get(baseData.local.guest[key].key, 0)
-        )
+      eraseTempData()
+      for (let key in baseData.local) {
+        const dataSet = baseData.local[key as DataType]
+        for (let subKey in dataSet) {
+          if (!dataSet[subKey].temporary) {
+            dataSet[subKey].store.set(
+              context.getParkStorage().get(dataSet[subKey].key, 0)
+            )
+          } else {
+            dataSet[subKey].store.set(0)
+          }
+        }
       }
     }
   })
@@ -853,60 +842,24 @@ function initData(): void {
     context.sharedStorage.set(GOBAL + ".update_ratio", value)
   })
 
-  for (let key in baseData.local.player) {
-    if (baseData.local.player[key].temporary) continue
-    baseData.local.player[key].store.subscribe((value) =>
-      context.getParkStorage().set(baseData.local.player[key].key, value)
-    )
+  for (let key in baseData.local) {
+    const dataSet = baseData.local[key as DataType]
+    for (let subKey in dataSet) {
+      if (!dataSet[subKey].temporary) {
+        dataSet[subKey].store.subscribe((value) =>
+          context.getParkStorage().set(dataSet[subKey].key, value)
+        )
+      }
+    }
   }
 
-  for (let key in baseData.local.park_and_scenario) {
-    if (baseData.local.park_and_scenario[key].temporary) continue
-    baseData.local.park_and_scenario[key].store.subscribe((value) =>
-      context
-        .getParkStorage()
-        .set(baseData.local.park_and_scenario[key].key, value)
-    )
-  }
-
-  for (let key in baseData.local.rides) {
-    if (baseData.local.rides[key].temporary) continue
-    baseData.local.rides[key].store.subscribe((value) =>
-      context.getParkStorage().set(baseData.local.rides[key].key, value)
-    )
-  }
-
-  for (let key in baseData.local.guest) {
-    if (baseData.local.guest[key].temporary) continue
-    baseData.local.guest[key].store.subscribe((value) =>
-      context.getParkStorage().set(baseData.local.guest[key].key, value)
-    )
-  }
-
-  for (let key in baseData.local.finance) {
-    if (baseData.local.finance[key].temporary) continue
-    baseData.local.finance[key].store.subscribe((value) =>
-      context.getParkStorage().set(baseData.local.finance[key].key, value)
-    )
-  }
-
-  for (let key in baseData.local.options) {
-    if (baseData.local.options[key].temporary) continue
-    baseData.local.options[key].store.subscribe((value) =>
-      context.getParkStorage().set(baseData.local.options[key].key, value)
-    )
-  }
-
-  for (let key in branchData.local.park_and_scenario) {
-    branchData.local.park_and_scenario[key].store.subscribe((value) =>
-      context.getParkStorage().set(key, value)
-    )
-  }
-
-  for (let key in branchData.local.rides) {
-    branchData.local.rides[key].store.subscribe((value) =>
-      context.getParkStorage().set(key, value)
-    )
+  for (let key in branchData.local) {
+    const dataSet = branchData.local[key as keyof typeof branchData.local]
+    for (let subKey in dataSet) {
+      dataSet[subKey].store.subscribe((value) =>
+        context.getParkStorage().set(dataSet[subKey].key, value)
+      )
+    }
   }
 
   onMapChanged()
