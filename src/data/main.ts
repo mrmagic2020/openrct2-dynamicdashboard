@@ -221,6 +221,17 @@ const branchData: BranchData = {
         key: BRANCH + ".income_park",
         temporary: true,
         store: store<number>(0)
+      },
+      expenditure_player_action: {
+        key: BRANCH + ".expenditure_player_action",
+        store: store<number>(
+          context.getParkStorage().get(BRANCH + ".expenditure_player_action", 0)
+        )
+      },
+      expenditure_network: {
+        key: BRANCH + ".expenditure_network",
+        temporary: true,
+        store: store<number>(0)
       }
     }
   }
@@ -740,10 +751,18 @@ const baseData: BaseData = {
           }
         )
       },
+      /**
+       * This value is always negative.
+       */
       total_expenditure: {
         key: LOCAL + ".total_expenditure",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".total_expenditure", 0)
+        temporary: true,
+        store: compute(
+          branchData.local.finance.expenditure_player_action.store,
+          branchData.local.finance.expenditure_network.store,
+          (player, network) => {
+            return player + network
+          }
         )
       },
       total_profit: {
