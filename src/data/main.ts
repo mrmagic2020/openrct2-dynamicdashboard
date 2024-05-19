@@ -10,18 +10,155 @@ type DataType =
   | "finance"
   | "options"
 
+type BranchDataType = "park_and_scenario" | "rides" | "guest" | "finance"
+
+type PlayerDataType =
+  | "game_time_real"
+  | "game_time_fake"
+  | "action_track_design"
+  | "action_stall_and_facility_placement"
+  | "action_footpath_placement"
+  | "action_scenery_placement"
+  | "action_landscaping"
+  | "action_staff"
+  | "action_relocate_peep"
+  | "action_pop_balloon"
+  | "action_set_cheats"
+  | "action_server_join"
+  | "action_server_chat"
+
+type ParkAndScenarioDataType =
+  | "park_value"
+  | "park_size"
+  | "park_rating"
+  | "park_rating_ave"
+  | "park_rating_year_ave"
+  | "park_rating_month_ave"
+  | "entity_count_total"
+  | "entity_count_guest"
+  | "entity_count_staff"
+  | "entity_count_balloon"
+  | "entity_count_duck"
+  | "entity_count_litter"
+  | "reseach_invented_items"
+  | "reseach_uninvented_items"
+
+type ParkAndScenarioBranchDataType =
+  | "park_rating_ave_sample_count"
+  | "park_rating_ave"
+  | "park_rating_year_ave_sample_count"
+  | "park_rating_year_ave"
+  | "park_rating_month_ave_sample_count"
+  | "park_rating_month_ave"
+
+type StallsAndFacilitiesDataType =
+  | "stalls_and_facilities_count_total"
+  | "stalls_count_total"
+  | "facilities_count_total"
+
+type RidesDataType =
+  | "ride_count_total"
+  | "ride_count_flat"
+  | "ride_count_tracked"
+  | "crash_count_total"
+  | "crash_count_into_vehicle"
+  | "crash_count_into_land"
+  | "crash_count_into_water"
+  | "ride_excitement_ave"
+  | "ride_intensity_ave"
+  | "ride_nausea_ave"
+  | "ride_value_ave"
+  | "ride_price_ave"
+  | "ride_admission_ave"
+  | "ride_age_ave"
+  | "ride_downtime_ave"
+
+type RidesBranchDataType =
+  | "ride_excitement_ave_sum"
+  | "ride_intensity_ave_sum"
+  | "ride_nausea_ave_sum"
+  | "ride_value_ave_sum"
+  | "ride_price_ave_sum"
+  | "ride_admission_ave_sum"
+  | "ride_age_ave_sum"
+  | "ride_downtime_ave_sum"
+
+type GuestDataType =
+  | "guest_generation_total"
+  | "guest_admission_total"
+  | "guest_count_current"
+  | "guest_soft_cap"
+  | "guest_weight_ave"
+  | "guest_wealth_ave"
+  | "guest_happiness_ave"
+  | "guest_energy_ave"
+  | "guest_nausea_ave"
+  | "guest_hunger_ave"
+  | "guest_thirst_ave"
+  | "guest_toilet_ave"
+
+type GuestBranchDataType =
+  | "guest_weight_ave_sum"
+  | "guest_wealth_ave_sum"
+  | "guest_happiness_ave_sum"
+  | "guest_energy_ave_sum"
+  | "guest_nausea_ave_sum"
+  | "guest_hunger_ave_sum"
+  | "guest_thirst_ave_sum"
+  | "guest_toilet_ave_sum"
+
+type FinanceDataType =
+  | "total_income"
+  | "total_expenditure"
+  | "total_profit"
+  | "company_value"
+
+type FinanceBranchDataType =
+  | "income_player_action"
+  | "income_park"
+  | "expenditure_player_action"
+  | "expenditure_network"
+
+type OptionsDataType = "update_status" | "countdown_progress" | "display_mode"
+
 interface DataEntry<T> {
   key: string
   temporary?: boolean
   store: WritableStore<T>
 }
 
-interface DataSet<T> {
-  [key: string]: DataEntry<T>
+type DataSet<T, U extends string | number | symbol> = {
+  [key in U]: DataEntry<T>
 }
 
 type DataGroup = {
-  [key in DataType]: DataSet<number>
+  [key in DataType]: key extends "player"
+    ? DataSet<number, PlayerDataType>
+    : key extends "park_and_scenario"
+      ? DataSet<number, ParkAndScenarioDataType>
+      : key extends "stalls_and_facilities"
+        ? DataSet<number, StallsAndFacilitiesDataType>
+        : key extends "rides"
+          ? DataSet<number, RidesDataType>
+          : key extends "guest"
+            ? DataSet<number, GuestDataType>
+            : key extends "finance"
+              ? DataSet<number, FinanceDataType>
+              : key extends "options"
+                ? DataSet<number, OptionsDataType>
+                : never
+}
+
+type BranchDataGroup = {
+  [key in BranchDataType]: key extends "park_and_scenario"
+    ? DataSet<number, ParkAndScenarioBranchDataType>
+    : key extends "rides"
+      ? DataSet<number, RidesBranchDataType>
+      : key extends "guest"
+        ? DataSet<number, GuestBranchDataType>
+        : key extends "finance"
+          ? DataSet<number, FinanceBranchDataType>
+          : never
 }
 
 interface BaseData {
@@ -39,7 +176,7 @@ interface BaseData {
 
 interface BranchData {
   global: {}
-  local: Omit<DataGroup, "player" | "stalls_and_facilities" | "options">
+  local: BranchDataGroup
 }
 
 /**
@@ -802,10 +939,11 @@ const baseData: BaseData = {
 
 function eraseTempData(): void {
   for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType]
+    const dataSet = baseData.local[key as DataType] as any // Add type assertion here
     for (let subKey in dataSet) {
+      const entry = dataSet[subKey as keyof typeof dataSet]
       if (
-        dataSet[subKey].temporary &&
+        entry.temporary &&
         context.getParkStorage().has(dataSet[subKey].key)
       ) {
         context.getParkStorage().set(dataSet[subKey].key, undefined)
@@ -829,7 +967,7 @@ function onMapChanged(): void {
       console.log("New scenario.")
       eraseTempData()
       for (let key in baseData.local) {
-        const dataSet = baseData.local[key as DataType]
+        const dataSet = baseData.local[key as DataType] as any // Add type assertion here
         for (let subKey in dataSet) {
           if (!dataSet[subKey].temporary) {
             dataSet[subKey].store.set(
@@ -862,10 +1000,10 @@ function initData(): void {
   })
 
   for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType]
+    const dataSet = baseData.local[key as DataType] as any // Add type assertion here
     for (let subKey in dataSet) {
       if (!dataSet[subKey].temporary) {
-        dataSet[subKey].store.subscribe((value) =>
+        dataSet[subKey].store.subscribe((value: any) =>
           context.getParkStorage().set(dataSet[subKey].key, value)
         )
       }
@@ -873,9 +1011,11 @@ function initData(): void {
   }
 
   for (let key in branchData.local) {
-    const dataSet = branchData.local[key as keyof typeof branchData.local]
+    const dataSet = branchData.local[
+      key as keyof typeof branchData.local
+    ] as any // Add type assertion here
     for (let subKey in dataSet) {
-      dataSet[subKey].store.subscribe((value) =>
+      dataSet[subKey].store.subscribe((value: any) =>
         context.getParkStorage().set(dataSet[subKey].key, value)
       )
     }
@@ -885,8 +1025,23 @@ function initData(): void {
 }
 
 export {
+  type DataType,
+  type BranchDataType,
+  type PlayerDataType,
+  type ParkAndScenarioDataType,
+  type ParkAndScenarioBranchDataType,
+  type StallsAndFacilitiesDataType,
+  type RidesDataType,
+  type RidesBranchDataType,
+  type GuestDataType,
+  type GuestBranchDataType,
+  type FinanceDataType,
+  type FinanceBranchDataType,
+  type OptionsDataType,
   type DataEntry,
   type DataSet,
+  type DataGroup,
+  type BranchDataGroup,
   type BaseData,
   type BranchData,
   baseData,

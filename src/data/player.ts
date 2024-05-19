@@ -1,10 +1,10 @@
-import { baseData } from "./main"
+import { PlayerDataType, baseData } from "./main"
 import { increment } from "../utils/storeutil"
 import interval from "../utils/interval"
 
 namespace PlayerData {
-  interface ActionClass {
-    [key: string]: string[]
+  type ActionClass = {
+    [key in PlayerDataType]?: string[]
   }
 
   /**
@@ -84,9 +84,9 @@ namespace PlayerData {
       /**
        * Iterate through every action classification.
        */
-      for (let key in actionClass) {
-        if (actionClass[key].indexOf(e.action) !== -1) {
-          increment(baseData.local.player[key].store)
+      for (const key in actionClass) {
+        if (actionClass[key as PlayerDataType]?.indexOf(e.action) !== -1) {
+          increment(baseData.local.player[key as PlayerDataType].store)
         }
       }
     }
