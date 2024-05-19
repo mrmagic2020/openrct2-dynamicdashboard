@@ -1,11 +1,11 @@
-import { en_GB, en_US, zh_CN } from "./locale/index"
+import { Locale, en_GB, en_US, zh_CN } from "./locale/index"
 import { baseData } from "../data/main"
 import { store } from "openrct2-flexui"
 
 type LanguageKey = "en_GB" | "en_US" | "zh_CN"
 
 const defaultLanguage: LanguageKey = "en_GB"
-const languageStore = store()
+const languageStore = store<Locale>()
 const locales: { [key: string]: any } = {
   en_GB,
   en_US,
@@ -13,7 +13,7 @@ const locales: { [key: string]: any } = {
 }
 
 let currentLanguage: LanguageKey = defaultLanguage
-let language: any
+let language: Locale
 
 /**
  * Fills missing keys in the target object with values from the source object.
@@ -88,7 +88,7 @@ function initLang_new(): void {
 
   currentLanguage = getUserLanguage()
   languageStore.set(locales[currentLanguage])
-  language = languageStore.get()
+  language = languageStore.get() as Locale
 
   // console.log(`Current language: ${currentLanguage}`)
   // console.log(`Language: ${language}`)
@@ -111,8 +111,8 @@ function initLang_new(): void {
   /**
    * Update language when user changes language.
    */
-  languageStore.subscribe((lang) => {
-    language = lang
+  languageStore.subscribe((lang: Locale | undefined) => {
+    if (typeof lang !== "undefined") language = lang
   })
 }
 
