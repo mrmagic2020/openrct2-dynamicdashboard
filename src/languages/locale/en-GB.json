@@ -4,8 +4,9 @@
       "title": "Dynamic Dashboard",
       "language_selection_label": "Select your preferred language:",
       "language_item": "English (US)",
-      "update_ratio_spinner": "Update raio (requires game restart):",
-      "update_ratio_spinner_unit": "seconds"
+      "update_frequency_spinner": "Update frequency:",
+      "update_frequency_spinner_unit": "seconds",
+      "require_restart": "Restart the game to apply changes."
     },
     "main": {
       "title": "Dynamic Dashboard",
