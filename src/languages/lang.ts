@@ -29,7 +29,8 @@ let language: Locale
  */
 function fillMissingKeys(
   source: { [key: string]: any },
-  target: { [key: string]: any }
+  target: { [key: string]: any },
+  locale: LanguageKey
 ): void {
   Object.keys(source).forEach((key) => {
     if (typeof source[key] === "object" && source[key] !== null) {
@@ -38,11 +39,13 @@ function fillMissingKeys(
         target[key] = {}
       }
       // Recursive call for nested objects
-      fillMissingKeys(source[key], target[key])
+      fillMissingKeys(source[key], target[key], locale)
     } else {
       // Copy the value if the key does not exist in target
       if (!target.hasOwnProperty(key)) {
         target[key] = source[key]
+        if (locale !== "en_US")
+          console.log(`${locale}: Missing key "${key}", using default value.`)
       }
     }
   })
@@ -59,7 +62,11 @@ function fillMissingKeys(
 function syncLocale(): void {
   Object.keys(locales).forEach((key) => {
     if (key !== defaultLanguage) {
-      fillMissingKeys(locales[defaultLanguage], locales[key])
+      fillMissingKeys(
+        locales[defaultLanguage],
+        locales[key],
+        key as LanguageKey
+      )
     }
   })
 }
@@ -89,9 +96,6 @@ function initLang_new(): void {
   currentLanguage = getUserLanguage()
   languageStore.set(locales[currentLanguage])
   language = languageStore.get() as Locale
-
-  // console.log(`Current language: ${currentLanguage}`)
-  // console.log(`Language: ${language}`)
 
   /**
    * Update language with user config every `update_ratio` seconds.
