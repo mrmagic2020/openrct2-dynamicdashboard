@@ -118,13 +118,24 @@
         "options_update_paused": "{TOPAZ}已暂停",
         "options_sync_now": "立即同步",
         "options_display_progress_bar": "显示进度条",
-        "options_display_value": "显示数值"
+        "options_display_value": "显示数值",
+        "options_delete_data": "删除所有数据"
       },
       "tooltip": {
         "entity_count_total_limitation": "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。",
         "options_update_running": "动态仪表正在运行。数据将自动刷新。",
         "options_update_manual": "动态仪表正在运行。部分数据需要手动刷新。",
         "options_update_paused": "动态仪表已暂停。数据不会刷新。"
+      }
+    },
+    "generic": {
+      "warning": {
+        "delete_all_data": {
+          "title": "警告",
+          "message": "{WHITE}确定要删除所有数据吗？此操作无法撤销。",
+          "confirm": "{WHITE}确定",
+          "cancel": "{WHITE}取消"
+        }
       }
     }
   }
