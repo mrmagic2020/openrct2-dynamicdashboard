@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+- Add option to delete statistics in a scenario.
+
+- New statistic: Total Profit in group Finance.
+
+### Changed
+
+### Removed
+
+### Fixed
+
+- Fix finance - total income/expenditure calculations.
+
+- Remove local data for temporary data entries.
+
+- Further storage optimisations.
+
+- Fix UI overflow in servers.
+
+- Fix text alignment issues in "Options" box.
 
 ## [1.0.0-pre.5] - 2024-05-18
 
