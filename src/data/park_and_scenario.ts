@@ -145,7 +145,7 @@ namespace ParkAndScenarioData {
       }
     })
 
-    interval.register(update, baseData.global.update_ratio.get() * 1000)
+    interval.register(update, baseData.global.update_frequency.get() * 1000)
   }
 }
 

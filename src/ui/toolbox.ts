@@ -23,29 +23,21 @@ function toolboxMenu(): void {
     height: 100,
     position: "center",
     content: [
-      // label({
-      //   text: language.ui.toolbox.language_selection_label
-      // }),
-      // dropdown({
-      //   items: languageList,
-      //   selectedIndex: baseData.global.language_index,
-      //   onChange: (index: number) => {
-      //     baseData.global.language_index.set(index)
-      //     win_template.close()
-      //   }
-      // }),
       label({
-        text: language.ui.toolbox.update_ratio_spinner
+        text: language.ui.toolbox.require_restart
+      }),
+      label({
+        text: language.ui.toolbox.update_frequency_spinner
       }),
       spinner({
-        value: baseData.global.update_ratio,
+        value: baseData.global.update_frequency,
         minimum: 1,
         format: (value) =>
           value.toString() +
           " " +
-          language.ui.toolbox.update_ratio_spinner_unit,
+          language.ui.toolbox.update_frequency_spinner_unit,
         onChange: (value: number) => {
-          baseData.global.update_ratio.set(value)
+          baseData.global.update_frequency.set(value)
         }
       })
     ],

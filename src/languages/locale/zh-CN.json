@@ -4,8 +4,8 @@
       "title": "动态仪表",
       "language_selection_label": "选择语言：",
       "language_item": "简体中文",
-      "update_ratio_spinner": "更新频率（需要重启游戏）",
-      "update_ratio_spinner_unit": "秒"
+      "update_frequency_spinner": "更新频率（需要重启游戏）",
+      "update_frequency_spinner_unit": "秒"
     },
     "main": {
       "title": "动态仪表",

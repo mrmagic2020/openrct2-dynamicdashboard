@@ -99,7 +99,7 @@ namespace GuestData {
       updateCurrentGuestCount()
       updateGuestSoftCap()
       updateGuestProfile()
-    }, baseData.global.update_ratio.get() * 1000)
+    }, baseData.global.update_frequency.get() * 1000)
   }
 }
 

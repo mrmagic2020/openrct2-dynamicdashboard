@@ -60,7 +60,7 @@ function initCurrencyData(): void {
     currency.custom.symbol.set(
       context.configuration.get("general.custom_currency_symbol", "Ctm")
     )
-  }, baseData.global.update_ratio.get() * 1000)
+  }, baseData.global.update_frequency.get() * 1000)
 }
 
 /**

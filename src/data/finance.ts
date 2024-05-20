@@ -85,7 +85,10 @@ namespace FinanceData {
       }
     })
 
-    interval.register(updateParkIE, baseData.global.update_ratio.get() * 1000)
+    interval.register(
+      updateParkIE,
+      baseData.global.update_frequency.get() * 1000
+    )
   }
 }
 

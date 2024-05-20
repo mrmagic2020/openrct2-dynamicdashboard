@@ -196,7 +196,7 @@ interface BaseData {
      */
     language: WritableStore<string>
     language_index: WritableStore<number>
-    update_ratio: WritableStore<number>
+    update_frequency: WritableStore<number>
   }
   local: DataGroup
 }
@@ -416,8 +416,8 @@ const baseData: BaseData = {
     language_index: twoway(
       store<number>(context.sharedStorage.get(GOBAL + ".language_index", 0))
     ).twoway,
-    update_ratio: twoway(
-      store<number>(context.sharedStorage.get(GOBAL + ".update_ratio", 10))
+    update_frequency: twoway(
+      store<number>(context.sharedStorage.get(GOBAL + ".update_frequency", 10))
     ).twoway
   },
   local: {
@@ -1039,11 +1039,11 @@ function initData(): void {
    * local file whenever the store receives an update.
    *
    * Performance impact is unknown. Since the values are updated according
-   * to the update ratio set by the user, the impact should be controllable.
+   * to the update frequency set by the user, the impact should be controllable.
    */
 
-  baseData.global.update_ratio.subscribe((value) => {
-    context.sharedStorage.set(GOBAL + ".update_ratio", value)
+  baseData.global.update_frequency.subscribe((value) => {
+    context.sharedStorage.set(GOBAL + ".update_frequency", value)
   })
 
   for (let key in baseData.local) {

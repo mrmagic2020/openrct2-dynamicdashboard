@@ -28,7 +28,7 @@ export class IntervalManager {
       increment(baseData.local.options.countdown_progress.store)
       if (
         baseData.local.options.countdown_progress.store.get() >
-        baseData.global.update_ratio.get()
+        baseData.global.update_frequency.get()
       ) {
         baseData.local.options.countdown_progress.store.set(1)
       }
@@ -52,13 +52,13 @@ export class IntervalManager {
    * Registers a function to be executed at a specified interval.
    *
    * @param func The function to be executed.
-   * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_ratio.get() * 1000`.
+   * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_frequency.get() * 1000`.
    * @param pause_on_manual Specifies whether the interval should be paused when the user manually pauses the execution. Defaults to `true`.
    * @returns The ID of the registered interval.
    */
   register(
     func: Function,
-    interval: number = baseData.global.update_ratio.get() * 1000,
+    interval: number = baseData.global.update_frequency.get() * 1000,
     pause_on_manual: boolean = true
   ): number {
     const ID = context.setInterval(func, interval)
