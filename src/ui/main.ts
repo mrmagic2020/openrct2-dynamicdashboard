@@ -1,7 +1,5 @@
 import {
   Colour,
-  FlexiblePosition,
-  WidgetCreator,
   button,
   compute,
   groupbox,
@@ -18,13 +16,13 @@ import Sprites from "./custom/sprites"
 import Data from "../data/index"
 import { progressBar } from "./custom/progress_bar"
 import { GuestData } from "../data/guest"
+import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
+import WarningWindow from "./custom/warning"
 
 /**
  * Whether the window is open.
  */
 let isOpen: boolean = false
-
-let manualIndicatorLit: boolean = false
 
 function initMainMenu(): void {
   ui.registerMenuItem(language.ui.main.title, menu)
@@ -33,50 +31,6 @@ function initMainMenu(): void {
 function openMainMenu(): void {
   menu()
 }
-
-/**
- * Creates an indicator widget based on the provided position.
- * @param pos The position of the indicator.
- * @returns A widget creator function that creates the indicator widget.
- */
-function createIndicator(pos: number): WidgetCreator<FlexiblePosition> {
-  return button({
-    height: "20px",
-    image: compute(
-      baseData.local.options.update_status.store,
-      baseData.local.options.countdown_progress.store,
-      (v1, v2) => {
-        switch (v1) {
-          case Data.Options.UpdateStatus.RUNNING:
-            if (pos <= v2 * (10 / baseData.global.update_ratio.get()))
-              return Sprites.INDICATOR_RUNNING_LIT
-            return Sprites.INDICATOR_RUNNING_UNLIT
-          case Data.Options.UpdateStatus.MANUAL:
-            return manualIndicatorLit
-              ? Sprites.INDICATOR_MANUAL_LIT
-              : Sprites.INDICATOR_MANUAL_UNLIT
-          case Data.Options.UpdateStatus.PAUSED:
-            return Sprites.INDICATOR_PAUSED_LIT
-          default:
-            return -1
-        }
-      }
-    )
-  })
-}
-
-const Indicators: WidgetCreator<FlexiblePosition>[] = [
-  createIndicator(1),
-  createIndicator(2),
-  createIndicator(3),
-  createIndicator(4),
-  createIndicator(5),
-  createIndicator(6),
-  createIndicator(7),
-  createIndicator(8),
-  createIndicator(9),
-  createIndicator(10)
-]
 
 /**
  * Open the main menu.
@@ -775,6 +729,17 @@ function menu(): void {
               }),
               label({
                 text: compute(
+                  baseData.local.finance.total_income.store,
+                  baseData.local.finance.total_expenditure.store,
+                  (income, expenditure) =>
+                    tr(
+                      language.ui.main.label.finance_total_profit,
+                      getCurrencyUnit(income + expenditure)
+                    )
+                )
+              }),
+              label({
+                text: compute(
                   baseData.local.finance.total_expenditure.store,
                   (value) =>
                     tr(
@@ -1005,7 +970,7 @@ function menu(): void {
                     }
                   }),
                   label({
-                    padding: ["5px", "0px", "0px", "0px"],
+                    padding: { top: 5 },
                     text: compute(
                       baseData.local.options.update_status.store,
                       (value) => {
@@ -1041,12 +1006,12 @@ function menu(): void {
                         baseData.local.options.update_status.store.get() ===
                         Data.Options.UpdateStatus.MANUAL
                       ) {
-                        manualIndicatorLit = true
+                        toggleManualIndicatorLit(true)
                         baseData.local.options.update_status.store.set(
                           Data.Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
                         )
                         context.setTimeout(() => {
-                          manualIndicatorLit = false
+                          toggleManualIndicatorLit(false)
                           baseData.local.options.update_status.store.set(
                             Data.Options.UpdateStatus.MANUAL // Force an update on subsribers to update the indicator light
                           )
@@ -1061,7 +1026,7 @@ function menu(): void {
                     }
                   }),
                   label({
-                    padding: ["5px", "0px", "0px", "0px"],
+                    padding: { top: 5 },
                     text: language.ui.main.label.options_sync_now
                   })
                 ]
@@ -1093,6 +1058,7 @@ function menu(): void {
                     }
                   }),
                   label({
+                    padding: { top: 5 },
                     text: compute(
                       baseData.local.options.display_mode.store,
                       (value) => {
@@ -1107,6 +1073,35 @@ function menu(): void {
                         }
                       }
                     )
+                  })
+                ]
+              }),
+              // Delete all data
+              horizontal({
+                content: [
+                  button({
+                    width: "25px",
+                    height: "25px",
+                    image: Sprites.DELETE_DATA,
+                    onClick: () => {
+                      WarningWindow.show({
+                        title:
+                          language.ui.generic.warning.delete_all_data.title,
+                        message:
+                          language.ui.generic.warning.delete_all_data.message,
+                        cancelButton:
+                          language.ui.generic.warning.delete_all_data.cancel,
+                        confirmButton:
+                          language.ui.generic.warning.delete_all_data.confirm,
+                        onConfirm: () => {
+                          Data.reset()
+                        }
+                      })
+                    }
+                  }),
+                  label({
+                    padding: { top: 5 },
+                    text: language.ui.main.label.options_delete_data
                   })
                 ]
               }),

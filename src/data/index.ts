@@ -1,6 +1,6 @@
 import interval from "../utils/interval"
 import { GuestData as GD } from "./guest"
-import { initData } from "./main"
+import { deleteAll, initData } from "./main"
 import { ParkAndScenarioData as PASD } from "./park_and_scenario"
 import { PlayerData as PD } from "./player"
 import { RideData as RD } from "./rides"
@@ -34,6 +34,10 @@ namespace Data {
     RideData.init()
     FinanceData.init()
     interval.initCounter()
+  }
+
+  export function reset(): void {
+    deleteAll()
   }
 }
 

@@ -107,11 +107,7 @@ type GuestBranchDataType =
   | "guest_thirst_ave_sum"
   | "guest_toilet_ave_sum"
 
-type FinanceDataType =
-  | "total_income"
-  | "total_expenditure"
-  | "total_profit"
-  | "company_value"
+type FinanceDataType = "total_income" | "total_expenditure" | "company_value"
 
 type FinanceBranchDataType =
   | "income_player_action"
@@ -121,16 +117,44 @@ type FinanceBranchDataType =
 
 type OptionsDataType = "update_status" | "countdown_progress" | "display_mode"
 
+/**
+ * Represents a data entry with a key, optional temporary flag, default value, and a writable store.
+ * @template T - The type of the data entry value.
+ */
 interface DataEntry<T> {
+  /**
+   * The key to store the data in the park storage.
+   */
   key: string
+
+  /**
+   * Whether the data is temporary and should not be stored in the park storage.
+   */
   temporary?: boolean
+
+  /**
+   * The default value of the data entry. Used when resetting the data.
+   */
+  default?: T
+
+  /**
+   * The writable store for the data entry.
+   */
   store: WritableStore<T>
 }
 
+/**
+ * Represents a dataset with keys of type `U` and values of type `DataEntry<T>`.
+ * @template T - The type of the dataset values.
+ * @template U - The type of the dataset keys, which can be `string`, `number`, or `symbol`.
+ */
 type DataSet<T, U extends string | number | symbol> = {
   [key in U]: DataEntry<T>
 }
 
+/**
+ * Represents a group of data sets, where each data set is associated with a specific data type.
+ */
 type DataGroup = {
   [key in DataType]: key extends "player"
     ? DataSet<number, PlayerDataType>
@@ -149,6 +173,9 @@ type DataGroup = {
                 : never
 }
 
+/**
+ * Represents a group of branch data types.
+ */
 type BranchDataGroup = {
   [key in BranchDataType]: key extends "park_and_scenario"
     ? DataSet<number, ParkAndScenarioBranchDataType>
@@ -902,11 +929,6 @@ const baseData: BaseData = {
           }
         )
       },
-      total_profit: {
-        key: LOCAL + ".total_profit",
-        temporary: true, // computed at runtime from total_income and total_expenditure
-        store: store<number>(0)
-      },
       company_value: {
         key: LOCAL + ".company_value",
         temporary: true,
@@ -939,7 +961,7 @@ const baseData: BaseData = {
 
 function eraseTempData(): void {
   for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType] as any // Add type assertion here
+    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
     for (let subKey in dataSet) {
       const entry = dataSet[subKey as keyof typeof dataSet]
       if (
@@ -967,7 +989,7 @@ function onMapChanged(): void {
       console.log("New scenario.")
       eraseTempData()
       for (let key in baseData.local) {
-        const dataSet = baseData.local[key as DataType] as any // Add type assertion here
+        const dataSet = baseData.local[key as DataType] as DataSet<number, any>
         for (let subKey in dataSet) {
           if (!dataSet[subKey].temporary) {
             dataSet[subKey].store.set(
@@ -980,6 +1002,31 @@ function onMapChanged(): void {
       }
     }
   })
+}
+
+function deleteAll(): void {
+  for (let key in baseData.local) {
+    if ((key as DataType) === "options") continue
+    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
+    for (let subKey in dataSet) {
+      if (!dataSet[subKey].temporary) {
+        context.getParkStorage().set(dataSet[subKey].key, undefined)
+      }
+      dataSet[subKey].store.set(dataSet[subKey].default || 0)
+    }
+  }
+
+  for (let key in branchData.local) {
+    const dataSet = branchData.local[
+      key as keyof typeof branchData.local
+    ] as DataSet<number, any>
+    for (let subKey in dataSet) {
+      if (!dataSet[subKey].temporary) {
+        context.getParkStorage().set(dataSet[subKey].key, undefined)
+      }
+      dataSet[subKey].store.set(dataSet[subKey].default || 0)
+    }
+  }
 }
 
 /**
@@ -1000,7 +1047,7 @@ function initData(): void {
   })
 
   for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType] as any // Add type assertion here
+    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
     for (let subKey in dataSet) {
       if (!dataSet[subKey].temporary) {
         dataSet[subKey].store.subscribe((value: any) =>
@@ -1013,7 +1060,7 @@ function initData(): void {
   for (let key in branchData.local) {
     const dataSet = branchData.local[
       key as keyof typeof branchData.local
-    ] as any // Add type assertion here
+    ] as DataSet<number, any>
     for (let subKey in dataSet) {
       dataSet[subKey].store.subscribe((value: any) =>
         context.getParkStorage().set(dataSet[subKey].key, value)
@@ -1046,5 +1093,6 @@ export {
   type BranchData,
   baseData,
   branchData,
-  initData
+  initData,
+  deleteAll
 }

@@ -118,13 +118,24 @@
         "options_update_paused": "{TOPAZ}Paused",
         "options_sync_now": "Sync now",
         "options_display_progress_bar": "Show progress bar",
-        "options_display_value": "Show value"
+        "options_display_value": "Show value",
+        "options_delete_data": "Delete all data"
       },
       "tooltip": {
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
+      }
+    },
+    "generic": {
+      "warning": {
+        "delete_all_data": {
+          "title": "Warning",
+          "message": "{WHITE}Are you sure you want to delete all data? This action cannot be undone.",
+          "confirm": "{WHITE}Yes",
+          "cancel": "{WHITE}No"
+        }
       }
     }
   }
