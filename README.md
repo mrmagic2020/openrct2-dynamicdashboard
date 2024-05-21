@@ -86,6 +86,9 @@ Use this button to update statistics manually. Disabled when [Update Mode](#upda
 
 Toggles progress bar / exact value display for applicable statistics (currently supports guest stats).
 
+> [!TIP]
+> If your progress bar looks weird, try changing your render mode to **OpenGL** in the options menu.
+
 ### Indicators
 
 ![indicators_running](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/indicators_running.png?raw=true)
