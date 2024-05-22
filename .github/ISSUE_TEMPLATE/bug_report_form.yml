@@ -1,0 +1,52 @@
+name: Bug Report
+description: File a bug/issue to help us improve
+title: "[BUG] <title>"
+labels: ["bug"]
+body:
+- type: input
+  attributes:
+    label: Plugin Version
+    description: The version of Dynamic Dashboard you're currently using. Sometimes updating to the latest version might resolve your issue.
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: OpenRCT2 Version
+    description: The version of OpenRCT2 you're currently using. This can help us identify the issue.
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: A concise description of what you're experiencing.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A concise description of what you expected to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Steps To Reproduce
+    description: Steps to reproduce the behaviour.
+    placeholder: |
+      1. In this environment...
+      1. With this config...
+      1. Run '...'
+      1. See error...
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
+- type: markdown
+  attributes:
+    value: "Thank you for your contribution! We will address this issue ASAP."
