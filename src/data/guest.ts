@@ -43,9 +43,9 @@ namespace GuestData {
     baseData.local.guest.guest_admission_total.store.set(park.totalAdmissions)
   }
 
-  function updateCurrentGuestCount(): void {
+  function updateCurrentGuestCount(guests: Guest[]): void {
     baseData.local.guest.guest_count_current.store.set(
-      map.getAllEntities("guest").length
+      guests.filter((guest) => guest.isInPark).length
     )
   }
 
@@ -53,7 +53,7 @@ namespace GuestData {
     baseData.local.guest.guest_soft_cap.store.set(park.suggestedGuestMaximum)
   }
 
-  function updateGuestProfile(): void {
+  function updateGuestProfile(guests: Guest[]): void {
     let weightSum = 0,
       wealthSum = 0,
       happinessSum = 0,
@@ -62,7 +62,7 @@ namespace GuestData {
       hungerSum = 0,
       thirstSum = 0,
       toiletSum = 0
-    map.getAllEntities("guest").forEach((guest) => {
+    guests.forEach((guest) => {
       weightSum += guest.mass
       wealthSum += guest.cash
       happinessSum += guest.happiness
@@ -83,10 +83,11 @@ namespace GuestData {
   }
 
   export function update(): void {
+    const guests = map.getAllEntities("guest")
     updateGuestAdmissionCount()
-    updateCurrentGuestCount()
+    updateCurrentGuestCount(guests)
     updateGuestSoftCap()
-    updateGuestProfile()
+    updateGuestProfile(guests)
   }
 
   /**
@@ -95,10 +96,7 @@ namespace GuestData {
   export function init(): void {
     context.subscribe("guest.generation", updateGuestGenerationCount)
     interval.register(() => {
-      updateGuestAdmissionCount()
-      updateCurrentGuestCount()
-      updateGuestSoftCap()
-      updateGuestProfile()
+      update()
     }, baseData.global.update_frequency.get() * 1000)
   }
 }
