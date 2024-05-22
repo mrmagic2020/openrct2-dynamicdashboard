@@ -34,8 +34,13 @@ function progressBar(
 
       g.colour = background
       g.well(0, 0, g.width, g.height)
-      g.colour = foreground
-      g.box(1, 1, g.width * percentFilled - 2, g.height - 2)
+      if (!params.disabled) {
+        // g.stroke = 15
+        // g.line(0, 0, g.width, g.height)
+        // g.line(0, g.height, g.width, 0)
+        g.colour = foreground
+        g.box(1, 1, g.width * percentFilled - 2, g.height - 2)
+      }
     }
   })
 }
