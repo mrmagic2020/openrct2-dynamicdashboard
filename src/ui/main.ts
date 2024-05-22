@@ -399,14 +399,14 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_HUNGER
+                        return 1 - value / GuestData.MAX_HUNGER
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        if (value > GuestData.HUNGER_WARNING_THRESHOLD)
+                        if (value < GuestData.HUNGER_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
@@ -448,14 +448,14 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_THIRST
+                        return 1 - value / GuestData.MAX_THIRST
                       }
                     ),
                     background: Colour.Grey,
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        if (value > GuestData.THIRST_WARNING_THRESHOLD)
+                        if (value < GuestData.THIRST_WARNING_THRESHOLD)
                           return Colour.BrightRed
                         return Colour.BrightGreen
                       }
