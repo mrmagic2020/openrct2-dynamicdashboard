@@ -21,27 +21,22 @@ namespace ParkAndScenarioData {
   }
 
   function updateEntityCount(): void {
-    /**
-     * Entity count calculations.
-     */
+    const guestCount = map.getAllEntities("guest").length
+    const staffCount = map.getAllEntities("staff").length
+    const balloonCount = map.getAllEntities("balloon").length
+    const duckCount = map.getAllEntities("duck").length
+    const litterCount = map.getAllEntities("litter").length
+
     baseData.local.park_and_scenario.entity_count_total.store.set(
-      map.numEntities
+      guestCount + staffCount + balloonCount + duckCount + litterCount
     )
-    baseData.local.park_and_scenario.entity_count_guest.store.set(
-      map.getAllEntities("guest").length
-    )
-    baseData.local.park_and_scenario.entity_count_staff.store.set(
-      map.getAllEntities("staff").length
-    )
+    baseData.local.park_and_scenario.entity_count_guest.store.set(guestCount)
+    baseData.local.park_and_scenario.entity_count_staff.store.set(staffCount)
     baseData.local.park_and_scenario.entity_count_balloon.store.set(
-      map.getAllEntities("balloon").length
+      balloonCount
     )
-    baseData.local.park_and_scenario.entity_count_duck.store.set(
-      map.getAllEntities("duck").length
-    )
-    baseData.local.park_and_scenario.entity_count_litter.store.set(
-      map.getAllEntities("litter").length
-    )
+    baseData.local.park_and_scenario.entity_count_duck.store.set(duckCount)
+    baseData.local.park_and_scenario.entity_count_litter.store.set(litterCount)
   }
 
   function updateResearchProgress(): void {
