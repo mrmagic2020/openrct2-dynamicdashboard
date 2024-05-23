@@ -47,7 +47,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 </details>
 
 <details open>
-<summary>Preview v1.0.0-pre.5</summary>
+<summary>Preview v1.0.0-pre.6</summary>
 
 ![screenshot](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/dynamic_dashboard.png?raw=true)
 
