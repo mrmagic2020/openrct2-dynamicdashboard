@@ -61,17 +61,18 @@ namespace ParkAndScenarioData {
    * @param thisMonth - The current month.
    * @param thisYear - The current year.
    */
-  function updateAverageData(thisMonth: number, thisYear: number): void {
+  function updateAverageData(): void {
+    let thisMonth = date.month
+    let thisYear = date.year
     /**
      * Month average calculations.
      */
-    if (thisMonth !== date.month) {
-      thisMonth = date.month
+    if (thisMonth !== branchData.local.utils.last_updated_month.store.get()) {
+      branchData.local.utils.last_updated_month.store.set(thisMonth)
       increment(
         branchData.local.park_and_scenario.park_rating_month_ave_sample_count
           .store
       )
-
       increment(
         branchData.local.park_and_scenario.park_rating_month_ave.store,
         park.rating
@@ -81,13 +82,12 @@ namespace ParkAndScenarioData {
     /**
      * Year average calculations.
      */
-    if (thisYear !== date.year) {
-      thisYear = date.year
+    if (thisYear !== branchData.local.utils.last_updated_year.store.get()) {
+      branchData.local.utils.last_updated_year.store.set(thisYear)
       increment(
         branchData.local.park_and_scenario.park_rating_year_ave_sample_count
           .store
       )
-
       increment(
         branchData.local.park_and_scenario.park_rating_year_ave.store,
         park.rating
@@ -106,7 +106,6 @@ namespace ParkAndScenarioData {
     updateParkData()
     updateEntityCount()
     updateResearchProgress()
-    updateParkSizeValue()
   }
 
   /**
@@ -116,11 +115,8 @@ namespace ParkAndScenarioData {
     let tickCount_512 = 0
     let tickCount_4096 = 0
 
-    let thisMonth = date.month
-    let thisYear = date.year
-
     context.subscribe("interval.tick", () => {
-      if (interval.isPaused || interval.isPausedOnManual) return
+      if (interval.isPaused || context.paused) return
 
       /**
        * Park value and company value are updated every 512 ticks.
@@ -132,10 +128,7 @@ namespace ParkAndScenarioData {
       if (tickCount_512 < 512) tickCount_512++
       else {
         tickCount_512 = 0
-        updateAverageData(thisMonth, thisYear)
-        // Update thisMonth and thisYear every 512 ticks.
-        thisMonth = date.month
-        thisYear = date.year
+        updateAverageData()
       }
 
       if (tickCount_4096 < 4096) tickCount_4096++

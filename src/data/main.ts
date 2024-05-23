@@ -10,7 +10,12 @@ type DataType =
   | "finance"
   | "options"
 
-type BranchDataType = "park_and_scenario" | "rides" | "guest" | "finance"
+type BranchDataType =
+  | "park_and_scenario"
+  | "rides"
+  | "guest"
+  | "finance"
+  | "utils"
 
 type PlayerDataType =
   | "game_time_real"
@@ -117,6 +122,8 @@ type FinanceBranchDataType =
 
 type OptionsDataType = "update_status" | "countdown_progress" | "display_mode"
 
+type UtilsBranchDataType = "last_updated_month" | "last_updated_year"
+
 /**
  * Represents a data entry with a key, optional temporary flag, default value, and a writable store.
  * @template T - The type of the data entry value.
@@ -185,7 +192,9 @@ type BranchDataGroup = {
         ? DataSet<number, GuestBranchDataType>
         : key extends "finance"
           ? DataSet<number, FinanceBranchDataType>
-          : never
+          : key extends "utils"
+            ? DataSet<number, UtilsBranchDataType>
+            : never
 }
 
 interface BaseData {
@@ -238,6 +247,22 @@ const BRANCH = LOCAL + ".branch"
 const branchData: BranchData = {
   global: {},
   local: {
+    utils: {
+      last_updated_month: {
+        key: BRANCH + ".last_updated_month",
+        store: store<number>(
+          context
+            .getParkStorage()
+            .get(BRANCH + ".last_updated_month", date.month)
+        )
+      },
+      last_updated_year: {
+        key: BRANCH + ".last_updated_year",
+        store: store<number>(
+          context.getParkStorage().get(BRANCH + ".last_updated_year", date.year)
+        )
+      }
+    },
     park_and_scenario: {
       park_rating_ave_sample_count: {
         key: BRANCH + ".park_rating_ave_sample_count",
@@ -1000,6 +1025,20 @@ function onMapChanged(): void {
           }
         }
       }
+      for (let key in branchData.local) {
+        const dataSet = branchData.local[
+          key as keyof typeof branchData.local
+        ] as DataSet<number, any>
+        for (let subKey in dataSet) {
+          if (!dataSet[subKey].temporary) {
+            dataSet[subKey].store.set(
+              context.getParkStorage().get(dataSet[subKey].key, 0)
+            )
+          } else {
+            dataSet[subKey].store.set(0)
+          }
+        }
+      }
     }
   })
 }
@@ -1062,9 +1101,11 @@ function initData(): void {
       key as keyof typeof branchData.local
     ] as DataSet<number, any>
     for (let subKey in dataSet) {
-      dataSet[subKey].store.subscribe((value: any) =>
-        context.getParkStorage().set(dataSet[subKey].key, value)
-      )
+      if (!dataSet[subKey].temporary) {
+        dataSet[subKey].store.subscribe((value: any) =>
+          context.getParkStorage().set(dataSet[subKey].key, value)
+        )
+      }
     }
   }
 
