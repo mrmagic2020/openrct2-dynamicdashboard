@@ -18,6 +18,7 @@ import { progressBar } from "./custom/progress_bar"
 import { GuestData } from "../data/guest"
 import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
 import WarningWindow from "./custom/warning"
+import DynamicDashboard from "../common/plugin"
 
 /**
  * Whether the window is open.
@@ -765,7 +766,6 @@ function menu(): void {
           // Rides
           groupbox({
             text: language.ui.main.groupbox.rides.title,
-            height: "50%",
             content: [
               horizontal([
                 label({
@@ -904,7 +904,6 @@ function menu(): void {
           // Options
           groupbox({
             text: language.ui.main.groupbox.options.title,
-            height: "50%",
             content: [
               // Update Status
               horizontal({
@@ -1110,6 +1109,18 @@ function menu(): void {
                 content: Indicators
               })
             ]
+          }),
+          label({
+            text: DynamicDashboard.name + "@" + DynamicDashboard.version,
+            width: "170px",
+            padding: { top: 40, left: "1w" },
+            disabled: true
+          }),
+          label({
+            text: DynamicDashboard.authors[0],
+            width: "78px",
+            padding: { left: "1w" },
+            disabled: true
           })
         ])
       ])
