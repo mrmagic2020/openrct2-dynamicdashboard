@@ -155,7 +155,7 @@ interface DataEntry<T> {
  * @template T - The type of the dataset values.
  * @template U - The type of the dataset keys, which can be `string`, `number`, or `symbol`.
  */
-type DataSet<T, U extends string | number | symbol> = {
+type DataSet<T, U extends string> = {
   [key in U]: DataEntry<T>
 }
 
