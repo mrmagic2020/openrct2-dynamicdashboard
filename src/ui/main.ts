@@ -1113,7 +1113,7 @@ function menu(): void {
           label({
             text: DynamicDashboard.name + "@" + DynamicDashboard.version,
             width: "170px",
-            padding: { top: 40, left: "1w" },
+            padding: { top: network.mode === "none" ? 40 : 108, left: "1w" },
             disabled: true
           }),
           label({
