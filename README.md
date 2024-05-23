@@ -15,7 +15,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 > This plugin is under rapid development. [Check for updates](https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/latest) regularly for the latest features, bug fixes and performance optimisations.
 
 > [!NOTE]
-> Some features of this page are not supported by this website. For a better experience, please visit <https://github.com/mrmagic2020/openrct2-dynamicdashboard?#readme>.
+> Some features of this page are only supported by GitHub. If you're not on GitHub, you can visit <https://github.com/mrmagic2020/openrct2-dynamicdashboard?#readme> for a better experience.
 
 ## Contents
 
