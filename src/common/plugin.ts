@@ -1,6 +1,6 @@
 namespace DynamicDashboard {
   export const name = "dynamicdashboard"
-  export const version = "1.0.0-pre.5"
+  export const version = "1.0.0-pre.6"
   export const authors = ["mrmagic2020"]
   export const type = "intransient"
   export const licence = "MIT"
