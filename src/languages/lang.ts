@@ -81,7 +81,6 @@ function getUserLanguage(): LanguageKey {
   let lang: string =
     context.configuration.get("general.language") || defaultLanguage
   lang = lang.replace("-", "_") // replace hyphen with underscore
-  // console.log("User set lang: " + lang)
   return lang in locales ? (lang as LanguageKey) : defaultLanguage
 }
 
@@ -102,15 +101,8 @@ function initLang_new(): void {
    */
   context.setInterval(() => {
     currentLanguage = getUserLanguage()
-    baseData.global.language.set(currentLanguage)
+    languageStore.set(locales[currentLanguage])
   }, baseData.global.update_frequency.get() * 1000)
-
-  /**
-   * Update language when user changes language.
-   */
-  baseData.global.language.subscribe((lang) => {
-    languageStore.set(locales[lang as LanguageKey])
-  })
 
   /**
    * Update language when user changes language.

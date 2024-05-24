@@ -199,12 +199,6 @@ type BranchDataGroup = {
 
 interface BaseData {
   global: {
-    /**
-     * **Language code ordered according to `index`.**
-     * @see `./src/languages/index.ts`
-     */
-    language: WritableStore<string>
-    language_index: WritableStore<number>
     update_frequency: WritableStore<number>
   }
   local: DataGroup
@@ -435,12 +429,6 @@ const branchData: BranchData = {
  */
 const baseData: BaseData = {
   global: {
-    language: store<string>(
-      context.sharedStorage.get(GOBAL + ".language", "en_US")
-    ),
-    language_index: twoway(
-      store<number>(context.sharedStorage.get(GOBAL + ".language_index", 0))
-    ).twoway,
     update_frequency: twoway(
       store<number>(context.sharedStorage.get(GOBAL + ".update_frequency", 10))
     ).twoway
