@@ -107,6 +107,9 @@ dist
 # TernJS port file
 .tern-port
 
+# tsimp files
+.tsimp
+
 # Visual Studio
 .vs/
 .vscode/
