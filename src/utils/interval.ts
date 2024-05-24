@@ -143,12 +143,32 @@ export class IntervalManager {
     this.resumeAll()
   }
 
+  /**
+   * Returns whether the IntervalManager is paused.
+   */
   get isPaused(): boolean {
     return this.paused
   }
 
+  /**
+   * Returns whether the IntervalManager is paused due to manual pausing.
+   */
   get isPausedOnManual(): boolean {
     return this.pausedOnManual
+  }
+
+  /**
+   * Returns the registered functions.
+   */
+  get registeredFunctions(): FunctionInfo[] {
+    return this.registered
+  }
+
+  /**
+   * Returns the IDs of the registered intervals.
+   */
+  get registeredIDs(): number[] {
+    return this.intervalIDs
   }
 }
 
