@@ -5,7 +5,8 @@
       "language_selection_label": "选择语言：",
       "language_item": "简体中文",
       "update_frequency_spinner": "更新频率（需要重启游戏）",
-      "update_frequency_spinner_unit": "秒"
+      "update_frequency_spinner_unit": "秒",
+      "require_restart": "重启游戏以更新设置。"
     },
     "main": {
       "title": "动态仪表",
