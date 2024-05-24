@@ -1,6 +1,6 @@
 import { PlayerDataType, baseData } from "./main"
 import { increment } from "../utils/storeutil"
-import interval from "../utils/interval"
+import { interval } from "../data/main"
 
 namespace PlayerData {
   type ActionClass = {

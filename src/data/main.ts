@@ -1,5 +1,6 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
+import IntervalManager from "../utils/interval"
 
 type DataType =
   | "player"
@@ -1100,6 +1101,11 @@ function initData(): void {
   onMapChanged()
 }
 
+const interval = IntervalManager.init({
+  update_frequency: baseData.global.update_frequency,
+  countdown_progress: baseData.local.options.countdown_progress.store
+})
+
 export {
   type DataType,
   type BranchDataType,
@@ -1123,5 +1129,6 @@ export {
   baseData,
   branchData,
   initData,
-  deleteAll
+  deleteAll,
+  interval
 }

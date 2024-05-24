@@ -1,4 +1,4 @@
-import interval from "../utils/interval"
+import { interval } from "../data/main"
 import { increment } from "../utils/storeutil"
 import { baseData, branchData } from "./main"
 

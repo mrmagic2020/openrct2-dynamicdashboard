@@ -1,6 +1,6 @@
 import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeutil"
-import interval from "../utils/interval"
+import { interval } from "../data/main"
 
 namespace GuestData {
   export const MAX_HAPPINESS = 255

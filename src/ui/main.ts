@@ -11,7 +11,7 @@ import {
 import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import { getCurrencyUnit } from "../data/currency"
-import interval from "../utils/interval"
+import { interval } from "../data/main"
 import Sprites from "./custom/sprites"
 import Data from "../data/index"
 import { progressBar } from "./custom/progress_bar"

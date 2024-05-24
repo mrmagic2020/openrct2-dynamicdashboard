@@ -1,4 +1,4 @@
-import { baseData } from "../data/main"
+import { WritableStore } from "openrct2-flexui"
 import { increment } from "./storeutil"
 
 export interface FunctionInfo {
@@ -7,6 +7,11 @@ export interface FunctionInfo {
   interval: number
   paused: boolean
   pause_on_manual?: boolean
+}
+
+export interface IntervalManagerInitParams {
+  update_frequency: WritableStore<number>
+  countdown_progress: WritableStore<number>
 }
 
 /**
@@ -21,16 +26,16 @@ export class IntervalManager {
   private counterInitialised: boolean = false
   private counterID: number = -1
 
+  private updateFrequency: WritableStore<number>
+  private countdownProgress: WritableStore<number>
+
   initCounter(): void {
     if (this.counterInitialised) return
     this.counterInitialised = true
     this.counterID = context.setInterval(() => {
-      increment(baseData.local.options.countdown_progress.store)
-      if (
-        baseData.local.options.countdown_progress.store.get() >
-        baseData.global.update_frequency.get()
-      ) {
-        baseData.local.options.countdown_progress.store.set(1)
+      increment(this.countdownProgress)
+      if (this.countdownProgress.get() >= this.updateFrequency.get()) {
+        this.countdownProgress.set(0)
       }
     }, 1 * 1000)
   }
@@ -38,15 +43,18 @@ export class IntervalManager {
   private clearCounter(): void {
     context.clearInterval(this.counterID)
     this.counterInitialised = false
-    baseData.local.options.countdown_progress.store.set(0)
+    this.countdownProgress.set(0)
   }
 
-  static init(): IntervalManager {
-    const interval = new IntervalManager()
+  static init(params: IntervalManagerInitParams): IntervalManager {
+    const interval = new IntervalManager(params)
     return interval
   }
 
-  constructor() {}
+  constructor(params: IntervalManagerInitParams) {
+    this.updateFrequency = params.update_frequency
+    this.countdownProgress = params.countdown_progress
+  }
 
   /**
    * Registers a function to be executed at a specified interval.
@@ -58,7 +66,7 @@ export class IntervalManager {
    */
   register(
     func: Function,
-    interval: number = baseData.global.update_frequency.get() * 1000,
+    interval: number = this.updateFrequency.get() * 1000,
     pause_on_manual: boolean = true
   ): number {
     const ID = context.setInterval(func, interval)
@@ -144,4 +152,4 @@ export class IntervalManager {
   }
 }
 
-export default IntervalManager.init()
+export default IntervalManager

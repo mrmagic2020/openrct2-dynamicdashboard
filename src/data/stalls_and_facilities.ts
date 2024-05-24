@@ -1,4 +1,4 @@
-import interval from "../utils/interval"
+import { interval } from "../data/main"
 import { baseData } from "./main"
 
 namespace SFData {
