@@ -1,6 +1,7 @@
 # OpenRCT2 TypeScript API declaration file
-lib/*.d.ts
 lib/*.h
+lib/OpenRCT2
+lib/plugin
 
 # Logs
 logs
@@ -116,6 +117,3 @@ dist
 
 # macOS
 .DS_Store
-
-# Alias
-lib/
