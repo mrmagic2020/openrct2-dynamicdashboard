@@ -2,7 +2,11 @@ import resolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
 import typescript from "@rollup/plugin-typescript"
 import json from "@rollup/plugin-json"
+import replace from "@rollup/plugin-replace"
 import { getConfigHome, getDocumentsFolder } from "platform-folders"
+
+const build = process.env.BUILD || "development"
+const isDev = build === "development"
 
 const options = {
   /**
@@ -52,6 +56,13 @@ const config = {
   },
   treeshake: "smallest",
   plugins: [
+    replace({
+      preventAssignment: true,
+      values: {
+        __BUILD_CONFIGURATION__: JSON.stringify(build),
+        ...(isDev ? {} : { "Logger.debug": "//" })
+      }
+    }),
     resolve(),
     typescript(),
     json(),

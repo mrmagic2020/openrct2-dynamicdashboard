@@ -1,6 +1,7 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
+import Logger from "../utils/logger"
 
 type DataType =
   | "player"
@@ -1000,7 +1001,7 @@ function eraseTempData(): void {
 function onMapChanged(): void {
   context.subscribe("map.changed", () => {
     if (context.mode === "normal") {
-      console.log("New scenario.")
+      Logger.debug("New scenario. Resetting data...")
       eraseTempData()
       for (let key in baseData.local) {
         const dataSet = baseData.local[key as DataType] as DataSet<number, any>

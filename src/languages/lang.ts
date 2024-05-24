@@ -1,6 +1,7 @@
 import { Locale, en_GB, en_US, zh_CN } from "./locale/index"
 import { baseData } from "../data/main"
 import { store } from "openrct2-flexui"
+import Logger from "../utils/logger"
 
 type LanguageKey = "en_GB" | "en_US" | "zh_CN"
 
@@ -45,7 +46,9 @@ function fillMissingKeys(
       if (!target.hasOwnProperty(key)) {
         target[key] = source[key]
         if (locale !== "en_US")
-          console.log(`${locale}: Missing key "${key}", using default value.`)
+          Logger.warning(
+            `${locale}: Missing key "${key}", using default value.`
+          )
       }
     }
   })

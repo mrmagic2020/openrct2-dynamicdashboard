@@ -19,6 +19,7 @@ import { GuestData } from "../data/guest"
 import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
 import WarningWindow from "./custom/warning"
 import DynamicDashboard from "../common/plugin"
+import MathUtils from "../utils/math"
 
 /**
  * Whether the window is open.
@@ -253,7 +254,11 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_happiness_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_HAPPINESS
+                        return MathUtils.normalise(
+                          value,
+                          0,
+                          GuestData.MAX_HAPPINESS
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -302,7 +307,11 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_energy_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_ENERGY
+                        return MathUtils.normalise(
+                          value,
+                          0,
+                          GuestData.MAX_ENERGY
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -351,7 +360,11 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_nausea_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_NAUSEA
+                        return MathUtils.normalise(
+                          value,
+                          0,
+                          GuestData.MAX_NAUSEA
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -400,7 +413,10 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       (value) => {
-                        return 1 - value / GuestData.MAX_HUNGER
+                        return (
+                          1 -
+                          MathUtils.normalise(value, 0, GuestData.MAX_HUNGER)
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -449,7 +465,10 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       (value) => {
-                        return 1 - value / GuestData.MAX_THIRST
+                        return (
+                          1 -
+                          MathUtils.normalise(value, 0, GuestData.MAX_THIRST)
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -498,7 +517,11 @@ function menu(): void {
                     percentFilled: compute(
                       baseData.local.guest.guest_toilet_ave.store,
                       (value) => {
-                        return value / GuestData.MAX_TOILET
+                        return MathUtils.normalise(
+                          value,
+                          0,
+                          GuestData.MAX_TOILET
+                        )
                       }
                     ),
                     background: Colour.Grey,
@@ -1110,6 +1133,7 @@ function menu(): void {
               })
             ]
           }),
+          // Credits
           label({
             text: DynamicDashboard.name + "@" + DynamicDashboard.version,
             width: "170px",

@@ -1,3 +1,4 @@
+import Environment from "../common/environment"
 import { initMainMenu, openMainMenu } from "./main"
 import { initToolboxMenu } from "./toolbox"
 
@@ -7,7 +8,7 @@ import { initToolboxMenu } from "./toolbox"
  * @returns {void}
  */
 function initUI(): void {
-  if (typeof ui === "undefined") return
+  if (!Environment.isUiAvailable) return
   initMainMenu()
   initToolboxMenu()
   ui.registerShortcut({
