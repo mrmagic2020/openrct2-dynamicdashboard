@@ -262,7 +262,7 @@ namespace RideData {
     branchData.local.rides.ride_intensity_ave_sum.store.set(intensitySum)
     branchData.local.rides.ride_nausea_ave_sum.store.set(nauseaSum)
     branchData.local.rides.ride_value_ave_sum.store.set(valueSum)
-    branchData.local.rides.ride_price_ave_sum.store.set(priceSum / 10)
+    branchData.local.rides.ride_price_ave_sum.store.set(priceSum)
     branchData.local.rides.ride_admission_ave_sum.store.set(admissionSum)
     branchData.local.rides.ride_age_ave_sum.store.set(ageSum)
     branchData.local.rides.ride_downtime_ave_sum.store.set(downtimeSum)

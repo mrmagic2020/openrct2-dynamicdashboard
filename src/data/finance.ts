@@ -62,7 +62,7 @@ namespace FinanceData {
 
   function updateCompanyValue(): void {
     if (interval.isPaused) return
-    baseData.local.finance.company_value.store.set(park.companyValue / 10)
+    baseData.local.finance.company_value.store.set(park.companyValue)
   }
 
   export function update(): void {

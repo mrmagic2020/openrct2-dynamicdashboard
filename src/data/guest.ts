@@ -73,7 +73,7 @@ namespace GuestData {
       toiletSum += guest.toilet
     })
     branchData.local.guest.guest_weight_ave_sum.store.set(weightSum)
-    branchData.local.guest.guest_wealth_ave_sum.store.set(wealthSum / 10)
+    branchData.local.guest.guest_wealth_ave_sum.store.set(wealthSum)
     branchData.local.guest.guest_happiness_ave_sum.store.set(happinessSum)
     branchData.local.guest.guest_energy_ave_sum.store.set(energySum)
     branchData.local.guest.guest_nausea_ave_sum.store.set(nauseaSum)
