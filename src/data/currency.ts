@@ -1,6 +1,6 @@
 import { store } from "openrct2-flexui"
 import { baseData } from "./main"
-import { formatMoney } from "../utils/formatMoney"
+import Currency from "../utils/currency"
 
 /**
  * Reads the currency settings from user configuration file.
@@ -89,7 +89,7 @@ function getCurrencySymbol(): string {
  * getCurrencyUnit(2, "$"); // returns "2$"
  */
 function getCurrencyUnit(value: number, symbol?: string): string {
-  let unit = formatMoney(value)
+  let unit = Currency.formatMoney(value)
 
   if (symbol === undefined) symbol = getCurrencySymbol()
 
@@ -101,4 +101,4 @@ function getCurrencyUnit(value: number, symbol?: string): string {
   return unit
 }
 
-export { initCurrencyData, getCurrencyUnit, formatMoney }
+export { initCurrencyData, getCurrencyUnit }
