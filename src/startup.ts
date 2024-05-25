@@ -1,4 +1,3 @@
-import { initCurrencyData } from "./data/currency"
 import { initLang_new } from "./languages/lang"
 import { initUI } from "./ui/ui"
 import Data from "./data"
@@ -12,7 +11,6 @@ export function startup(): void {
   Logger.assert(Environment.isUiAvailable, "UI is not available.")
 
   initLang_new()
-  initCurrencyData()
 
   Data.init()
 

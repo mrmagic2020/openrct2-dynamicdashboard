@@ -1,5 +1,7 @@
 namespace Currency {
   /**
+   * @deprecated Use `Currency.localise` instead.
+   *
    * Format a number into money notation.
    * @param value The value to format.
    * @param separator The separator to use. Default is ",".
@@ -36,6 +38,10 @@ namespace Currency {
       (negative ? "-" : "") +
       integert_a.join("").concat(decimals ? "." + decimals : "")
     )
+  }
+
+  export function localise(value: number, twodp: boolean = true): string {
+    return context.formatString(twodp ? "{CURRENCY2DP}" : "{CURRENCY}", value)
   }
 }
 

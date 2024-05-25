@@ -10,7 +10,7 @@ import {
 } from "openrct2-flexui"
 import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
-import { getCurrencyUnit } from "../data/currency"
+import Currency from "../utils/currency"
 import { interval } from "../data/main"
 import Sprites from "./custom/sprites"
 import Data from "../data/index"
@@ -216,7 +216,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.guest_wealth_ave,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               }),
@@ -552,7 +552,7 @@ function menu(): void {
                     (value) =>
                       tr(
                         language.ui.main.label.park_value,
-                        getCurrencyUnit(value)
+                        Currency.localise(value)
                       )
                   )
                 }),
@@ -747,7 +747,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.finance_total_income,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               }),
@@ -758,7 +758,7 @@ function menu(): void {
                   (income, expenditure) =>
                     tr(
                       language.ui.main.label.finance_total_profit,
-                      getCurrencyUnit(income + expenditure)
+                      Currency.localise(income + expenditure)
                     )
                 )
               }),
@@ -768,7 +768,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.finance_total_expenditure,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               }),
@@ -778,7 +778,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.finance_company_value,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               })
@@ -842,7 +842,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.ride_value_ave,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               }),
@@ -852,7 +852,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.ride_price_ave,
-                      getCurrencyUnit(value)
+                      Currency.localise(value)
                     )
                 )
               }),
