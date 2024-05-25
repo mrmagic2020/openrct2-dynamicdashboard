@@ -2,11 +2,26 @@ import { WritableStore } from "openrct2-flexui"
 import { increment } from "./storeutil"
 
 export interface FunctionInfo {
+  /**
+   * The ID of the interval.
+   */
   ID: number
+  /**
+   * The function to be executed.
+   */
   func: Function
+  /**
+   * The interval at which the function should be executed, in milliseconds.
+   */
   interval: number
+  /**
+   * Specifies whether the interval is paused.
+   */
   paused: boolean
-  pause_on_manual?: boolean
+  /**
+   * Specifies whether the interval should be paused when the user sets the update mode to manual.
+   */
+  pause_on_manual: boolean
 }
 
 export interface IntervalManagerInitParams {
@@ -101,6 +116,7 @@ export class IntervalManager {
     this.registered.forEach((f) => {
       if (f.paused) return
       context.clearInterval(f.ID)
+      f.paused = true
     })
     this.clearCounter()
     this.paused = true
@@ -115,6 +131,7 @@ export class IntervalManager {
       const id = context.setInterval(f.func, f.interval)
       f.ID = id
       this.intervalIDs.push(id)
+      f.paused = false
     })
     this.initCounter()
     this.paused = false
@@ -126,6 +143,7 @@ export class IntervalManager {
    */
   clear(id: number): void {
     context.clearInterval(id)
+    this.intervalIDs = this.intervalIDs.filter((i) => i !== id)
   }
 
   /**
@@ -135,6 +153,7 @@ export class IntervalManager {
     this.intervalIDs.forEach((id) => {
       context.clearInterval(id)
     })
+    this.intervalIDs = []
     this.counterInitialised = false
   }
 
