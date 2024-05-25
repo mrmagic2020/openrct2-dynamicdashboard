@@ -5,11 +5,11 @@ import { store } from "openrct2-flexui"
 let nextID = 1
 
 globalThis.context = {
-  setInterval: (func: Function, interval: number) => {
+  setInterval: (_func: Function, _interval: number) => {
     return nextID++
   },
-  clearInterval: (id: number) => {}
-}
+  clearInterval: (_id: number) => {}
+} as Context
 
 test("register adds a function to the registered list and returns the ID", (t) => {
   const intervalManager = new IntervalManager({

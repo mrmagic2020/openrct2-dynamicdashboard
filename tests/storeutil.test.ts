@@ -1,5 +1,5 @@
 import test from "ava"
-import { increment } from "../src/utils/storeutil"
+import { increment } from "../src/utils/storeutil.ts"
 import { WritableStore, store } from "openrct2-flexui"
 
 test("increment() adds 1 to the store value by default", (t) => {
