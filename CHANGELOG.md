@@ -19,11 +19,23 @@ and this project adheres to [Semantic Versioning].
 
 - Park ratings now support progress bar view.
 
+- Add credits imprint.
+
 ### Changed
 
 - Better support for currency formatting.
 
 ### Fixed
+
+- Fix [#5](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/5): guest count includes guests outside park.
+
+- Fix [#6](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/6): company value displays wrong value.
+
+- Fix [#7](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/7): guest average hunger/thirst progress bar shows wrong values.
+
+- Fix [#8](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/8): average park ratings are bugged
+
+- Fix [#9](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/9): total entity count displays wrong value.
 
 - Fix finance - total income/expenditure calculations.
 
