@@ -40,6 +40,12 @@ namespace Currency {
     )
   }
 
+  /**
+   * Localises a numeric value into a formatted currency string.
+   * @param value - The numeric value to be localised.
+   * @param twodp - Optional parameter indicating whether to format the currency string with 2 decimal places. Default is `true`.
+   * @returns The localised currency string.
+   */
   export function localise(value: number, twodp: boolean = true): string {
     return context.formatString(twodp ? "{CURRENCY2DP}" : "{CURRENCY}", value)
   }
