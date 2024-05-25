@@ -3,6 +3,9 @@ import { increment } from "../utils/storeutil"
 import { interval } from "../data/main"
 
 namespace ParkAndScenarioData {
+  export const MIN_PARK_RATING = 0
+  export const MAX_PARK_RATING = 1000
+
   /**
    * Updates the park data by setting the park value, park rating, and calculating the average park rating.
    */

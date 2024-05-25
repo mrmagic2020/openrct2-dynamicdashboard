@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning].
 
 - New statistic: Total Profit in group Finance.
 
+- Park ratings now support progress bar view.
+
 ### Changed
 
 ### Removed

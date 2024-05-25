@@ -20,6 +20,7 @@ import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
 import WarningWindow from "./custom/warning"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/mathUtils"
+import { ParkAndScenarioData } from "../data/park_and_scenario"
 
 /**
  * Whether the window is open.
@@ -563,43 +564,202 @@ function menu(): void {
                   )
                 })
               ]),
+              // Park Rating
               groupbox({
-                // Park Rating
                 text: language.ui.main.groupbox.park_and_scenario.park_rating,
                 content: [
-                  label({
-                    text: compute(
-                      baseData.local.park_and_scenario.park_rating.store,
-                      (value) =>
-                        language.ui.main.label.park_rating_current +
-                        value.toString()
-                    )
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario.park_rating.store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label
+                                  .park_rating_current
+                              case Data.Options.DisplayMode.VALUE:
+                                return (
+                                  language.ui.main.label.park_rating_current +
+                                  value.toString()
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        )
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario.park_rating.store,
+                          (value) => {
+                            return MathUtils.normalise(
+                              value,
+                              ParkAndScenarioData.MIN_PARK_RATING,
+                              ParkAndScenarioData.MAX_PARK_RATING
+                            )
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: Colour.BrightGreen
+                      })
+                    ]
                   }),
-                  label({
-                    text: compute(
-                      baseData.local.park_and_scenario.park_rating_ave.store,
-                      (value) =>
-                        language.ui.main.label.park_rating_ave +
-                        value.toString()
-                    )
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario.park_rating_ave
+                            .store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label.park_rating_ave
+                              case Data.Options.DisplayMode.VALUE:
+                                return (
+                                  language.ui.main.label.park_rating_ave +
+                                  value.toString()
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        )
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario.park_rating_ave
+                            .store,
+                          (value) => {
+                            return MathUtils.normalise(
+                              value,
+                              ParkAndScenarioData.MIN_PARK_RATING,
+                              ParkAndScenarioData.MAX_PARK_RATING
+                            )
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: Colour.BrightGreen
+                      })
+                    ]
                   }),
-                  label({
-                    text: compute(
-                      baseData.local.park_and_scenario.park_rating_year_ave
-                        .store,
-                      (value) =>
-                        language.ui.main.label.park_rating_year_ave +
-                        value.toString()
-                    )
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario.park_rating_year_ave
+                            .store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label
+                                  .park_rating_year_ave
+                              case Data.Options.DisplayMode.VALUE:
+                                return (
+                                  language.ui.main.label.park_rating_year_ave +
+                                  value.toString()
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        )
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario.park_rating_year_ave
+                            .store,
+                          (value) => {
+                            return MathUtils.normalise(
+                              value,
+                              ParkAndScenarioData.MIN_PARK_RATING,
+                              ParkAndScenarioData.MAX_PARK_RATING
+                            )
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: Colour.BrightGreen
+                      })
+                    ]
                   }),
-                  label({
-                    text: compute(
-                      baseData.local.park_and_scenario.park_rating_month_ave
-                        .store,
-                      (value) =>
-                        language.ui.main.label.park_rating_month_ave +
-                        value.toString()
-                    )
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario.park_rating_month_ave
+                            .store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label
+                                  .park_rating_month_ave
+                              case Data.Options.DisplayMode.VALUE:
+                                return (
+                                  language.ui.main.label.park_rating_month_ave +
+                                  value.toString()
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        )
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario.park_rating_month_ave
+                            .store,
+                          (value) => {
+                            return MathUtils.normalise(
+                              value,
+                              ParkAndScenarioData.MIN_PARK_RATING,
+                              ParkAndScenarioData.MAX_PARK_RATING
+                            )
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: Colour.BrightGreen
+                      })
+                    ]
                   })
                 ]
               }),
