@@ -1,5 +1,6 @@
 # OpenRCT2 TypeScript API declaration file
-lib/*.d.ts
+lib/openrct2.d.ts
+lib/index.d.ts
 lib/*.h
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -80,6 +81,3 @@ dist
 
 # macOS
 .DS_Store
-
-# Alias
-lib/
