@@ -65,7 +65,12 @@ const config = {
     }),
     resolve(),
     typescript(),
-    json(),
+    json()
+  ]
+}
+
+if (!isDev) {
+  config.plugins.push(
     terser({
       compress: {
         passes: 5,
@@ -76,9 +81,10 @@ const config = {
         comments: false,
         quote_style: 1,
         wrap_iife: true,
-        beautify: options.build === "development"
+        beautify: false
       }
     })
-  ]
+  )
 }
+
 export default config
