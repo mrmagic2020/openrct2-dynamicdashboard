@@ -1,1 +1,0 @@
-/Users/arnold.zhou/Documents/VSC/Typescript/OpenRCT2/openrct2-dynamicdashboard/node_modules/openrct2-flexui/dist/index.d.ts
