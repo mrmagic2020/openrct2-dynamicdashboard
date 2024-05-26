@@ -1,4 +1,4 @@
-import { PlayerDataType, baseData } from "./main"
+import { baseData } from "./main"
 import { increment } from "../utils/storeutil"
 import { interval } from "../data/main"
 
