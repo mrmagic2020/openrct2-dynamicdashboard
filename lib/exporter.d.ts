@@ -153,7 +153,7 @@ type RequestKey =
   | `branch.finance.${FinanceBranchDataType}`
   | `branch.utils|${UtilsBranchDataType}`
 
-interface Request {
+interface RequestDataInfo {
   class: DataClass
   scope: DataScope
   type: DataType

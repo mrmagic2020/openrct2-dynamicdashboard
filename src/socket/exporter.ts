@@ -17,7 +17,7 @@ namespace Exporter {
     }
   }
 
-  function exportBaseData<T>(request: Request): T | undefined {
+  function exportBaseData<T>(request: RequestDataInfo): T | undefined {
     if (request.scope === "global") {
       // to be implemented
       return undefined
@@ -92,7 +92,7 @@ namespace Exporter {
     }
   }
 
-  function exportBranchData<T>(_request: Request): T | undefined {
+  function exportBranchData<T>(_request: RequestDataInfo): T | undefined {
     return undefined
   }
 
@@ -102,7 +102,7 @@ namespace Exporter {
     return keyPattern.test(key)
   }
 
-  export function processKey(key: RequestKey): Request {
+  export function processKey(key: RequestKey): RequestDataInfo {
     const [dataClass, dataScope, dataType, dataKey] = key.split(".")
     Logger.debug(
       `dataClass: ${dataClass}, dataScope: ${dataScope}, dataType: ${dataType}, key: ${dataKey}`
