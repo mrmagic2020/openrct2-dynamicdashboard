@@ -4,6 +4,7 @@ import Data from "./data"
 import Environment from "./common/environment"
 import Logger from "./utils/logger"
 import Server from "./socket/server"
+import HookManager from "./utils/hooks"
 /**
  * Startup function. Calls all the initialisation functions.
  */
@@ -18,4 +19,6 @@ export function startup(): void {
   Data.init()
 
   initUI()
+
+  HookManager.activate()
 }

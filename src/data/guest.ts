@@ -1,6 +1,7 @@
 import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 
 namespace GuestData {
   export const MAX_HAPPINESS = 255
@@ -94,7 +95,7 @@ namespace GuestData {
    * Initialize guest data.
    */
   export function init(): void {
-    context.subscribe("guest.generation", updateGuestGenerationCount)
+    HookManager.hook("guest.generation", updateGuestGenerationCount)
     interval.register(() => {
       update()
     }, baseData.global.update_frequency.get() * 1000)

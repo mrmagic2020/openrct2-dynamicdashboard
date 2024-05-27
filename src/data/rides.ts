@@ -1,6 +1,7 @@
 import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 
 namespace RideData {
   /**
@@ -305,7 +306,7 @@ namespace RideData {
       updateRideStats()
     }, baseData.global.update_frequency.get() * 1000)
 
-    context.subscribe("vehicle.crash", updateRideCrashCount)
+    HookManager.hook("vehicle.crash", updateRideCrashCount)
   }
 }
 

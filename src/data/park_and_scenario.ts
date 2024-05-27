@@ -1,6 +1,7 @@
 import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 
 namespace ParkAndScenarioData {
   export const MIN_PARK_RATING = 0
@@ -113,7 +114,7 @@ namespace ParkAndScenarioData {
     let tickCount_512 = 0
     let tickCount_4096 = 0
 
-    context.subscribe("interval.tick", () => {
+    HookManager.hook("interval.tick", () => {
       if (interval.isPaused || context.paused) return
 
       /**

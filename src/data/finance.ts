@@ -1,4 +1,5 @@
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 import { increment } from "../utils/storeUtils"
 import { baseData, branchData } from "./main"
 
@@ -74,10 +75,10 @@ namespace FinanceData {
    * Initialise finance data.
    */
   export function init(): void {
-    context.subscribe("action.execute", updatePlayerActionIE)
+    HookManager.hook("action.execute", updatePlayerActionIE)
 
     let tick = 0
-    context.subscribe("interval.tick", () => {
+    HookManager.hook("interval.tick", () => {
       tick++
       if (tick >= 512) {
         tick = 0
