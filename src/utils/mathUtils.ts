@@ -22,11 +22,10 @@ namespace MathUtils {
    * @returns The normalized value.
    */
   export function normalise(value: number, min: number, max: number): number {
-    Logger.assert(
-      value >= min && value <= max,
-      `Value ${value} is out of range ${min} - ${max}. Using clamped value.`
-    )
-    value = clamp(value, min, max)
+    if (value < min || value > max) {
+      Logger.warning(`Value ${value} is outside the range of ${min} to ${max}.`)
+      value = clamp(value, min, max)
+    }
     return (value - min) / (max - min)
   }
 }
