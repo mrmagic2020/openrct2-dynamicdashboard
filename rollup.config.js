@@ -4,7 +4,9 @@ import typescript from "@rollup/plugin-typescript"
 import json from "@rollup/plugin-json"
 import replace from "@rollup/plugin-replace"
 import { getConfigHome, getDocumentsFolder } from "platform-folders"
+import fs from "fs"
 
+const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"))
 const build = process.env.BUILD || "development"
 const isDev = build === "development"
 
@@ -60,6 +62,7 @@ const config = {
       preventAssignment: true,
       values: {
         __BUILD_CONFIGURATION__: JSON.stringify(build),
+        __VERSION__: JSON.stringify(pkg.version),
         ...(isDev ? {} : { "Logger.debug": "//" })
       }
     }),
