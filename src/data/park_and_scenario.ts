@@ -2,6 +2,7 @@ import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
+import Tick from "../common/tick"
 
 namespace ParkAndScenarioData {
   export const MIN_PARK_RATING = 0
@@ -13,15 +14,6 @@ namespace ParkAndScenarioData {
   function updateParkData(): void {
     baseData.local.park_and_scenario.park_value.store.set(park.value)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
-
-    increment(
-      branchData.local.park_and_scenario.park_rating_ave_sample_count.store
-    ) // increase denominator by 1
-
-    increment(
-      branchData.local.park_and_scenario.park_rating_ave.store,
-      park.rating
-    ) // add current rating to sum
   }
 
   function updateEntityCount(): void {
@@ -56,42 +48,56 @@ namespace ParkAndScenarioData {
   }
 
   /**
-   * Updates the park and scenario data based on the current month and year.
+   * Updates the park rating averages. Park ratings are updated every 512 ticks.
    * @param thisMonth - The current month.
    * @param thisYear - The current year.
    */
-  function updateAverageData(): void {
-    let thisMonth = date.month
-    let thisYear = date.year
+  function updateRatingAverages(): void {
+    /**
+     * All-time average calculations.
+     */
+    increment(
+      branchData.local.park_and_scenario.park_rating_ave_sample_count.store
+    ) // increase denominator by 1
+    increment(
+      branchData.local.park_and_scenario.park_rating_ave.store,
+      park.rating
+    ) // add current rating to sum
+
     /**
      * Month average calculations.
      */
+    let thisMonth = date.month
     if (thisMonth !== branchData.local.utils.last_updated_month.store.get()) {
       branchData.local.utils.last_updated_month.store.set(thisMonth)
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave_sample_count
-          .store
-      )
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave.store,
-        park.rating
-      )
+      branchData.local.park_and_scenario.park_rating_month_ave_sample_count.reset()
+      branchData.local.park_and_scenario.park_rating_month_ave.reset()
     }
+    increment(
+      branchData.local.park_and_scenario.park_rating_month_ave_sample_count
+        .store
+    )
+    increment(
+      branchData.local.park_and_scenario.park_rating_month_ave.store,
+      park.rating
+    )
 
     /**
      * Year average calculations.
      */
+    let thisYear = date.year
     if (thisYear !== branchData.local.utils.last_updated_year.store.get()) {
       branchData.local.utils.last_updated_year.store.set(thisYear)
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave_sample_count
-          .store
-      )
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave.store,
-        park.rating
-      )
+      branchData.local.park_and_scenario.park_rating_year_ave_sample_count.reset()
+      branchData.local.park_and_scenario.park_rating_year_ave.reset()
     }
+    increment(
+      branchData.local.park_and_scenario.park_rating_year_ave_sample_count.store
+    )
+    increment(
+      branchData.local.park_and_scenario.park_rating_year_ave.store,
+      park.rating
+    )
   }
 
   /**
@@ -111,28 +117,20 @@ namespace ParkAndScenarioData {
    * Initialize park and scenario data.
    */
   export function init(): void {
-    let tickCount_512 = 0
-    let tickCount_4096 = 0
-
     HookManager.hook("interval.tick", () => {
       if (interval.isPaused || context.paused) return
 
       /**
-       * Park value and company value are updated every 512 ticks.
-       * Park rating update rate is unknown. This will temporarily be placed with
-       * park value update.
-       *
-       * Park size value is updated every 4096 ticks.
+       * Park data is updated every 512 ticks.
        */
-      if (tickCount_512 < 512) tickCount_512++
-      else {
-        tickCount_512 = 0
-        updateAverageData()
+      if (Tick.get() % 512 === 0) {
+        updateRatingAverages()
       }
 
-      if (tickCount_4096 < 4096) tickCount_4096++
-      else {
-        tickCount_4096 = 0
+      /**
+       * Park size value is updated every 4096 ticks.
+       */
+      if (Tick.get() % 4096 === 0) {
         updateParkSizeValue()
       }
     })
