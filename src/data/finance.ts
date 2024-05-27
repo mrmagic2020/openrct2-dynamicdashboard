@@ -1,5 +1,5 @@
 import { interval } from "../data/main"
-import { increment } from "../utils/storeutil"
+import { increment } from "../utils/storeUtils"
 import { baseData, branchData } from "./main"
 
 namespace FinanceData {
