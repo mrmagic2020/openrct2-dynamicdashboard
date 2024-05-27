@@ -32,7 +32,8 @@ namespace Data {
     SFData.init()
     RideData.init()
     FinanceData.init()
-    interval.initCounter()
+    interval.resumeAll()
+    // interval.initCounter()
   }
 
   export function reset(): void {

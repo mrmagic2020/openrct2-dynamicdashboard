@@ -2,6 +2,8 @@ import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/dataEntry"
+import HookManager from "../utils/hooks"
+import Logger from "../utils/logger"
 
 /**
  * Represents a dataset with keys of type `U` and values of type `DataEntry<T>`.
@@ -865,6 +867,15 @@ function initData(): void {
 const interval = IntervalManager.init({
   update_frequency: baseData.global.update_frequency,
   countdown_progress: baseData.local.options.countdown_progress.store
+})
+HookManager.hook("map.changed", () => {
+  if (context.mode !== "normal") {
+    Logger.debug("Map changed: Pausing all intervals.")
+    interval.pauseAll()
+  } else {
+    Logger.debug("Map changed: Resuming all intervals.")
+    interval.resumeAll()
+  }
 })
 
 export {

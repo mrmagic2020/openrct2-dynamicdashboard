@@ -32,6 +32,7 @@ function initMainMenu(): void {
 }
 
 function openMainMenu(): void {
+  if (context.mode !== "normal") return
   menu()
 }
 

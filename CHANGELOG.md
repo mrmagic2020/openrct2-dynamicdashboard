@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning].
 
 - Fix [[#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16)]: Month/Year park rating average bug.
 
+- Fix data updating while not playing in a scenario.
+
 ## [1.0.0-pre.6] - 2024-05-25
 
 ### Added
