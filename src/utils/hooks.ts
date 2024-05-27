@@ -53,9 +53,9 @@ namespace HookManager {
     for (const type in hanger) {
       if (hanger[type as HookType].length === 0) continue
       Logger.debug(`Activating hook: ${type}`)
-      context.subscribe(type as HookType, () => {
+      context.subscribe(type as HookType, (e?: any) => {
         hanger[type as HookType].forEach((desc) => {
-          desc.callback()
+          desc.callback(e)
         })
       })
     }
