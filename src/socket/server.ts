@@ -1,3 +1,4 @@
+import DynamicDashboard from "../common/plugin"
 import Logger from "../utils/logger"
 import Exporter from "./exporter"
 
@@ -17,7 +18,15 @@ namespace Server {
             Logger.debug(`Response is undefined: ${data}`)
           }
         } else {
-          Logger.debug(`Invalid key: ${data}`)
+          if (data === "all") {
+            socket.write(
+              JSON.stringify(
+                context.getParkStorage().getAll()[DynamicDashboard.name]
+              )
+            )
+          } else {
+            Logger.debug(`Invalid key: ${data}`)
+          }
         }
       })
       socket.on("error", (error) => {
