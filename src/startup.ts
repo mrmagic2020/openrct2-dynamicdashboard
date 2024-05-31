@@ -1,5 +1,5 @@
 import { initLang_new } from "./languages/lang"
-import { initUI } from "./ui/ui"
+import UI from "./ui/ui"
 import Data from "./data"
 import Environment from "./common/environment"
 import Logger from "./utils/logger"
@@ -22,7 +22,7 @@ export function startup(): void {
 
   Data.init()
 
-  initUI()
+  UI.init()
 
   HookManager.activate()
 
