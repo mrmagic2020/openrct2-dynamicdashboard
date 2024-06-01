@@ -1,5 +1,5 @@
 import { WritableStore } from "openrct2-flexui"
-import { increment } from "./storeUtils"
+import { increment } from "./store_utils"
 
 export interface FunctionInfo {
   /**

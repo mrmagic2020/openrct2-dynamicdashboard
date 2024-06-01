@@ -11,4 +11,16 @@ function increment(store: WritableStore<number>, val: number = 1): void {
   store.set(store.get() + val)
 }
 
-export { increment }
+/**
+ * Pushes a value to the given store.
+ *
+ * @template T - The type of the value.
+ * @param store - The store to push the value to.
+ * @param val - The value to push.
+ * @returns {void}
+ */
+function push<T>(store: WritableStore<T[]>, val: T): void {
+  store.set([...store.get(), val])
+}
+
+export { increment, push }

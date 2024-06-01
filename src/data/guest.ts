@@ -1,5 +1,5 @@
 import { baseData, branchData } from "./main"
-import { increment } from "../utils/storeUtils"
+import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
 

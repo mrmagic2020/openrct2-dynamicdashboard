@@ -1,7 +1,7 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
-import DataEntry from "./classes/dataEntry"
+import DataEntry from "./classes/data_entry"
 import HookManager from "../utils/hooks"
 import Logger from "../utils/logger"
 

@@ -1,6 +1,6 @@
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
-import { increment } from "../utils/storeUtils"
+import { increment } from "../utils/store_utils"
 import { baseData, branchData } from "./main"
 
 namespace FinanceData {

@@ -19,7 +19,7 @@ import { GuestData } from "../data/guest"
 import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
 import WarningWindow from "./custom/warning"
 import DynamicDashboard from "../common/plugin"
-import MathUtils from "../utils/mathUtils"
+import MathUtils from "../utils/math_utils"
 import { ParkAndScenarioData } from "../data/park_and_scenario"
 
 /**
