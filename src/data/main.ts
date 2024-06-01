@@ -19,19 +19,19 @@ type DataSet<T, U extends string> = {
  */
 type DataGroup = {
   [key in DataType]: key extends "player"
-    ? DataSet<number, PlayerDataType>
+    ? DataSet<any, PlayerDataType>
     : key extends "park_and_scenario"
-      ? DataSet<number, ParkAndScenarioDataType>
+      ? DataSet<any, ParkAndScenarioDataType>
       : key extends "stalls_and_facilities"
-        ? DataSet<number, StallsAndFacilitiesDataType>
+        ? DataSet<any, StallsAndFacilitiesDataType>
         : key extends "rides"
-          ? DataSet<number, RidesDataType>
+          ? DataSet<any, RidesDataType>
           : key extends "guest"
-            ? DataSet<number, GuestDataType>
+            ? DataSet<any, GuestDataType>
             : key extends "finance"
-              ? DataSet<number, FinanceDataType>
+              ? DataSet<any, FinanceDataType>
               : key extends "options"
-                ? DataSet<number, OptionsDataType>
+                ? DataSet<any, OptionsDataType>
                 : never
 }
 
@@ -425,6 +425,17 @@ const baseData: BaseData = {
             return parseFloat((sum / count).toFixed(2))
           }
         )
+      }),
+
+      objective_status: new DataEntry({
+        key: LOCAL + ".objective_status",
+        temporary: true,
+        store: store<string>(scenario.status)
+      }),
+      objective_days_left: new DataEntry({
+        key: LOCAL + ".objective_days_left",
+        temporary: true,
+        store: store<number>(0)
       }),
 
       entity_count_total: new DataEntry({

@@ -18,6 +18,7 @@
         "park_and_scenario": {
           "title": "{PALEGOLD}园区及地图",
           "park_rating": "{PALEGOLD}园区评分",
+          "objective": "{PALEGOLD}目标",
           "entity_count": "{PALEGOLD}实体统计",
           "research": "{PALEGOLD}调查数据"
         },
@@ -63,6 +64,12 @@
         "park_rating_ave": "平均值：{PALESILVER}",
         "park_rating_year_ave": "平均值（当年）：{PALESILVER}",
         "park_rating_month_ave": "平均值（当月）：{PALESILVER}",
+
+        "objective_status": "状态：{PALESILVER}",
+        "objective_status_inProgress": "进行中",
+        "objective_status_completed": "已完成",
+        "objective_status_failed": "失败",
+        "objective_status_days_left": "Days left: {PALESILVER}<NUMBER>",
 
         "entity_count_total": "总数：{PALESILVER}",
         "entity_count_guest": "游客：{PALESILVER}",

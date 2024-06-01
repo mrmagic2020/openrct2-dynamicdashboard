@@ -545,26 +545,23 @@ function menu(): void {
           // Park & Scenario
           groupbox({
             text: language.ui.main.groupbox.park_and_scenario.title,
-            height: "50%",
             content: [
-              horizontal([
-                label({
-                  text: compute(
-                    baseData.local.park_and_scenario.park_value.store,
-                    (value) =>
-                      tr(
-                        language.ui.main.label.park_value,
-                        Currency.localise(value)
-                      )
-                  )
-                }),
-                label({
-                  text: compute(
-                    baseData.local.park_and_scenario.park_size.store,
-                    (value) => tr(language.ui.main.label.park_size, value)
-                  )
-                })
-              ]),
+              label({
+                text: compute(
+                  baseData.local.park_and_scenario.park_value.store,
+                  (value) =>
+                    tr(
+                      language.ui.main.label.park_value,
+                      Currency.localise(value)
+                    )
+                )
+              }),
+              label({
+                text: compute(
+                  baseData.local.park_and_scenario.park_size.store,
+                  (value) => tr(language.ui.main.label.park_size, value)
+                )
+              }),
               // Park Rating
               groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.park_rating,
@@ -764,8 +761,22 @@ function menu(): void {
                   })
                 ]
               }),
+              // Objective
               groupbox({
-                // Entity Count
+                text: language.ui.main.groupbox.park_and_scenario.objective,
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.park_and_scenario.objective_status.store,
+                      (value) => {
+                        return language.ui.main.label.objective_status + value
+                      }
+                    )
+                  })
+                ]
+              }),
+              // Entity Count
+              groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.entity_count,
                 content: [
                   horizontal([
@@ -831,10 +842,9 @@ function menu(): void {
                   ])
                 ]
               }),
+              // Research
               groupbox({
-                // Research
                 text: language.ui.main.groupbox.park_and_scenario.research,
-                height: "1w",
                 content: [
                   horizontal([
                     label({
@@ -863,7 +873,6 @@ function menu(): void {
           // Stalls & Facilities
           groupbox({
             text: language.ui.main.groupbox.stalls_and_facilities.title,
-            height: "10%",
             content: [
               horizontal([
                 label({
@@ -900,8 +909,8 @@ function menu(): void {
           // Finance
           groupbox({
             text: language.ui.main.groupbox.finance.title,
-            height: "40%",
             content: [
+              // Total Income
               label({
                 text: compute(
                   baseData.local.finance.total_income.store,
@@ -912,6 +921,7 @@ function menu(): void {
                     )
                 )
               }),
+              // Total Profit
               label({
                 text: compute(
                   baseData.local.finance.total_income.store,
@@ -923,6 +933,7 @@ function menu(): void {
                     )
                 )
               }),
+              // Total Expenditure
               label({
                 text: compute(
                   baseData.local.finance.total_expenditure.store,
@@ -933,6 +944,7 @@ function menu(): void {
                     )
                 )
               }),
+              // Company Value
               label({
                 text: compute(
                   baseData.local.finance.company_value.store,

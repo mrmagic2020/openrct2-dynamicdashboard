@@ -18,6 +18,7 @@
         "park_and_scenario": {
           "title": "{PALEGOLD}Park & Scenario",
           "park_rating": "{PALEGOLD}Park Rating",
+          "objective": "{PALEGOLD}Objective",
           "entity_count": "{PALEGOLD}Entity Count",
           "research": "{PALEGOLD}Research"
         },
@@ -63,6 +64,12 @@
         "park_rating_ave": "Average (all time): {PALESILVER}",
         "park_rating_year_ave": "Average (year): {PALESILVER}",
         "park_rating_month_ave": "Average (month): {PALESILVER}",
+
+        "objective_status": "Status: {PALESILVER}",
+        "objective_status_inProgress": "In progress",
+        "objective_status_completed": "Completed",
+        "objective_status_failed": "Failed",
+        "objective_status_days_left": "Days left: {PALESILVER}<NUMBER>",
 
         "entity_count_total": "Total: {PALESILVER}",
         "entity_count_guest": "Guest: {PALESILVER}",

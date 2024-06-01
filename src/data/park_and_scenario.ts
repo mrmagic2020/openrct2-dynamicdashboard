@@ -2,6 +2,8 @@ import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
+import { language } from "../languages/lang"
+import DateUtils from "../utils/date"
 
 namespace ParkAndScenarioData {
   export const MIN_PARK_RATING = 0
@@ -13,6 +15,40 @@ namespace ParkAndScenarioData {
   function updateParkData(): void {
     baseData.local.park_and_scenario.park_value.store.set(park.value)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
+  }
+
+  export namespace Objective {
+    export function parseStatus(status: ScenarioStatus): string {
+      switch (status) {
+        case "inProgress":
+          return language.ui.main.label.objective_status_inProgress
+        case "completed":
+          return language.ui.main.label.objective_status_completed
+        case "failed":
+          return language.ui.main.label.objective_status_failed
+        default:
+          return ""
+      }
+    }
+  }
+
+  function updateObjective(): void {
+    const status = scenario.status
+    baseData.local.park_and_scenario.objective_status.store.set(
+      Objective.parseStatus(status)
+    )
+    baseData.local.park_and_scenario.objective_days_left.store.set(
+      DateUtils.getDaysFromDate({
+        year: scenario.objective.year,
+        month: 7,
+        day: 31
+      }) -
+        DateUtils.getDaysFromDate({
+          year: date.year,
+          month: date.month,
+          day: date.day
+        })
+    )
   }
 
   function updateEntityCount(): void {
@@ -108,6 +144,7 @@ namespace ParkAndScenarioData {
 
   export function update(): void {
     updateParkData()
+    updateObjective()
     updateEntityCount()
     updateResearchProgress()
   }
