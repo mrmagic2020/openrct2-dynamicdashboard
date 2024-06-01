@@ -5,7 +5,6 @@ import Environment from "./common/environment"
 import Logger from "./utils/logger"
 import Server from "./socket/server"
 import HookManager from "./utils/hooks"
-import Tick from "./common/tick"
 import DynamicDashboard from "./common/plugin"
 /**
  * Startup function. Calls all the initialisation functions.
@@ -13,8 +12,6 @@ import DynamicDashboard from "./common/plugin"
 export function startup(): void {
   Logger.debug(`Starting up in ${Environment.buildConfiguration} mode...`)
   Logger.assert(Environment.isUiAvailable, "UI is not available.")
-
-  Tick.init()
 
   Server.init()
 

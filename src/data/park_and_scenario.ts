@@ -2,7 +2,6 @@ import { baseData, branchData } from "./main"
 import { increment } from "../utils/storeUtils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
-import Tick from "../common/tick"
 
 namespace ParkAndScenarioData {
   export const MIN_PARK_RATING = 0
@@ -123,14 +122,14 @@ namespace ParkAndScenarioData {
       /**
        * Park data is updated every 512 ticks.
        */
-      if (Tick.get() % 512 === 0) {
+      if (date.ticksElapsed % 512 === 0) {
         updateRatingAverages()
       }
 
       /**
        * Park size value is updated every 4096 ticks.
        */
-      if (Tick.get() % 4096 === 0) {
+      if (date.ticksElapsed % 4096 === 0) {
         updateParkSizeValue()
       }
     })
