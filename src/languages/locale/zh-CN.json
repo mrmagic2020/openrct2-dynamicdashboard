@@ -70,7 +70,7 @@
         "objective_status_inProgress": "进行中",
         "objective_status_completed": "已完成",
         "objective_status_failed": "失败",
-        "objective_status_days_left": "剩余天数: {PALESILVER}",
+        "objective_status_days_left": "剩余天数：{PALESILVER}",
 
         "entity_count_total": "总数：{PALESILVER}",
         "entity_count_guest": "游客：{PALESILVER}",
@@ -79,8 +79,8 @@
         "entity_count_duck": "鸭子：{PALESILVER}",
         "entity_count_litter": "垃圾：{PALESILVER}",
 
-        "research_invented_items": "已发明: {PALESILVER}",
-        "research_uninvented_items": "未发明: {PALESILVER}",
+        "research_invented_items": "已发明：{PALESILVER}",
+        "research_uninvented_items": "未发明：{PALESILVER}",
 
         "stalls_and_facilities_count_total": "总数：{PALESILVER}<NUMBER>",
         "stalls_count_total": "商店：{PALESILVER}<NUMBER>",
@@ -101,8 +101,8 @@
         "ride_value_ave": "价值平均值：{PALESILVER}",
         "ride_price_ave": "价格平均值：{PALESILVER}",
         "ride_admission_ave": "总顾客平均值：{PALESILVER}",
-        "ride_age_ave": "平均年龄: {PALESILVER}<NUMBER> 个月",
-        "ride_downtime_ave": "平均关停率: {PALESILVER}<NUMBER>%",
+        "ride_age_ave": "平均年龄：{PALESILVER}<NUMBER> 个月",
+        "ride_downtime_ave": "平均关停率：{PALESILVER}<NUMBER>%",
 
         "guest_generation_total": "总顾客生成：{PALESILVER}",
         "guest_admission_total": "总顾客入园：{PALESILVER}",
@@ -117,10 +117,10 @@
         "guest_thirst_ave": "平均口渴度：{PALESILVER}",
         "guest_toilet_ave": "平均厕所需求：{PALESILVER}",
 
-        "finance_total_income": "总收入: {PALESILVER}<NUMBER&UNIT>",
-        "finance_total_expenditure": "总支出: {PALESILVER}<NUMBER&UNIT>",
-        "finance_total_profit": "总利润: {PALESILVER}<NUMBER&UNIT>",
-        "finance_company_value": "公司价值: {PALESILVER}<NUMBER&UNIT>",
+        "finance_total_income": "总收入：{PALESILVER}<NUMBER&UNIT>",
+        "finance_total_expenditure": "总支出：{PALESILVER}<NUMBER&UNIT>",
+        "finance_total_profit": "总利润：{PALESILVER}<NUMBER&UNIT>",
+        "finance_company_value": "公司价值：{PALESILVER}<NUMBER&UNIT>",
         "finance_company_value_record": "公司价值最高纪录：{PALESILVER}<NUMBER&UNIT>",
 
         "options_update_running": "{GREEN}运行中",
