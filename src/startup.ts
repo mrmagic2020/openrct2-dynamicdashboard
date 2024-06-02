@@ -6,6 +6,7 @@ import Logger from "./utils/logger"
 import Server from "./socket/server"
 import HookManager from "./utils/hooks"
 import DynamicDashboard from "./common/plugin"
+
 /**
  * Startup function. Calls all the initialisation functions.
  */
