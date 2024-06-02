@@ -1,5 +1,5 @@
 import test from "ava"
-import MathUtils from "../src/utils/mathUtils.ts"
+import MathUtils from "../src/utils/math_utils.ts"
 
 test("clamp returns the value itself if it is within the range", (t) => {
   const result = MathUtils.clamp(5, 0, 10)
