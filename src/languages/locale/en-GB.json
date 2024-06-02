@@ -69,7 +69,7 @@
         "objective_status_inProgress": "In progress",
         "objective_status_completed": "Completed",
         "objective_status_failed": "Failed",
-        "objective_status_days_left": "Days left: {PALESILVER}<NUMBER>",
+        "objective_status_days_left": "Days left: {PALESILVER}",
 
         "entity_count_total": "Total: {PALESILVER}",
         "entity_count_guest": "Guest: {PALESILVER}",

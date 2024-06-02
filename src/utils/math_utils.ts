@@ -9,8 +9,14 @@ namespace MathUtils {
    * @param max - The maximum value of the range.
    * @returns The clamped value.
    */
-  export function clamp(value: number, min: number, max: number): number {
-    return Math.min(Math.max(value, min), max)
+  export function clamp(value: number, min?: number, max?: number): number {
+    if (min !== undefined && value < min) {
+      return min
+    }
+    if (max !== undefined && value > max) {
+      return max
+    }
+    return value
   }
 
   /**

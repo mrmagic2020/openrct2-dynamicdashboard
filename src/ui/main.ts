@@ -546,6 +546,7 @@ function menu(): void {
           groupbox({
             text: language.ui.main.groupbox.park_and_scenario.title,
             content: [
+              // Park Value
               label({
                 text: compute(
                   baseData.local.park_and_scenario.park_value.store,
@@ -556,6 +557,7 @@ function menu(): void {
                     )
                 )
               }),
+              // Park Size
               label({
                 text: compute(
                   baseData.local.park_and_scenario.park_size.store,
@@ -765,6 +767,7 @@ function menu(): void {
               groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.objective,
                 content: [
+                  // Objective Status
                   label({
                     text: compute(
                       baseData.local.park_and_scenario.objective_status.store,
@@ -772,6 +775,64 @@ function menu(): void {
                         return language.ui.main.label.objective_status + value
                       }
                     )
+                  }),
+                  // Days Left
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario.objective_days_left
+                            .store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label
+                                  .objective_status_days_left
+                              case Data.Options.DisplayMode.VALUE:
+                                return (
+                                  language.ui.main.label
+                                    .objective_status_days_left +
+                                  value.toString()
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        )
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario.objective_days_left
+                            .store,
+                          () => {
+                            return Data.ParkAndScenarioData.Objective.daysLeftPercentage()
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: compute(
+                          baseData.local.park_and_scenario.objective_days_left
+                            .store,
+                          () => {
+                            if (
+                              Data.ParkAndScenarioData.Objective.daysLeftShouldWarn()
+                            ) {
+                              return Colour.BrightRed
+                            }
+                            return Colour.BrightGreen
+                          }
+                        )
+                      })
+                    ]
                   })
                 ]
               }),

@@ -4,6 +4,7 @@ import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
 import { language } from "../languages/lang"
 import DateUtils from "../utils/date"
+import MathUtils from "../utils/math_utils"
 
 namespace ParkAndScenarioData {
   export const MIN_PARK_RATING = 0
@@ -30,25 +31,47 @@ namespace ParkAndScenarioData {
           return ""
       }
     }
-  }
 
-  function updateObjective(): void {
-    const status = scenario.status
-    baseData.local.park_and_scenario.objective_status.store.set(
-      Objective.parseStatus(status)
-    )
-    baseData.local.park_and_scenario.objective_days_left.store.set(
-      DateUtils.getDaysFromDate({
+    const ScenarioObjectiveTypeWithDate: ScenarioObjectiveType[] = [
+      "guestsBy",
+      "parkValueBy"
+    ]
+    export function hasDateRestriction(): boolean {
+      return (
+        ScenarioObjectiveTypeWithDate.indexOf(scenario.objective.type) !== -1
+      )
+    }
+    export function totalDays(): number {
+      if (!hasDateRestriction()) return 0
+      return DateUtils.getDaysFromDate({
         year: scenario.objective.year,
         month: 7,
         day: 31
-      }) -
-        DateUtils.getDaysFromDate({
-          year: date.year,
-          month: date.month,
-          day: date.day
-        })
-    )
+      })
+    }
+    export function daysLeft(): number {
+      if (!hasDateRestriction()) return Infinity
+      return MathUtils.clamp(totalDays() - DateUtils.getDaysFromDate(date), 0)
+    }
+    export function daysLeftPercentage(): number {
+      if (!hasDateRestriction()) return 1
+      return MathUtils.normalise(daysLeft(), 0, totalDays())
+    }
+    export function daysLeftShouldWarn(): boolean {
+      return daysLeftPercentage() <= 0.2
+    }
+
+    export function updateStatus(): void {
+      const status = scenario.status
+      baseData.local.park_and_scenario.objective_status.store.set(
+        Objective.parseStatus(status)
+      )
+    }
+
+    export function updateDaysLeft(): void {
+      const daysLeft = Objective.daysLeft()
+      baseData.local.park_and_scenario.objective_days_left.store.set(daysLeft)
+    }
   }
 
   function updateEntityCount(): void {
@@ -144,7 +167,8 @@ namespace ParkAndScenarioData {
 
   export function update(): void {
     updateParkData()
-    updateObjective()
+    Objective.updateStatus()
+    Objective.updateDaysLeft()
     updateEntityCount()
     updateResearchProgress()
   }
@@ -169,6 +193,11 @@ namespace ParkAndScenarioData {
       if (date.ticksElapsed % 4096 === 0) {
         updateParkSizeValue()
       }
+    })
+
+    HookManager.hook("interval.day", () => {
+      if (interval.isPaused) return
+      Objective.updateDaysLeft()
     })
 
     interval.register(update, baseData.global.update_frequency.get() * 1000)
