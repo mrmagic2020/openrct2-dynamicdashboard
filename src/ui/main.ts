@@ -1015,6 +1015,18 @@ function menu(): void {
                       Currency.localise(value)
                     )
                 )
+              }),
+              // Company Value Record
+              label({
+                text: compute(
+                  baseData.local.finance.company_value_record.store,
+                  (value) => {
+                    return tr(
+                      language.ui.main.label.finance_company_value_record,
+                      Currency.localise(value)
+                    )
+                  }
+                )
               })
             ]
           })

@@ -120,6 +120,7 @@
         "finance_total_expenditure": "总支出: {PALESILVER}<NUMBER&UNIT>",
         "finance_total_profit": "总利润: {PALESILVER}<NUMBER&UNIT>",
         "finance_company_value": "公司价值: {PALESILVER}<NUMBER&UNIT>",
+        "finance_company_value_record": "公司价值最高纪录：{PALESILVER}<NUMBER&UNIT>",
 
         "options_update_running": "{GREEN}运行中",
         "options_update_manual": "{YELLOW}手动更新",

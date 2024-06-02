@@ -120,6 +120,7 @@
         "finance_total_expenditure": "Total Expenditure: {PALESILVER}<NUMBER&UNIT>",
         "finance_total_profit": "Total Profit: {PALESILVER}<NUMBER&UNIT>",
         "finance_company_value": "Company Value: {PALESILVER}<NUMBER&UNIT>",
+        "finance_company_value_record": "Company Value Record: {PALESILVER}<NUMBER&UNIT>",
 
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",
