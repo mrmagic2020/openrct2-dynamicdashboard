@@ -7,17 +7,6 @@ import DateUtils from "../utils/date"
 import MathUtils from "../utils/math_utils"
 
 namespace ParkAndScenarioData {
-  export const MIN_PARK_RATING = 0
-  export const MAX_PARK_RATING = 1000
-
-  /**
-   * Updates the park data by setting the park value, park rating, and calculating the average park rating.
-   */
-  function updateParkData(): void {
-    baseData.local.park_and_scenario.park_value.store.set(park.value)
-    baseData.local.park_and_scenario.park_rating.store.set(park.rating)
-  }
-
   export namespace Objective {
     export function parseStatus(status: ScenarioStatus): string {
       switch (status) {
@@ -72,6 +61,24 @@ namespace ParkAndScenarioData {
       const daysLeft = Objective.daysLeft()
       baseData.local.park_and_scenario.objective_days_left.store.set(daysLeft)
     }
+  }
+
+  export const MIN_PARK_RATING = 0
+  export const MAX_PARK_RATING = 1000
+  /**
+   * The maximum number of days with ratings lower than the minimum park rating before the park is forced to close.
+   *
+   * Derived from {@link https://github.com/OpenRCT2/OpenRCT2/blob/d4f97d3875ee6d11d37d8648874f80c421a76b04/src/openrct2/scenario/Scenario.cpp#L721 Scenario.cpp}
+   */
+  export const MAX_RATING_WARNING_DAYS = 29
+  export const RATING_WARNING_DAYS_THRESHOLD = 0.25
+
+  /**
+   * Updates the park data by setting the park value and park rating.
+   */
+  function updateParkData(): void {
+    baseData.local.park_and_scenario.park_value.store.set(park.value)
+    baseData.local.park_and_scenario.park_rating.store.set(park.rating)
   }
 
   function updateEntityCount(): void {
@@ -165,12 +172,29 @@ namespace ParkAndScenarioData {
     baseData.local.park_and_scenario.park_size.store.set(park.parkSize)
   }
 
+  function updateWarningDays(): void {
+    baseData.local.park_and_scenario.park_rating_warning_days.store.set(
+      scenario.parkRatingWarningDays
+    )
+  }
+
+  export function getWarningDaysPercentage(): number {
+    return (
+      1 -
+      MathUtils.normalise(
+        scenario.parkRatingWarningDays,
+        0,
+        MAX_RATING_WARNING_DAYS
+      )
+    )
+  }
+
   export function update(): void {
     updateParkData()
-    Objective.updateStatus()
-    Objective.updateDaysLeft()
     updateEntityCount()
     updateResearchProgress()
+    Objective.updateStatus()
+    Objective.updateDaysLeft()
   }
 
   /**
@@ -198,6 +222,7 @@ namespace ParkAndScenarioData {
     HookManager.hook("interval.day", () => {
       if (interval.isPaused) return
       Objective.updateDaysLeft()
+      updateWarningDays()
     })
 
     interval.register(update, baseData.global.update_frequency.get() * 1000)

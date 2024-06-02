@@ -42,6 +42,7 @@ type ParkAndScenarioDataType =
   | "park_rating_month_ave"
   | "objective_status"
   | "objective_days_left"
+  | "park_rating_warning_days"
   | "entity_count_total"
   | "entity_count_guest"
   | "entity_count_staff"

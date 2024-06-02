@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning].
 
 - Add objective days left (if required).
 
+- Add [#19](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/19): park rating warning countdown.
+
 ### Changed
 
 - Minor UI layout adjustments to prevent text omission.
@@ -25,7 +27,7 @@ and this project adheres to [Semantic Versioning].
 
 ### Fixed
 
-- Fix [[#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16)]: Month/Year park rating average bug.
+- Fix [#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16): Month/Year park rating average bug.
 
 - Fix data updating while not playing in a scenario.
 
