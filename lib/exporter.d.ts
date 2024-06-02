@@ -115,7 +115,11 @@ type GuestBranchDataType =
   | "guest_thirst_ave_sum"
   | "guest_toilet_ave_sum"
 
-type FinanceDataType = "total_income" | "total_expenditure" | "company_value"
+type FinanceDataType =
+  | "total_income"
+  | "total_expenditure"
+  | "company_value"
+  | "company_value_record"
 
 type FinanceBranchDataType =
   | "income_player_action"

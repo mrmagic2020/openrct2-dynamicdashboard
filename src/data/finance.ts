@@ -66,9 +66,16 @@ namespace FinanceData {
     baseData.local.finance.company_value.store.set(park.companyValue)
   }
 
+  function updateCompanyValueRecord(): void {
+    baseData.local.finance.company_value_record.store.set(
+      scenario.companyValueRecord
+    )
+  }
+
   export function update(): void {
     updateParkIE()
     updateCompanyValue()
+    updateCompanyValueRecord()
   }
 
   /**
@@ -83,6 +90,7 @@ namespace FinanceData {
       if (tick >= 512) {
         tick = 0
         updateCompanyValue()
+        updateCompanyValueRecord()
       }
     })
 
