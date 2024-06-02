@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning].
 
 - Minor UI layout adjustments to prevent text omission.
 
+- Move Stalls & Facilities statistics group to the third column, under Ride group.
+
 ### Removed
 
 ### Fixed

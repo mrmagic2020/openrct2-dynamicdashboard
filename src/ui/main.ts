@@ -931,42 +931,6 @@ function menu(): void {
               })
             ]
           }),
-          // Stalls & Facilities
-          groupbox({
-            text: language.ui.main.groupbox.stalls_and_facilities.title,
-            content: [
-              horizontal([
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities
-                      .stalls_and_facilities_count_total.store,
-                    (value) =>
-                      tr(
-                        language.ui.main.label
-                          .stalls_and_facilities_count_total,
-                        value
-                      )
-                  )
-                }),
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities.stalls_count_total
-                      .store,
-                    (value) =>
-                      tr(language.ui.main.label.stalls_count_total, value)
-                  )
-                }),
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities.facilities_count_total
-                      .store,
-                    (value) =>
-                      tr(language.ui.main.label.facilities_count_total, value)
-                  )
-                })
-              ])
-            ]
-          }),
           // Finance
           groupbox({
             text: language.ui.main.groupbox.finance.title,
@@ -1168,6 +1132,42 @@ function menu(): void {
                   ])
                 ]
               })
+            ]
+          }),
+          // Stalls & Facilities
+          groupbox({
+            text: language.ui.main.groupbox.stalls_and_facilities.title,
+            content: [
+              horizontal([
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities
+                      .stalls_and_facilities_count_total.store,
+                    (value) =>
+                      tr(
+                        language.ui.main.label
+                          .stalls_and_facilities_count_total,
+                        value
+                      )
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.stalls_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.stalls_count_total, value)
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.facilities_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.facilities_count_total, value)
+                  )
+                })
+              ])
             ]
           }),
           // Options
@@ -1383,7 +1383,7 @@ function menu(): void {
           label({
             text: DynamicDashboard.name + "@" + DynamicDashboard.version,
             width: "170px",
-            padding: { top: network.mode === "none" ? 40 : 108, left: "1w" },
+            padding: { top: network.mode === "none" ? 0 : 68, left: "1w" },
             disabled: true
           }),
           label({
