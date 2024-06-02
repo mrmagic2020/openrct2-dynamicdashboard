@@ -49,8 +49,8 @@ export class IntervalManager {
     this.counterInitialised = true
     this.counterID = context.setInterval(() => {
       increment(this.countdownProgress)
-      if (this.countdownProgress.get() >= this.updateFrequency.get()) {
-        this.countdownProgress.set(0)
+      if (this.countdownProgress.get() > this.updateFrequency.get()) {
+        this.countdownProgress.set(1)
       }
     }, 1 * 1000)
   }
