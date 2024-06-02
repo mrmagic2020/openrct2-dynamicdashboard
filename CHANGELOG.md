@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning].
 
 - Move Stalls & Facilities statistics group to the third column, under Ride group.
 
+- Indicator lights now go from 1 to 10 instead of 0 to 9.
+
 ### Removed
 
 ### Fixed
