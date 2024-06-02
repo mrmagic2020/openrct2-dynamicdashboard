@@ -19,7 +19,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 ## Contents
 
-- [Features](#features-preview)
+- [Features](#features)
 
 - [Installation](#installation)
 
@@ -37,7 +37,11 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
 - [Contributing](#contributing)
 
-## Features (Preview)
+  - [Bug Report / Feature Request](#bug-report--feature-request)
+
+  - [Build from Source](#build-from-source)
+
+## Features
 
 <details open>
 <summary>Feature Preview</summary>
@@ -47,7 +51,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 </details>
 
 <details open>
-<summary>Preview v1.0.0-pre.6</summary>
+<summary>Preview v1.0.0-pre.7</summary>
 
 ![screenshot](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/dynamic_dashboard.png?raw=true)
 
@@ -116,17 +120,27 @@ The update frequency can be customised via global settings, found in the toolbox
 
 ## Contributing
 
-We're excited to have you here and appreciate your interest in contributing to our OpenRCT2 plugin project, whether you're a seasoned developer, a passionate designer, or simply an avid fan. Here are a few ways you can contribute:
+We're excited to have you here and appreciate your interest in contributing to our OpenRCT2 plugin project!
 
-1. **Code Contributions:** Help us expand functionality, fix bugs, or add new features. Fork and pull!
+### Bug Report / Feature Request
 
-2. **Testing and Bug Reports:** Report any issues you encounter with clear descriptions and steps to reproduce the problem. Your feedback helps us improve stability.
+Feel free to [open an Issue](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/new/choose)! We will address the problem as soon as possible.
 
-3. **Feature Requests:** Share your ideas for new features by opening an issue.
+### Build from Source
 
-4. **Documentation:** Help insert comments to code, imrpove markdown files or fix typos.
+1. Install latest version of [Node](https://nodejs.org/en/) and make sure to include NPM in the installation options.
 
-5. **Localisation:** Help us translate! Start by making a copy of [`en-GB.json`](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/src/languages/locale/en-GB.json) and renaming it according to the language code. Once finished, create a pull request!
+2. Clone the project to a location of your choice on your PC.
+
+3. Open command prompt, use `cd` to change your current directory to the root folder of this project and run `npm install`.
+
+4. Copy the `openrct2.d.ts` TypeScript API declaration file to `lib` folder.
+
+5. Run `npm run build` (release build) or `npm run build:dev` (develop build) to build the project.
+
+    - For the release build, the default output folder is `(project directory)/dist`.
+
+    - For the develop build, the project tries to put the plugin into your game's plugin directory.
 
 ---
 
