@@ -64,6 +64,7 @@
         "park_rating_ave": "平均值：{PALESILVER}",
         "park_rating_year_ave": "平均值（当年）：{PALESILVER}",
         "park_rating_month_ave": "平均值（当月）：{PALESILVER}",
+        "park_rating_warning_days": "警告天数：{PALESILVER}",
 
         "objective_status": "状态：{PALESILVER}",
         "objective_status_inProgress": "进行中",
@@ -132,6 +133,7 @@
       },
       "tooltip": {
         "entity_count_total_limitation": "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。",
+        "park_rating_warning_days": "一旦游乐园评分低于700，你会有30天时间改善评分，否则游乐园会被强制关闭。",
         "options_update_running": "动态仪表正在运行。数据将自动刷新。",
         "options_update_manual": "动态仪表正在运行。部分数据需要手动刷新。",
         "options_update_paused": "动态仪表已暂停。数据不会刷新。"

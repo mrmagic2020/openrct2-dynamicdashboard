@@ -20,7 +20,6 @@ import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
 import WarningWindow from "./custom/warning"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
-import { ParkAndScenarioData } from "../data/park_and_scenario"
 
 /**
  * Whether the window is open.
@@ -568,6 +567,7 @@ function menu(): void {
               groupbox({
                 text: language.ui.main.groupbox.park_and_scenario.park_rating,
                 content: [
+                  // Park Rating Current
                   horizontal({
                     content: [
                       label({
@@ -605,8 +605,8 @@ function menu(): void {
                           (value) => {
                             return MathUtils.normalise(
                               value,
-                              ParkAndScenarioData.MIN_PARK_RATING,
-                              ParkAndScenarioData.MAX_PARK_RATING
+                              Data.ParkAndScenarioData.MIN_PARK_RATING,
+                              Data.ParkAndScenarioData.MAX_PARK_RATING
                             )
                           }
                         ),
@@ -615,6 +615,7 @@ function menu(): void {
                       })
                     ]
                   }),
+                  // Park Rating Average
                   horizontal({
                     content: [
                       label({
@@ -653,8 +654,8 @@ function menu(): void {
                           (value) => {
                             return MathUtils.normalise(
                               value,
-                              ParkAndScenarioData.MIN_PARK_RATING,
-                              ParkAndScenarioData.MAX_PARK_RATING
+                              Data.ParkAndScenarioData.MIN_PARK_RATING,
+                              Data.ParkAndScenarioData.MAX_PARK_RATING
                             )
                           }
                         ),
@@ -663,6 +664,7 @@ function menu(): void {
                       })
                     ]
                   }),
+                  // Park Rating Year Average
                   horizontal({
                     content: [
                       label({
@@ -702,8 +704,8 @@ function menu(): void {
                           (value) => {
                             return MathUtils.normalise(
                               value,
-                              ParkAndScenarioData.MIN_PARK_RATING,
-                              ParkAndScenarioData.MAX_PARK_RATING
+                              Data.ParkAndScenarioData.MIN_PARK_RATING,
+                              Data.ParkAndScenarioData.MAX_PARK_RATING
                             )
                           }
                         ),
@@ -712,6 +714,7 @@ function menu(): void {
                       })
                     ]
                   }),
+                  // Park Rating Month Average
                   horizontal({
                     content: [
                       label({
@@ -751,13 +754,76 @@ function menu(): void {
                           (value) => {
                             return MathUtils.normalise(
                               value,
-                              ParkAndScenarioData.MIN_PARK_RATING,
-                              ParkAndScenarioData.MAX_PARK_RATING
+                              Data.ParkAndScenarioData.MIN_PARK_RATING,
+                              Data.ParkAndScenarioData.MAX_PARK_RATING
                             )
                           }
                         ),
                         background: Colour.Grey,
                         foreground: Colour.BrightGreen
+                      })
+                    ]
+                  }),
+                  // Park Rating Warning Days
+                  horizontal({
+                    content: [
+                      label({
+                        text: compute(
+                          baseData.local.park_and_scenario
+                            .park_rating_warning_days.store,
+                          baseData.local.options.display_mode.store,
+                          (value, mode) => {
+                            switch (mode) {
+                              case Data.Options.DisplayMode.PROGRESS_BAR:
+                                return language.ui.main.label
+                                  .park_rating_warning_days
+                              case Data.Options.DisplayMode.VALUE:
+                                return tr(
+                                  language.ui.main.label
+                                    .park_rating_warning_days,
+                                  Data.ParkAndScenarioData
+                                    .MAX_RATING_WARNING_DAYS - value
+                                )
+                              default:
+                                return ""
+                            }
+                          }
+                        ),
+                        tooltip:
+                          language.ui.main.tooltip.park_rating_warning_days
+                      }),
+                      progressBar({
+                        visibility: compute(
+                          baseData.local.options.display_mode.store,
+                          (value) => {
+                            return value ===
+                              Data.Options.DisplayMode.PROGRESS_BAR
+                              ? "visible"
+                              : "none"
+                          }
+                        ),
+                        percentFilled: compute(
+                          baseData.local.park_and_scenario
+                            .park_rating_warning_days.store,
+                          () => {
+                            return Data.ParkAndScenarioData.getWarningDaysPercentage()
+                          }
+                        ),
+                        background: Colour.Grey,
+                        foreground: compute(
+                          baseData.local.park_and_scenario
+                            .park_rating_warning_days.store,
+                          () => {
+                            if (
+                              Data.ParkAndScenarioData.getWarningDaysPercentage() <=
+                              Data.ParkAndScenarioData
+                                .RATING_WARNING_DAYS_THRESHOLD
+                            ) {
+                              return Colour.BrightRed
+                            }
+                            return Colour.BrightGreen
+                          }
+                        )
                       })
                     ]
                   })
@@ -929,42 +995,6 @@ function menu(): void {
                   ])
                 ]
               })
-            ]
-          }),
-          // Stalls & Facilities
-          groupbox({
-            text: language.ui.main.groupbox.stalls_and_facilities.title,
-            content: [
-              horizontal([
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities
-                      .stalls_and_facilities_count_total.store,
-                    (value) =>
-                      tr(
-                        language.ui.main.label
-                          .stalls_and_facilities_count_total,
-                        value
-                      )
-                  )
-                }),
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities.stalls_count_total
-                      .store,
-                    (value) =>
-                      tr(language.ui.main.label.stalls_count_total, value)
-                  )
-                }),
-                label({
-                  text: compute(
-                    baseData.local.stalls_and_facilities.facilities_count_total
-                      .store,
-                    (value) =>
-                      tr(language.ui.main.label.facilities_count_total, value)
-                  )
-                })
-              ])
             ]
           }),
           // Finance
@@ -1168,6 +1198,42 @@ function menu(): void {
                   ])
                 ]
               })
+            ]
+          }),
+          // Stalls & Facilities
+          groupbox({
+            text: language.ui.main.groupbox.stalls_and_facilities.title,
+            content: [
+              horizontal([
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities
+                      .stalls_and_facilities_count_total.store,
+                    (value) =>
+                      tr(
+                        language.ui.main.label
+                          .stalls_and_facilities_count_total,
+                        value
+                      )
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.stalls_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.stalls_count_total, value)
+                  )
+                }),
+                label({
+                  text: compute(
+                    baseData.local.stalls_and_facilities.facilities_count_total
+                      .store,
+                    (value) =>
+                      tr(language.ui.main.label.facilities_count_total, value)
+                  )
+                })
+              ])
             ]
           }),
           // Options
@@ -1383,7 +1449,7 @@ function menu(): void {
           label({
             text: DynamicDashboard.name + "@" + DynamicDashboard.version,
             width: "170px",
-            padding: { top: network.mode === "none" ? 40 : 108, left: "1w" },
+            padding: { top: network.mode === "none" ? 0 : 68, left: "1w" },
             disabled: true
           }),
           label({

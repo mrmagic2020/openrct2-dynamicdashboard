@@ -64,6 +64,7 @@
         "park_rating_ave": "Average (all time): {PALESILVER}",
         "park_rating_year_ave": "Average (year): {PALESILVER}",
         "park_rating_month_ave": "Average (month): {PALESILVER}",
+        "park_rating_warning_days": "Warning countdown: {PALESILVER}",
 
         "objective_status": "Status: {PALESILVER}",
         "objective_status_inProgress": "In progress",
@@ -132,6 +133,7 @@
       },
       "tooltip": {
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
+        "park_rating_warning_days": "When the park rating drops below 700, you will have 30 days to improve it before the park is forced to close.",
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
