@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning].
 
 ### Added
 
+- Add company value record in group Finance.
+
+- Add objective status.
+
+- Add objective days left (if required).
+
 ### Changed
 
-### Deprecated
+- Minor UI layout adjustments to prevent text omission.
 
 ### Removed
 
@@ -20,6 +26,8 @@ and this project adheres to [Semantic Versioning].
 - Fix [[#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16)]: Month/Year park rating average bug.
 
 - Fix data updating while not playing in a scenario.
+
+- Fix shortcut keys opening dashboard while not playing in a scenario.
 
 ## [1.0.0-pre.6] - 2024-05-25
 
