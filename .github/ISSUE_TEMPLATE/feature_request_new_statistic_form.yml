@@ -18,6 +18,12 @@ body:
         - This is a new group
     validations:
       required: true
+  - type: input
+    attributes:
+      label: Statistic Name
+      description: What should be the title of the new statistic?
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: Feature Description
