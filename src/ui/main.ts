@@ -208,7 +208,7 @@ function menu(): void {
                 text: compute(
                   baseData.local.guest.guest_weight_ave.store,
                   (value) =>
-                    language.ui.main.label.guest_weight_ave + value.toString()
+                    language.ui.main.label.guest_weight_ave + value.toFixed(2)
                 )
               }),
               label({
@@ -235,7 +235,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_happiness_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -288,7 +288,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_energy_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -341,7 +341,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_nausea_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -394,7 +394,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_hunger_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -446,7 +446,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_thirst_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -498,7 +498,7 @@ function menu(): void {
                           case Data.Options.DisplayMode.VALUE:
                             return (
                               language.ui.main.label.guest_toilet_ave +
-                              value.toString()
+                              value.toFixed(2)
                             )
                           default:
                             return ""
@@ -1095,21 +1095,21 @@ function menu(): void {
                   baseData.local.rides.ride_excitement_ave.store,
                   (value) =>
                     language.ui.main.label.ride_excitement_ave +
-                    value.toString()
+                    value.toFixed(2)
                 )
               }),
               label({
                 text: compute(
                   baseData.local.rides.ride_intensity_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_intensity_ave + value.toString()
+                    language.ui.main.label.ride_intensity_ave + value.toFixed(2)
                 )
               }),
               label({
                 text: compute(
                   baseData.local.rides.ride_nausea_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_nausea_ave + value.toString()
+                    language.ui.main.label.ride_nausea_ave + value.toFixed(2)
                 )
               }),
               label({
@@ -1136,14 +1136,14 @@ function menu(): void {
                 text: compute(
                   baseData.local.rides.ride_admission_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_admission_ave + value.toString()
+                    language.ui.main.label.ride_admission_ave + value.toFixed(0)
                 )
               }),
               label({
                 text: compute(
                   baseData.local.rides.ride_age_ave.store,
                   (value) =>
-                    tr(language.ui.main.label.ride_age_ave, value.toString())
+                    tr(language.ui.main.label.ride_age_ave, value.toFixed(2))
                 )
               }),
               label({
@@ -1152,7 +1152,7 @@ function menu(): void {
                   (value) =>
                     tr(
                       language.ui.main.label.ride_downtime_ave,
-                      value.toString()
+                      value.toFixed(2)
                     )
                 )
               }),

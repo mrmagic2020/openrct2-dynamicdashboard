@@ -41,15 +41,11 @@ type DataGroup = {
 type BranchDataGroup = {
   [key in BranchDataType]: key extends "park_and_scenario"
     ? DataSet<number, ParkAndScenarioBranchDataType>
-    : key extends "rides"
-      ? DataSet<number, RidesBranchDataType>
-      : key extends "guest"
-        ? DataSet<number, GuestBranchDataType>
-        : key extends "finance"
-          ? DataSet<number, FinanceBranchDataType>
-          : key extends "utils"
-            ? DataSet<number, UtilsBranchDataType>
-            : never
+    : key extends "finance"
+      ? DataSet<number, FinanceBranchDataType>
+      : key extends "utils"
+        ? DataSet<number, UtilsBranchDataType>
+        : never
 }
 
 interface BaseData {
@@ -154,98 +150,6 @@ const branchData: BranchData = {
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".park_rating_year_ave_sum", 0)
         )
-      })
-    },
-    rides: {
-      ride_excitement_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_excitement_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_excitement_ave_sum", 0)
-        )
-      }),
-      ride_intensity_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_intensity_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_intensity_ave_sum", 0)
-        )
-      }),
-      ride_nausea_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_nausea_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_nausea_ave_sum", 0)
-        )
-      }),
-      ride_value_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_value_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_value_ave_sum", 0)
-        )
-      }),
-      ride_price_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_price_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_price_ave_sum", 0)
-        )
-      }),
-      ride_admission_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_admission_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_admission_ave_sum", 0)
-        )
-      }),
-      ride_age_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_age_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_age_ave_sum", 0)
-        )
-      }),
-      ride_downtime_ave_sum: new DataEntry({
-        key: BRANCH + ".ride_downtime_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_downtime_ave_sum", 0)
-        )
-      })
-    },
-    guest: {
-      guest_weight_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_weight_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_wealth_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_wealth_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_happiness_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_happiness_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_energy_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_enery_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_nausea_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_nausea_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_hunger_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_hunger_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_thirst_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_thirst_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }),
-      guest_toilet_ave_sum: new DataEntry({
-        key: BRANCH + ".guest_toilet_ave_sum",
-        temporary: true,
-        store: store<number>(0)
       })
     },
     finance: {
@@ -548,107 +452,35 @@ const baseData: BaseData = {
 
       ride_excitement_ave: new DataEntry({
         key: LOCAL + ".ride_excitement_ave",
-        store: compute(
-          branchData.local.rides.ride_excitement_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_excitement_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       ride_intensity_ave: new DataEntry({
         key: LOCAL + ".ride_intensity_ave",
-        store: compute(
-          branchData.local.rides.ride_intensity_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_intensity_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       ride_nausea_ave: new DataEntry({
         key: LOCAL + ".ride_nausea_ave",
-        store: compute(branchData.local.rides.ride_nausea_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_nausea_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
+        store: store<number>(0)
       }),
       ride_value_ave: new DataEntry({
         key: LOCAL + ".ride_value_ave",
-        store: compute(branchData.local.rides.ride_value_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_value_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
+        store: store<number>(0)
       }),
       ride_price_ave: new DataEntry({
         key: LOCAL + ".ride_price_ave",
-        store: compute(branchData.local.rides.ride_price_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_price_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
+        store: store<number>(0)
       }),
       ride_admission_ave: new DataEntry({
         key: LOCAL + ".ride_admission_ave",
-        store: compute(
-          branchData.local.rides.ride_admission_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_admission_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(0)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       ride_age_ave: new DataEntry({
         key: LOCAL + ".ride_age_ave",
-        store: compute(branchData.local.rides.ride_age_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_age_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
+        store: store<number>(0)
       }),
       ride_downtime_ave: new DataEntry({
         key: LOCAL + ".ride_downtime_ave",
-        store: compute(
-          branchData.local.rides.ride_downtime_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_downtime_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       })
     },
     guest: {
@@ -675,116 +507,35 @@ const baseData: BaseData = {
       }),
       guest_weight_ave: new DataEntry({
         key: LOCAL + ".guest_weight_ave",
-        store: compute(
-          branchData.local.guest.guest_weight_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_weight_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_wealth_ave: new DataEntry({
         key: LOCAL + ".guest_wealth_ave",
-        store: compute(
-          branchData.local.guest.guest_wealth_ave_sum.store,
-          () => {
-            // console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
-            return parseFloat(
-              (
-                branchData.local.guest.guest_wealth_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_happiness_ave: new DataEntry({
         key: LOCAL + ".guest_happiness_ave",
-        store: compute(
-          branchData.local.guest.guest_happiness_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_happiness_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_energy_ave: new DataEntry({
         key: LOCAL + ".guest_energy_ave",
-        store: compute(
-          branchData.local.guest.guest_energy_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_energy_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_nausea_ave: new DataEntry({
         key: LOCAL + ".guest_nausea_ave",
-        store: compute(
-          branchData.local.guest.guest_nausea_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_nausea_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_hunger_ave: new DataEntry({
         key: LOCAL + ".guest_hunger_ave",
-        store: compute(
-          branchData.local.guest.guest_hunger_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_hunger_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_thirst_ave: new DataEntry({
         key: LOCAL + ".guest_thirst_ave",
-        store: compute(
-          branchData.local.guest.guest_thirst_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_thirst_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       }),
       guest_toilet_ave: new DataEntry({
         key: LOCAL + ".guest_toilet_ave",
-        store: compute(
-          branchData.local.guest.guest_toilet_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_toilet_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
+        store: store<number>(0)
       })
     },
     finance: {
@@ -804,14 +555,8 @@ const baseData: BaseData = {
        */
       total_expenditure: new DataEntry({
         key: LOCAL + ".total_expenditure",
-        temporary: true,
-        store: compute(
-          branchData.local.finance.expenditure_player_action.store,
-          branchData.local.finance.expenditure_network.store,
-          (player, network) => {
-            return player + network
-          }
-        )
+        // temporary: true,
+        store: store<number>(0)
       }),
       company_value: new DataEntry({
         key: LOCAL + ".company_value",

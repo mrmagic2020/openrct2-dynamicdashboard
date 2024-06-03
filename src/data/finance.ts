@@ -72,8 +72,16 @@ namespace FinanceData {
     )
   }
 
+  function updateExpenditure(): void {
+    const ePlayerAction =
+      branchData.local.finance.expenditure_player_action.store.get()
+    const eNetwork = branchData.local.finance.expenditure_network.store.get()
+    baseData.local.finance.total_expenditure.store.set(ePlayerAction + eNetwork)
+  }
+
   export function update(): void {
     updateParkIE()
+    updateExpenditure()
     updateCompanyValue()
     updateCompanyValueRecord()
   }
@@ -94,10 +102,10 @@ namespace FinanceData {
       }
     })
 
-    interval.register(
-      updateParkIE,
-      baseData.global.update_frequency.get() * 1000
-    )
+    interval.register(() => {
+      updateParkIE()
+      updateExpenditure()
+    }, baseData.global.update_frequency.get() * 1000)
   }
 }
 

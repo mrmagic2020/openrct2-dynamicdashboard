@@ -36,7 +36,9 @@ class DataEntry<T> {
   private init() {
     if (!this._temporary) {
       if (context.getParkStorage().has(this._key)) {
-        this._store.set(context.getParkStorage().get(this._key) as T)
+        this._store.set(
+          (context.getParkStorage().get(this._key) as T) ?? (0 as unknown as T)
+        )
       }
     }
   }
@@ -91,7 +93,9 @@ class DataEntry<T> {
    * Resets the data entry to its default value.
    */
   reset() {
-    this._store.set(this._defaultValue || (0 as T))
+    this._store.set(
+      this._defaultValue ? this._defaultValue : (0 as unknown as T)
+    )
   }
 
   /**

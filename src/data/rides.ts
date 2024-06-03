@@ -1,4 +1,4 @@
-import { baseData, branchData } from "./main"
+import { baseData } from "./main"
 import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
@@ -251,22 +251,27 @@ namespace RideData {
       ageSum = 0,
       downtimeSum = 0
     const rides: Ride[] = getRides()
-    rides.forEach((ride) => (excitementSum += ride.excitement / 100))
-    rides.forEach((ride) => (intensitySum += ride.intensity / 100))
-    rides.forEach((ride) => (nauseaSum += ride.nausea / 100))
-    rides.forEach((ride) => (valueSum += ride.value))
-    rides.forEach((ride) => (priceSum += ride.price[0]))
-    rides.forEach((ride) => (admissionSum += ride.totalCustomers))
-    rides.forEach((ride) => (ageSum += ride.age))
-    rides.forEach((ride) => (downtimeSum += ride.downtime))
-    branchData.local.rides.ride_excitement_ave_sum.store.set(excitementSum)
-    branchData.local.rides.ride_intensity_ave_sum.store.set(intensitySum)
-    branchData.local.rides.ride_nausea_ave_sum.store.set(nauseaSum)
-    branchData.local.rides.ride_value_ave_sum.store.set(valueSum)
-    branchData.local.rides.ride_price_ave_sum.store.set(priceSum)
-    branchData.local.rides.ride_admission_ave_sum.store.set(admissionSum)
-    branchData.local.rides.ride_age_ave_sum.store.set(ageSum)
-    branchData.local.rides.ride_downtime_ave_sum.store.set(downtimeSum)
+    const rideCount = rides.length ? rides.length : 1
+    rides.forEach((ride) => {
+      excitementSum += ride.excitement / 100
+      intensitySum += ride.intensity / 100
+      nauseaSum += ride.nausea / 100
+      valueSum += ride.value
+      priceSum += ride.price[0]
+      admissionSum += ride.totalCustomers
+      ageSum += ride.age
+      downtimeSum += ride.downtime
+    })
+    baseData.local.rides.ride_excitement_ave.store.set(
+      excitementSum / rideCount
+    )
+    baseData.local.rides.ride_intensity_ave.store.set(intensitySum / rideCount)
+    baseData.local.rides.ride_nausea_ave.store.set(nauseaSum / rideCount)
+    baseData.local.rides.ride_value_ave.store.set(valueSum / rideCount)
+    baseData.local.rides.ride_price_ave.store.set(priceSum / rideCount)
+    baseData.local.rides.ride_admission_ave.store.set(admissionSum / rideCount)
+    baseData.local.rides.ride_age_ave.store.set(ageSum / rideCount)
+    baseData.local.rides.ride_downtime_ave.store.set(downtimeSum / rideCount)
   }
 
   /**
