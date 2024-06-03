@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+- /
+
+## [1.0.0-pre.7] - 2024-06-04
+
 ### Added
 
 - Add company value record in group Finance.
@@ -24,8 +28,6 @@ and this project adheres to [Semantic Versioning].
 - Move Stalls & Facilities statistics group to the third column, under Ride group.
 
 - Indicator lights now go from 1 to 10 instead of 0 to 9.
-
-### Removed
 
 ### Fixed
 
@@ -184,6 +186,7 @@ Initial release.
 <!-- Versions -->
 
 [unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[1.0.0-pre.7]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.7
 [1.0.0-pre.6]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.6
 [1.0.0-pre.5]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.5
 [1.0.0-pre.4]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.4
