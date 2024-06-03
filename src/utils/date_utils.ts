@@ -20,7 +20,18 @@ namespace DateUtils {
   const DAYS_IN_MONTH = [31, 30, 31, 30, 31, 31, 30, 31]
   const DAYS_IN_YEAR = DAYS_IN_MONTH.reduce((a, b) => a + b, 0)
 
-  function validateYMD(ymd: YMD): void {
+  export enum Month {
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October
+  }
+
+  export function validateYMD(ymd: YMD): void {
     Logger.assert(ymd.year > 0, "Year must be greater than 0.")
     Logger.assert(
       ymd.month >= 0 && ymd.month < MONTH_COUNT,
