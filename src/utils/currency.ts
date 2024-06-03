@@ -47,7 +47,12 @@ namespace Currency {
    * @returns The localised currency string.
    */
   export function localise(value: number, twodp: boolean = true): string {
-    return context.formatString(twodp ? "{CURRENCY2DP}" : "{CURRENCY}", value)
+    let isNegative = value < 0
+    if (isNegative) value = -value
+    return (
+      (isNegative ? "-" : "") +
+      context.formatString(twodp ? "{CURRENCY2DP}" : "{CURRENCY}", value)
+    )
   }
 }
 
