@@ -3,7 +3,7 @@ import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
 import { language } from "../languages/lang"
-import DateUtils from "../utils/date"
+import DateUtils from "../utils/date_utils"
 import MathUtils from "../utils/math_utils"
 
 namespace ParkAndScenarioData {

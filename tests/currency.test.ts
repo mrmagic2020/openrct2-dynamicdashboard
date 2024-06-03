@@ -1,6 +1,5 @@
-/// <reference path="../lib/openrct2.d.ts" />
 import test from "ava"
-import Currency from "../src/utils/currency.ts"
+import Currency from "../src/utils/currency.js"
 import Mock from "openrct2-mocks"
 
 test("formatMoney returns the value as string if it is NaN", (t) => {

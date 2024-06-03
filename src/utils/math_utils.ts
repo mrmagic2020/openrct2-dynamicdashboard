@@ -1,5 +1,3 @@
-import Logger from "./logger"
-
 namespace MathUtils {
   /**
    * Clamps a value between a minimum and maximum range.
@@ -29,7 +27,6 @@ namespace MathUtils {
    */
   export function normalise(value: number, min: number, max: number): number {
     if (value < min || value > max) {
-      Logger.warning(`Value ${value} is outside the range of ${min} to ${max}.`)
       value = clamp(value, min, max)
     }
     return (value - min) / (max - min)

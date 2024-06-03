@@ -2,7 +2,7 @@ namespace Environment {
   /**
    * Specifies whether the current build is for production or development environment.
    */
-  type BuildConfiguration = "production" | "development"
+  type BuildConfiguration = "production" | "development" | "test"
 
   /**
    * The current active build configuration.
@@ -23,6 +23,11 @@ namespace Environment {
    * Returns true if the current build is a development build.
    */
   export const isDevelopment = buildConfiguration === "development"
+
+  /**
+   * Returns true if the current build is a test build.
+   */
+  export const isTest = buildConfiguration === "test"
 
   /**
    * Returns true if the UI is available, or false if the game is running in headless mode.
