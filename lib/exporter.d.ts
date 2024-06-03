@@ -11,12 +11,7 @@ type DataType =
   | "finance"
   | "options"
 
-type BranchDataType =
-  | "park_and_scenario"
-  | "rides"
-  | "guest"
-  | "finance"
-  | "utils"
+type BranchDataType = "park_and_scenario" | "finance" | "utils"
 
 type PlayerDataType =
   | "game_time_real"
@@ -82,16 +77,6 @@ type RidesDataType =
   | "ride_age_ave"
   | "ride_downtime_ave"
 
-type RidesBranchDataType =
-  | "ride_excitement_ave_sum"
-  | "ride_intensity_ave_sum"
-  | "ride_nausea_ave_sum"
-  | "ride_value_ave_sum"
-  | "ride_price_ave_sum"
-  | "ride_admission_ave_sum"
-  | "ride_age_ave_sum"
-  | "ride_downtime_ave_sum"
-
 type GuestDataType =
   | "guest_generation_total"
   | "guest_admission_total"
@@ -141,7 +126,6 @@ type DataKey =
   | FinanceDataType
   | OptionsDataType
   | ParkAndScenarioBranchDataType
-  | RidesBranchDataType
   | GuestBranchDataType
   | FinanceBranchDataType
   | UtilsBranchDataType
@@ -155,7 +139,6 @@ type RequestKey =
   | `base.finance.${FinanceDataType}`
   | `base.options.${OptionsDataType}`
   | `branch.park_and_scenario.${ParkAndScenarioBranchDataType}`
-  | `branch.rides.${RidesBranchDataType}`
   | `branch.guest.${GuestBranchDataType}`
   | `branch.finance.${FinanceBranchDataType}`
   | `branch.utils|${UtilsBranchDataType}`

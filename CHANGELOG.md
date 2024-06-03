@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning].
 
 - Fix shortcut keys opening dashboard while not playing in a scenario.
 
+- Automatically clean up deprecated data storage.
+
+- Speed optimisations.
+
 ## [1.0.0-pre.6] - 2024-05-25
 
 ### Added
