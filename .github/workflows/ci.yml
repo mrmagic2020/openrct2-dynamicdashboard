@@ -17,8 +17,10 @@ jobs:
   check-code-formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4.1.6
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
         with:
           node-version: 20.14.0
           cache: npm
@@ -29,11 +31,15 @@ jobs:
     needs: check-code-formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4.1.6
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
         with:
           node-version: 20.14.0
           cache: npm
       - run: npm ci --prefer-offline --no-audit --no-save
-      - run: npm run build:silent
-      - run: npm run test
+      - name: Build project
+        run: npm run build:silent
+      - name: Run tests
+        run: npm run test
