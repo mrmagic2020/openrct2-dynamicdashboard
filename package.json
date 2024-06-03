@@ -9,6 +9,7 @@
     "build:dev": "rollup --config rollup.config.js",
     "docs": "npx typedoc --entryPointStrategy expand ./src",
     "format": "npx prettier --write \"src/**/*.ts\"",
+    "check-format": "npx prettier --check \"src/**/*.ts\"",
     "test": "ava"
   },
   "devDependencies": {
