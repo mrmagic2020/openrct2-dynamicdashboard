@@ -15,15 +15,21 @@ and this project adheres to [Semantic Versioning].
 
 - Add objective days left (if required).
 
+- Add [#19](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/19): park rating warning countdown.
+
 ### Changed
 
 - Minor UI layout adjustments to prevent text omission.
+
+- Move Stalls & Facilities statistics group to the third column, under Ride group.
+
+- Indicator lights now go from 1 to 10 instead of 0 to 9.
 
 ### Removed
 
 ### Fixed
 
-- Fix [[#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16)]: Month/Year park rating average bug.
+- Fix [#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16): Month/Year park rating average bug.
 
 - Fix data updating while not playing in a scenario.
 

@@ -426,6 +426,11 @@ const baseData: BaseData = {
           }
         )
       }),
+      park_rating_warning_days: new DataEntry({
+        key: LOCAL + ".park_rating_warning_days",
+        temporary: true,
+        store: store<number>(0)
+      }),
 
       objective_status: new DataEntry({
         key: LOCAL + ".objective_status",
@@ -812,6 +817,11 @@ const baseData: BaseData = {
         key: LOCAL + ".company_value",
         temporary: true,
         store: store<number>(park.companyValue)
+      }),
+      company_value_record: new DataEntry({
+        key: LOCAL + ".company_value_record",
+        temporary: true,
+        store: store<number>(0)
       })
     },
     options: {

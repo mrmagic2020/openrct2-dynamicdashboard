@@ -1,0 +1,45 @@
+name: ci
+on:
+  push:
+    paths-ignore:
+      - ".github/*_TEMPLATE/**"
+      - ".gitignore"
+      - ".prettierignore"
+      - ".vscode/**"
+  pull_request:
+    paths-ignore:
+      - ".github/*_TEMPLATE/**"
+      - ".gitignore"
+      - ".prettierignore"
+      - ".vscode/**"
+
+jobs:
+  check-code-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.6
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 20.14.0
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-save
+      - run: npm run check-format
+
+  test:
+    needs: check-code-formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.6
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 20.14.0
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-save
+      - name: Build project
+        run: npm run build:silent
+      - name: Run tests
+        run: npm run test

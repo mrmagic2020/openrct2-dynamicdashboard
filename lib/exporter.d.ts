@@ -42,6 +42,7 @@ type ParkAndScenarioDataType =
   | "park_rating_month_ave"
   | "objective_status"
   | "objective_days_left"
+  | "park_rating_warning_days"
   | "entity_count_total"
   | "entity_count_guest"
   | "entity_count_staff"
@@ -115,7 +116,11 @@ type GuestBranchDataType =
   | "guest_thirst_ave_sum"
   | "guest_toilet_ave_sum"
 
-type FinanceDataType = "total_income" | "total_expenditure" | "company_value"
+type FinanceDataType =
+  | "total_income"
+  | "total_expenditure"
+  | "company_value"
+  | "company_value_record"
 
 type FinanceBranchDataType =
   | "income_player_action"
