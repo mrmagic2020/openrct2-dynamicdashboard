@@ -18,6 +18,7 @@
         "park_and_scenario": {
           "title": "{PALEGOLD}Park & Scenario",
           "park_rating": "{PALEGOLD}Park Rating",
+          "objective": "{PALEGOLD}Objective",
           "entity_count": "{PALEGOLD}Entity Count",
           "research": "{PALEGOLD}Research"
         },
@@ -63,6 +64,13 @@
         "park_rating_ave": "Average (all time): {PALESILVER}",
         "park_rating_year_ave": "Average (year): {PALESILVER}",
         "park_rating_month_ave": "Average (month): {PALESILVER}",
+        "park_rating_warning_days": "Warning countdown: {PALESILVER}",
+
+        "objective_status": "Status: {PALESILVER}",
+        "objective_status_inProgress": "In progress",
+        "objective_status_completed": "Completed",
+        "objective_status_failed": "Failed",
+        "objective_status_days_left": "Days left: {PALESILVER}",
 
         "entity_count_total": "Total: {PALESILVER}",
         "entity_count_guest": "Guest: {PALESILVER}",
@@ -113,6 +121,7 @@
         "finance_total_expenditure": "Total Expenditure: {PALESILVER}<NUMBER&UNIT>",
         "finance_total_profit": "Total Profit: {PALESILVER}<NUMBER&UNIT>",
         "finance_company_value": "Company Value: {PALESILVER}<NUMBER&UNIT>",
+        "finance_company_value_record": "Company Value Record: {PALESILVER}<NUMBER&UNIT>",
 
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",
@@ -124,6 +133,7 @@
       },
       "tooltip": {
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
+        "park_rating_warning_days": "When the park rating drops below 700, you will have 30 days to improve it before the park is forced to close.",
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."

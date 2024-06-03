@@ -6,6 +6,8 @@ import { RideData as RD } from "./rides"
 import { SFData as SAFD } from "./stalls_and_facilities"
 import { Options as OPT } from "./options"
 import { FinanceData } from "./finance"
+import Cleanup from "./cleanup"
+import HookManager from "../utils/hooks"
 
 namespace Data {
   export import GuestData = GD
@@ -25,6 +27,7 @@ namespace Data {
   }
 
   export function init() {
+    HookManager.hook("map.changed", Cleanup.execute)
     initData()
     PlayerData.init()
     GuestData.init()
@@ -32,7 +35,7 @@ namespace Data {
     SFData.init()
     RideData.init()
     FinanceData.init()
-    interval.initCounter()
+    interval.resumeAll()
   }
 
   export function reset(): void {

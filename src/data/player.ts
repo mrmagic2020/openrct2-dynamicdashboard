@@ -1,6 +1,7 @@
-import { PlayerDataType, baseData } from "./main"
-import { increment } from "../utils/storeutil"
+import { baseData } from "./main"
+import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 
 namespace PlayerData {
   type ActionClass = {
@@ -128,13 +129,13 @@ namespace PlayerData {
      */
     interval.register(updatePlayerRealTimeGameTime, 15 * 1000, false)
 
-    context.subscribe("interval.day", updatePlayerFakeGameTime)
+    HookManager.hook("interval.day", updatePlayerFakeGameTime)
 
-    context.subscribe("action.execute", updatePlayerActionCount)
+    HookManager.hook("action.execute", updatePlayerActionCount)
 
-    context.subscribe("network.join", updatePlayerNetworkJoinCount)
+    HookManager.hook("network.join", updatePlayerNetworkJoinCount)
 
-    context.subscribe("network.chat", updatePlayerNetworkChatCount)
+    HookManager.hook("network.chat", updatePlayerNetworkChatCount)
   }
 }
 

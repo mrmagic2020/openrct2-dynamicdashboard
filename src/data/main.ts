@@ -1,156 +1,9 @@
 import { WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
+import DataEntry from "./classes/data_entry"
+import HookManager from "../utils/hooks"
 import Logger from "../utils/logger"
-
-type DataType =
-  | "player"
-  | "park_and_scenario"
-  | "stalls_and_facilities"
-  | "rides"
-  | "guest"
-  | "finance"
-  | "options"
-
-type BranchDataType =
-  | "park_and_scenario"
-  | "rides"
-  | "guest"
-  | "finance"
-  | "utils"
-
-type PlayerDataType =
-  | "game_time_real"
-  | "game_time_fake"
-  | "action_track_design"
-  | "action_stall_and_facility_placement"
-  | "action_footpath_placement"
-  | "action_scenery_placement"
-  | "action_landscaping"
-  | "action_staff"
-  | "action_relocate_peep"
-  | "action_pop_balloon"
-  | "action_set_cheats"
-  | "action_server_join"
-  | "action_server_chat"
-
-type ParkAndScenarioDataType =
-  | "park_value"
-  | "park_size"
-  | "park_rating"
-  | "park_rating_ave"
-  | "park_rating_year_ave"
-  | "park_rating_month_ave"
-  | "entity_count_total"
-  | "entity_count_guest"
-  | "entity_count_staff"
-  | "entity_count_balloon"
-  | "entity_count_duck"
-  | "entity_count_litter"
-  | "reseach_invented_items"
-  | "reseach_uninvented_items"
-
-type ParkAndScenarioBranchDataType =
-  | "park_rating_ave_sample_count"
-  | "park_rating_ave"
-  | "park_rating_year_ave_sample_count"
-  | "park_rating_year_ave"
-  | "park_rating_month_ave_sample_count"
-  | "park_rating_month_ave"
-
-type StallsAndFacilitiesDataType =
-  | "stalls_and_facilities_count_total"
-  | "stalls_count_total"
-  | "facilities_count_total"
-
-type RidesDataType =
-  | "ride_count_total"
-  | "ride_count_flat"
-  | "ride_count_tracked"
-  | "crash_count_total"
-  | "crash_count_into_vehicle"
-  | "crash_count_into_land"
-  | "crash_count_into_water"
-  | "ride_excitement_ave"
-  | "ride_intensity_ave"
-  | "ride_nausea_ave"
-  | "ride_value_ave"
-  | "ride_price_ave"
-  | "ride_admission_ave"
-  | "ride_age_ave"
-  | "ride_downtime_ave"
-
-type RidesBranchDataType =
-  | "ride_excitement_ave_sum"
-  | "ride_intensity_ave_sum"
-  | "ride_nausea_ave_sum"
-  | "ride_value_ave_sum"
-  | "ride_price_ave_sum"
-  | "ride_admission_ave_sum"
-  | "ride_age_ave_sum"
-  | "ride_downtime_ave_sum"
-
-type GuestDataType =
-  | "guest_generation_total"
-  | "guest_admission_total"
-  | "guest_count_current"
-  | "guest_soft_cap"
-  | "guest_weight_ave"
-  | "guest_wealth_ave"
-  | "guest_happiness_ave"
-  | "guest_energy_ave"
-  | "guest_nausea_ave"
-  | "guest_hunger_ave"
-  | "guest_thirst_ave"
-  | "guest_toilet_ave"
-
-type GuestBranchDataType =
-  | "guest_weight_ave_sum"
-  | "guest_wealth_ave_sum"
-  | "guest_happiness_ave_sum"
-  | "guest_energy_ave_sum"
-  | "guest_nausea_ave_sum"
-  | "guest_hunger_ave_sum"
-  | "guest_thirst_ave_sum"
-  | "guest_toilet_ave_sum"
-
-type FinanceDataType = "total_income" | "total_expenditure" | "company_value"
-
-type FinanceBranchDataType =
-  | "income_player_action"
-  | "income_park"
-  | "expenditure_player_action"
-  | "expenditure_network"
-
-type OptionsDataType = "update_status" | "countdown_progress" | "display_mode"
-
-type UtilsBranchDataType = "last_updated_month" | "last_updated_year"
-
-/**
- * Represents a data entry with a key, optional temporary flag, default value, and a writable store.
- * @template T - The type of the data entry value.
- */
-interface DataEntry<T> {
-  /**
-   * The key to store the data in the park storage.
-   */
-  key: string
-
-  /**
-   * Whether the data is temporary and should not be stored in the park storage.
-   */
-  temporary?: boolean
-
-  /**
-   * The default value of the data entry. Used when resetting the data.
-   */
-  default?: T
-
-  /**
-   * The writable store for the data entry.
-   */
-  store: WritableStore<T>
-}
 
 /**
  * Represents a dataset with keys of type `U` and values of type `DataEntry<T>`.
@@ -166,19 +19,19 @@ type DataSet<T, U extends string> = {
  */
 type DataGroup = {
   [key in DataType]: key extends "player"
-    ? DataSet<number, PlayerDataType>
+    ? DataSet<any, PlayerDataType>
     : key extends "park_and_scenario"
-      ? DataSet<number, ParkAndScenarioDataType>
+      ? DataSet<any, ParkAndScenarioDataType>
       : key extends "stalls_and_facilities"
-        ? DataSet<number, StallsAndFacilitiesDataType>
+        ? DataSet<any, StallsAndFacilitiesDataType>
         : key extends "rides"
-          ? DataSet<number, RidesDataType>
+          ? DataSet<any, RidesDataType>
           : key extends "guest"
-            ? DataSet<number, GuestDataType>
+            ? DataSet<any, GuestDataType>
             : key extends "finance"
-              ? DataSet<number, FinanceDataType>
+              ? DataSet<any, FinanceDataType>
               : key extends "options"
-                ? DataSet<number, OptionsDataType>
+                ? DataSet<any, OptionsDataType>
                 : never
 }
 
@@ -188,15 +41,11 @@ type DataGroup = {
 type BranchDataGroup = {
   [key in BranchDataType]: key extends "park_and_scenario"
     ? DataSet<number, ParkAndScenarioBranchDataType>
-    : key extends "rides"
-      ? DataSet<number, RidesBranchDataType>
-      : key extends "guest"
-        ? DataSet<number, GuestBranchDataType>
-        : key extends "finance"
-          ? DataSet<number, FinanceBranchDataType>
-          : key extends "utils"
-            ? DataSet<number, UtilsBranchDataType>
-            : never
+    : key extends "finance"
+      ? DataSet<number, FinanceBranchDataType>
+      : key extends "utils"
+        ? DataSet<number, UtilsBranchDataType>
+        : never
 }
 
 interface BaseData {
@@ -244,180 +93,88 @@ const branchData: BranchData = {
   global: {},
   local: {
     utils: {
-      last_updated_month: {
+      last_updated_month: new DataEntry({
         key: BRANCH + ".last_updated_month",
         store: store<number>(
           context
             .getParkStorage()
             .get(BRANCH + ".last_updated_month", date.month)
         )
-      },
-      last_updated_year: {
+      }),
+      last_updated_year: new DataEntry({
         key: BRANCH + ".last_updated_year",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".last_updated_year", date.year)
         )
-      }
+      })
     },
     park_and_scenario: {
-      park_rating_ave_sample_count: {
+      park_rating_ave_sample_count: new DataEntry({
         key: BRANCH + ".park_rating_ave_sample_count",
         store: store<number>(
           context
             .getParkStorage()
             .get(BRANCH + ".park_rating_ave_sample_count", 0)
         )
-      },
-      park_rating_ave: {
+      }),
+      park_rating_ave: new DataEntry({
         key: BRANCH + ".park_rating_ave_sum",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".park_rating_ave_sum", 0)
         )
-      },
-      park_rating_year_ave_sample_count: {
+      }),
+      park_rating_year_ave_sample_count: new DataEntry({
         key: BRANCH + ".park_rating_year_ave_sample_count",
         store: store<number>(
           context
             .getParkStorage()
             .get(BRANCH + ".park_rating_year_ave_sample_count", 0)
         )
-      },
-      park_rating_year_ave: {
+      }),
+      park_rating_year_ave: new DataEntry({
         key: BRANCH + ".park_rating_year_ave_sum",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".park_rating_year_ave_sum", 0)
         )
-      },
-      park_rating_month_ave_sample_count: {
+      }),
+      park_rating_month_ave_sample_count: new DataEntry({
         key: BRANCH + ".park_rating_year_ave_sample_count",
         store: store<number>(
           context
             .getParkStorage()
             .get(BRANCH + ".park_rating_year_ave_sample_count", 0)
         )
-      },
-      park_rating_month_ave: {
+      }),
+      park_rating_month_ave: new DataEntry({
         key: BRANCH + ".park_rating_year_ave_sum",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".park_rating_year_ave_sum", 0)
         )
-      }
-    },
-    rides: {
-      ride_excitement_ave_sum: {
-        key: BRANCH + ".ride_excitement_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_excitement_ave_sum", 0)
-        )
-      },
-      ride_intensity_ave_sum: {
-        key: BRANCH + ".ride_intensity_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_intensity_ave_sum", 0)
-        )
-      },
-      ride_nausea_ave_sum: {
-        key: BRANCH + ".ride_nausea_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_nausea_ave_sum", 0)
-        )
-      },
-      ride_value_ave_sum: {
-        key: BRANCH + ".ride_value_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_value_ave_sum", 0)
-        )
-      },
-      ride_price_ave_sum: {
-        key: BRANCH + ".ride_price_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_price_ave_sum", 0)
-        )
-      },
-      ride_admission_ave_sum: {
-        key: BRANCH + ".ride_admission_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_admission_ave_sum", 0)
-        )
-      },
-      ride_age_ave_sum: {
-        key: BRANCH + ".ride_age_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_age_ave_sum", 0)
-        )
-      },
-      ride_downtime_ave_sum: {
-        key: BRANCH + ".ride_downtime_ave_sum",
-        store: store<number>(
-          context.getParkStorage().get(BRANCH + ".ride_downtime_ave_sum", 0)
-        )
-      }
-    },
-    guest: {
-      guest_weight_ave_sum: {
-        key: BRANCH + ".guest_weight_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_wealth_ave_sum: {
-        key: BRANCH + ".guest_wealth_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_happiness_ave_sum: {
-        key: BRANCH + ".guest_happiness_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_energy_ave_sum: {
-        key: BRANCH + ".guest_enery_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_nausea_ave_sum: {
-        key: BRANCH + ".guest_nausea_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_hunger_ave_sum: {
-        key: BRANCH + ".guest_hunger_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_thirst_ave_sum: {
-        key: BRANCH + ".guest_thirst_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      },
-      guest_toilet_ave_sum: {
-        key: BRANCH + ".guest_toilet_ave_sum",
-        temporary: true,
-        store: store<number>(0)
-      }
+      })
     },
     finance: {
-      income_player_action: {
+      income_player_action: new DataEntry({
         key: BRANCH + ".income_player_action",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".income_player_action", 0)
         )
-      },
-      income_park: {
+      }),
+      income_park: new DataEntry({
         key: BRANCH + ".income_park",
         temporary: true,
         store: store<number>(0)
-      },
-      expenditure_player_action: {
+      }),
+      expenditure_player_action: new DataEntry({
         key: BRANCH + ".expenditure_player_action",
         store: store<number>(
           context.getParkStorage().get(BRANCH + ".expenditure_player_action", 0)
         )
-      },
-      expenditure_network: {
+      }),
+      expenditure_network: new DataEntry({
         key: BRANCH + ".expenditure_network",
         temporary: true,
         store: store<number>(0)
-      }
+      })
     }
   }
 }
@@ -437,111 +194,111 @@ const baseData: BaseData = {
   },
   local: {
     player: {
-      game_time_real: {
+      game_time_real: new DataEntry({
         key: LOCAL + ".game_time_real",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".game_time_real", 0)
         )
-      },
-      game_time_fake: {
+      }),
+      game_time_fake: new DataEntry({
         key: LOCAL + ".game_time_fake",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".game_time_fake", 0)
         )
-      },
-      action_track_design: {
+      }),
+      action_track_design: new DataEntry({
         key: LOCAL + ".action_track_design",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_track_design", 0)
         )
-      },
-      action_stall_and_facility_placement: {
+      }),
+      action_stall_and_facility_placement: new DataEntry({
         key: LOCAL + ".action_stall_and_facility_placement",
         store: store<number>(
           context
             .getParkStorage()
             .get(LOCAL + ".action_stall_and_facility_placement", 0)
         )
-      },
-      action_footpath_placement: {
+      }),
+      action_footpath_placement: new DataEntry({
         key: LOCAL + ".action_footpath_placement",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_footpath_placement", 0)
         )
-      },
-      action_scenery_placement: {
+      }),
+      action_scenery_placement: new DataEntry({
         key: LOCAL + ".action_scenery_placement",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_scenery_placement", 0)
         )
-      },
-      action_landscaping: {
+      }),
+      action_landscaping: new DataEntry({
         key: LOCAL + ".action_landscaping",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_landscaping", 0)
         )
-      },
-      action_staff: {
+      }),
+      action_staff: new DataEntry({
         key: LOCAL + ".action_staff",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_staff", 0)
         )
-      },
-      action_relocate_peep: {
+      }),
+      action_relocate_peep: new DataEntry({
         key: LOCAL + ".action_relocate_peep",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_relocate_peep", 0)
         )
-      },
-      action_pop_balloon: {
+      }),
+      action_pop_balloon: new DataEntry({
         key: LOCAL + ".action_pop_balloon",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_pop_balloon", 0)
         )
-      },
-      action_set_cheats: {
+      }),
+      action_set_cheats: new DataEntry({
         key: LOCAL + ".action_set_cheats",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_set_cheats", 0)
         )
-      },
-      action_server_join: {
+      }),
+      action_server_join: new DataEntry({
         key: LOCAL + ".action_server_join",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_server_join", 0)
         )
-      },
-      action_server_chat: {
+      }),
+      action_server_chat: new DataEntry({
         key: LOCAL + ".action_server_chat",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".action_server_chat", 0)
         )
-      }
+      })
     },
     park_and_scenario: {
-      park_value: {
+      park_value: new DataEntry({
         key: LOCAL + ".park_value",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".park_value", 0)
         )
-      },
-      park_size: {
+      }),
+      park_size: new DataEntry({
         key: LOCAL + ".park_size",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".park_size", 0)
         )
-      },
-      park_rating: {
+      }),
+      park_rating: new DataEntry({
         key: LOCAL + ".park_rating",
         temporary: true,
         store: store<number>(park.rating)
-      },
+      }),
       /**
        * Average stores are computed from two branch stores.
        * Whenever one of the parent stores dispaches an update, the child store
        * recomputes itself.
        */
-      park_rating_ave: {
+      park_rating_ave: new DataEntry({
         key: LOCAL + ".park_rating_ave",
         store: compute(
           branchData.local.park_and_scenario.park_rating_ave.store,
@@ -550,8 +307,8 @@ const baseData: BaseData = {
             return parseFloat((sum / count).toFixed(2))
           }
         )
-      },
-      park_rating_year_ave: {
+      }),
+      park_rating_year_ave: new DataEntry({
         key: LOCAL + ".park_rating_year_ave",
         store: compute(
           branchData.local.park_and_scenario.park_rating_year_ave.store,
@@ -561,8 +318,8 @@ const baseData: BaseData = {
             return parseFloat((sum / count).toFixed(2))
           }
         )
-      },
-      park_rating_month_ave: {
+      }),
+      park_rating_month_ave: new DataEntry({
         key: LOCAL + ".park_rating_month_ave",
         store: compute(
           branchData.local.park_and_scenario.park_rating_month_ave.store,
@@ -572,354 +329,217 @@ const baseData: BaseData = {
             return parseFloat((sum / count).toFixed(2))
           }
         )
-      },
+      }),
+      park_rating_warning_days: new DataEntry({
+        key: LOCAL + ".park_rating_warning_days",
+        temporary: true,
+        store: store<number>(0)
+      }),
 
-      entity_count_total: {
+      objective_status: new DataEntry({
+        key: LOCAL + ".objective_status",
+        temporary: true,
+        store: store<string>(scenario.status)
+      }),
+      objective_days_left: new DataEntry({
+        key: LOCAL + ".objective_days_left",
+        temporary: true,
+        store: store<number>(0)
+      }),
+
+      entity_count_total: new DataEntry({
         key: LOCAL + ".entity_count_total",
         temporary: true,
         store: store<number>(map.numEntities)
-      },
-      entity_count_guest: {
+      }),
+      entity_count_guest: new DataEntry({
         key: LOCAL + ".entity_count_guest",
         temporary: true,
         store: store<number>(map.getAllEntities("guest").length)
-      },
-      entity_count_staff: {
+      }),
+      entity_count_staff: new DataEntry({
         key: LOCAL + ".entity_count_staff",
         temporary: true,
         store: store<number>(map.getAllEntities("staff").length)
-      },
-      entity_count_balloon: {
+      }),
+      entity_count_balloon: new DataEntry({
         key: LOCAL + ".entity_count_balloon",
         temporary: true,
         store: store<number>(map.getAllEntities("balloon").length)
-      },
-      entity_count_duck: {
+      }),
+      entity_count_duck: new DataEntry({
         key: LOCAL + ".entity_count_duck",
         temporary: true,
         store: store<number>(map.getAllEntities("duck").length)
-      },
-      entity_count_litter: {
+      }),
+      entity_count_litter: new DataEntry({
         key: LOCAL + ".entity_count_litter",
         temporary: true,
         store: store<number>(map.getAllEntities("litter").length)
-      },
+      }),
 
-      reseach_invented_items: {
+      reseach_invented_items: new DataEntry({
         key: LOCAL + ".research_invented_items",
         temporary: true,
         store: store<number>(park.research.inventedItems.length)
-      },
-      reseach_uninvented_items: {
+      }),
+      reseach_uninvented_items: new DataEntry({
         key: LOCAL + ".reseach_uninvented_items",
         temporary: true,
         store: store<number>(park.research.uninventedItems.length)
-      }
+      })
     },
     stalls_and_facilities: {
-      stalls_and_facilities_count_total: {
+      stalls_and_facilities_count_total: new DataEntry({
         key: LOCAL + ".stalls_and_facilities_count_total",
         temporary: true,
         store: store<number>(0)
-      },
-      stalls_count_total: {
+      }),
+      stalls_count_total: new DataEntry({
         key: LOCAL + ".stalls_count_total",
         temporary: true,
         store: store<number>(0)
-      },
-      facilities_count_total: {
+      }),
+      facilities_count_total: new DataEntry({
         key: LOCAL + ".facilities_count_total",
         temporary: true,
         store: store<number>(0)
-      }
+      })
     },
     rides: {
-      ride_count_total: {
+      ride_count_total: new DataEntry({
         key: LOCAL + ".ride_count_total",
         temporary: true,
         store: store<number>(
           map.rides.filter((ride) => ride.classification === "ride").length
         )
-      },
-      ride_count_flat: {
+      }),
+      ride_count_flat: new DataEntry({
         key: LOCAL + ".ride_count_flat",
         temporary: true,
         store: store<number>(0)
-      },
-      ride_count_tracked: {
+      }),
+      ride_count_tracked: new DataEntry({
         key: LOCAL + ".ride_count_tracked",
         temporary: true,
         store: store<number>(0)
-      },
+      }),
 
-      crash_count_total: {
+      crash_count_total: new DataEntry({
         key: LOCAL + ".crash_count_total",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".crash_count_total", 0)
         )
-      },
-      crash_count_into_vehicle: {
+      }),
+      crash_count_into_vehicle: new DataEntry({
         key: LOCAL + ".crash_count_into_vehicle",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".crash_count_into_vehicle", 0)
         )
-      },
-      crash_count_into_land: {
+      }),
+      crash_count_into_land: new DataEntry({
         key: LOCAL + ".crash_count_into_land",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".crash_count_into_land", 0)
         )
-      },
-      crash_count_into_water: {
+      }),
+      crash_count_into_water: new DataEntry({
         key: LOCAL + ".crash_count_into_water",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".crash_count_into_water", 0)
         )
-      },
+      }),
 
-      ride_excitement_ave: {
+      ride_excitement_ave: new DataEntry({
         key: LOCAL + ".ride_excitement_ave",
-        store: compute(
-          branchData.local.rides.ride_excitement_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_excitement_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      ride_intensity_ave: {
+        store: store<number>(0)
+      }),
+      ride_intensity_ave: new DataEntry({
         key: LOCAL + ".ride_intensity_ave",
-        store: compute(
-          branchData.local.rides.ride_intensity_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_intensity_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      ride_nausea_ave: {
+        store: store<number>(0)
+      }),
+      ride_nausea_ave: new DataEntry({
         key: LOCAL + ".ride_nausea_ave",
-        store: compute(branchData.local.rides.ride_nausea_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_nausea_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
-      },
-      ride_value_ave: {
+        store: store<number>(0)
+      }),
+      ride_value_ave: new DataEntry({
         key: LOCAL + ".ride_value_ave",
-        store: compute(branchData.local.rides.ride_value_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_value_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
-      },
-      ride_price_ave: {
+        store: store<number>(0)
+      }),
+      ride_price_ave: new DataEntry({
         key: LOCAL + ".ride_price_ave",
-        store: compute(branchData.local.rides.ride_price_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_price_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
-      },
-      ride_admission_ave: {
+        store: store<number>(0)
+      }),
+      ride_admission_ave: new DataEntry({
         key: LOCAL + ".ride_admission_ave",
-        store: compute(
-          branchData.local.rides.ride_admission_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_admission_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(0)
-            )
-          }
-        )
-      },
-      ride_age_ave: {
+        store: store<number>(0)
+      }),
+      ride_age_ave: new DataEntry({
         key: LOCAL + ".ride_age_ave",
-        store: compute(branchData.local.rides.ride_age_ave_sum.store, () => {
-          return parseFloat(
-            (
-              branchData.local.rides.ride_age_ave_sum.store.get() /
-              map.rides.filter((ride) => ride.classification === "ride").length
-            ).toFixed(2)
-          )
-        })
-      },
-      ride_downtime_ave: {
+        store: store<number>(0)
+      }),
+      ride_downtime_ave: new DataEntry({
         key: LOCAL + ".ride_downtime_ave",
-        store: compute(
-          branchData.local.rides.ride_downtime_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.rides.ride_downtime_ave_sum.store.get() /
-                map.rides.filter((ride) => ride.classification === "ride")
-                  .length
-              ).toFixed(2)
-            )
-          }
-        )
-      }
+        store: store<number>(0)
+      })
     },
     guest: {
-      guest_generation_total: {
+      guest_generation_total: new DataEntry({
         key: LOCAL + ".guest_generation_total",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".guest_generation_total", 0)
         )
-      },
-      guest_admission_total: {
+      }),
+      guest_admission_total: new DataEntry({
         key: LOCAL + ".guest_admission_total",
         temporary: true,
         store: store<number>(park.totalAdmissions)
-      },
-      guest_count_current: {
+      }),
+      guest_count_current: new DataEntry({
         key: LOCAL + ".guest_count_current",
         temporary: true,
         store: store<number>(map.getAllEntities("guest").length)
-      },
-      guest_soft_cap: {
+      }),
+      guest_soft_cap: new DataEntry({
         key: LOCAL + ".guest_soft_cap",
         temporary: true,
         store: store<number>(park.suggestedGuestMaximum)
-      },
-      guest_weight_ave: {
+      }),
+      guest_weight_ave: new DataEntry({
         key: LOCAL + ".guest_weight_ave",
-        store: compute(
-          branchData.local.guest.guest_weight_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_weight_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_wealth_ave: {
+        store: store<number>(0)
+      }),
+      guest_wealth_ave: new DataEntry({
         key: LOCAL + ".guest_wealth_ave",
-        store: compute(
-          branchData.local.guest.guest_wealth_ave_sum.store,
-          () => {
-            // console.log("Guest wealth sample count 2: " + map.getAllEntities("guest").length);
-            return parseFloat(
-              (
-                branchData.local.guest.guest_wealth_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_happiness_ave: {
+        store: store<number>(0)
+      }),
+      guest_happiness_ave: new DataEntry({
         key: LOCAL + ".guest_happiness_ave",
-        store: compute(
-          branchData.local.guest.guest_happiness_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_happiness_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_energy_ave: {
+        store: store<number>(0)
+      }),
+      guest_energy_ave: new DataEntry({
         key: LOCAL + ".guest_energy_ave",
-        store: compute(
-          branchData.local.guest.guest_energy_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_energy_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_nausea_ave: {
+        store: store<number>(0)
+      }),
+      guest_nausea_ave: new DataEntry({
         key: LOCAL + ".guest_nausea_ave",
-        store: compute(
-          branchData.local.guest.guest_nausea_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_nausea_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_hunger_ave: {
+        store: store<number>(0)
+      }),
+      guest_hunger_ave: new DataEntry({
         key: LOCAL + ".guest_hunger_ave",
-        store: compute(
-          branchData.local.guest.guest_hunger_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_hunger_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_thirst_ave: {
+        store: store<number>(0)
+      }),
+      guest_thirst_ave: new DataEntry({
         key: LOCAL + ".guest_thirst_ave",
-        store: compute(
-          branchData.local.guest.guest_thirst_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_thirst_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      },
-      guest_toilet_ave: {
+        store: store<number>(0)
+      }),
+      guest_toilet_ave: new DataEntry({
         key: LOCAL + ".guest_toilet_ave",
-        store: compute(
-          branchData.local.guest.guest_toilet_ave_sum.store,
-          () => {
-            return parseFloat(
-              (
-                branchData.local.guest.guest_toilet_ave_sum.store.get() /
-                map.getAllEntities("guest").length
-              ).toFixed(2)
-            )
-          }
-        )
-      }
+        store: store<number>(0)
+      })
     },
     finance: {
-      total_income: {
+      total_income: new DataEntry({
         key: LOCAL + ".total_income",
         temporary: true,
         store: compute(
@@ -929,108 +549,48 @@ const baseData: BaseData = {
             return player + park
           }
         )
-      },
+      }),
       /**
        * This value is always negative.
        */
-      total_expenditure: {
+      total_expenditure: new DataEntry({
         key: LOCAL + ".total_expenditure",
-        temporary: true,
-        store: compute(
-          branchData.local.finance.expenditure_player_action.store,
-          branchData.local.finance.expenditure_network.store,
-          (player, network) => {
-            return player + network
-          }
-        )
-      },
-      company_value: {
+        // temporary: true,
+        store: store<number>(0)
+      }),
+      company_value: new DataEntry({
         key: LOCAL + ".company_value",
         temporary: true,
         store: store<number>(park.companyValue)
-      }
+      }),
+      company_value_record: new DataEntry({
+        key: LOCAL + ".company_value_record",
+        temporary: true,
+        store: store<number>(0)
+      })
     },
     options: {
-      update_status: {
+      update_status: new DataEntry({
         key: LOCAL + ".update_paused",
         store: store<number>(
           context.getParkStorage().get(LOCAL + ".update_paused", 0)
         )
-      },
-      countdown_progress: {
+      }),
+      countdown_progress: new DataEntry({
         key: LOCAL + ".countdown_progress",
         temporary: true,
         store: store<number>(0)
-      },
-      display_mode: {
+      }),
+      display_mode: new DataEntry({
         key: LOCAL + ".display_mode",
         store: store<number>(
           context
             .getParkStorage()
             .get(LOCAL + ".display_mode", Options.DisplayMode.VALUE)
         )
-      }
+      })
     }
   }
-}
-
-function eraseTempData(): void {
-  for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
-    for (let subKey in dataSet) {
-      const entry = dataSet[subKey as keyof typeof dataSet]
-      if (
-        entry.temporary &&
-        context.getParkStorage().has(dataSet[subKey].key)
-      ) {
-        context.getParkStorage().set(dataSet[subKey].key, undefined)
-      }
-    }
-  }
-}
-
-/**
- * Subscribes to the map change event and restore stored data after entering new scenario.
- *
- * **Important:**
- * Intransient plugins remained loaded all the time,
- * thus all the data need to be reset after quitting a scenario.
- *
- * @returns {void}
- */
-function onMapChanged(): void {
-  context.subscribe("map.changed", () => {
-    if (context.mode === "normal") {
-      Logger.debug("New scenario. Resetting data...")
-      eraseTempData()
-      for (let key in baseData.local) {
-        const dataSet = baseData.local[key as DataType] as DataSet<number, any>
-        for (let subKey in dataSet) {
-          if (!dataSet[subKey].temporary) {
-            dataSet[subKey].store.set(
-              context.getParkStorage().get(dataSet[subKey].key, 0)
-            )
-          } else {
-            dataSet[subKey].store.set(0)
-          }
-        }
-      }
-      for (let key in branchData.local) {
-        const dataSet = branchData.local[
-          key as keyof typeof branchData.local
-        ] as DataSet<number, any>
-        for (let subKey in dataSet) {
-          if (!dataSet[subKey].temporary) {
-            dataSet[subKey].store.set(
-              context.getParkStorage().get(dataSet[subKey].key, 0)
-            )
-          } else {
-            dataSet[subKey].store.set(0)
-          }
-        }
-      }
-    }
-  })
 }
 
 function deleteAll(): void {
@@ -1038,10 +598,7 @@ function deleteAll(): void {
     if ((key as DataType) === "options") continue
     const dataSet = baseData.local[key as DataType] as DataSet<number, any>
     for (let subKey in dataSet) {
-      if (!dataSet[subKey].temporary) {
-        context.getParkStorage().set(dataSet[subKey].key, undefined)
-      }
-      dataSet[subKey].store.set(dataSet[subKey].default || 0)
+      dataSet[subKey].delete()
     }
   }
 
@@ -1050,10 +607,7 @@ function deleteAll(): void {
       key as keyof typeof branchData.local
     ] as DataSet<number, any>
     for (let subKey in dataSet) {
-      if (!dataSet[subKey].temporary) {
-        context.getParkStorage().set(dataSet[subKey].key, undefined)
-      }
-      dataSet[subKey].store.set(dataSet[subKey].default || 0)
+      dataSet[subKey].delete()
     }
   }
 }
@@ -1074,53 +628,23 @@ function initData(): void {
   baseData.global.update_frequency.subscribe((value) => {
     context.sharedStorage.set(GOBAL + ".update_frequency", value)
   })
-
-  for (let key in baseData.local) {
-    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
-    for (let subKey in dataSet) {
-      if (!dataSet[subKey].temporary) {
-        dataSet[subKey].store.subscribe((value: any) =>
-          context.getParkStorage().set(dataSet[subKey].key, value)
-        )
-      }
-    }
-  }
-
-  for (let key in branchData.local) {
-    const dataSet = branchData.local[
-      key as keyof typeof branchData.local
-    ] as DataSet<number, any>
-    for (let subKey in dataSet) {
-      if (!dataSet[subKey].temporary) {
-        dataSet[subKey].store.subscribe((value: any) =>
-          context.getParkStorage().set(dataSet[subKey].key, value)
-        )
-      }
-    }
-  }
-
-  onMapChanged()
 }
 
 const interval = IntervalManager.init({
   update_frequency: baseData.global.update_frequency,
   countdown_progress: baseData.local.options.countdown_progress.store
 })
+HookManager.hook("map.changed", () => {
+  if (context.mode !== "normal") {
+    Logger.debug("Map changed: Pausing all intervals.")
+    interval.pauseAll()
+  } else {
+    Logger.debug("Map changed: Resuming all intervals.")
+    interval.resumeAll()
+  }
+})
 
 export {
-  type DataType,
-  type BranchDataType,
-  type PlayerDataType,
-  type ParkAndScenarioDataType,
-  type ParkAndScenarioBranchDataType,
-  type StallsAndFacilitiesDataType,
-  type RidesDataType,
-  type RidesBranchDataType,
-  type GuestDataType,
-  type GuestBranchDataType,
-  type FinanceDataType,
-  type FinanceBranchDataType,
-  type OptionsDataType,
   type DataEntry,
   type DataSet,
   type DataGroup,

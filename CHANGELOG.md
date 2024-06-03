@@ -7,7 +7,37 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+- Add company value record in group Finance.
+
+- Add objective status.
+
+- Add objective days left (if required).
+
+- Add [#19](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/19): park rating warning countdown.
+
+### Changed
+
+- Minor UI layout adjustments to prevent text omission.
+
+- Move Stalls & Facilities statistics group to the third column, under Ride group.
+
+- Indicator lights now go from 1 to 10 instead of 0 to 9.
+
+### Removed
+
+### Fixed
+
+- Fix [#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16): Month/Year park rating average bug.
+
+- Fix data updating while not playing in a scenario.
+
+- Fix shortcut keys opening dashboard while not playing in a scenario.
+
+- Automatically clean up deprecated data storage.
+
+- Speed optimisations.
 
 ## [1.0.0-pre.6] - 2024-05-25
 
@@ -19,11 +49,23 @@ and this project adheres to [Semantic Versioning].
 
 - Park ratings now support progress bar view.
 
+- Add credits imprint.
+
 ### Changed
 
 - Better support for currency formatting.
 
 ### Fixed
+
+- Fix [#5](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/5): guest count includes guests outside park.
+
+- Fix [#6](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/6): company value displays wrong value.
+
+- Fix [#7](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/7): guest average hunger/thirst progress bar shows wrong values.
+
+- Fix [#8](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/8): average park ratings are bugged
+
+- Fix [#9](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/9): total entity count displays wrong value.
 
 - Fix finance - total income/expenditure calculations.
 

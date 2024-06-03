@@ -1,0 +1,16 @@
+name: "Feature Request: General"
+description: "Suggest a new feature or improvement to the dashboard."
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "If you have a new statistic in mind, please use the [Feature Request: New Statistic form](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/new?assignees=&labels=enhancement%2Cstatistics&projects=&template=feature_request_new_statistic_form.yml) instead."
+  - type: textarea
+    attributes:
+      label: Feature Description
+      description: Describe the new feature or improvement you would like to see on the dashboard.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "Thank you for suggesting a feature! We'll review your request and get back to you as soon as possible."

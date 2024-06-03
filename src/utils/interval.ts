@@ -1,5 +1,5 @@
 import { WritableStore } from "openrct2-flexui"
-import { increment } from "./storeutil"
+import { increment } from "./store_utils"
 
 export interface FunctionInfo {
   /**
@@ -49,8 +49,8 @@ export class IntervalManager {
     this.counterInitialised = true
     this.counterID = context.setInterval(() => {
       increment(this.countdownProgress)
-      if (this.countdownProgress.get() >= this.updateFrequency.get()) {
-        this.countdownProgress.set(0)
+      if (this.countdownProgress.get() > this.updateFrequency.get()) {
+        this.countdownProgress.set(1)
       }
     }, 1 * 1000)
   }
@@ -72,7 +72,7 @@ export class IntervalManager {
   }
 
   /**
-   * Registers a function to be executed at a specified interval.
+   * Registers a function to be executed at a specified interval. Does not start the interval.
    *
    * @param func The function to be executed.
    * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_frequency.get() * 1000`.
@@ -83,18 +83,18 @@ export class IntervalManager {
     func: Function,
     interval: number = this.updateFrequency.get() * 1000,
     pause_on_manual: boolean = true
-  ): number {
-    const ID = context.setInterval(func, interval)
-    this.intervalIDs.push(ID)
+  ): void {
+    // const ID = context.setInterval(func, interval)
+    // this.intervalIDs.push(ID)
     let info: FunctionInfo = {
-      ID: ID,
+      ID: -1,
       func: func,
       interval: interval,
-      paused: false,
+      paused: true,
       pause_on_manual: pause_on_manual
     }
     this.registered.push(info)
-    return ID
+    // return ID
   }
 
   pauseManual(): void {

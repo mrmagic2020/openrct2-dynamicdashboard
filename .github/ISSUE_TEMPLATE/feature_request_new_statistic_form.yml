@@ -1,0 +1,35 @@
+name: "Feature Request: New Statistic"
+title: "[New Statistic] "
+description: "Suggest a new statistic to be added to the dashboard."
+labels: ["enhancement", "statistics"]
+body:
+  - type: dropdown
+    attributes:
+      label: Statistic Group
+      description: What group do you think this new statistic should belong to?
+      multiple: false
+      options:
+        - Player
+        - Guest
+        - Park & Scenario
+        - Finance
+        - Stalls & Facilities
+        - Rides
+        - This is a new group
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Statistic Name
+      description: What should be the title of the new statistic?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Feature Description
+      description: Describe the new statistic you would like to see on the dashboard.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "Thank you for suggesting a feature! We'll review your request and get back to you as soon as possible."

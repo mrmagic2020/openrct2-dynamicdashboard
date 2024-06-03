@@ -1,6 +1,5 @@
-/// <reference path="../lib/openrct2.d.ts" />
 import test from "ava"
-import Currency from "../src/utils/currency.ts"
+import Currency from "../src/utils/currency.js"
 import Mock from "openrct2-mocks"
 
 test("formatMoney returns the value as string if it is NaN", (t) => {
@@ -48,11 +47,11 @@ test("localise formats the value without decimal places if twodp is false", (t) 
 test("localise formats the negative value with 2 decimal places by default", (t) => {
   globalThis.context = Mock.context()
   const result = Currency.localise(-1000)
-  t.is(result, "{CURRENCY2DP=-1000}")
+  t.is(result, "-{CURRENCY2DP=1000}")
 })
 
 test("localise formats the negative value without decimal places if twodp is false", (t) => {
   globalThis.context = Mock.context()
   const result = Currency.localise(-1000, false)
-  t.is(result, "{CURRENCY=-1000}")
+  t.is(result, "-{CURRENCY=1000}")
 })

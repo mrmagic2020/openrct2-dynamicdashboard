@@ -41,7 +41,7 @@ namespace Logger {
   /**
    * Enable stack-traces on errors in development mode.
    */
-  if (Environment.isDevelopment && isDuktapeAvailable) {
+  if ((Environment.isDevelopment || Environment.isTest) && isDuktapeAvailable) {
     Duktape.errCreate = function onError(error): Error {
       error.message += `\r\n${stacktrace()}`
       return error
@@ -87,7 +87,7 @@ namespace Logger {
    * if the assert fails and the plugin is run in development mode.
    */
   export function assert(condition: boolean, ...messages: unknown[]): void {
-    if (Environment.isDevelopment && !condition) {
+    if ((Environment.isDevelopment || Environment.isTest) && !condition) {
       thrown(`Assertion failed! ${messages.join(" ")}`)
     }
   }
@@ -112,7 +112,7 @@ namespace Logger {
    * Returns the current time on milliseconds, including fractions. Useful for performance timing.
    */
   export function time(): number {
-    if (Environment.isDevelopment) {
+    if (Environment.isDevelopment || Environment.isTest) {
       return performance.now()
     }
     return 0

@@ -1,5 +1,6 @@
 import { interval } from "../data/main"
-import { increment } from "../utils/storeutil"
+import HookManager from "../utils/hooks"
+import { increment } from "../utils/store_utils"
 import { baseData, branchData } from "./main"
 
 namespace FinanceData {
@@ -65,30 +66,46 @@ namespace FinanceData {
     baseData.local.finance.company_value.store.set(park.companyValue)
   }
 
+  function updateCompanyValueRecord(): void {
+    baseData.local.finance.company_value_record.store.set(
+      scenario.companyValueRecord
+    )
+  }
+
+  function updateExpenditure(): void {
+    const ePlayerAction =
+      branchData.local.finance.expenditure_player_action.store.get()
+    const eNetwork = branchData.local.finance.expenditure_network.store.get()
+    baseData.local.finance.total_expenditure.store.set(ePlayerAction + eNetwork)
+  }
+
   export function update(): void {
     updateParkIE()
+    updateExpenditure()
     updateCompanyValue()
+    updateCompanyValueRecord()
   }
 
   /**
    * Initialise finance data.
    */
   export function init(): void {
-    context.subscribe("action.execute", updatePlayerActionIE)
+    HookManager.hook("action.execute", updatePlayerActionIE)
 
     let tick = 0
-    context.subscribe("interval.tick", () => {
+    HookManager.hook("interval.tick", () => {
       tick++
       if (tick >= 512) {
         tick = 0
         updateCompanyValue()
+        updateCompanyValueRecord()
       }
     })
 
-    interval.register(
-      updateParkIE,
-      baseData.global.update_frequency.get() * 1000
-    )
+    interval.register(() => {
+      updateParkIE()
+      updateExpenditure()
+    }, baseData.global.update_frequency.get() * 1000)
   }
 }
 

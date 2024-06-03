@@ -1,1 +1,2 @@
-global.__BUILD_CONFIGURATION__ = "production"
+global.__BUILD_CONFIGURATION__ = "test"
+global.__VERSION__ = ""

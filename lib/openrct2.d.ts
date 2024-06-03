@@ -1,1 +1,0 @@
-/Users/arnold.zhou/Documents/VSC/Typescript/OpenRCT2/openrct2.d.ts

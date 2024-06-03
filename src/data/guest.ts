@@ -1,6 +1,7 @@
-import { baseData, branchData } from "./main"
-import { increment } from "../utils/storeutil"
+import { baseData } from "./main"
+import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
 
 namespace GuestData {
   export const MAX_HAPPINESS = 255
@@ -72,14 +73,17 @@ namespace GuestData {
       thirstSum += guest.thirst
       toiletSum += guest.toilet
     })
-    branchData.local.guest.guest_weight_ave_sum.store.set(weightSum)
-    branchData.local.guest.guest_wealth_ave_sum.store.set(wealthSum)
-    branchData.local.guest.guest_happiness_ave_sum.store.set(happinessSum)
-    branchData.local.guest.guest_energy_ave_sum.store.set(energySum)
-    branchData.local.guest.guest_nausea_ave_sum.store.set(nauseaSum)
-    branchData.local.guest.guest_hunger_ave_sum.store.set(hungerSum)
-    branchData.local.guest.guest_thirst_ave_sum.store.set(thirstSum)
-    branchData.local.guest.guest_toilet_ave_sum.store.set(toiletSum)
+    const guestCount = guests.length
+    baseData.local.guest.guest_weight_ave.store.set(weightSum / guestCount)
+    baseData.local.guest.guest_wealth_ave.store.set(wealthSum / guestCount)
+    baseData.local.guest.guest_happiness_ave.store.set(
+      happinessSum / guestCount
+    )
+    baseData.local.guest.guest_energy_ave.store.set(energySum / guestCount)
+    baseData.local.guest.guest_nausea_ave.store.set(nauseaSum / guestCount)
+    baseData.local.guest.guest_hunger_ave.store.set(hungerSum / guestCount)
+    baseData.local.guest.guest_thirst_ave.store.set(thirstSum / guestCount)
+    baseData.local.guest.guest_toilet_ave.store.set(toiletSum / guestCount)
   }
 
   export function update(): void {
@@ -94,7 +98,7 @@ namespace GuestData {
    * Initialize guest data.
    */
   export function init(): void {
-    context.subscribe("guest.generation", updateGuestGenerationCount)
+    HookManager.hook("guest.generation", updateGuestGenerationCount)
     interval.register(() => {
       update()
     }, baseData.global.update_frequency.get() * 1000)

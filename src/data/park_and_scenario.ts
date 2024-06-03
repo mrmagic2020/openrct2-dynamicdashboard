@@ -1,26 +1,84 @@
 import { baseData, branchData } from "./main"
-import { increment } from "../utils/storeutil"
+import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
+import HookManager from "../utils/hooks"
+import { language } from "../languages/lang"
+import DateUtils from "../utils/date_utils"
+import MathUtils from "../utils/math_utils"
 
 namespace ParkAndScenarioData {
+  export namespace Objective {
+    export function parseStatus(status: ScenarioStatus): string {
+      switch (status) {
+        case "inProgress":
+          return language.ui.main.label.objective_status_inProgress
+        case "completed":
+          return language.ui.main.label.objective_status_completed
+        case "failed":
+          return language.ui.main.label.objective_status_failed
+        default:
+          return ""
+      }
+    }
+
+    const ScenarioObjectiveTypeWithDate: ScenarioObjectiveType[] = [
+      "guestsBy",
+      "parkValueBy"
+    ]
+    export function hasDateRestriction(): boolean {
+      return (
+        ScenarioObjectiveTypeWithDate.indexOf(scenario.objective.type) !== -1
+      )
+    }
+    export function totalDays(): number {
+      if (!hasDateRestriction()) return 0
+      return DateUtils.getDaysFromDate({
+        year: scenario.objective.year,
+        month: 7,
+        day: 31
+      })
+    }
+    export function daysLeft(): number {
+      if (!hasDateRestriction()) return Infinity
+      return MathUtils.clamp(totalDays() - DateUtils.getDaysFromDate(date), 0)
+    }
+    export function daysLeftPercentage(): number {
+      if (!hasDateRestriction()) return 1
+      return MathUtils.normalise(daysLeft(), 0, totalDays())
+    }
+    export function daysLeftShouldWarn(): boolean {
+      return daysLeftPercentage() <= 0.2
+    }
+
+    export function updateStatus(): void {
+      const status = scenario.status
+      baseData.local.park_and_scenario.objective_status.store.set(
+        Objective.parseStatus(status)
+      )
+    }
+
+    export function updateDaysLeft(): void {
+      const daysLeft = Objective.daysLeft()
+      baseData.local.park_and_scenario.objective_days_left.store.set(daysLeft)
+    }
+  }
+
   export const MIN_PARK_RATING = 0
   export const MAX_PARK_RATING = 1000
+  /**
+   * The maximum number of days with ratings lower than the minimum park rating before the park is forced to close.
+   *
+   * Derived from {@link https://github.com/OpenRCT2/OpenRCT2/blob/d4f97d3875ee6d11d37d8648874f80c421a76b04/src/openrct2/scenario/Scenario.cpp#L721 Scenario.cpp}
+   */
+  export const MAX_RATING_WARNING_DAYS = 29
+  export const RATING_WARNING_DAYS_THRESHOLD = 0.25
 
   /**
-   * Updates the park data by setting the park value, park rating, and calculating the average park rating.
+   * Updates the park data by setting the park value and park rating.
    */
   function updateParkData(): void {
     baseData.local.park_and_scenario.park_value.store.set(park.value)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
-
-    increment(
-      branchData.local.park_and_scenario.park_rating_ave_sample_count.store
-    ) // increase denominator by 1
-
-    increment(
-      branchData.local.park_and_scenario.park_rating_ave.store,
-      park.rating
-    ) // add current rating to sum
   }
 
   function updateEntityCount(): void {
@@ -55,42 +113,56 @@ namespace ParkAndScenarioData {
   }
 
   /**
-   * Updates the park and scenario data based on the current month and year.
+   * Updates the park rating averages. Park ratings are updated every 512 ticks.
    * @param thisMonth - The current month.
    * @param thisYear - The current year.
    */
-  function updateAverageData(): void {
-    let thisMonth = date.month
-    let thisYear = date.year
+  function updateRatingAverages(): void {
+    /**
+     * All-time average calculations.
+     */
+    increment(
+      branchData.local.park_and_scenario.park_rating_ave_sample_count.store
+    ) // increase denominator by 1
+    increment(
+      branchData.local.park_and_scenario.park_rating_ave.store,
+      park.rating
+    ) // add current rating to sum
+
     /**
      * Month average calculations.
      */
+    let thisMonth = date.month
     if (thisMonth !== branchData.local.utils.last_updated_month.store.get()) {
       branchData.local.utils.last_updated_month.store.set(thisMonth)
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave_sample_count
-          .store
-      )
-      increment(
-        branchData.local.park_and_scenario.park_rating_month_ave.store,
-        park.rating
-      )
+      branchData.local.park_and_scenario.park_rating_month_ave_sample_count.reset()
+      branchData.local.park_and_scenario.park_rating_month_ave.reset()
     }
+    increment(
+      branchData.local.park_and_scenario.park_rating_month_ave_sample_count
+        .store
+    )
+    increment(
+      branchData.local.park_and_scenario.park_rating_month_ave.store,
+      park.rating
+    )
 
     /**
      * Year average calculations.
      */
+    let thisYear = date.year
     if (thisYear !== branchData.local.utils.last_updated_year.store.get()) {
       branchData.local.utils.last_updated_year.store.set(thisYear)
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave_sample_count
-          .store
-      )
-      increment(
-        branchData.local.park_and_scenario.park_rating_year_ave.store,
-        park.rating
-      )
+      branchData.local.park_and_scenario.park_rating_year_ave_sample_count.reset()
+      branchData.local.park_and_scenario.park_rating_year_ave.reset()
     }
+    increment(
+      branchData.local.park_and_scenario.park_rating_year_ave_sample_count.store
+    )
+    increment(
+      branchData.local.park_and_scenario.park_rating_year_ave.store,
+      park.rating
+    )
   }
 
   /**
@@ -100,40 +172,57 @@ namespace ParkAndScenarioData {
     baseData.local.park_and_scenario.park_size.store.set(park.parkSize)
   }
 
+  function updateWarningDays(): void {
+    baseData.local.park_and_scenario.park_rating_warning_days.store.set(
+      scenario.parkRatingWarningDays
+    )
+  }
+
+  export function getWarningDaysPercentage(): number {
+    return (
+      1 -
+      MathUtils.normalise(
+        scenario.parkRatingWarningDays,
+        0,
+        MAX_RATING_WARNING_DAYS
+      )
+    )
+  }
+
   export function update(): void {
     updateParkData()
     updateEntityCount()
     updateResearchProgress()
+    Objective.updateStatus()
+    Objective.updateDaysLeft()
   }
 
   /**
    * Initialize park and scenario data.
    */
   export function init(): void {
-    let tickCount_512 = 0
-    let tickCount_4096 = 0
-
-    context.subscribe("interval.tick", () => {
+    HookManager.hook("interval.tick", () => {
       if (interval.isPaused || context.paused) return
 
       /**
-       * Park value and company value are updated every 512 ticks.
-       * Park rating update rate is unknown. This will temporarily be placed with
-       * park value update.
-       *
-       * Park size value is updated every 4096 ticks.
+       * Park data is updated every 512 ticks.
        */
-      if (tickCount_512 < 512) tickCount_512++
-      else {
-        tickCount_512 = 0
-        updateAverageData()
+      if (date.ticksElapsed % 512 === 0) {
+        updateRatingAverages()
       }
 
-      if (tickCount_4096 < 4096) tickCount_4096++
-      else {
-        tickCount_4096 = 0
+      /**
+       * Park size value is updated every 4096 ticks.
+       */
+      if (date.ticksElapsed % 4096 === 0) {
         updateParkSizeValue()
       }
+    })
+
+    HookManager.hook("interval.day", () => {
+      if (interval.isPaused) return
+      Objective.updateDaysLeft()
+      updateWarningDays()
     })
 
     interval.register(update, baseData.global.update_frequency.get() * 1000)
