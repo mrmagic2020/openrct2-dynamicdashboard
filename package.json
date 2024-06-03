@@ -7,6 +7,7 @@
     "start": "nodemon --watch ./src --ext js,ts --exec \"npm run build:dev\"",
     "build": "rollup --config rollup.config.js --environment BUILD:production",
     "build:dev": "rollup --config rollup.config.js",
+    "build:silent": "rollup --config rollup.config.js --environment BUILD:production --silent",
     "docs": "npx typedoc --entryPointStrategy expand ./src",
     "format": "npx prettier --write \"src/**/*.ts\"",
     "check-format": "npx prettier --check \"src/**/*.ts\"",
