@@ -7,7 +7,15 @@ import DateUtils from "../utils/date_utils"
 import MathUtils from "../utils/math_utils"
 
 namespace ParkAndScenarioData {
+  /**
+   * Functions related to scenario objectives.
+   */
   export namespace Objective {
+    /**
+     * Turns a scenario status into a localised string.
+     * @param status The scenario status.
+     * @returns The localised string.
+     */
     export function parseStatus(status: ScenarioStatus): string {
       switch (status) {
         case "inProgress":
@@ -21,15 +29,28 @@ namespace ParkAndScenarioData {
       }
     }
 
+    /**
+     * The types of scenario objectives that have a date restriction.
+     */
     const ScenarioObjectiveTypeWithDate: ScenarioObjectiveType[] = [
       "guestsBy",
       "parkValueBy"
     ]
+
+    /**
+     * Whether the scenario has a date restriction.
+     * @returns True if the scenario has a date restriction, false otherwise.
+     */
     export function hasDateRestriction(): boolean {
       return (
         ScenarioObjectiveTypeWithDate.indexOf(scenario.objective.type) !== -1
       )
     }
+
+    /**
+     * Calculates the total number of days given to complete the objective.
+     * @returns The total number of days to complete the objective, or 0 if there is no date restriction.
+     */
     export function totalDays(): number {
       if (!hasDateRestriction()) return 0
       return DateUtils.getDaysFromDate({
@@ -38,18 +59,36 @@ namespace ParkAndScenarioData {
         day: 31
       })
     }
+
+    /**
+     * The number of days left to complete the objective.
+     * @returns The number of days left to complete the objective, or Infinity if there is no date restriction.
+     */
     export function daysLeft(): number {
       if (!hasDateRestriction()) return Infinity
       return MathUtils.clamp(totalDays() - DateUtils.getDaysFromDate(date), 0)
     }
+
+    /**
+     * The percentage of days left to complete the objective.
+     * @returns The percentage of days left to complete the objective, or 1 if there is no date restriction.
+     */
     export function daysLeftPercentage(): number {
       if (!hasDateRestriction()) return 1
       return MathUtils.normalise(daysLeft(), 0, totalDays())
     }
+
+    /**
+     * Whether the number of days left to complete the objective is less than 20%.
+     * @returns
+     */
     export function daysLeftShouldWarn(): boolean {
       return daysLeftPercentage() <= 0.2
     }
 
+    /**
+     * Updates the status of the scenario objective.
+     */
     export function updateStatus(): void {
       const status = scenario.status
       baseData.local.park_and_scenario.objective_status.store.set(
@@ -57,6 +96,9 @@ namespace ParkAndScenarioData {
       )
     }
 
+    /**
+     * Updates the number of days left to complete the objective.
+     */
     export function updateDaysLeft(): void {
       const daysLeft = Objective.daysLeft()
       baseData.local.park_and_scenario.objective_days_left.store.set(daysLeft)

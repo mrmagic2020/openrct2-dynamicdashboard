@@ -868,6 +868,17 @@ function menu(): void {
                         )
                       }),
                       progressBar({
+                        disabled: compute(
+                          baseData.local.park_and_scenario.objective_days_left
+                            .store,
+                          () => {
+                            return (
+                              !Data.ParkAndScenarioData.Objective.hasDateRestriction() ||
+                              Data.ParkAndScenarioData.Objective.daysLeft() ===
+                                0
+                            )
+                          }
+                        ),
                         visibility: compute(
                           baseData.local.options.display_mode.store,
                           (value) => {
