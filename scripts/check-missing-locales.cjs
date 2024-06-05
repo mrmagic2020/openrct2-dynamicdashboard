@@ -63,7 +63,7 @@ if (Object.keys(missingEntries).length > 0) {
   const missingEntriesStr = JSON.stringify(formattedMissingEntries, null, 2)
   console.log(`Missing entries:\n${missingEntriesStr}`)
 
-  if (!process.env.GITHUB_TOKEN) return
+  if (!process.env.GITHUB_TOKEN || !context.payload.pull_request) return
 
   const token = process.env.GITHUB_TOKEN
   const octokit = getOctokit(token)
