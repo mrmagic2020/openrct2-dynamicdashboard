@@ -25,6 +25,6 @@ jobs:
         run: npm ci --prefer-offline --no-audit --no-save
 
       - name: Check missing locale entries
-        run: node scripts/check-missing-locales.js
+        run: npm run check-missing-locales
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
