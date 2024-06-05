@@ -9,6 +9,7 @@
       "require_restart": "重启游戏以更新设置。"
     },
     "main": {
+      "title": "动态仪表",
       "groupbox": {
         "player": {
           "title": "{PALEGOLD}玩家",
