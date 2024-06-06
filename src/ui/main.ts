@@ -82,15 +82,18 @@ function menu(): void {
                 ),
                 visibility: "visible"
               }),
+              // Action Statistics
               groupbox({
                 text: language.ui.main.groupbox.player.action_statistics,
                 content: [
+                  // Track Design
                   label({
                     text: compute(
                       baseData.local.player.action_track_design.store,
                       (value) =>
                         language.ui.main.label.action_track_design + value
-                    )
+                    ),
+                    tooltip: language.ui.main.tooltip.action_track_design
                   }),
                   label({
                     text: compute(
@@ -99,7 +102,10 @@ function menu(): void {
                       (value) =>
                         language.ui.main.label
                           .action_stall_and_facility_placement + value
-                    )
+                    ),
+                    tooltip:
+                      language.ui.main.tooltip
+                        .action_stall_and_facility_placement
                   }),
                   label({
                     text: compute(
@@ -1131,7 +1137,8 @@ function menu(): void {
                       language.ui.main.label.ride_value_ave,
                       Currency.localise(value)
                     )
-                )
+                ),
+                tooltip: language.ui.main.tooltip.ride_value_ave
               }),
               label({
                 text: compute(

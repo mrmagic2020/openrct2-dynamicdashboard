@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
-- /
+### Added
+
+- Add tooltips to some statistic entries for better clarity.
+
+### Changed
+
+- Reword some UI elements for better clarity.
+
+### Removed
+
+### Fixed
 
 ## [1.0.0-pre.7] - 2024-06-04
 
