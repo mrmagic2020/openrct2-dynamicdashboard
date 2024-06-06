@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning].
 
 ### Added
 
+- Add tooltips to some statistic entries for better clarity.
+
 ### Changed
 
 - Reword some UI elements for better clarity.
