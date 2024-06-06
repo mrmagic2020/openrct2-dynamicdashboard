@@ -8,6 +8,8 @@ import { Options as OPT } from "./options"
 import { FinanceData } from "./finance"
 import Cleanup from "./cleanup"
 import HookManager from "../utils/hooks"
+import Performance from "../utils/performance"
+import Logger from "../utils/logger"
 
 namespace Data {
   export import GuestData = GD
@@ -18,12 +20,15 @@ namespace Data {
   export import Options = OPT
 
   export function updateAll(): void {
+    const _peformance = new Performance()
+    _peformance.start()
     PlayerData.update()
     GuestData.update()
     ParkAndScenarioData.update()
     SFData.update()
     RideData.update()
     FinanceData.update()
+    Logger.debug(`Data updated in ${_peformance.end()}ms`)
   }
 
   export function init() {
