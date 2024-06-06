@@ -47,11 +47,11 @@
         "game_time_fake": "Game time (in-game): {PALESILVER}<NUMBER> days",
 
         "action_track_design": "Track design: {PALESILVER}",
-        "action_stall_and_facility_placement": "Stall / facility placement: {PALESILVER}",
+        "action_stall_and_facility_placement": "Ride/stall placement: {PALESILVER}",
         "action_footpath_placement": "Footpath placement: {PALESILVER}",
         "action_scenery_placement": "Scenery placement: {PALESILVER}",
         "action_landscaping": "Landscaping: {PALESILVER}",
-        "action_staff": "Staff action: {PALESILVER}",
+        "action_staff": "Staff configuration: {PALESILVER}",
         "action_relocate_peep": "Peep relocation: {PALESILVER}",
         "action_pop_balloon": "Pop balloon: {PALESILVER}",
         "action_set_cheats": "Set cheats: {PALESILVER}",
@@ -132,8 +132,15 @@
         "options_delete_data": "Delete all data"
       },
       "tooltip": {
+        "action_track_design": "Includes track placement, track removal, track design and setting brake speed.",
+        "action_stall_and_facility_placement": "Includes placing and demolishing rides, stalls and facilities.",
+
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
+
         "park_rating_warning_days": "When the park rating drops below 700, you will have 30 days to improve it before the park is forced to close.",
+
+        "ride_value_ave": "The value of a ride contributes to the maximum amount of money a guest is willing to pay for it, and the maximum amount of money a guest is willing to pay for the park entrance fee.",
+
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
