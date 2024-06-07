@@ -25,7 +25,7 @@
     "nodemon": "^3.1.2",
     "openrct2-mocks": "^0.1.6",
     "platform-folders": "^0.6.0",
-    "prettier": "3.2.5",
+    "prettier": "3.3.1",
     "rollup": "^4.18.0",
     "tsimp": "^2.0.11",
     "tslib": "^2.5.0",
