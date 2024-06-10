@@ -17,9 +17,9 @@ import Data from "../data/index"
 import { progressBar } from "./generic/progress_bar"
 import { GuestData } from "../data/guest"
 import { Indicators, toggleManualIndicatorLit } from "./generic/indicators"
-import WarningWindow from "./generic/warning"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
+import * as Advanced from "./advanced/advanced"
 
 /**
  * Whether the window is open.
@@ -1428,32 +1428,20 @@ function menu(): void {
                   })
                 ]
               }),
-              // Delete all data
+              // Advanced Options
               horizontal({
                 content: [
                   button({
                     width: "25px",
                     height: "25px",
-                    image: Sprites.DELETE_DATA,
+                    image: Sprites.ADVANCED_OPTIONS,
                     onClick: () => {
-                      WarningWindow.show({
-                        title:
-                          language.ui.generic.warning.delete_all_data.title,
-                        message:
-                          language.ui.generic.warning.delete_all_data.message,
-                        cancelButton:
-                          language.ui.generic.warning.delete_all_data.cancel,
-                        confirmButton:
-                          language.ui.generic.warning.delete_all_data.confirm,
-                        onConfirm: () => {
-                          Data.reset()
-                        }
-                      })
+                      Advanced.open()
                     }
                   }),
                   label({
                     padding: { top: 5 },
-                    text: language.ui.main.label.options_delete_data
+                    text: language.ui.main.label.options_advanced_options
                   })
                 ]
               }),

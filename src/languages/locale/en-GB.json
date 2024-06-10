@@ -129,7 +129,7 @@
         "options_sync_now": "Sync now",
         "options_display_progress_bar": "Show progress bar",
         "options_display_value": "Show value",
-        "options_delete_data": "Delete all data"
+        "options_advanced_options": "Advanced options"
       },
       "tooltip": {
         "action_track_design": "Includes track placement, track removal, track design and setting brake speed.",
@@ -144,6 +144,21 @@
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
+      }
+    },
+    "advanced": {
+      "title": "Advanced Options",
+      "tabs": {
+        "general": {
+          "groupbox": {
+            "title": "General"
+          },
+          "label": {
+            "delete_data": "Delete all data"
+          }
+        },
+        "colours": {},
+        "info": {}
       }
     },
     "generic": {

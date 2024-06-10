@@ -2,6 +2,7 @@ import Environment from "../common/environment"
 import Logger from "../utils/logger"
 import * as Main from "./main"
 import * as Toolbox from "./toolbox"
+import * as Advanced from "./advanced/advanced"
 
 namespace UI {
   /**
@@ -13,6 +14,7 @@ namespace UI {
     Logger.assert(Environment.isUiAvailable, "UI is not available.")
     Main.init()
     Toolbox.init()
+    Advanced.init()
     ui.registerShortcut({
       id: "dynamicdashboard.main.open",
       text: "Open Dynamic Dashboard",

@@ -1,4 +1,11 @@
-import { WritableStore, compute, store, twoway } from "openrct2-flexui"
+import {
+  Colour,
+  TextColour,
+  WritableStore,
+  compute,
+  store,
+  twoway
+} from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/data_entry"
@@ -51,6 +58,13 @@ type BranchDataGroup = {
 interface BaseData {
   global: {
     update_frequency: WritableStore<number>
+    colour_scheme: {
+      primary: DataEntry<TextColour>
+      secondary: DataEntry<TextColour>
+      tertiary: DataEntry<TextColour>
+      progressbar_normal: DataEntry<Colour>
+      progressbar_warning: DataEntry<Colour>
+    }
   }
   local: DataGroup
 }
@@ -190,7 +204,34 @@ const baseData: BaseData = {
   global: {
     update_frequency: twoway(
       store<number>(context.sharedStorage.get(GOBAL + ".update_frequency", 10))
-    ).twoway
+    ).twoway,
+    colour_scheme: {
+      primary: new DataEntry({
+        key: GOBAL + ".colour_scheme_primary",
+        global: true,
+        store: twoway(store<TextColour>("palegold")).twoway
+      }),
+      secondary: new DataEntry({
+        key: GOBAL + ".colour_scheme_secondary",
+        global: true,
+        store: twoway(store<TextColour>("white")).twoway
+      }),
+      tertiary: new DataEntry({
+        key: GOBAL + ".colour_scheme_tertiary",
+        global: true,
+        store: twoway(store<TextColour>("palesilver")).twoway
+      }),
+      progressbar_normal: new DataEntry({
+        key: GOBAL + ".progressbar_normal",
+        global: true,
+        store: twoway(store<Colour>(Colour.BrightGreen)).twoway
+      }),
+      progressbar_warning: new DataEntry({
+        key: GOBAL + ".progressbar_warning",
+        global: true,
+        store: twoway(store<Colour>(Colour.BrightRed)).twoway
+      })
+    }
   },
   local: {
     player: {

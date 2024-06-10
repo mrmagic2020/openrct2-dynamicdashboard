@@ -22,6 +22,11 @@ interface DataEntryParams<T> {
   default?: T
 
   /**
+   * Whether the data entry is global and should be stored in the global storage.
+   */
+  global?: boolean
+
+  /**
    * The writable store for the data entry.
    */
   store: WritableStore<T>
@@ -31,16 +36,21 @@ class DataEntry<T> {
   private _key: string
   private _temporary: boolean
   private _defaultValue: T | undefined
+  private _global: boolean
   private _store: WritableStore<T>
 
   private init() {
     if (!this._temporary) {
-      if (context.getParkStorage().has(this._key)) {
+      if (this.getConfig().has(this._key)) {
         this._store.set(
-          (context.getParkStorage().get(this._key) as T) ?? (0 as unknown as T)
+          (this.getConfig().get(this._key) as T) ?? (0 as unknown as T)
         )
       }
     }
+  }
+
+  private getConfig(): Configuration {
+    return this._global ? context.configuration : context.getParkStorage()
   }
 
   /**
@@ -74,15 +84,19 @@ class DataEntry<T> {
     this._store = params.store
     if ("temporary" in params) this._temporary = params.temporary || false
     else this._temporary = false
+    if ("global" in params) this._global = params.global || false
+    else this._global = false
     if ("default" in params) this._defaultValue = params.default
 
-    HookManager.hook("map.changed", () => {
-      this.reset()
-      this.init()
-    })
+    if (!this._global) {
+      HookManager.hook("map.changed", () => {
+        this.reset()
+        this.init()
+      })
+    }
     this._store.subscribe((value: T) => {
       if (!this._temporary) {
-        context.getParkStorage().set(this._key, value)
+        this.getConfig().set(this._key, value)
       }
     })
 
@@ -102,8 +116,8 @@ class DataEntry<T> {
    * Erases the data entry from the park storage.
    */
   erase() {
-    if (context.getParkStorage().has(this._key)) {
-      context.getParkStorage().set(this._key, undefined)
+    if (this.getConfig().has(this._key)) {
+      this.getConfig().set(this._key, undefined)
     }
   }
 
