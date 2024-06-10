@@ -50,7 +50,7 @@ class DataEntry<T> {
   }
 
   private getConfig(): Configuration {
-    return this._global ? context.configuration : context.getParkStorage()
+    return this._global ? context.sharedStorage : context.getParkStorage()
   }
 
   /**
