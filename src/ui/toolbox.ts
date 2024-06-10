@@ -7,7 +7,7 @@ import { baseData } from "../data/main"
  */
 let isOpen = false
 
-function initToolboxMenu(): void {
+function init(): void {
   ui.registerToolboxMenuItem(language.ui.toolbox.title, toolboxMenu)
 }
 
@@ -48,4 +48,4 @@ function toolboxMenu(): void {
   else win_template.focus()
 }
 
-export { initToolboxMenu }
+export { init }

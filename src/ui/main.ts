@@ -12,12 +12,12 @@ import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import Currency from "../utils/currency"
 import { interval } from "../data/main"
-import Sprites from "./custom/sprites"
+import Sprites from "./generic/sprites"
 import Data from "../data/index"
-import { progressBar } from "./custom/progress_bar"
+import { progressBar } from "./generic/progress_bar"
 import { GuestData } from "../data/guest"
-import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
-import WarningWindow from "./custom/warning"
+import { Indicators, toggleManualIndicatorLit } from "./generic/indicators"
+import WarningWindow from "./generic/warning"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
 
@@ -26,11 +26,11 @@ import MathUtils from "../utils/math_utils"
  */
 let isOpen: boolean = false
 
-function initMainMenu(): void {
+function init(): void {
   ui.registerMenuItem(language.ui.main.title, menu)
 }
 
-function openMainMenu(): void {
+function open(): void {
   if (context.mode !== "normal") return
   menu()
 }
@@ -1490,4 +1490,4 @@ function menu(): void {
   else main_ui.focus()
 }
 
-export { initMainMenu, openMainMenu }
+export { init, open }
