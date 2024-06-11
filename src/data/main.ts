@@ -1,11 +1,4 @@
-import {
-  Colour,
-  TextColour,
-  WritableStore,
-  compute,
-  store,
-  twoway
-} from "openrct2-flexui"
+import { Colour, WritableStore, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/data_entry"
@@ -59,9 +52,9 @@ interface BaseData {
   global: {
     update_frequency: WritableStore<number>
     colour_scheme: {
-      primary: DataEntry<TextColour>
-      secondary: DataEntry<TextColour>
-      tertiary: DataEntry<TextColour>
+      primary: DataEntry<Colour>
+      secondary: DataEntry<Colour>
+      tertiary: DataEntry<Colour>
       progressbar_normal: DataEntry<Colour>
       progressbar_warning: DataEntry<Colour>
     }
@@ -209,17 +202,17 @@ const baseData: BaseData = {
       primary: new DataEntry({
         key: GOBAL + ".colour_scheme_primary",
         global: true,
-        store: twoway(store<TextColour>("palegold")).twoway
+        store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       secondary: new DataEntry({
         key: GOBAL + ".colour_scheme_secondary",
         global: true,
-        store: twoway(store<TextColour>("white")).twoway
+        store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       tertiary: new DataEntry({
         key: GOBAL + ".colour_scheme_tertiary",
         global: true,
-        store: twoway(store<TextColour>("palesilver")).twoway
+        store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       progressbar_normal: new DataEntry({
         key: GOBAL + ".progressbar_normal",

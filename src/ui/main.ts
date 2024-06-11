@@ -1,5 +1,7 @@
 import {
   Colour,
+  WindowParams,
+  WindowTemplate,
   button,
   compute,
   groupbox,
@@ -25,31 +27,19 @@ import * as Advanced from "./advanced/advanced"
  * Whether the window is open.
  */
 let isOpen: boolean = false
+let windowTemplate: WindowTemplate
 
-function init(): void {
-  ui.registerMenuItem(language.ui.main.title, menu)
-}
-
-function open(): void {
-  if (context.mode !== "normal") return
-  menu()
-}
-
-/**
- * Open the main menu.
- *
- * @returns {void}
- */
-function menu(): void {
-  /**
-   * Main window template.
-   */
-  const main_ui = window({
+function getWindowParams(): WindowParams {
+  return {
     title: language.ui.main.title,
     width: 800,
     // Accomodate more statistics when playing in servers.
     height: network.mode === "none" ? 500 : 570,
     position: "center",
+    colours: [
+      baseData.global.colour_scheme.primary.store.get(),
+      baseData.global.colour_scheme.secondary.store.get()
+    ],
     content: [
       horizontal([
         vertical([
@@ -268,7 +258,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_happiness_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -323,7 +313,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_energy_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -378,7 +368,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_nausea_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -432,7 +422,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -486,7 +476,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -541,7 +531,7 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_toilet_ave.store,
                       baseData.global.colour_scheme.progressbar_warning.store,
@@ -628,7 +618,7 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground:
                           baseData.global.colour_scheme.progressbar_normal.store
                       })
@@ -678,7 +668,7 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground:
                           baseData.global.colour_scheme.progressbar_normal.store
                       })
@@ -729,7 +719,7 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground:
                           baseData.global.colour_scheme.progressbar_normal.store
                       })
@@ -780,7 +770,7 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground:
                           baseData.global.colour_scheme.progressbar_normal.store
                       })
@@ -831,7 +821,7 @@ function menu(): void {
                             return Data.ParkAndScenarioData.getWarningDaysPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario
                             .park_rating_warning_days.store,
@@ -921,17 +911,21 @@ function menu(): void {
                             return Data.ParkAndScenarioData.Objective.daysLeftPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario.objective_days_left
                             .store,
-                          () => {
+                          baseData.global.colour_scheme.progressbar_warning
+                            .store,
+                          baseData.global.colour_scheme.progressbar_normal
+                            .store,
+                          (_days, colour_warning, colour_normal) => {
                             if (
                               Data.ParkAndScenarioData.Objective.daysLeftShouldWarn()
                             ) {
-                              return Colour.BrightRed
+                              return colour_warning
                             }
-                            return Colour.BrightGreen
+                            return colour_normal
                           }
                         )
                       })
@@ -1489,13 +1483,40 @@ function menu(): void {
     ],
     onOpen: () => (isOpen = true),
     onClose: () => (isOpen = false)
-  })
+  }
+}
 
+function updateColourScheme(type: number, colour: Colour) {
+  let windowParams = getWindowParams()
+  if (typeof windowParams.colours !== "undefined") {
+    windowParams.colours[type] = colour
+  }
+  windowTemplate.close()
+  windowTemplate = window(windowParams)
+  windowTemplate.open()
+}
+
+function init(): void {
+  ui.registerMenuItem(language.ui.main.title, open)
+
+  windowTemplate = window(getWindowParams())
+  baseData.global.colour_scheme.primary.store.subscribe((colour) => {
+    updateColourScheme(0, colour)
+    Advanced.open()
+  })
+  baseData.global.colour_scheme.secondary.store.subscribe((colour) => {
+    updateColourScheme(1, colour)
+    Advanced.open()
+  })
+}
+
+function open(): void {
+  if (context.mode !== "normal") return
   if (!isOpen)
     // Open the window if it is not open.
-    main_ui.open()
+    windowTemplate.open()
   // Focus the window if it is open.
-  else main_ui.focus()
+  else windowTemplate.focus()
 }
 
 export { init, open }

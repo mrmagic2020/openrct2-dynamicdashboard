@@ -11,6 +11,32 @@ export const tab_colours = function () {
       groupbox({
         text: language.ui.advanced.tabs.colours.groupbox.title,
         content: [
+          // Primary colour
+          horizontal([
+            label({
+              text: language.ui.advanced.tabs.colours.label.primary
+            }),
+            colourPicker({
+              height: 14,
+              colour: baseData.global.colour_scheme.primary.store,
+              onChange: (colour) => {
+                baseData.global.colour_scheme.primary.store.set(colour)
+              }
+            })
+          ]),
+          // Secondary colour
+          horizontal([
+            label({
+              text: language.ui.advanced.tabs.colours.label.secondary
+            }),
+            colourPicker({
+              height: 14,
+              colour: baseData.global.colour_scheme.secondary.store,
+              onChange: (colour) => {
+                baseData.global.colour_scheme.secondary.store.set(colour)
+              }
+            })
+          ]),
           // Progressbar normal colour
           horizontal([
             label({
