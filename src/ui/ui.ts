@@ -3,6 +3,7 @@ import Logger from "../utils/logger"
 import * as Main from "./main"
 import * as Toolbox from "./toolbox"
 import * as Advanced from "./advanced/advanced"
+import * as Changelog from "./advanced/windows/win_changelog"
 
 namespace UI {
   /**
@@ -15,6 +16,7 @@ namespace UI {
     Main.init()
     Toolbox.init()
     Advanced.init()
+    Changelog.init()
     ui.registerShortcut({
       id: "dynamicdashboard.main.open",
       text: "Open Dynamic Dashboard",

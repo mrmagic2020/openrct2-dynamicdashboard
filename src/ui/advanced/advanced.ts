@@ -1,7 +1,7 @@
 import { Colour, WindowTemplate, tabwindow } from "openrct2-flexui"
-import { tab_info } from "./tab_info"
-import { tab_options } from "./tab_general"
-import { tab_colours } from "./tab_colours"
+import { tab_info } from "./tabs/tab_info"
+import { tab_options } from "./tabs/tab_general"
+import { tab_colours } from "./tabs/tab_colours"
 import { language } from "../../languages/lang"
 
 let isOpen = false

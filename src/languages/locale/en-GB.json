@@ -169,7 +169,34 @@
             "progressbar_warning": "Progress Bar (Warning)"
           }
         },
-        "info": {}
+        "info": {
+          "label": {
+            "description": "Dynamic Dashboard, real-time insights and stats at your fingertips.",
+            "licence": "Licence: {WHITE}",
+            "version": "Version: {WHITE}",
+            "author": "Author: {WHITE}",
+            "special_thanks": "Special \nThanks: {WHITE}",
+            "github": "GitHub: {WHITE}"
+          },
+          "button": {
+            "contributors": "Contributors...",
+            "changelog": "Changelog..."
+          }
+        }
+      },
+      "windows": {
+        "contributors": {
+          "title": "Contributors",
+          "label": {
+            "description": "This project is made possible by the following contributors:"
+          }
+        },
+        "changelog": {
+          "title": "Changelog",
+          "label": {
+            "description": "This project is constantly evolving. Here are the changes made in each version:"
+          }
+        }
       }
     },
     "generic": {

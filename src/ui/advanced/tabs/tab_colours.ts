@@ -1,7 +1,7 @@
 import { colourPicker, groupbox, horizontal, label, tab } from "openrct2-flexui"
-import Animations from "../generic/animations"
-import { language } from "../../languages/lang"
-import { baseData } from "../../data/main"
+import Animations from "../../generic/animations"
+import { language } from "../../../languages/lang"
+import { baseData } from "../../../data/main"
 
 export const tab_colours = function () {
   return tab({
