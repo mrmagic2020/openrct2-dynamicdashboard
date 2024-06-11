@@ -1,4 +1,11 @@
-import { colourPicker, groupbox, horizontal, label, tab } from "openrct2-flexui"
+import {
+  button,
+  colourPicker,
+  groupbox,
+  horizontal,
+  label,
+  tab
+} from "openrct2-flexui"
 import Animations from "../../generic/animations"
 import { language } from "../../../languages/lang"
 import { baseData } from "../../../data/main"
@@ -66,7 +73,19 @@ export const tab_colours = function () {
                 )
               }
             })
-          ])
+          ]),
+          // Reset colours button
+          button({
+            text: language.ui.advanced.tabs.colours.button.reset,
+            height: 14,
+            padding: { top: 10 },
+            onClick: () => {
+              baseData.global.colour_scheme.primary.reset()
+              baseData.global.colour_scheme.secondary.reset()
+              baseData.global.colour_scheme.progressbar_normal.reset()
+              baseData.global.colour_scheme.progressbar_warning.reset()
+            }
+          })
         ]
       })
     ]

@@ -202,26 +202,31 @@ const baseData: BaseData = {
       primary: new DataEntry({
         key: GOBAL + ".colour_scheme_primary",
         global: true,
+        default: Colour.Grey,
         store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       secondary: new DataEntry({
         key: GOBAL + ".colour_scheme_secondary",
         global: true,
+        default: Colour.Grey,
         store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       tertiary: new DataEntry({
         key: GOBAL + ".colour_scheme_tertiary",
         global: true,
+        default: Colour.Grey,
         store: twoway(store<Colour>(Colour.Grey)).twoway
       }),
       progressbar_normal: new DataEntry({
         key: GOBAL + ".progressbar_normal",
         global: true,
+        default: Colour.BrightGreen,
         store: twoway(store<Colour>(Colour.BrightGreen)).twoway
       }),
       progressbar_warning: new DataEntry({
         key: GOBAL + ".progressbar_warning",
         global: true,
+        default: Colour.BrightRed,
         store: twoway(store<Colour>(Colour.BrightRed)).twoway
       })
     }

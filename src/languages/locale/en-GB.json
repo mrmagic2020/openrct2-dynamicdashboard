@@ -167,6 +167,9 @@
             "tertiary": "Tertiary",
             "progressbar_normal": "Progress Bar (Normal)",
             "progressbar_warning": "Progress Bar (Warning)"
+          },
+          "button": {
+            "reset": "Reset colour schemes"
           }
         },
         "info": {
