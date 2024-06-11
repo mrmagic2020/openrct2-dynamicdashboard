@@ -5,10 +5,10 @@ import { tab_colours } from "./tab_colours"
 import { language } from "../../languages/lang"
 
 let isOpen = false
-let window_template: WindowTemplate
+let windowTemplate: WindowTemplate
 
 export function init() {
-  window_template = tabwindow({
+  windowTemplate = tabwindow({
     title: language.ui.advanced.title,
     position: "center",
     width: 260,
@@ -22,6 +22,6 @@ export function init() {
 }
 
 export function open() {
-  if (!isOpen) window_template.open()
-  else window_template.focus()
+  if (!isOpen) windowTemplate.open()
+  else windowTemplate.focus()
 }
