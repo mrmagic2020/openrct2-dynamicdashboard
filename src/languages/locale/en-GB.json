@@ -157,7 +157,18 @@
             "delete_data": "Delete all data"
           }
         },
-        "colours": {},
+        "colours": {
+          "groupbox": {
+            "title": "Colour Scheme"
+          },
+          "label": {
+            "primary": "Primary",
+            "secondary": "Secondary",
+            "tertiary": "Tertiary",
+            "progressbar_normal": "Progress Bar (Normal)",
+            "progressbar_warning": "Progress Bar (Warning)"
+          }
+        },
         "info": {}
       }
     },

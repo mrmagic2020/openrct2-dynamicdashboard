@@ -14,7 +14,7 @@ export function init() {
     width: 260,
     height: 200,
     colours: [Colour.Grey, Colour.DarkYellow, Colour.DarkYellow],
-    tabs: [tab_options(), tab_colours, tab_info],
+    tabs: [tab_options(), tab_colours(), tab_info()],
     onTabChange: (_index) => {},
     onOpen: () => (isOpen = true),
     onClose: () => (isOpen = false)
@@ -22,17 +22,6 @@ export function init() {
 }
 
 export function open() {
-  // window_template = tabwindow({
-  //   title: language.ui.advanced.title,
-  //   position: "center",
-  //   width: 260,
-  //   height: 200,
-  //   colours: [Colour.Grey, Colour.DarkYellow, Colour.DarkYellow],
-  //   tabs: [tab_options(), tab_colours, tab_info],
-  //   onTabChange: (_index) => {},
-  //   onOpen: () => (isOpen = true),
-  //   onClose: () => (isOpen = false)
-  // })
   if (!isOpen) window_template.open()
   else window_template.focus()
 }

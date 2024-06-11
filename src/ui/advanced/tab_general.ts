@@ -18,6 +18,7 @@ export const tab_options = function () {
             height: 28,
             onClick: () => {
               WarningWindow.show({
+                id: "delete_all_data",
                 title: language.ui.generic.warning.delete_all_data.title,
                 message: language.ui.generic.warning.delete_all_data.message,
                 cancelButton:
