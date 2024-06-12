@@ -1,4 +1,9 @@
-import { Colour, WindowTemplate, tabwindow } from "openrct2-flexui"
+import {
+  Colour,
+  TabWindowParams,
+  WindowTemplate,
+  tabwindow
+} from "openrct2-flexui"
 import { tab_info } from "./tabs/tab_info"
 import { tab_options } from "./tabs/tab_general"
 import { tab_colours } from "./tabs/tab_colours"
@@ -7,8 +12,8 @@ import { language } from "../../languages/lang"
 let isOpen = false
 let windowTemplate: WindowTemplate
 
-export function init() {
-  windowTemplate = tabwindow({
+function getWindowParams(): TabWindowParams {
+  return {
     title: language.ui.advanced.title,
     position: "center",
     width: 260,
@@ -18,7 +23,11 @@ export function init() {
     onTabChange: (_index) => {},
     onOpen: () => (isOpen = true),
     onClose: () => (isOpen = false)
-  })
+  }
+}
+
+export function init() {
+  windowTemplate = tabwindow(getWindowParams())
 }
 
 export function open() {

@@ -22,7 +22,8 @@ namespace UI {
       text: "Open Dynamic Dashboard",
       bindings: ["SHIFT+D"],
       callback: () => {
-        Main.open()
+        if (context.mode === "normal") Main.open()
+        else if (context.mode === "title") Advanced.open()
       }
     })
   }

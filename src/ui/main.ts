@@ -1491,18 +1491,22 @@ function updateColourScheme(type: number, colour: Colour) {
   if (typeof windowParams.colours !== "undefined") {
     windowParams.colours[type] = colour
   }
+  // Reopen the window with the new colour scheme
   windowTemplate.close()
   windowTemplate = window(windowParams)
-  windowTemplate.open()
+  open()
 }
 
 function init(): void {
   ui.registerMenuItem(language.ui.main.title, open)
 
+  // Create the window
   windowTemplate = window(getWindowParams())
+
+  // Subscribe to colour scheme changes
   baseData.global.colour_scheme.primary.store.subscribe((colour) => {
     updateColourScheme(0, colour)
-    Advanced.open()
+    Advanced.open() // Re-focus the advanced window
   })
   baseData.global.colour_scheme.secondary.store.subscribe((colour) => {
     updateColourScheme(1, colour)
