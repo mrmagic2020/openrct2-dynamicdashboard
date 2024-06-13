@@ -43,8 +43,12 @@ class DataEntry<T> {
     if (!this._temporary) {
       if (this.getConfig().has(this._key)) {
         this._store.set(
-          (this.getConfig().get(this._key) as T) ?? (0 as unknown as T)
+          this.getConfig().get<T>(this._key) ??
+            this._defaultValue ??
+            (0 as unknown as T)
         )
+      } else {
+        this.save(this._defaultValue)
       }
     }
   }
@@ -95,9 +99,7 @@ class DataEntry<T> {
       })
     }
     this._store.subscribe((value: T) => {
-      if (!this._temporary) {
-        this.getConfig().set(this._key, value)
-      }
+      this.save(value)
     })
 
     this.init()
@@ -127,6 +129,12 @@ class DataEntry<T> {
   delete() {
     this.reset()
     this.erase()
+  }
+
+  save(value?: T) {
+    if (!this._temporary) {
+      this.getConfig().set(this._key, value ?? this._store.get())
+    }
   }
 }
 

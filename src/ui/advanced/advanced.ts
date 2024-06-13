@@ -28,6 +28,7 @@ function getWindowParams(): TabWindowParams {
 
 export function init() {
   windowTemplate = tabwindow(getWindowParams())
+  ui.registerToolboxMenuItem(language.ui.advanced.toolbox_title, open)
 }
 
 export function open() {

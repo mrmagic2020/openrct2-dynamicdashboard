@@ -1,7 +1,7 @@
 import Environment from "../common/environment"
 import Logger from "../utils/logger"
 import * as Main from "./main"
-import * as Toolbox from "./toolbox"
+// import * as Toolbox from "./toolbox"
 import * as Advanced from "./advanced/advanced"
 import * as Changelog from "./advanced/windows/win_changelog"
 
@@ -14,7 +14,7 @@ namespace UI {
   export function init(): void {
     Logger.assert(Environment.isUiAvailable, "UI is not available.")
     Main.init()
-    Toolbox.init()
+    // Toolbox.init()
     Advanced.init()
     Changelog.init()
     ui.registerShortcut({

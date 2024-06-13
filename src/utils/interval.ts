@@ -1,4 +1,4 @@
-import { WritableStore } from "openrct2-flexui"
+import { Bindable, WritableStore, compute, read } from "openrct2-flexui"
 import { increment } from "./store_utils"
 
 export interface FunctionInfo {
@@ -13,7 +13,7 @@ export interface FunctionInfo {
   /**
    * The interval at which the function should be executed, in milliseconds.
    */
-  interval: number
+  interval: Bindable<number>
   /**
    * Specifies whether the interval is paused.
    */
@@ -62,7 +62,10 @@ export class IntervalManager {
   }
 
   static init(params: IntervalManagerInitParams): IntervalManager {
-    const interval = new IntervalManager(params)
+    const interval = new IntervalManager({
+      update_frequency: compute(params.update_frequency, read),
+      countdown_progress: params.countdown_progress
+    })
     return interval
   }
 
@@ -75,17 +78,18 @@ export class IntervalManager {
    * Registers a function to be executed at a specified interval. Does not start the interval.
    *
    * @param func The function to be executed.
-   * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_frequency.get() * 1000`.
+   * @param interval The interval at which the function should be executed, in milliseconds. Defaults to the value of `baseData.global.update_frequency.store.get() * 1000`.
    * @param pause_on_manual Specifies whether the interval should be paused when the user manually pauses the execution. Defaults to `true`.
    * @returns The ID of the registered interval.
    */
   register(
     func: Function,
-    interval: number = this.updateFrequency.get() * 1000,
+    interval: Bindable<number> = compute(
+      this.updateFrequency,
+      (value) => value * 1000
+    ),
     pause_on_manual: boolean = true
   ): void {
-    // const ID = context.setInterval(func, interval)
-    // this.intervalIDs.push(ID)
     let info: FunctionInfo = {
       ID: -1,
       func: func,
@@ -94,7 +98,6 @@ export class IntervalManager {
       pause_on_manual: pause_on_manual
     }
     this.registered.push(info)
-    // return ID
   }
 
   pauseManual(): void {
@@ -128,7 +131,7 @@ export class IntervalManager {
   resumeAll(): void {
     if (!this.paused) return
     this.registered.forEach((f) => {
-      const id = context.setInterval(f.func, f.interval)
+      const id = context.setInterval(f.func, read(f.interval))
       f.ID = id
       this.intervalIDs.push(id)
       f.paused = false

@@ -101,7 +101,7 @@ namespace GuestData {
     HookManager.hook("guest.generation", updateGuestGenerationCount)
     interval.register(() => {
       update()
-    }, baseData.global.update_frequency.get() * 1000)
+    })
   }
 }
 

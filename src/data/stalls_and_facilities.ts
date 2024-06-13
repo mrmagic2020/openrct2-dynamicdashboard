@@ -106,10 +106,7 @@ namespace SFData {
   }
 
   export function init(): void {
-    interval.register(
-      updateSFCount,
-      baseData.global.update_frequency.get() * 1000
-    )
+    interval.register(updateSFCount)
   }
 }
 

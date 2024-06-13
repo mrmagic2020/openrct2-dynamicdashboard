@@ -147,6 +147,7 @@
       }
     },
     "advanced": {
+      "toolbox_title": "Dynamic Dashboard",
       "title": "Advanced Options",
       "tabs": {
         "general": {
@@ -154,7 +155,11 @@
             "title": "General"
           },
           "label": {
-            "delete_data": "Delete all data"
+            "delete_data": "Delete all data",
+            "set_frequency": "Set update frequency:"
+          },
+          "button": {
+            "set_frequency": "Set"
           }
         },
         "colours": {

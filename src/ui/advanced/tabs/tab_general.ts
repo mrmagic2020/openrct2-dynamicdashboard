@@ -1,8 +1,18 @@
-import { button, groupbox, tab } from "openrct2-flexui"
+import {
+  button,
+  groupbox,
+  horizontal,
+  label,
+  spinner,
+  tab
+} from "openrct2-flexui"
 import Animations from "../../generic/animations"
 import { language } from "../../../languages/lang"
 import WarningWindow from "../../generic/warning"
 import Data from "../../../data"
+import { baseData } from "../../../data/main"
+
+let temp_frequency: number = baseData.global.update_frequency.store.get()
 
 export const tab_options = function () {
   return tab({
@@ -12,10 +22,41 @@ export const tab_options = function () {
       groupbox({
         text: language.ui.advanced.tabs.general.groupbox.title,
         content: [
+          // Set update frequency label
+          label({
+            text: language.ui.advanced.tabs.general.label.set_frequency
+          }),
+          // Set update frequency button + spinner
+          horizontal({
+            content: [
+              spinner({
+                height: 14,
+                width: "50%",
+                value: baseData.global.update_frequency.store,
+                minimum: 1,
+                onChange: (value) => {
+                  temp_frequency = value
+                },
+                format: (value) => {
+                  return context.formatString("{DURATION}", value)
+                }
+              }),
+              button({
+                text: language.ui.advanced.tabs.general.button.set_frequency,
+                height: 14,
+                width: "25%",
+                onClick: () => {
+                  baseData.global.update_frequency.store.set(temp_frequency)
+                }
+              })
+            ]
+          }),
           // Delete all data button
           button({
             text: language.ui.advanced.tabs.general.label.delete_data,
-            height: 28,
+            height: 14,
+            width: "50%",
+            padding: { top: 10 },
             onClick: () => {
               WarningWindow.show({
                 id: "delete_all_data",
