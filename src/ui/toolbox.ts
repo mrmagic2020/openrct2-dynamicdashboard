@@ -1,4 +1,4 @@
-import { window, label, spinner } from "openrct2-flexui"
+import { window, label, spinner, Colour } from "openrct2-flexui"
 import { language } from "../languages/lang"
 import { baseData } from "../data/main"
 
@@ -22,6 +22,7 @@ function toolboxMenu(): void {
     width: 200,
     height: 100,
     position: "center",
+    colours: [Colour.DarkYellow, Colour.DarkYellow],
     content: [
       label({
         text: language.ui.toolbox.require_restart
