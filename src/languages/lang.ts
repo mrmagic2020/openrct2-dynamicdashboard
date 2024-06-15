@@ -105,7 +105,7 @@ function initLang_new(): void {
   context.setInterval(() => {
     currentLanguage = getUserLanguage()
     languageStore.set(locales[currentLanguage])
-  }, baseData.global.update_frequency.get() * 1000)
+  }, baseData.global.update_frequency.store.get() * 1000)
 
   /**
    * Update language when user changes language.

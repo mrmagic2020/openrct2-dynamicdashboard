@@ -267,7 +267,7 @@ namespace ParkAndScenarioData {
       updateWarningDays()
     })
 
-    interval.register(update, baseData.global.update_frequency.get() * 1000)
+    interval.register(update)
   }
 }
 

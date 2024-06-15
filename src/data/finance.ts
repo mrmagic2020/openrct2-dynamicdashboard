@@ -105,7 +105,7 @@ namespace FinanceData {
     interval.register(() => {
       updateParkIE()
       updateExpenditure()
-    }, baseData.global.update_frequency.get() * 1000)
+    })
   }
 }
 

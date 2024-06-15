@@ -1,5 +1,7 @@
 import {
   Colour,
+  WindowParams,
+  WindowTemplate,
   button,
   compute,
   groupbox,
@@ -12,44 +14,32 @@ import { language, tr } from "../languages/lang"
 import { baseData } from "../data/main"
 import Currency from "../utils/currency"
 import { interval } from "../data/main"
-import Sprites from "./custom/sprites"
+import Sprites from "./generic/sprites"
 import Data from "../data/index"
-import { progressBar } from "./custom/progress_bar"
+import { progressBar } from "./generic/progress_bar"
 import { GuestData } from "../data/guest"
-import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
-import WarningWindow from "./custom/warning"
+import { Indicators, toggleManualIndicatorLit } from "./generic/indicators"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
+import * as Advanced from "./advanced/advanced"
 
 /**
  * Whether the window is open.
  */
 let isOpen: boolean = false
+let windowTemplate: WindowTemplate
 
-function initMainMenu(): void {
-  ui.registerMenuItem(language.ui.main.title, menu)
-}
-
-function openMainMenu(): void {
-  if (context.mode !== "normal") return
-  menu()
-}
-
-/**
- * Open the main menu.
- *
- * @returns {void}
- */
-function menu(): void {
-  /**
-   * Main window template.
-   */
-  const main_ui = window({
+function getWindowParams(): WindowParams {
+  return {
     title: language.ui.main.title,
     width: 800,
     // Accomodate more statistics when playing in servers.
     height: network.mode === "none" ? 500 : 570,
     position: "center",
+    colours: [
+      baseData.global.colour_scheme.primary.store.get(),
+      baseData.global.colour_scheme.secondary.store.get()
+    ],
     content: [
       horizontal([
         vertical([
@@ -268,13 +258,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_happiness_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.HAPINESS_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -321,13 +313,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_energy_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.ENERGY_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -374,13 +368,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_nausea_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value > GuestData.NAUSEA_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -426,13 +422,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.HUNGER_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -478,13 +476,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.THIRST_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -531,13 +531,15 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_toilet_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value > GuestData.TOILET_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
                   })
@@ -616,8 +618,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -665,8 +668,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -715,8 +719,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -765,8 +770,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -815,19 +821,23 @@ function menu(): void {
                             return Data.ParkAndScenarioData.getWarningDaysPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario
                             .park_rating_warning_days.store,
-                          () => {
+                          baseData.global.colour_scheme.progressbar_warning
+                            .store,
+                          baseData.global.colour_scheme.progressbar_normal
+                            .store,
+                          (_days, colour_warning, colour_normal) => {
                             if (
                               Data.ParkAndScenarioData.getWarningDaysPercentage() <=
                               Data.ParkAndScenarioData
                                 .RATING_WARNING_DAYS_THRESHOLD
                             ) {
-                              return Colour.BrightRed
+                              return colour_warning
                             }
-                            return Colour.BrightGreen
+                            return colour_normal
                           }
                         )
                       })
@@ -901,17 +911,21 @@ function menu(): void {
                             return Data.ParkAndScenarioData.Objective.daysLeftPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario.objective_days_left
                             .store,
-                          () => {
+                          baseData.global.colour_scheme.progressbar_warning
+                            .store,
+                          baseData.global.colour_scheme.progressbar_normal
+                            .store,
+                          (_days, colour_warning, colour_normal) => {
                             if (
                               Data.ParkAndScenarioData.Objective.daysLeftShouldWarn()
                             ) {
-                              return Colour.BrightRed
+                              return colour_warning
                             }
-                            return Colour.BrightGreen
+                            return colour_normal
                           }
                         )
                       })
@@ -1428,32 +1442,20 @@ function menu(): void {
                   })
                 ]
               }),
-              // Delete all data
+              // Advanced Options
               horizontal({
                 content: [
                   button({
                     width: "25px",
                     height: "25px",
-                    image: Sprites.DELETE_DATA,
+                    image: Sprites.ADVANCED_OPTIONS,
                     onClick: () => {
-                      WarningWindow.show({
-                        title:
-                          language.ui.generic.warning.delete_all_data.title,
-                        message:
-                          language.ui.generic.warning.delete_all_data.message,
-                        cancelButton:
-                          language.ui.generic.warning.delete_all_data.cancel,
-                        confirmButton:
-                          language.ui.generic.warning.delete_all_data.confirm,
-                        onConfirm: () => {
-                          Data.reset()
-                        }
-                      })
+                      Advanced.open()
                     }
                   }),
                   label({
                     padding: { top: 5 },
-                    text: language.ui.main.label.options_delete_data
+                    text: language.ui.main.label.options_advanced_options
                   })
                 ]
               }),
@@ -1481,13 +1483,44 @@ function menu(): void {
     ],
     onOpen: () => (isOpen = true),
     onClose: () => (isOpen = false)
-  })
-
-  if (!isOpen)
-    // Open the window if it is not open.
-    main_ui.open()
-  // Focus the window if it is open.
-  else main_ui.focus()
+  }
 }
 
-export { initMainMenu, openMainMenu }
+function updateColourScheme(type: number, colour: Colour) {
+  let windowParams = getWindowParams()
+  if (typeof windowParams.colours !== "undefined") {
+    windowParams.colours[type] = colour
+  }
+  // Reopen the window with the new colour scheme
+  windowTemplate.close()
+  windowTemplate = window(windowParams)
+  open()
+}
+
+function init(): void {
+  ui.registerMenuItem(language.ui.main.title, open)
+
+  // Create the window
+  windowTemplate = window(getWindowParams())
+
+  // Subscribe to colour scheme changes
+  baseData.global.colour_scheme.primary.store.subscribe((colour) => {
+    updateColourScheme(0, colour)
+    Advanced.open() // Re-focus the advanced window
+  })
+  baseData.global.colour_scheme.secondary.store.subscribe((colour) => {
+    updateColourScheme(1, colour)
+    Advanced.open()
+  })
+}
+
+function open(): void {
+  if (context.mode !== "normal") return
+  if (!isOpen)
+    // Open the window if it is not open.
+    windowTemplate.open()
+  // Focus the window if it is open.
+  else windowTemplate.focus()
+}
+
+export { init, open }

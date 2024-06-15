@@ -1,7 +1,9 @@
 import Environment from "../common/environment"
 import Logger from "../utils/logger"
-import { initMainMenu, openMainMenu } from "./main"
-import { initToolboxMenu } from "./toolbox"
+import * as Main from "./main"
+// import * as Toolbox from "./toolbox"
+import * as Advanced from "./advanced/advanced"
+import * as Changelog from "./advanced/windows/win_changelog"
 
 namespace UI {
   /**
@@ -11,14 +13,17 @@ namespace UI {
    */
   export function init(): void {
     Logger.assert(Environment.isUiAvailable, "UI is not available.")
-    initMainMenu()
-    initToolboxMenu()
+    Main.init()
+    // Toolbox.init()
+    Advanced.init()
+    Changelog.init()
     ui.registerShortcut({
       id: "dynamicdashboard.main.open",
       text: "Open Dynamic Dashboard",
       bindings: ["SHIFT+D"],
       callback: () => {
-        openMainMenu()
+        if (context.mode === "normal") Main.open()
+        else if (context.mode === "title") Advanced.open()
       }
     })
   }

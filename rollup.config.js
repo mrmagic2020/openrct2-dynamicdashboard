@@ -7,6 +7,7 @@ import { getConfigHome, getDocumentsFolder } from "platform-folders"
 import fs from "fs"
 
 const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"))
+const changelog = fs.readFileSync("./CHANGELOG.md", "utf-8")
 const build = process.env.BUILD || "development"
 const isDev = build === "development"
 
@@ -63,6 +64,7 @@ const config = {
       values: {
         __BUILD_CONFIGURATION__: JSON.stringify(build),
         __VERSION__: JSON.stringify(pkg.version),
+        __CHANGELOG__: JSON.stringify(changelog),
         ...(isDev ? {} : { "Logger.debug": "//" })
       }
     }),

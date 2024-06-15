@@ -1,4 +1,4 @@
-import { WritableStore, compute, store, twoway } from "openrct2-flexui"
+import { Colour, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/data_entry"
@@ -50,7 +50,14 @@ type BranchDataGroup = {
 
 interface BaseData {
   global: {
-    update_frequency: WritableStore<number>
+    update_frequency: DataEntry<number>
+    colour_scheme: {
+      primary: DataEntry<Colour>
+      secondary: DataEntry<Colour>
+      tertiary: DataEntry<Colour>
+      progressbar_normal: DataEntry<Colour>
+      progressbar_warning: DataEntry<Colour>
+    }
   }
   local: DataGroup
 }
@@ -188,9 +195,44 @@ const branchData: BranchData = {
  */
 const baseData: BaseData = {
   global: {
-    update_frequency: twoway(
-      store<number>(context.sharedStorage.get(GOBAL + ".update_frequency", 10))
-    ).twoway
+    update_frequency: new DataEntry({
+      key: GOBAL + ".update_frequency",
+      global: true,
+      default: 10,
+      store: twoway(store<number>(0)).twoway
+    }),
+    colour_scheme: {
+      primary: new DataEntry({
+        key: GOBAL + ".colour_scheme_primary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      secondary: new DataEntry({
+        key: GOBAL + ".colour_scheme_secondary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      tertiary: new DataEntry({
+        key: GOBAL + ".colour_scheme_tertiary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      progressbar_normal: new DataEntry({
+        key: GOBAL + ".progressbar_normal",
+        global: true,
+        default: Colour.BrightGreen,
+        store: twoway(store<Colour>(Colour.BrightGreen)).twoway
+      }),
+      progressbar_warning: new DataEntry({
+        key: GOBAL + ".progressbar_warning",
+        global: true,
+        default: Colour.BrightRed,
+        store: twoway(store<Colour>(Colour.BrightRed)).twoway
+      })
+    }
   },
   local: {
     player: {
@@ -612,28 +654,21 @@ function deleteAll(): void {
   }
 }
 
+const interval = IntervalManager.init({
+  update_frequency: baseData.global.update_frequency.store,
+  countdown_progress: baseData.local.options.countdown_progress.store
+})
+
 /**
  * Initialize data.
  * @returns {void}
  */
 function initData(): void {
-  /**
-   * Iterate throught every data unit to automatically write data to
-   * local file whenever the store receives an update.
-   *
-   * Performance impact is unknown. Since the values are updated according
-   * to the update frequency set by the user, the impact should be controllable.
-   */
-
-  baseData.global.update_frequency.subscribe((value) => {
-    context.sharedStorage.set(GOBAL + ".update_frequency", value)
+  baseData.global.update_frequency.store.subscribe((_value) => {
+    if (context.mode === "normal") interval.syncCounter()
   })
 }
 
-const interval = IntervalManager.init({
-  update_frequency: baseData.global.update_frequency,
-  countdown_progress: baseData.local.options.countdown_progress.store
-})
 HookManager.hook("map.changed", () => {
   if (context.mode !== "normal") {
     Logger.debug("Map changed: Pausing all intervals.")
