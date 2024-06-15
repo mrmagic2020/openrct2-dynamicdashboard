@@ -11,13 +11,35 @@ and this project adheres to [Semantic Versioning].
 
 - Add tooltips to some statistic entries for better clarity.
 
+- Add "Advanced Options" menu.
+
+- Add options to customise dashboard colour schemes.
+
+- Add options to customise progress bar colours.
+
+- Add plugin meta information in Advanced Options.
+
+- Add changelog information in Advanced Options.
+
+- Add option to change update frequency while playing a scenario, without needing to restart the game.
+
 ### Changed
 
 - Reword some UI elements for better clarity.
 
+- Adjusted colour scheme for warning prompts to match game style.
+
+- Move "Delete all data" button into advanced options.
+
+- "SHIFT+D" shortcut key now opens the Advanced Options menu in title screen.
+
+- Toolbox menu item is replaced with Advanced Options.
+
 ### Removed
 
 ### Fixed
+
+- Fix a bug where the warning window for "Delete all data" can have duplicates.
 
 ## [1.0.0-pre.7] - 2024-06-04
 
@@ -195,7 +217,7 @@ Initial release.
 
 <!-- Versions -->
 
-[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.3...HEAD
+[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.7...HEAD
 [1.0.0-pre.7]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.7
 [1.0.0-pre.6]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.6
 [1.0.0-pre.5]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.5
