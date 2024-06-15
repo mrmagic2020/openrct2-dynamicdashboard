@@ -129,7 +129,7 @@
         "options_sync_now": "立即同步",
         "options_display_progress_bar": "显示进度条",
         "options_display_value": "显示数值",
-        "options_delete_data": "删除所有数据"
+        "options_advanced_options": "高级设置"
       },
       "tooltip": {
         "action_track_design": "包括轨道放置、拆除、设计和刹车速度设置。",
@@ -144,6 +144,67 @@
         "options_update_running": "动态仪表正在运行。数据将自动刷新。",
         "options_update_manual": "动态仪表正在运行。部分数据需要手动刷新。",
         "options_update_paused": "动态仪表已暂停。数据不会刷新。"
+      }
+    },
+    "advanced": {
+      "toolbox_title": "动态仪表",
+      "title": "高级设置",
+      "tabs": {
+        "general": {
+          "groupbox": {
+            "title": "常规"
+          },
+          "label": {
+            "delete_data": "删除所有数据",
+            "set_frequency": "设置更新频率："
+          },
+          "button": {
+            "set_frequency": "确定"
+          }
+        },
+        "colours": {
+          "groupbox": {
+            "title": "配色"
+          },
+          "label": {
+            "primary": "主要",
+            "secondary": "次要",
+            "tertiary": "第三",
+            "progressbar_normal": "进度条（正常）",
+            "progressbar_warning": "进度条（警告）"
+          },
+          "button": {
+            "reset": "重置配色"
+          }
+        },
+        "info": {
+          "label": {
+            "description": "动态仪表，实时洞察和统计数据尽在指尖。",
+            "licence": "许可：{WHITE}",
+            "version": "版本：{WHITE}",
+            "author": "作者：{WHITE}",
+            "special_thanks": "特别鸣谢：{WHITE}",
+            "github": "GitHub：{WHITE}"
+          },
+          "button": {
+            "contributors": "贡献者……",
+            "changelog": "更新日志……"
+          }
+        }
+      },
+      "windows": {
+        "contributors": {
+          "title": "贡献者",
+          "label": {
+            "description": "这个项目是由以下人员共同努力完成的："
+          }
+        },
+        "changelog": {
+          "title": "更新日志",
+          "label": {
+            "description": "本项目在不断地更新迭代。以下是每个版本所做的更改："
+          }
+        }
       }
     },
     "generic": {
