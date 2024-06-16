@@ -33,7 +33,9 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
   - [Indicators](#indicators)
 
-  - [Update Frequency](#update-frequency)
+  - [Advanced Options](#advanced-options)
+
+  - [Colour Scheme](#colour-scheme)
 
 - [Contributing](#contributing)
 
@@ -111,12 +113,18 @@ Seen when [Update Mode](#update-mode) is set to `Manual`. All lights flash yello
 
 Seen when [Update Mode](#update-mode) is set to `Paused`.
 
-### Update Frequency
+### Advanced Options
 
-The update frequency can be customised via global settings, found in the toolbox menu item.
+Since `v1.0.0-pre.8`, the plugin has been updated to include advanced options. Advanced options can be accessed via the toolbox menu or the dashboard itself.
 
 ![toolbox_menu_item](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu_item.png?raw=true)
-![toolbox_menu](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu.png?raw=true)
+![advanced_tab_general](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/advanced_tab_general.png?raw=true)
+
+### Colour Scheme
+
+Since `v1.0.0-pre.8`, you can customise the colours of the dashboard to your liking.
+
+![advanced_tab_colours](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/advanced_tab_colours.png?raw=true)
 
 ## Contributing
 
