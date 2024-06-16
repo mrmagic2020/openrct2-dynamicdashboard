@@ -151,4 +151,4 @@ function tr(str: string, ...items: any[]): string {
   return str
 }
 
-export { initLang_new, tr, language }
+export { initLang_new, tr, language, languageStore }

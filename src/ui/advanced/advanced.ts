@@ -35,3 +35,7 @@ export function open() {
   if (!isOpen) windowTemplate.open()
   else windowTemplate.focus()
 }
+
+export function redefine() {
+  windowTemplate = tabwindow(getWindowParams())
+}

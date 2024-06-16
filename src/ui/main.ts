@@ -1523,4 +1523,8 @@ function open(): void {
   else windowTemplate.focus()
 }
 
-export { init, open }
+function redefine(): void {
+  windowTemplate = window(getWindowParams())
+}
+
+export { init, open, redefine }
