@@ -4,6 +4,7 @@ import * as Main from "./main"
 // import * as Toolbox from "./toolbox"
 import * as Advanced from "./advanced/advanced"
 import * as Changelog from "./advanced/windows/win_changelog"
+import { languageStore } from "../languages/lang"
 
 namespace UI {
   /**
@@ -25,6 +26,12 @@ namespace UI {
         if (context.mode === "normal") Main.open()
         else if (context.mode === "title") Advanced.open()
       }
+    })
+
+    languageStore.subscribe(() => {
+      Main.redefine()
+      Advanced.redefine()
+      Changelog.redefine()
     })
   }
 }

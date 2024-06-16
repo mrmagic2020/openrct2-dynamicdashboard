@@ -1,5 +1,6 @@
 import {
   Colour,
+  WindowParams,
   WindowTemplate,
   label,
   listview,
@@ -11,8 +12,8 @@ import DynamicDashboard from "../../../common/plugin"
 let isOpen = false
 let windowTemplate: WindowTemplate
 
-export function init() {
-  windowTemplate = window({
+function getWindowParams(): WindowParams {
+  return {
     title: language.ui.advanced.windows.changelog.title,
     width: 1000,
     height: 400,
@@ -26,10 +27,18 @@ export function init() {
         scrollbars: "vertical"
       })
     ]
-  })
+  }
+}
+
+export function init() {
+  windowTemplate = window(getWindowParams())
 }
 
 export function open() {
   if (!isOpen) windowTemplate.open()
   else windowTemplate.focus()
+}
+
+export function redefine() {
+  windowTemplate = window(getWindowParams())
 }

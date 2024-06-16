@@ -41,6 +41,8 @@ and this project adheres to [Semantic Versioning].
 
 - Fix a bug where the warning window for "Delete all data" can have duplicates.
 
+- Fix language not updating with global configuration.
+
 ## [1.0.0-pre.7] - 2024-06-04
 
 ### Added
