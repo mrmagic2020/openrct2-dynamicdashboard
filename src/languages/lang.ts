@@ -115,40 +115,4 @@ function initLang_new(): void {
   })
 }
 
-/**
- * Replace `<insertable segments>` in a translation text with specified value.
- * If there are more values than insertable segments, the remaining values will be appended to the end of the text.
- * @param str Translation text.
- * @param items Values to be inserted in order.
- * @returns {string} Finalized text.
- */
-function tr(str: string, ...items: any[]): string {
-  for (let i = 0; i < str.length; i++) {
-    if (items.length === 0) break
-    let start, end
-    if (str[i] === "<") {
-      start = i
-      for (let j = i + 1; j < str.length; j++) {
-        if (str[j] === ">") {
-          end = j + 1
-          break
-        }
-      }
-      str = str.replace(str.substring(start, end), items[0].toString())
-      items.shift()
-    }
-  }
-
-  /**
-   * If there are still items left, append them to the end of the string.
-   */
-  if (items.length > 0) {
-    items.forEach((item) => {
-      str += item.toString()
-    })
-  }
-
-  return str
-}
-
-export { initLang_new, tr, language, languageStore }
+export { initLang_new, language, languageStore }
