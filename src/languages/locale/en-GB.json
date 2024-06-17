@@ -137,9 +137,14 @@
 
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
 
+        "research_invented_items": "Number of items that have been invented.",
+        "research_uninvented_items": "Number of items that have not been invented yet.",
+
         "park_rating_warning_days": "When the park rating drops below 700, you will have 30 days to improve it before the park is forced to close.",
 
         "ride_value_ave": "The value of a ride contributes to the maximum amount of money a guest is willing to pay for it, and the maximum amount of money a guest is willing to pay for the park entrance fee.",
+
+        "finance_company_value_record": "The highest company value ever achieved when achieving the objective.",
 
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",

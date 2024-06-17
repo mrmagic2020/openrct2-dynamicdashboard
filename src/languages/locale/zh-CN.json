@@ -137,9 +137,14 @@
 
         "entity_count_total_limitation": "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。",
 
+        "research_invented_items": "已发明的项目数量。",
+        "research_uninvented_items": "未发明的项目数量。",
+
         "park_rating_warning_days": "一旦游乐园评分低于700，你会有30天时间改善评分，否则游乐园会被强制关闭。",
 
         "ride_value_ave": "游乐设施的价值决定了游客愿意为其支付的最高金额，也决定了游客愿意为公园门票支付的最高金额。",
+
+        "finance_company_value_record": "公司价值的最高纪录。仅在达成剧情目标时记录。",
 
         "options_update_running": "动态仪表正在运行。数据将自动刷新。",
         "options_update_manual": "动态仪表正在运行。部分数据需要手动刷新。",
