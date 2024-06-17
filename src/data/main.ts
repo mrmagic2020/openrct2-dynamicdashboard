@@ -638,7 +638,7 @@ const baseData: BaseData = {
 function deleteAll(): void {
   for (let key in baseData.local) {
     if ((key as DataType) === "options") continue
-    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
+    const dataSet = baseData.local[key as DataType] as DataSet<any, any>
     for (let subKey in dataSet) {
       dataSet[subKey].delete()
     }
@@ -647,7 +647,7 @@ function deleteAll(): void {
   for (let key in branchData.local) {
     const dataSet = branchData.local[
       key as keyof typeof branchData.local
-    ] as DataSet<number, any>
+    ] as DataSet<any, any>
     for (let subKey in dataSet) {
       dataSet[subKey].delete()
     }
