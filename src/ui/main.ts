@@ -1012,7 +1012,8 @@ function getWindowParams(): WindowParams {
                         (value) =>
                           language.ui.main.label.research_invented_items +
                           value.toString()
-                      )
+                      ),
+                      tooltip: language.ui.main.tooltip.research_invented_items
                     }),
                     label({
                       text: compute(
@@ -1021,7 +1022,9 @@ function getWindowParams(): WindowParams {
                         (value) =>
                           language.ui.main.label.research_uninvented_items +
                           value.toString()
-                      )
+                      ),
+                      tooltip:
+                        language.ui.main.tooltip.research_uninvented_items
                     })
                   ])
                 ]
@@ -1087,7 +1090,8 @@ function getWindowParams(): WindowParams {
                       Currency.localise(value)
                     )
                   }
-                )
+                ),
+                tooltip: language.ui.main.tooltip.finance_company_value_record
               })
             ]
           })
