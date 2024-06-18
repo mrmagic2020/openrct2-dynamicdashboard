@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning].
 
 - Add option to change update frequency while playing a scenario, without needing to restart the game.
 
+- Add advanced statistics (BETA; for guest happiness only).
+
 ### Changed
 
 - Reword some UI elements for better clarity.
