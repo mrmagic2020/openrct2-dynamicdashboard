@@ -51,6 +51,7 @@ type BranchDataGroup = {
 interface BaseData {
   global: {
     update_frequency: DataEntry<number>
+    show_advanced_statistics: DataEntry<boolean>
     colour_scheme: {
       primary: DataEntry<Colour>
       secondary: DataEntry<Colour>
@@ -200,6 +201,12 @@ const baseData: BaseData = {
       global: true,
       default: 10,
       store: twoway(store<number>(0)).twoway
+    }),
+    show_advanced_statistics: new DataEntry({
+      key: GOBAL + ".show_advanced_statistics",
+      global: true,
+      default: true,
+      store: twoway(store<boolean>(true)).twoway
     }),
     colour_scheme: {
       primary: new DataEntry({
