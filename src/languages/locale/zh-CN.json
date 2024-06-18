@@ -157,6 +157,9 @@
           },
           "button": {
             "set_frequency": "确定"
+          },
+          "checkbox": {
+            "show_advanced_statistics": "Show advanced statistics"
           }
         },
         "colours": {
@@ -212,6 +215,9 @@
           "confirm": "{WHITE}确定",
           "cancel": "{WHITE}取消"
         }
+      },
+      "advanced_statistics": {
+        "title": "高级统计数据 - {STRING}"
       },
       "statistical_analysis": {
         "min": "最小值",
