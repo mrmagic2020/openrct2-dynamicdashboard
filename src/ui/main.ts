@@ -15,9 +15,12 @@ import { baseData } from "../data/main"
 import { interval } from "../data/main"
 import Sprites from "./generic/sprites"
 import Data from "../data/index"
-import { progressBar } from "./generic/progress_bar"
+import { progressBar } from "./generic/widgets/progress_bar"
 import { GuestData } from "../data/guest"
-import { Indicators, toggleManualIndicatorLit } from "./generic/indicators"
+import {
+  Indicators,
+  toggleManualIndicatorLit
+} from "./generic/widgets/indicators"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
 import * as Advanced from "./advanced/advanced"

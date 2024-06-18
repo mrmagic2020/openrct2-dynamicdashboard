@@ -1,5 +1,6 @@
 import {
   button,
+  checkbox,
   groupbox,
   horizontal,
   label,
@@ -51,12 +52,20 @@ export const tab_options = function () {
               })
             ]
           }),
+          // Show advanced statistics checkbox
+          checkbox({
+            text: language.ui.advanced.tabs.general.checkbox
+              .show_advanced_statistics,
+            isChecked: baseData.global.show_advanced_statistics.store,
+            onChange: (value) => {
+              baseData.global.show_advanced_statistics.store.set(value)
+            }
+          }),
           // Delete all data button
           button({
             text: language.ui.advanced.tabs.general.label.delete_data,
             height: 14,
             width: "50%",
-            padding: { top: 10 },
             onClick: () => {
               WarningWindow.show({
                 id: "delete_all_data",
