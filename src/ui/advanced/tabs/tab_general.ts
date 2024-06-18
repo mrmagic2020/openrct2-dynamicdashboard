@@ -9,7 +9,7 @@ import {
 } from "openrct2-flexui"
 import Animations from "../../generic/animations"
 import { language } from "../../../languages/lang"
-import WarningWindow from "../../generic/warning"
+import WarningWindow from "../../generic/windows/warning"
 import Data from "../../../data"
 import { baseData } from "../../../data/main"
 
