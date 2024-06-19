@@ -2,6 +2,7 @@ import { baseData } from "./main"
 import { increment } from "../utils/store_utils"
 import { interval } from "../data/main"
 import HookManager from "../utils/hooks"
+import ActionValidator from "../utils/action_validator"
 
 namespace PlayerData {
   type ActionClass = {
@@ -55,6 +56,8 @@ namespace PlayerData {
     action_set_cheats: ["cheatset"]
   }
 
+  const actionValidator = new ActionValidator(1000)
+
   /**
    * Updates the player's real-time game time (minutes).
    */
@@ -82,6 +85,7 @@ namespace PlayerData {
   function updatePlayerActionCount(e: GameActionEventArgs<object>): void {
     if (interval.isPaused) return
     if (!e.isClientOnly) {
+      if (!actionValidator.check(e)) return
       /**
        * Iterate through every action classification.
        */
