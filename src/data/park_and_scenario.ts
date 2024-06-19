@@ -119,7 +119,6 @@ namespace ParkAndScenarioData {
    * Updates the park data by setting the park value and park rating.
    */
   function updateParkData(): void {
-    baseData.local.park_and_scenario.park_value.store.set(park.value)
     baseData.local.park_and_scenario.park_rating.store.set(park.rating)
   }
 

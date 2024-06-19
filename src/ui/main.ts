@@ -647,17 +647,6 @@ function getWindowParams(): WindowParams {
           groupbox({
             text: language.ui.main.groupbox.park_and_scenario.title,
             content: [
-              // Park Value
-              label({
-                text: compute(
-                  baseData.local.park_and_scenario.park_value.store,
-                  (value) =>
-                    context.formatString(
-                      language.ui.main.label.park_value,
-                      value
-                    )
-                )
-              }),
               // Park Size
               label({
                 text: compute(
@@ -1209,6 +1198,28 @@ function getWindowParams(): WindowParams {
                   }
                 ),
                 tooltip: language.ui.main.tooltip.finance_company_value_record
+              }),
+              // Park Value
+              label({
+                text: compute(
+                  baseData.local.finance.park_value.store,
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.finance_park_value,
+                      value
+                    )
+                )
+              }),
+              // Park Value Record
+              label({
+                text: compute(
+                  baseData.local.finance.park_value_record.store,
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.finance_park_value_record,
+                      value
+                    )
+                )
               })
             ]
           })

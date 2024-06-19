@@ -25,17 +25,23 @@ and this project adheres to [Semantic Versioning].
 
 - Add advanced statistics (BETA; for guest happiness only).
 
+- Add park value record in group Finance.
+
 ### Changed
 
 - Reword some UI elements for better clarity.
 
-- Adjusted colour scheme for warning prompts to match game style.
+- Adjust colour scheme for warning prompts to match game style.
 
 - Move "Delete all data" button into advanced options.
 
 - "SHIFT+D" shortcut key now opens the Advanced Options menu in title screen.
 
 - Toolbox menu item is replaced with Advanced Options.
+
+- Company value record is now dynamically updated and reflects the highest value achieved within the save file.
+
+- Move park value record to group Finance.
 
 ### Removed
 

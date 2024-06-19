@@ -50,7 +50,6 @@
         "action_server_join": "进入服务器：{PALESILVER}{INT32}",
         "action_server_chat": "聊天消息：{PALESILVER}{INT32}",
 
-        "park_value": "园区价值：{PALESILVER}{CURRENCY2DP}",
         "park_size": "园区面积：{PALESILVER}{COMMA32} tiles",
         "park_rating_current": "当前：{PALESILVER}{COMMA2DP32}",
         "park_rating_ave": "平均值：{PALESILVER}{COMMA2DP32}",
@@ -114,6 +113,8 @@
         "finance_total_profit": "总利润：{PALESILVER}{CURRENCY2DP}",
         "finance_company_value": "公司价值：{PALESILVER}{CURRENCY2DP}",
         "finance_company_value_record": "公司价值最高纪录：{PALESILVER}{CURRENCY2DP}",
+        "finance_park_value": "园区价值：{PALESILVER}{CURRENCY2DP}",
+        "finance_park_value_record": "园区价值最高纪录：{PALESILVER}{CURRENCY2DP}",
 
         "options_update_running": "{GREEN}运行中",
         "options_update_manual": "{YELLOW}手动更新",
