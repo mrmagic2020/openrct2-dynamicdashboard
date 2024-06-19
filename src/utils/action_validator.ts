@@ -5,6 +5,10 @@ class ActionValidator {
   private _lastActionData: string
   private readonly interval: number
 
+  /**
+   * Creates a new action validator.
+   * @param interval - The interval in milliseconds to check for repeated actions.
+   */
   constructor(interval: number) {
     this._lastActionTime = 0
     this._lastActionData = ""
