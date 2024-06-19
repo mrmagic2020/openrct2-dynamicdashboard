@@ -51,6 +51,8 @@ and this project adheres to [Semantic Versioning].
 
 - Fix language not updating with global configuration.
 
+- Fix player action overcount. [#46](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/46)
+
 ## [1.0.0-pre.7] - 2024-06-04
 
 ### Added
@@ -61,7 +63,7 @@ and this project adheres to [Semantic Versioning].
 
 - Add objective days left (if required).
 
-- Add [#19](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/19): park rating warning countdown.
+- Add park rating warning countdown. [#19](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/19)
 
 ### Changed
 
@@ -73,7 +75,7 @@ and this project adheres to [Semantic Versioning].
 
 ### Fixed
 
-- Fix [#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16): Month/Year park rating average bug.
+- Fix month/year park rating average bug. [#16](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/16)
 
 - Fix data updating while not playing in a scenario.
 
@@ -101,15 +103,15 @@ and this project adheres to [Semantic Versioning].
 
 ### Fixed
 
-- Fix [#5](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/5): guest count includes guests outside park.
+- Fix guest count includes guests outside park. [#5](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/5)
 
-- Fix [#6](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/6): company value displays wrong value.
+- Fix company value displays wrong value. [#6](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/6)
 
-- Fix [#7](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/7): guest average hunger/thirst progress bar shows wrong values.
+- Fix guest average hunger/thirst progress bar shows wrong values. [#7](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/7):
 
-- Fix [#8](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/8): average park ratings are bugged
+- Fix average park ratings are bugged. [#8](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/8):
 
-- Fix [#9](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/9): total entity count displays wrong value.
+- Fix total entity count displays wrong value. [#9](https://github.com/mrmagic2020/openrct2-dynamicdashboard/issues/9):
 
 - Fix finance - total income/expenditure calculations.
 
