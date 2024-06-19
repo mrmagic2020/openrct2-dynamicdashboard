@@ -194,7 +194,7 @@ const branchData: BranchData = {
  * Accessed by the UI to display data.
  * @see BranchData
  */
-const baseData: BaseData = {
+const baseData = {
   global: {
     update_frequency: new DataEntry({
       key: GOBAL + ".update_frequency",
@@ -325,12 +325,6 @@ const baseData: BaseData = {
       })
     },
     park_and_scenario: {
-      park_value: new DataEntry({
-        key: LOCAL + ".park_value",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_value", 0)
-        )
-      }),
       park_size: new DataEntry({
         key: LOCAL + ".park_size",
         store: store<number>(
@@ -616,6 +610,18 @@ const baseData: BaseData = {
         key: LOCAL + ".company_value_record",
         temporary: true,
         store: store<number>(0)
+      }),
+      park_value: new DataEntry({
+        key: LOCAL + ".park_value",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".park_value", 0)
+        )
+      }),
+      park_value_record: new DataEntry({
+        key: LOCAL + ".park_value_record",
+        store: store<number>(
+          context.getParkStorage().get(LOCAL + ".park_value_record", 0)
+        )
       })
     },
     options: {

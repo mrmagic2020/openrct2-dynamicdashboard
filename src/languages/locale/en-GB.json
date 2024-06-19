@@ -50,7 +50,6 @@
         "action_server_join": "Join server: {PALESILVER}{INT32}",
         "action_server_chat": "Chat: {PALESILVER}{INT32}",
 
-        "park_value": "Park value: {PALESILVER}{CURRENCY2DP}",
         "park_size": "Park size: {PALESILVER}{COMMA32} tiles",
         "park_rating_current": "Current: {PALESILVER}{COMMA2DP32}",
         "park_rating_ave": "Average (all time): {PALESILVER}{COMMA2DP32}",
@@ -114,6 +113,8 @@
         "finance_total_profit": "Total Profit: {PALESILVER}{CURRENCY2DP}",
         "finance_company_value": "Company Value: {PALESILVER}{CURRENCY2DP}",
         "finance_company_value_record": "Company Value Record: {PALESILVER}{CURRENCY2DP}",
+        "finance_park_value": "Park Value: {PALESILVER}{CURRENCY2DP}",
+        "finance_park_value_record": "Park Value Record: {PALESILVER}{CURRENCY2DP}",
 
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",
