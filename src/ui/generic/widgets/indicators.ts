@@ -4,9 +4,9 @@ import {
   button,
   compute
 } from "openrct2-flexui"
-import Data from "../../data"
-import { baseData } from "../../data/main"
-import Sprites from "./sprites"
+import Data from "../../../data"
+import { baseData } from "../../../data/main"
+import Sprites from "./../sprites"
 
 let manualIndicatorLit: boolean = false
 

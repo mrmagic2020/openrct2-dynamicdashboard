@@ -15,12 +15,17 @@ import { baseData } from "../data/main"
 import { interval } from "../data/main"
 import Sprites from "./generic/sprites"
 import Data from "../data/index"
-import { progressBar } from "./generic/progress_bar"
+import { progressBar } from "./generic/widgets/progress_bar"
 import { GuestData } from "../data/guest"
-import { Indicators, toggleManualIndicatorLit } from "./generic/indicators"
+import {
+  Indicators,
+  toggleManualIndicatorLit
+} from "./generic/widgets/indicators"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
 import * as Advanced from "./advanced/advanced"
+import GraphWindow from "./generic/windows/graph"
+import StatisticalAnalysis from "../utils/statistical_analysis"
 
 /**
  * Whether the window is open.
@@ -331,6 +336,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.happiness
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_happiness",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_happiness_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_HAPPINESS
+                      })
+                    }
                   })
                 ]
               }),

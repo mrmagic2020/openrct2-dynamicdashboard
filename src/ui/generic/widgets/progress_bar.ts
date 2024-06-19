@@ -5,7 +5,7 @@ import {
   FlexiblePosition,
   WidgetCreator,
   graphics,
-  isStore
+  read
 } from "openrct2-flexui"
 
 interface ProgressBarParams extends ElementParams {
@@ -34,18 +34,10 @@ function progressBar(
     visibility: params.visibility || "visible",
     disabled: params.disabled,
     onDraw: (g) => {
-      const background: Colour = isStore(params.background)
-        ? params.background.get()
-        : params.background
-      const foreground: Colour = isStore(params.foreground)
-        ? params.foreground.get()
-        : params.foreground
-      const percentFilled = isStore(params.percentFilled)
-        ? params.percentFilled.get()
-        : params.percentFilled
-      const disabled = isStore(params.disabled)
-        ? params.disabled.get()
-        : params.disabled
+      const background: Colour = read(params.background)
+      const foreground: Colour = read(params.foreground)
+      const percentFilled = read(params.percentFilled)
+      const disabled = read(params.disabled)
 
       g.colour = background
       g.well(0, 0, g.width, g.height)

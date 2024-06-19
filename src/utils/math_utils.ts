@@ -1,4 +1,4 @@
-namespace MathUtils {
+class MathUtils {
   /**
    * Clamps a value between a minimum and maximum range.
    *
@@ -7,7 +7,7 @@ namespace MathUtils {
    * @param max - The maximum value of the range.
    * @returns The clamped value.
    */
-  export function clamp(value: number, min?: number, max?: number): number {
+  static clamp(value: number, min?: number, max?: number): number {
     if (min !== undefined && value < min) {
       return min
     }
@@ -25,9 +25,9 @@ namespace MathUtils {
    * @param max - The maximum value of the range.
    * @returns The normalized value.
    */
-  export function normalise(value: number, min: number, max: number): number {
+  static normalise(value: number, min: number, max: number): number {
     if (value < min || value > max) {
-      value = clamp(value, min, max)
+      value = MathUtils.clamp(value, min, max)
     }
     return (value - min) / (max - min)
   }
