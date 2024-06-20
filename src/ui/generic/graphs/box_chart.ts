@@ -70,9 +70,62 @@ function boxChart(
       g.well(0, 0, g.width, g.height)
 
       /**
+       * Draw the shadow lines.
+       */
+      g.stroke = 10
+
+      // Draw the low whisker shadow.
+      g.line(
+        width * (whiskerLow / range) + hOffset + 1,
+        height * 0.25 - vOffset + 1,
+        width * (whiskerLow / range) + hOffset + 1,
+        height * 0.75 - vOffset + 1
+      )
+
+      // Draw the shawdow line from the low whisker to the first quartile.
+      g.line(
+        width * (whiskerLow / range) + hOffset + 1,
+        height / 2 - vOffset + 1,
+        width * (q1 / range) + hOffset + 1,
+        height / 2 - vOffset + 1
+      )
+
+      // Draw the box shadow.
+      g.rect(
+        width * (q1 / range) + hOffset + 1,
+        height * 0.25 - vOffset + 1,
+        width * ((q3 - q1) / range),
+        height * 0.5
+      )
+
+      // Draw the median shadow.
+      g.line(
+        width * (median / range) + hOffset + 1,
+        height * 0.25 - vOffset + 1,
+        width * (median / range) + hOffset + 1,
+        height * 0.75 - vOffset + 1
+      )
+
+      // Draw the shadow line from the third quartile to the high whisker.
+      g.line(
+        width * (q3 / range) + hOffset + 1,
+        height / 2 - vOffset + 1,
+        width * (whiskerHigh / range) + hOffset + 1,
+        height / 2 - vOffset + 1
+      )
+
+      // Draw the high whisker shadow.
+      g.line(
+        width * (whiskerHigh / range) + hOffset + 1,
+        height * 0.25 - vOffset + 1,
+        width * (whiskerHigh / range) + hOffset + 1,
+        height * 0.75 - vOffset + 1
+      )
+
+      /**
        * Draw the chart from left to right.
        */
-      g.stroke = read(params.stroke) || 1
+      g.stroke = read(params.stroke) || 21
 
       // Draw the low whisker.
       g.line(
