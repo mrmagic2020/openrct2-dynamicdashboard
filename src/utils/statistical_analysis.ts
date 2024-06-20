@@ -12,6 +12,19 @@ class StatisticalAnalysis {
   private _variance?: number
   private _standardDeviation?: number
 
+  private clearCache(): void {
+    this._max = undefined
+    this._min = undefined
+    this._q1 = undefined
+    this._q3 = undefined
+    this._mean = undefined
+    this._median = undefined
+    this._mode = undefined
+    this._range = undefined
+    this._variance = undefined
+    this._standardDeviation = undefined
+  }
+
   constructor(data: number[]) {
     this._data = data
   }
@@ -128,13 +141,12 @@ class StatisticalAnalysis {
     } else {
       this._data.push(data)
     }
-    // Reset cached values
-    this._mean = undefined
-    this._median = undefined
-    this._mode = undefined
-    this._range = undefined
-    this._variance = undefined
-    this._standardDeviation = undefined
+    this.clearCache()
+  }
+
+  update(data: number[]): void {
+    this._data = data
+    this.clearCache()
   }
 }
 

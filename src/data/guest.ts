@@ -16,6 +16,18 @@ namespace GuestData {
   export const MAX_TOILET = 255
 
   /**
+   * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/a82d398afdf55e24bbb52b9e3e827542a537b0d3/src/openrct2/entity/Guest.cpp#L7133}
+   */
+  export const MIN_WEIGHT = 45
+  export const MAX_WEIGHT = 76
+
+  /**
+   * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/a82d398afdf55e24bbb52b9e3e827542a537b0d3/src/openrct2/entity/Guest.cpp#L7218}
+   */
+  export const MIN_CASH = park.guestInitialCash - 100
+  export const MAX_CASH = park.guestInitialCash + 200
+
+  /**
    * The thresholds for the guest stats that trigger a warning.
    * @see {@link https://github.com/OpenRCT2/OpenRCT2/blob/14828e441678485cc7582651ce2f9a63869c1e93/src/openrct2-ui/windows/Guest.cpp#L1096-L1149}
    */

@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning].
 
 - Add option to change update frequency while playing a scenario, without needing to restart the game.
 
-- Add advanced statistics (BETA; for guest happiness only).
+- Add advanced statistics (BETA).
 
 - Add park value record in group Finance.
 

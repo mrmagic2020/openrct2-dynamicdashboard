@@ -231,7 +231,7 @@
         "range": "范围",
         "variance": "方差",
         "standard_deviation": "标准差",
-        "box_chart": "箱线图"
+        "box_plot": "箱线图"
       }
     }
   }

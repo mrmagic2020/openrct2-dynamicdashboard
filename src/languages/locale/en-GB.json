@@ -231,7 +231,7 @@
         "range": "Range",
         "variance": "Variance",
         "standard_deviation": "Standard Deviation",
-        "box_chart": "Box Chart"
+        "box_plot": "Box Plot"
       }
     }
   }

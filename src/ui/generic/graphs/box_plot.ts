@@ -43,7 +43,7 @@ interface BoxChartParams extends ElementParams {
   stroke?: Bindable<number>
 }
 
-function boxChart(
+function boxPlot(
   params: BoxChartParams & FlexiblePosition
 ): WidgetCreator<FlexiblePosition> {
   return graphics({
@@ -213,4 +213,4 @@ function boxChart(
   })
 }
 
-export { type BoxChartParams, boxChart }
+export { type BoxChartParams, boxPlot }

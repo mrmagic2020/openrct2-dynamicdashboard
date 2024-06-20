@@ -263,26 +263,88 @@ function getWindowParams(): WindowParams {
                 )
               }),
               // Guest Average Weight
-              label({
-                text: compute(
-                  baseData.local.guest.guest_weight_ave.store,
-                  (value) =>
-                    context.formatString(
-                      language.ui.main.label.guest_weight_ave,
-                      value * 100 // Since {COMMA2DP32} divides the value by 100
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_weight_ave.store,
+                      (value) =>
+                        context.formatString(
+                          language.ui.main.label.guest_weight_ave,
+                          value * 100 // Since {COMMA2DP32} divides the value by 100
+                        )
                     )
-                )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.mass
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_weight",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_weight_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: statisticalAnalsysis.max
+                      })
+                    }
+                  })
+                ]
               }),
               // Guest Average Wealth
-              label({
-                text: compute(
-                  baseData.local.guest.guest_wealth_ave.store,
-                  (value) =>
-                    context.formatString(
-                      language.ui.main.label.guest_wealth_ave,
-                      value
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_wealth_ave.store,
+                      (value) =>
+                        context.formatString(
+                          language.ui.main.label.guest_wealth_ave,
+                          value
+                        )
                     )
-                )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.cash
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_wealth",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_wealth_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: statisticalAnalsysis.max
+                      })
+                    }
+                  })
+                ]
               }),
               // Guest happiness average
               horizontal({
@@ -418,6 +480,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.energy
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_energy",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_energy_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_ENERGY
+                      })
+                    }
                   })
                 ]
               }),
@@ -473,6 +562,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.nausea
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_nausea",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_nausea_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_NAUSEA
+                      })
+                    }
                   })
                 ]
               }),
@@ -527,6 +643,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.hunger
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_hunger",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_hunger_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_HUNGER
+                      })
+                    }
                   })
                 ]
               }),
@@ -581,6 +724,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.thirst
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_thirst",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_thirst_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_THIRST
+                      })
+                    }
                   })
                 ]
               }),
@@ -636,6 +806,33 @@ function getWindowParams(): WindowParams {
                         return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.toilet
+                        })
+                      )
+                      GraphWindow.show({
+                        id: "guest_toilet",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_toilet_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_TOILET
+                      })
+                    }
                   })
                 ]
               })

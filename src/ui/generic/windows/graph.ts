@@ -7,7 +7,7 @@ import {
   window
 } from "openrct2-flexui"
 import StatisticalAnalysis from "../../../utils/statistical_analysis"
-import { boxChart } from "../graphs/box_chart"
+import { boxPlot } from "../graphs/box_plot"
 import { baseData } from "../../../data/main"
 import { language } from "../../../languages/lang"
 
@@ -92,9 +92,9 @@ class GraphWindow {
           scrollbars: "none"
         }),
         label({
-          text: language.ui.generic.statistical_analysis.box_chart
+          text: language.ui.generic.statistical_analysis.box_plot
         }),
-        boxChart({
+        boxPlot({
           q1: read(params.statistics).q1,
           q3: read(params.statistics).q3,
           median: read(params.statistics).median,
