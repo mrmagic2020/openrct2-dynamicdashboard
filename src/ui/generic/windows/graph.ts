@@ -91,7 +91,7 @@ class GraphWindow extends Window<WindowParams> {
           whiskerLow: read(params.statistics).min,
           whiskerHigh: read(params.statistics).max,
           range: params.boxChartRange,
-          background: baseData.global.colour_scheme.secondary.store.get()
+          background: baseData.global.colour_scheme.secondary.store
         })
       ],
       onClose: () => {
