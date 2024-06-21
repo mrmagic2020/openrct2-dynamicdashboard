@@ -3,7 +3,6 @@ import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/data_entry"
 import HookManager from "../utils/hooks"
-import Logger from "../utils/logger"
 
 /**
  * Represents a dataset with keys of type `U` and values of type `DataEntry<T>`.
@@ -684,10 +683,8 @@ function initData(): void {
 
 HookManager.hook("map.changed", () => {
   if (context.mode !== "normal") {
-    Logger.debug("Map changed: Pausing all intervals.")
     interval.pauseAll()
   } else {
-    Logger.debug("Map changed: Resuming all intervals.")
     interval.resumeAll()
   }
 })

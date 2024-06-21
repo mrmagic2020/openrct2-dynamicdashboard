@@ -1,5 +1,3 @@
-import Logger from "./logger"
-
 class ActionValidator {
   private _lastActionTime: number
   private _lastActionData: string
@@ -26,7 +24,6 @@ class ActionValidator {
     }
     this._lastActionTime = currentTime
     this._lastActionData = actionData
-    Logger.debug(`Detected valid action: ${actionData}`)
     return true
   }
 
