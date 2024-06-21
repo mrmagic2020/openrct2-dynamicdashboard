@@ -6,13 +6,15 @@ import {
   window
 } from "openrct2-flexui"
 
-class Window<T extends WindowParams | TabWindowParams> {
+type AnyWindowParams = WindowParams | TabWindowParams
+
+class Window<T extends AnyWindowParams> {
   protected _windowParams: T
   protected _windowTemplate: WindowTemplate
   protected _isOpen: boolean
 
   private isTabWindowParams(
-    params: WindowParams | TabWindowParams
+    params: AnyWindowParams
   ): params is TabWindowParams {
     return (params as TabWindowParams).tabs !== undefined
   }
@@ -61,7 +63,7 @@ class Window<T extends WindowParams | TabWindowParams> {
     this.open()
   }
 
-  setProperties(properties: Partial<WindowParams>) {
+  setProperties(properties: Partial<AnyWindowParams>) {
     this._windowParams = { ...this._windowParams, ...properties }
   }
 }
