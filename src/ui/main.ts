@@ -291,7 +291,7 @@ function getWindowParams(): WindowParams {
                           return guest.mass
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_weight",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -299,7 +299,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: statisticalAnalsysis.max
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -333,7 +333,7 @@ function getWindowParams(): WindowParams {
                           return guest.cash
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_wealth",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -341,7 +341,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: statisticalAnalsysis.max
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -415,7 +415,7 @@ function getWindowParams(): WindowParams {
                           return guest.happiness
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_happiness",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -423,7 +423,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_HAPPINESS
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -497,7 +497,7 @@ function getWindowParams(): WindowParams {
                           return guest.energy
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_energy",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -505,7 +505,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_ENERGY
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -579,7 +579,7 @@ function getWindowParams(): WindowParams {
                           return guest.nausea
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_nausea",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -587,7 +587,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_NAUSEA
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -660,7 +660,7 @@ function getWindowParams(): WindowParams {
                           return guest.hunger
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_hunger",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -668,7 +668,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_HUNGER
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -741,7 +741,7 @@ function getWindowParams(): WindowParams {
                           return guest.thirst
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_thirst",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -749,7 +749,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_THIRST
-                      })
+                      }).open()
                     }
                   })
                 ]
@@ -823,7 +823,7 @@ function getWindowParams(): WindowParams {
                           return guest.toilet
                         })
                       )
-                      GraphWindow.show({
+                      new GraphWindow({
                         id: "guest_toilet",
                         title: context.formatString(
                           language.ui.generic.advanced_statistics.title,
@@ -831,7 +831,7 @@ function getWindowParams(): WindowParams {
                         ),
                         statistics: statisticalAnalsysis,
                         boxChartRange: GuestData.MAX_TOILET
-                      })
+                      }).open()
                     }
                   })
                 ]
