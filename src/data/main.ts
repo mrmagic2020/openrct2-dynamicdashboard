@@ -597,7 +597,6 @@ const baseData = {
        */
       total_expenditure: new DataEntry({
         key: LOCAL + ".total_expenditure",
-        // temporary: true,
         store: store<number>(0)
       }),
       company_value: new DataEntry({
@@ -607,20 +606,16 @@ const baseData = {
       }),
       company_value_record: new DataEntry({
         key: LOCAL + ".company_value_record",
-        temporary: true,
         store: store<number>(0)
       }),
       park_value: new DataEntry({
         key: LOCAL + ".park_value",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_value", 0)
-        )
+        temporary: true,
+        store: store<number>(park.value)
       }),
       park_value_record: new DataEntry({
         key: LOCAL + ".park_value_record",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_value_record", 0)
-        )
+        store: store<number>(0)
       })
     },
     options: {
