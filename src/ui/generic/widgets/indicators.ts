@@ -4,9 +4,9 @@ import {
   button,
   compute
 } from "openrct2-flexui"
-import Data from "../../data"
-import { baseData } from "../../data/main"
-import Sprites from "./sprites"
+import Data from "../../../data"
+import { baseData } from "../../../data/main"
+import Sprites from "./../sprites"
 
 let manualIndicatorLit: boolean = false
 
@@ -28,7 +28,7 @@ function createIndicator(pos: number): WidgetCreator<FlexiblePosition> {
       (v1, v2) => {
         switch (v1) {
           case Data.Options.UpdateStatus.RUNNING:
-            if (pos <= v2 * (10 / baseData.global.update_frequency.get()))
+            if (pos <= v2 * (10 / baseData.global.update_frequency.store.get()))
               return Sprites.INDICATOR_RUNNING_LIT
             return Sprites.INDICATOR_RUNNING_UNLIT
           case Data.Options.UpdateStatus.MANUAL:

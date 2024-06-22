@@ -1,5 +1,7 @@
 import {
   Colour,
+  WindowParams,
+  WindowTemplate,
   button,
   compute,
   groupbox,
@@ -8,48 +10,40 @@ import {
   vertical,
   window
 } from "openrct2-flexui"
-import { language, tr } from "../languages/lang"
+import { language } from "../languages/lang"
 import { baseData } from "../data/main"
-import Currency from "../utils/currency"
 import { interval } from "../data/main"
-import Sprites from "./custom/sprites"
+import Sprites from "./generic/sprites"
 import Data from "../data/index"
-import { progressBar } from "./custom/progress_bar"
+import { progressBar } from "./generic/widgets/progress_bar"
 import { GuestData } from "../data/guest"
-import { Indicators, toggleManualIndicatorLit } from "./custom/indicators"
-import WarningWindow from "./custom/warning"
+import {
+  Indicators,
+  toggleManualIndicatorLit
+} from "./generic/widgets/indicators"
 import DynamicDashboard from "../common/plugin"
 import MathUtils from "../utils/math_utils"
+import * as Advanced from "./advanced/advanced"
+import GraphWindow from "./generic/windows/graph"
+import StatisticalAnalysis from "../utils/statistical_analysis"
 
 /**
  * Whether the window is open.
  */
 let isOpen: boolean = false
+let windowTemplate: WindowTemplate
 
-function initMainMenu(): void {
-  ui.registerMenuItem(language.ui.main.title, menu)
-}
-
-function openMainMenu(): void {
-  if (context.mode !== "normal") return
-  menu()
-}
-
-/**
- * Open the main menu.
- *
- * @returns {void}
- */
-function menu(): void {
-  /**
-   * Main window template.
-   */
-  const main_ui = window({
+function getWindowParams(): WindowParams {
+  return {
     title: language.ui.main.title,
     width: 800,
     // Accomodate more statistics when playing in servers.
     height: network.mode === "none" ? 500 : 570,
     position: "center",
+    colours: [
+      baseData.global.colour_scheme.primary.store.get(),
+      baseData.global.colour_scheme.secondary.store.get()
+    ],
     content: [
       horizontal([
         vertical([
@@ -58,102 +52,150 @@ function menu(): void {
             text: language.ui.main.groupbox.player.title,
             content: [
               label({
-                text:
-                  language.ui.main.label.player_name +
-                  network.currentPlayer.name,
+                text: context.formatString(
+                  language.ui.main.label.player_name,
+                  network.currentPlayer.name
+                ),
                 visibility: network.mode === "none" ? "none" : "visible"
               }),
               label({
-                text:
-                  language.ui.main.label.player_id + network.currentPlayer.id,
+                text: context.formatString(
+                  language.ui.main.label.player_id,
+                  network.currentPlayer.id
+                ),
                 visibility: network.mode === "none" ? "none" : "visible"
               }),
               label({
                 text: compute(
                   baseData.local.player.game_time_real.store,
-                  (value) => tr(language.ui.main.label.game_time_real, value)
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.game_time_real,
+                      value
+                    )
                 ),
                 visibility: "visible"
               }),
               label({
                 text: compute(
                   baseData.local.player.game_time_fake.store,
-                  (value) => tr(language.ui.main.label.game_time_fake, value)
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.game_time_fake,
+                      value
+                    )
                 ),
                 visibility: "visible"
               }),
+              // Action Statistics
               groupbox({
                 text: language.ui.main.groupbox.player.action_statistics,
                 content: [
+                  // Track Design
                   label({
                     text: compute(
                       baseData.local.player.action_track_design.store,
                       (value) =>
-                        language.ui.main.label.action_track_design + value
-                    )
+                        context.formatString(
+                          language.ui.main.label.action_track_design,
+                          value
+                        )
+                    ),
+                    tooltip: language.ui.main.tooltip.action_track_design
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_stall_and_facility_placement
                         .store,
                       (value) =>
-                        language.ui.main.label
-                          .action_stall_and_facility_placement + value
-                    )
+                        context.formatString(
+                          language.ui.main.label
+                            .action_stall_and_facility_placement,
+                          value
+                        )
+                    ),
+                    tooltip:
+                      language.ui.main.tooltip
+                        .action_stall_and_facility_placement
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_footpath_placement.store,
                       (value) =>
-                        language.ui.main.label.action_footpath_placement + value
+                        context.formatString(
+                          language.ui.main.label.action_footpath_placement,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_scenery_placement.store,
                       (value) =>
-                        language.ui.main.label.action_scenery_placement + value
+                        context.formatString(
+                          language.ui.main.label.action_scenery_placement,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_landscaping.store,
                       (value) =>
-                        language.ui.main.label.action_landscaping + value
+                        context.formatString(
+                          language.ui.main.label.action_landscaping,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_staff.store,
-                      (value) => language.ui.main.label.action_staff + value
+                      (value) =>
+                        context.formatString(
+                          language.ui.main.label.action_staff,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_relocate_peep.store,
                       (value) =>
-                        language.ui.main.label.action_relocate_peep + value
+                        context.formatString(
+                          language.ui.main.label.action_relocate_peep,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_pop_balloon.store,
                       (value) =>
-                        language.ui.main.label.action_pop_balloon + value
+                        context.formatString(
+                          language.ui.main.label.action_pop_balloon,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_set_cheats.store,
                       (value) =>
-                        language.ui.main.label.action_set_cheats + value
+                        context.formatString(
+                          language.ui.main.label.action_set_cheats,
+                          value
+                        )
                     )
                   }),
                   label({
                     text: compute(
                       baseData.local.player.action_server_join.store,
                       (value) =>
-                        language.ui.main.label.action_server_join + value
+                        context.formatString(
+                          language.ui.main.label.action_server_join,
+                          value
+                        )
                     ),
                     visibility: network.mode === "none" ? "none" : "visible"
                   }),
@@ -161,7 +203,10 @@ function menu(): void {
                     text: compute(
                       baseData.local.player.action_server_chat.store,
                       (value) =>
-                        language.ui.main.label.action_server_chat + value
+                        context.formatString(
+                          language.ui.main.label.action_server_chat,
+                          value
+                        )
                     ),
                     visibility: network.mode === "none" ? "none" : "visible"
                   })
@@ -173,53 +218,133 @@ function menu(): void {
           groupbox({
             text: language.ui.main.groupbox.guest.title,
             content: [
+              // Guest Generation Total
               label({
                 text: compute(
                   baseData.local.guest.guest_generation_total.store,
                   (value) =>
-                    language.ui.main.label.guest_generation_total +
-                    value.toString()
+                    context.formatString(
+                      language.ui.main.label.guest_generation_total,
+                      value
+                    )
                 )
               }),
+              // Guest Admission Total
               label({
                 text: compute(
                   baseData.local.guest.guest_admission_total.store,
                   (value) =>
-                    language.ui.main.label.guest_admission_total +
-                    value.toString()
+                    context.formatString(
+                      language.ui.main.label.guest_admission_total,
+                      value
+                    )
                 )
               }),
+              // Current Guest Count
               label({
                 text: compute(
                   baseData.local.guest.guest_count_current.store,
                   (value) =>
-                    language.ui.main.label.guest_count_current +
-                    value.toString()
+                    context.formatString(
+                      language.ui.main.label.guest_count_current,
+                      value
+                    )
                 )
               }),
+              // Guest Soft Cap
               label({
                 text: compute(
                   baseData.local.guest.guest_soft_cap.store,
                   (value) =>
-                    language.ui.main.label.guest_soft_cap + value.toString()
-                )
-              }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_weight_ave.store,
-                  (value) =>
-                    language.ui.main.label.guest_weight_ave + value.toFixed(2)
-                )
-              }),
-              label({
-                text: compute(
-                  baseData.local.guest.guest_wealth_ave.store,
-                  (value) =>
-                    tr(
-                      language.ui.main.label.guest_wealth_ave,
-                      Currency.localise(value)
+                    context.formatString(
+                      language.ui.main.label.guest_soft_cap,
+                      value
                     )
                 )
+              }),
+              // Guest Average Weight
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_weight_ave.store,
+                      (value) =>
+                        context.formatString(
+                          language.ui.main.label.guest_weight_ave,
+                          value * 100 // Since {COMMA2DP32} divides the value by 100
+                        )
+                    )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.mass
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_weight",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_weight_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: statisticalAnalsysis.max
+                      }).open()
+                    }
+                  })
+                ]
+              }),
+              // Guest Average Wealth
+              horizontal({
+                content: [
+                  label({
+                    text: compute(
+                      baseData.local.guest.guest_wealth_ave.store,
+                      (value) =>
+                        context.formatString(
+                          language.ui.main.label.guest_wealth_ave,
+                          value
+                        )
+                    )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.cash
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_wealth",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_wealth_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: statisticalAnalsysis.max
+                      }).open()
+                    }
+                  })
+                ]
               }),
               // Guest happiness average
               horizontal({
@@ -233,9 +358,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_happiness_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_happiness_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_happiness_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -262,15 +387,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_happiness_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.HAPINESS_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.happiness
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_happiness",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_happiness_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_HAPPINESS
+                      }).open()
+                    }
                   })
                 ]
               }),
@@ -286,9 +440,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_energy_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_energy_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_energy_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -315,15 +469,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_energy_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.ENERGY_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.energy
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_energy",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_energy_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_ENERGY
+                      }).open()
+                    }
                   })
                 ]
               }),
@@ -339,9 +522,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_nausea_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_nausea_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_nausea_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -368,15 +551,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_nausea_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value > GuestData.NAUSEA_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.nausea
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_nausea",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_nausea_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_NAUSEA
+                      }).open()
+                    }
                   })
                 ]
               }),
@@ -392,9 +604,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_hunger_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_hunger_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_hunger_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -420,15 +632,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_hunger_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.HUNGER_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.hunger
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_hunger",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_hunger_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_HUNGER
+                      }).open()
+                    }
                   })
                 ]
               }),
@@ -444,9 +685,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_thirst_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_thirst_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_thirst_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -472,15 +713,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_thirst_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value < GuestData.THIRST_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.thirst
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_thirst",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_thirst_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_THIRST
+                      }).open()
+                    }
                   })
                 ]
               }),
@@ -496,9 +766,9 @@ function menu(): void {
                           case Data.Options.DisplayMode.PROGRESS_BAR:
                             return language.ui.main.label.guest_toilet_ave
                           case Data.Options.DisplayMode.VALUE:
-                            return (
-                              language.ui.main.label.guest_toilet_ave +
-                              value.toFixed(2)
+                            return context.formatString(
+                              language.ui.main.label.guest_toilet_ave,
+                              value * 100
                             )
                           default:
                             return ""
@@ -525,15 +795,44 @@ function menu(): void {
                         )
                       }
                     ),
-                    background: Colour.Grey,
+                    background: baseData.global.colour_scheme.primary.store,
                     foreground: compute(
                       baseData.local.guest.guest_toilet_ave.store,
-                      (value) => {
+                      baseData.global.colour_scheme.progressbar_warning.store,
+                      baseData.global.colour_scheme.progressbar_normal.store,
+                      (value, colour_warning, colour_normal) => {
                         if (value > GuestData.TOILET_WARNING_THRESHOLD)
-                          return Colour.BrightRed
-                        return Colour.BrightGreen
+                          return colour_warning
+                        return colour_normal
                       }
                     )
+                  }),
+                  button({
+                    text: "...",
+                    width: "14px",
+                    height: "14px",
+                    visibility: compute(
+                      baseData.global.show_advanced_statistics.store,
+                      (value) => {
+                        return value ? "visible" : "none"
+                      }
+                    ),
+                    onClick: () => {
+                      const statisticalAnalsysis = new StatisticalAnalysis(
+                        map.getAllEntities("guest").map((guest) => {
+                          return guest.toilet
+                        })
+                      )
+                      new GraphWindow({
+                        id: "guest_toilet",
+                        title: context.formatString(
+                          language.ui.generic.advanced_statistics.title,
+                          language.ui.main.label.guest_toilet_ave
+                        ),
+                        statistics: statisticalAnalsysis,
+                        boxChartRange: GuestData.MAX_TOILET
+                      }).open()
+                    }
                   })
                 ]
               })
@@ -545,22 +844,15 @@ function menu(): void {
           groupbox({
             text: language.ui.main.groupbox.park_and_scenario.title,
             content: [
-              // Park Value
-              label({
-                text: compute(
-                  baseData.local.park_and_scenario.park_value.store,
-                  (value) =>
-                    tr(
-                      language.ui.main.label.park_value,
-                      Currency.localise(value)
-                    )
-                )
-              }),
               // Park Size
               label({
                 text: compute(
                   baseData.local.park_and_scenario.park_size.store,
-                  (value) => tr(language.ui.main.label.park_size, value)
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.park_size,
+                      value
+                    )
                 )
               }),
               // Park Rating
@@ -580,9 +872,9 @@ function menu(): void {
                                 return language.ui.main.label
                                   .park_rating_current
                               case Data.Options.DisplayMode.VALUE:
-                                return (
-                                  language.ui.main.label.park_rating_current +
-                                  value.toString()
+                                return context.formatString(
+                                  language.ui.main.label.park_rating_current,
+                                  value * 100
                                 )
                               default:
                                 return ""
@@ -610,8 +902,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -628,9 +921,9 @@ function menu(): void {
                               case Data.Options.DisplayMode.PROGRESS_BAR:
                                 return language.ui.main.label.park_rating_ave
                               case Data.Options.DisplayMode.VALUE:
-                                return (
-                                  language.ui.main.label.park_rating_ave +
-                                  value.toString()
+                                return context.formatString(
+                                  language.ui.main.label.park_rating_ave,
+                                  value * 100
                                 )
                               default:
                                 return ""
@@ -659,8 +952,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -678,9 +972,9 @@ function menu(): void {
                                 return language.ui.main.label
                                   .park_rating_year_ave
                               case Data.Options.DisplayMode.VALUE:
-                                return (
-                                  language.ui.main.label.park_rating_year_ave +
-                                  value.toString()
+                                return context.formatString(
+                                  language.ui.main.label.park_rating_year_ave,
+                                  value * 100
                                 )
                               default:
                                 return ""
@@ -709,8 +1003,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -728,9 +1023,9 @@ function menu(): void {
                                 return language.ui.main.label
                                   .park_rating_month_ave
                               case Data.Options.DisplayMode.VALUE:
-                                return (
-                                  language.ui.main.label.park_rating_month_ave +
-                                  value.toString()
+                                return context.formatString(
+                                  language.ui.main.label.park_rating_month_ave,
+                                  value * 100
                                 )
                               default:
                                 return ""
@@ -759,8 +1054,9 @@ function menu(): void {
                             )
                           }
                         ),
-                        background: Colour.Grey,
-                        foreground: Colour.BrightGreen
+                        background: baseData.global.colour_scheme.primary.store,
+                        foreground:
+                          baseData.global.colour_scheme.progressbar_normal.store
                       })
                     ]
                   }),
@@ -778,7 +1074,7 @@ function menu(): void {
                                 return language.ui.main.label
                                   .park_rating_warning_days
                               case Data.Options.DisplayMode.VALUE:
-                                return tr(
+                                return context.formatString(
                                   language.ui.main.label
                                     .park_rating_warning_days,
                                   Data.ParkAndScenarioData
@@ -809,19 +1105,23 @@ function menu(): void {
                             return Data.ParkAndScenarioData.getWarningDaysPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario
                             .park_rating_warning_days.store,
-                          () => {
+                          baseData.global.colour_scheme.progressbar_warning
+                            .store,
+                          baseData.global.colour_scheme.progressbar_normal
+                            .store,
+                          (_days, colour_warning, colour_normal) => {
                             if (
                               Data.ParkAndScenarioData.getWarningDaysPercentage() <=
                               Data.ParkAndScenarioData
                                 .RATING_WARNING_DAYS_THRESHOLD
                             ) {
-                              return Colour.BrightRed
+                              return colour_warning
                             }
-                            return Colour.BrightGreen
+                            return colour_normal
                           }
                         )
                       })
@@ -838,7 +1138,10 @@ function menu(): void {
                     text: compute(
                       baseData.local.park_and_scenario.objective_status.store,
                       (value) => {
-                        return language.ui.main.label.objective_status + value
+                        return context.formatString(
+                          language.ui.main.label.objective_status,
+                          value
+                        )
                       }
                     )
                   }),
@@ -856,10 +1159,10 @@ function menu(): void {
                                 return language.ui.main.label
                                   .objective_status_days_left
                               case Data.Options.DisplayMode.VALUE:
-                                return (
+                                return context.formatString(
                                   language.ui.main.label
-                                    .objective_status_days_left +
-                                  value.toString()
+                                    .objective_status_days_left,
+                                  value
                                 )
                               default:
                                 return ""
@@ -868,6 +1171,17 @@ function menu(): void {
                         )
                       }),
                       progressBar({
+                        disabled: compute(
+                          baseData.local.park_and_scenario.objective_days_left
+                            .store,
+                          () => {
+                            return (
+                              !Data.ParkAndScenarioData.Objective.hasDateRestriction() ||
+                              Data.ParkAndScenarioData.Objective.daysLeft() ===
+                                0
+                            )
+                          }
+                        ),
                         visibility: compute(
                           baseData.local.options.display_mode.store,
                           (value) => {
@@ -884,17 +1198,21 @@ function menu(): void {
                             return Data.ParkAndScenarioData.Objective.daysLeftPercentage()
                           }
                         ),
-                        background: Colour.Grey,
+                        background: baseData.global.colour_scheme.primary.store,
                         foreground: compute(
                           baseData.local.park_and_scenario.objective_days_left
                             .store,
-                          () => {
+                          baseData.global.colour_scheme.progressbar_warning
+                            .store,
+                          baseData.global.colour_scheme.progressbar_normal
+                            .store,
+                          (_days, colour_warning, colour_normal) => {
                             if (
                               Data.ParkAndScenarioData.Objective.daysLeftShouldWarn()
                             ) {
-                              return Colour.BrightRed
+                              return colour_warning
                             }
-                            return Colour.BrightGreen
+                            return colour_normal
                           }
                         )
                       })
@@ -907,14 +1225,15 @@ function menu(): void {
                 text: language.ui.main.groupbox.park_and_scenario.entity_count,
                 content: [
                   horizontal([
-                    // horizontally organize statistics in group of two
                     label({
                       text: compute(
                         baseData.local.park_and_scenario.entity_count_total
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_total +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_total,
+                            value
+                          )
                       ),
                       tooltip:
                         language.ui.main.tooltip.entity_count_total_limitation
@@ -924,8 +1243,10 @@ function menu(): void {
                         baseData.local.park_and_scenario.entity_count_guest
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_guest +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_guest,
+                            value
+                          )
                       )
                     }),
                     label({
@@ -933,19 +1254,24 @@ function menu(): void {
                         baseData.local.park_and_scenario.entity_count_staff
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_staff +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_staff,
+                            value
+                          )
                       )
                     })
                   ]),
+                  // Entity Count
                   horizontal([
                     label({
                       text: compute(
                         baseData.local.park_and_scenario.entity_count_balloon
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_balloon +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_balloon,
+                            value
+                          )
                       )
                     }),
                     label({
@@ -953,8 +1279,10 @@ function menu(): void {
                         baseData.local.park_and_scenario.entity_count_duck
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_duck +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_duck,
+                            value
+                          )
                       )
                     }),
                     label({
@@ -962,8 +1290,10 @@ function menu(): void {
                         baseData.local.park_and_scenario.entity_count_litter
                           .store,
                         (value) =>
-                          language.ui.main.label.entity_count_litter +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.entity_count_litter,
+                            value
+                          )
                       )
                     })
                   ])
@@ -979,18 +1309,25 @@ function menu(): void {
                         baseData.local.park_and_scenario.reseach_invented_items
                           .store,
                         (value) =>
-                          language.ui.main.label.research_invented_items +
-                          value.toString()
-                      )
+                          context.formatString(
+                            language.ui.main.label.research_invented_items,
+                            value
+                          )
+                      ),
+                      tooltip: language.ui.main.tooltip.research_invented_items
                     }),
                     label({
                       text: compute(
                         baseData.local.park_and_scenario
                           .reseach_uninvented_items.store,
                         (value) =>
-                          language.ui.main.label.research_uninvented_items +
-                          value.toString()
-                      )
+                          context.formatString(
+                            language.ui.main.label.research_uninvented_items,
+                            value
+                          )
+                      ),
+                      tooltip:
+                        language.ui.main.tooltip.research_uninvented_items
                     })
                   ])
                 ]
@@ -1006,9 +1343,9 @@ function menu(): void {
                 text: compute(
                   baseData.local.finance.total_income.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.finance_total_income,
-                      Currency.localise(value)
+                      value
                     )
                 )
               }),
@@ -1018,9 +1355,9 @@ function menu(): void {
                   baseData.local.finance.total_income.store,
                   baseData.local.finance.total_expenditure.store,
                   (income, expenditure) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.finance_total_profit,
-                      Currency.localise(income + expenditure)
+                      income + expenditure
                     )
                 )
               }),
@@ -1029,9 +1366,9 @@ function menu(): void {
                 text: compute(
                   baseData.local.finance.total_expenditure.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.finance_total_expenditure,
-                      Currency.localise(value)
+                      value
                     )
                 )
               }),
@@ -1040,9 +1377,9 @@ function menu(): void {
                 text: compute(
                   baseData.local.finance.company_value.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.finance_company_value,
-                      Currency.localise(value)
+                      value
                     )
                 )
               }),
@@ -1051,11 +1388,34 @@ function menu(): void {
                 text: compute(
                   baseData.local.finance.company_value_record.store,
                   (value) => {
-                    return tr(
+                    return context.formatString(
                       language.ui.main.label.finance_company_value_record,
-                      Currency.localise(value)
+                      value
                     )
                   }
+                ),
+                tooltip: language.ui.main.tooltip.finance_company_value_record
+              }),
+              // Park Value
+              label({
+                text: compute(
+                  baseData.local.finance.park_value.store,
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.finance_park_value,
+                      value
+                    )
+                )
+              }),
+              // Park Value Record
+              label({
+                text: compute(
+                  baseData.local.finance.park_value_record.store,
+                  (value) =>
+                    context.formatString(
+                      language.ui.main.label.finance_park_value_record,
+                      value
+                    )
                 )
               })
             ]
@@ -1066,133 +1426,180 @@ function menu(): void {
           groupbox({
             text: language.ui.main.groupbox.rides.title,
             content: [
+              // Ride Counts
               horizontal([
+                // Ride Count Total
                 label({
                   text: compute(
                     baseData.local.rides.ride_count_total.store,
                     (value) =>
-                      language.ui.main.label.ride_count_total + value.toString()
+                      context.formatString(
+                        language.ui.main.label.ride_count_total,
+                        value
+                      )
                   )
                 }),
+                // Ride Count Flat
                 label({
                   text: compute(
                     baseData.local.rides.ride_count_flat.store,
                     (value) =>
-                      language.ui.main.label.ride_count_flat + value.toString()
+                      context.formatString(
+                        language.ui.main.label.ride_count_flat,
+                        value
+                      )
                   )
                 }),
+                // Ride Count Tracked
                 label({
                   text: compute(
                     baseData.local.rides.ride_count_tracked.store,
                     (value) =>
-                      language.ui.main.label.ride_count_tracked +
-                      value.toString()
+                      context.formatString(
+                        language.ui.main.label.ride_count_tracked,
+                        value
+                      )
                   )
                 })
               ]),
+              // Ride Excitement Average
               label({
                 text: compute(
                   baseData.local.rides.ride_excitement_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_excitement_ave +
-                    value.toFixed(2)
+                    context.formatString(
+                      language.ui.main.label.ride_excitement_ave,
+                      value * 100
+                    )
                 )
               }),
+              // Ride Intensity Average
               label({
                 text: compute(
                   baseData.local.rides.ride_intensity_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_intensity_ave + value.toFixed(2)
+                    context.formatString(
+                      language.ui.main.label.ride_intensity_ave,
+                      value * 100
+                    )
                 )
               }),
+              // Ride Nausea Average
               label({
                 text: compute(
                   baseData.local.rides.ride_nausea_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_nausea_ave + value.toFixed(2)
+                    context.formatString(
+                      language.ui.main.label.ride_nausea_ave,
+                      value * 100
+                    )
                 )
               }),
+              // Ride Value Average
               label({
                 text: compute(
                   baseData.local.rides.ride_value_ave.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.ride_value_ave,
-                      Currency.localise(value)
+                      value
                     )
-                )
+                ),
+                tooltip: language.ui.main.tooltip.ride_value_ave
               }),
+              // Ride Price Average
               label({
                 text: compute(
                   baseData.local.rides.ride_price_ave.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.ride_price_ave,
-                      Currency.localise(value)
+                      value
                     )
                 )
               }),
+              // Ride Admission Average
               label({
                 text: compute(
                   baseData.local.rides.ride_admission_ave.store,
                   (value) =>
-                    language.ui.main.label.ride_admission_ave + value.toFixed(0)
+                    context.formatString(
+                      language.ui.main.label.ride_admission_ave,
+                      value * 100
+                    )
                 )
               }),
+              // Ride Age Average
               label({
                 text: compute(
                   baseData.local.rides.ride_age_ave.store,
                   (value) =>
-                    tr(language.ui.main.label.ride_age_ave, value.toFixed(2))
+                    context.formatString(
+                      language.ui.main.label.ride_age_ave,
+                      value * 100
+                    )
                 )
               }),
+              // Ride Downtime Average
               label({
                 text: compute(
                   baseData.local.rides.ride_downtime_ave.store,
                   (value) =>
-                    tr(
+                    context.formatString(
                       language.ui.main.label.ride_downtime_ave,
-                      value.toFixed(2)
+                      value
                     )
                 )
               }),
+              // Crashes
               groupbox({
-                // Crashes
                 text: language.ui.main.groupbox.rides.crashes,
                 content: [
                   horizontal([
+                    // Total Crashes
                     label({
                       text: compute(
                         baseData.local.rides.crash_count_total.store,
                         (value) =>
-                          language.ui.main.label.crash_count_total +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.crash_count_total,
+                            value
+                          )
                       )
                     }),
+                    // Crashes into Vehicle
                     label({
                       text: compute(
                         baseData.local.rides.crash_count_into_vehicle.store,
                         (value) =>
-                          language.ui.main.label.crash_count_into_vehicle +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.crash_count_into_vehicle,
+                            value
+                          )
                       )
                     })
                   ]),
                   horizontal([
+                    // Crashes into Land
                     label({
                       text: compute(
                         baseData.local.rides.crash_count_into_land.store,
                         (value) =>
-                          language.ui.main.label.crash_count_into_land +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.crash_count_into_land,
+                            value
+                          )
                       )
                     }),
+                    // Crashes into Water
                     label({
                       text: compute(
                         baseData.local.rides.crash_count_into_water.store,
                         (value) =>
-                          language.ui.main.label.crash_count_into_water +
-                          value.toString()
+                          context.formatString(
+                            language.ui.main.label.crash_count_into_water,
+                            value
+                          )
                       )
                     })
                   ])
@@ -1210,7 +1617,7 @@ function menu(): void {
                     baseData.local.stalls_and_facilities
                       .stalls_and_facilities_count_total.store,
                     (value) =>
-                      tr(
+                      context.formatString(
                         language.ui.main.label
                           .stalls_and_facilities_count_total,
                         value
@@ -1222,7 +1629,10 @@ function menu(): void {
                     baseData.local.stalls_and_facilities.stalls_count_total
                       .store,
                     (value) =>
-                      tr(language.ui.main.label.stalls_count_total, value)
+                      context.formatString(
+                        language.ui.main.label.stalls_count_total,
+                        value
+                      )
                   )
                 }),
                 label({
@@ -1230,7 +1640,10 @@ function menu(): void {
                     baseData.local.stalls_and_facilities.facilities_count_total
                       .store,
                     (value) =>
-                      tr(language.ui.main.label.facilities_count_total, value)
+                      context.formatString(
+                        language.ui.main.label.facilities_count_total,
+                        value
+                      )
                   )
                 })
               ])
@@ -1410,32 +1823,20 @@ function menu(): void {
                   })
                 ]
               }),
-              // Delete all data
+              // Advanced Options
               horizontal({
                 content: [
                   button({
                     width: "25px",
                     height: "25px",
-                    image: Sprites.DELETE_DATA,
+                    image: Sprites.ADVANCED_OPTIONS,
                     onClick: () => {
-                      WarningWindow.show({
-                        title:
-                          language.ui.generic.warning.delete_all_data.title,
-                        message:
-                          language.ui.generic.warning.delete_all_data.message,
-                        cancelButton:
-                          language.ui.generic.warning.delete_all_data.cancel,
-                        confirmButton:
-                          language.ui.generic.warning.delete_all_data.confirm,
-                        onConfirm: () => {
-                          Data.reset()
-                        }
-                      })
+                      Advanced.open()
                     }
                   }),
                   label({
                     padding: { top: 5 },
-                    text: language.ui.main.label.options_delete_data
+                    text: language.ui.main.label.options_advanced_options
                   })
                 ]
               }),
@@ -1463,13 +1864,49 @@ function menu(): void {
     ],
     onOpen: () => (isOpen = true),
     onClose: () => (isOpen = false)
-  })
-
-  if (!isOpen)
-    // Open the window if it is not open.
-    main_ui.open()
-  // Focus the window if it is open.
-  else main_ui.focus()
+  }
 }
 
-export { initMainMenu, openMainMenu }
+function updateColourScheme(type: number, colour: Colour) {
+  let windowParams = getWindowParams()
+  if (typeof windowParams.colours !== "undefined") {
+    windowParams.colours[type] = colour
+  }
+  // Reopen the window with the new colour scheme
+  let needsReopen = isOpen
+  windowTemplate.close()
+  windowTemplate = window(windowParams)
+  if (needsReopen) windowTemplate.open()
+}
+
+function init(): void {
+  ui.registerMenuItem(language.ui.main.title, open)
+
+  // Create the window
+  windowTemplate = window(getWindowParams())
+
+  // Subscribe to colour scheme changes
+  baseData.global.colour_scheme.primary.store.subscribe((colour) => {
+    updateColourScheme(0, colour)
+    Advanced.open() // Re-focus the advanced window
+  })
+  baseData.global.colour_scheme.secondary.store.subscribe((colour) => {
+    updateColourScheme(1, colour)
+    Advanced.open()
+  })
+}
+
+function open(): void {
+  if (context.mode !== "normal") return
+  if (!isOpen)
+    // Open the window if it is not open.
+    windowTemplate.open()
+  // Focus the window if it is open.
+  else windowTemplate.focus()
+}
+
+function redefine(): void {
+  windowTemplate = window(getWindowParams())
+}
+
+export { init, open, redefine }

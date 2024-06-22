@@ -29,7 +29,6 @@ type PlayerDataType =
   | "action_server_chat"
 
 type ParkAndScenarioDataType =
-  | "park_value"
   | "park_size"
   | "park_rating"
   | "park_rating_ave"
@@ -106,6 +105,8 @@ type FinanceDataType =
   | "total_expenditure"
   | "company_value"
   | "company_value_record"
+  | "park_value"
+  | "park_value_record"
 
 type FinanceBranchDataType =
   | "income_player_action"

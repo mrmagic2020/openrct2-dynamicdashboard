@@ -1,9 +1,8 @@
-import { WritableStore, compute, store, twoway } from "openrct2-flexui"
+import { Colour, compute, store, twoway } from "openrct2-flexui"
 import { Options } from "./options"
 import IntervalManager from "../utils/interval"
 import DataEntry from "./classes/data_entry"
 import HookManager from "../utils/hooks"
-import Logger from "../utils/logger"
 
 /**
  * Represents a dataset with keys of type `U` and values of type `DataEntry<T>`.
@@ -50,7 +49,15 @@ type BranchDataGroup = {
 
 interface BaseData {
   global: {
-    update_frequency: WritableStore<number>
+    update_frequency: DataEntry<number>
+    show_advanced_statistics: DataEntry<boolean>
+    colour_scheme: {
+      primary: DataEntry<Colour>
+      secondary: DataEntry<Colour>
+      tertiary: DataEntry<Colour>
+      progressbar_normal: DataEntry<Colour>
+      progressbar_warning: DataEntry<Colour>
+    }
   }
   local: DataGroup
 }
@@ -186,11 +193,52 @@ const branchData: BranchData = {
  * Accessed by the UI to display data.
  * @see BranchData
  */
-const baseData: BaseData = {
+const baseData = {
   global: {
-    update_frequency: twoway(
-      store<number>(context.sharedStorage.get(GOBAL + ".update_frequency", 10))
-    ).twoway
+    update_frequency: new DataEntry({
+      key: GOBAL + ".update_frequency",
+      global: true,
+      default: 10,
+      store: twoway(store<number>(0)).twoway
+    }),
+    show_advanced_statistics: new DataEntry({
+      key: GOBAL + ".show_advanced_statistics",
+      global: true,
+      default: true,
+      store: twoway(store<boolean>(true)).twoway
+    }),
+    colour_scheme: {
+      primary: new DataEntry({
+        key: GOBAL + ".colour_scheme_primary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      secondary: new DataEntry({
+        key: GOBAL + ".colour_scheme_secondary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      tertiary: new DataEntry({
+        key: GOBAL + ".colour_scheme_tertiary",
+        global: true,
+        default: Colour.Grey,
+        store: twoway(store<Colour>(Colour.Grey)).twoway
+      }),
+      progressbar_normal: new DataEntry({
+        key: GOBAL + ".progressbar_normal",
+        global: true,
+        default: Colour.BrightGreen,
+        store: twoway(store<Colour>(Colour.BrightGreen)).twoway
+      }),
+      progressbar_warning: new DataEntry({
+        key: GOBAL + ".progressbar_warning",
+        global: true,
+        default: Colour.BrightRed,
+        store: twoway(store<Colour>(Colour.BrightRed)).twoway
+      })
+    }
   },
   local: {
     player: {
@@ -276,12 +324,6 @@ const baseData: BaseData = {
       })
     },
     park_and_scenario: {
-      park_value: new DataEntry({
-        key: LOCAL + ".park_value",
-        store: store<number>(
-          context.getParkStorage().get(LOCAL + ".park_value", 0)
-        )
-      }),
       park_size: new DataEntry({
         key: LOCAL + ".park_size",
         store: store<number>(
@@ -555,7 +597,6 @@ const baseData: BaseData = {
        */
       total_expenditure: new DataEntry({
         key: LOCAL + ".total_expenditure",
-        // temporary: true,
         store: store<number>(0)
       }),
       company_value: new DataEntry({
@@ -565,7 +606,15 @@ const baseData: BaseData = {
       }),
       company_value_record: new DataEntry({
         key: LOCAL + ".company_value_record",
+        store: store<number>(0)
+      }),
+      park_value: new DataEntry({
+        key: LOCAL + ".park_value",
         temporary: true,
+        store: store<number>(park.value)
+      }),
+      park_value_record: new DataEntry({
+        key: LOCAL + ".park_value_record",
         store: store<number>(0)
       })
     },
@@ -596,7 +645,7 @@ const baseData: BaseData = {
 function deleteAll(): void {
   for (let key in baseData.local) {
     if ((key as DataType) === "options") continue
-    const dataSet = baseData.local[key as DataType] as DataSet<number, any>
+    const dataSet = baseData.local[key as DataType] as DataSet<any, any>
     for (let subKey in dataSet) {
       dataSet[subKey].delete()
     }
@@ -605,41 +654,32 @@ function deleteAll(): void {
   for (let key in branchData.local) {
     const dataSet = branchData.local[
       key as keyof typeof branchData.local
-    ] as DataSet<number, any>
+    ] as DataSet<any, any>
     for (let subKey in dataSet) {
       dataSet[subKey].delete()
     }
   }
 }
 
+const interval = IntervalManager.init({
+  update_frequency: baseData.global.update_frequency.store,
+  countdown_progress: baseData.local.options.countdown_progress.store
+})
+
 /**
  * Initialize data.
  * @returns {void}
  */
 function initData(): void {
-  /**
-   * Iterate throught every data unit to automatically write data to
-   * local file whenever the store receives an update.
-   *
-   * Performance impact is unknown. Since the values are updated according
-   * to the update frequency set by the user, the impact should be controllable.
-   */
-
-  baseData.global.update_frequency.subscribe((value) => {
-    context.sharedStorage.set(GOBAL + ".update_frequency", value)
+  baseData.global.update_frequency.store.subscribe((_value) => {
+    if (context.mode === "normal") interval.syncCounter()
   })
 }
 
-const interval = IntervalManager.init({
-  update_frequency: baseData.global.update_frequency,
-  countdown_progress: baseData.local.options.countdown_progress.store
-})
 HookManager.hook("map.changed", () => {
   if (context.mode !== "normal") {
-    Logger.debug("Map changed: Pausing all intervals.")
     interval.pauseAll()
   } else {
-    Logger.debug("Map changed: Resuming all intervals.")
     interval.resumeAll()
   }
 })

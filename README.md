@@ -15,11 +15,11 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 > This plugin is under rapid development. [Check for updates](https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/latest) regularly for the latest features, bug fixes and performance optimisations.
 
 > [!NOTE]
-> Some features of this page are only supported by GitHub. If you're not on GitHub, you can visit <https://github.com/mrmagic2020/openrct2-dynamicdashboard?#readme> for a better experience.
+> Some features of this page are only supported by GitHub. If you're not on GitHub, you can go [here](https://github.com/mrmagic2020/openrct2-dynamicdashboard?#readme) for a better experience.
 
 ## Contents
 
-- [Features](#features)
+- [Overview](#overview)
 
 - [Installation](#installation)
 
@@ -33,7 +33,9 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
   - [Indicators](#indicators)
 
-  - [Update Frequency](#update-frequency)
+  - [Advanced Options](#advanced-options)
+
+  - [Colour Scheme](#colour-scheme)
 
 - [Contributing](#contributing)
 
@@ -41,7 +43,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 
   - [Build from Source](#build-from-source)
 
-## Features
+## Overview
 
 <details open>
 <summary>Feature Preview</summary>
@@ -51,7 +53,7 @@ _A dynamic dashboard for OpenRCT2 scenarios including all the statistics._
 </details>
 
 <details open>
-<summary>Preview v1.0.0-pre.7</summary>
+<summary>Screenshot v1.0.0-pre.8</summary>
 
 ![screenshot](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/dynamic_dashboard.png?raw=true)
 
@@ -111,12 +113,18 @@ Seen when [Update Mode](#update-mode) is set to `Manual`. All lights flash yello
 
 Seen when [Update Mode](#update-mode) is set to `Paused`.
 
-### Update Frequency
+### Advanced Options
 
-The update frequency can be customised via global settings, found in the toolbox menu item.
+Since `v1.0.0-pre.8`, the plugin has been updated to include advanced options. Advanced options can be accessed via the toolbox menu or the dashboard itself.
 
 ![toolbox_menu_item](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu_item.png?raw=true)
-![toolbox_menu](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/toolbox_menu.png?raw=true)
+![advanced_tab_general](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/advanced_tab_general.png?raw=true)
+
+### Colour Scheme
+
+Since `v1.0.0-pre.8`, you can customise the colours of the dashboard to your liking.
+
+![advanced_tab_colours](https://github.com/mrmagic2020/openrct2-dynamicdashboard/blob/develop/Assets/advanced_tab_colours.png?raw=true)
 
 ## Contributing
 

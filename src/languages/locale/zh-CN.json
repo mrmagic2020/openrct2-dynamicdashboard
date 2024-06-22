@@ -1,13 +1,5 @@
 {
   "ui": {
-    "toolbox": {
-      "title": "动态仪表",
-      "language_selection_label": "选择语言：",
-      "language_item": "简体中文",
-      "update_frequency_spinner": "更新频率（需要重启游戏）",
-      "update_frequency_spinner_unit": "秒",
-      "require_restart": "重启游戏以更新设置。"
-    },
     "main": {
       "title": "动态仪表",
       "groupbox": {
@@ -41,87 +33,88 @@
         }
       },
       "label": {
-        "player_name": "玩家名：{PALESILVER}",
-        "player_id": "ID：{PALESILVER}",
-        "game_time_real": "游戏时间（实际时间）：{PALESILVER}<NUMBER>分钟",
-        "game_time_fake": "游戏时间：{PALESILVER}<NUMBER>天",
+        "player_name": "玩家名：{PALESILVER}{STRING}",
+        "player_id": "ID：{PALESILVER}{UINT16}",
+        "game_time_real": "游戏时间（实际时间）：{PALESILVER}{REALTIME}",
+        "game_time_fake": "游戏时间：{PALESILVER}{UINT16}天",
 
-        "action_track_design": "过山车设计：{PALESILVER}",
-        "action_stall_and_facility_placement": "商店/公共设施设计：{PALESILVER}",
-        "action_footpath_placement": "道路设计：{PALESILVER}",
-        "action_scenery_placement": "景物设计：{PALESILVER}",
-        "action_landscaping": "地形设计：{PALESILVER}",
-        "action_staff": "员工管理：{PALESILVER}",
-        "action_relocate_peep": "人员迁移：{PALESILVER}",
-        "action_pop_balloon": "戳气球：{PALESILVER}",
-        "action_set_cheats": "作弊设置：{PALESILVER}",
-        "action_server_join": "进入服务器：{PALESILVER}",
-        "action_server_chat": "聊天消息：{PALESILVER}",
+        "action_track_design": "过山车设计：{PALESILVER}{INT32}",
+        "action_stall_and_facility_placement": "商店/公共设施设计：{PALESILVER}{INT32}",
+        "action_footpath_placement": "道路设计：{PALESILVER}{INT32}",
+        "action_scenery_placement": "景物设计：{PALESILVER}{INT32}",
+        "action_landscaping": "地形设计：{PALESILVER}{INT32}",
+        "action_staff": "员工管理：{PALESILVER}{INT32}",
+        "action_relocate_peep": "人员迁移：{PALESILVER}{INT32}",
+        "action_pop_balloon": "戳气球：{PALESILVER}{INT32}",
+        "action_set_cheats": "作弊设置：{PALESILVER}{INT32}",
+        "action_server_join": "进入服务器：{PALESILVER}{INT32}",
+        "action_server_chat": "聊天消息：{PALESILVER}{INT32}",
 
-        "park_value": "园区价值：{PALESILVER}<NUMBER&UNIT>",
-        "park_size": "园区面积：{PALESILVER}<NUMBER> tiles",
-        "park_rating_current": "当前：{PALESILVER}",
-        "park_rating_ave": "平均值：{PALESILVER}",
-        "park_rating_year_ave": "平均值（当年）：{PALESILVER}",
-        "park_rating_month_ave": "平均值（当月）：{PALESILVER}",
-        "park_rating_warning_days": "警告天数：{PALESILVER}",
+        "park_size": "园区面积：{PALESILVER}{COMMA32} tiles",
+        "park_rating_current": "当前：{PALESILVER}{COMMA2DP32}",
+        "park_rating_ave": "平均值：{PALESILVER}{COMMA2DP32}",
+        "park_rating_year_ave": "平均值（当年）：{PALESILVER}{COMMA2DP32}",
+        "park_rating_month_ave": "平均值（当月）：{PALESILVER}{COMMA2DP32}",
+        "park_rating_warning_days": "警告天数：{PALESILVER}{UINT16}",
 
         "objective_status": "状态：{PALESILVER}",
         "objective_status_inProgress": "进行中",
         "objective_status_completed": "已完成",
         "objective_status_failed": "失败",
-        "objective_status_days_left": "剩余天数：{PALESILVER}",
+        "objective_status_days_left": "剩余天数：{PALESILVER}{UINT16}",
 
-        "entity_count_total": "总数：{PALESILVER}",
-        "entity_count_guest": "游客：{PALESILVER}",
-        "entity_count_staff": "员工：{PALESILVER}",
-        "entity_count_balloon": "气球：{PALESILVER}",
-        "entity_count_duck": "鸭子：{PALESILVER}",
-        "entity_count_litter": "垃圾：{PALESILVER}",
+        "entity_count_total": "总数：{PALESILVER}{UINT16}",
+        "entity_count_guest": "游客：{PALESILVER}{UINT16}",
+        "entity_count_staff": "员工：{PALESILVER}{UINT16}",
+        "entity_count_balloon": "气球：{PALESILVER}{UINT16}",
+        "entity_count_duck": "鸭子：{PALESILVER}{UINT16}",
+        "entity_count_litter": "垃圾：{PALESILVER}{UINT16}",
 
-        "research_invented_items": "已发明：{PALESILVER}",
-        "research_uninvented_items": "未发明：{PALESILVER}",
+        "research_invented_items": "已发明：{PALESILVER}{UINT16}",
+        "research_uninvented_items": "未发明：{PALESILVER}{UINT16}",
 
-        "stalls_and_facilities_count_total": "总数：{PALESILVER}<NUMBER>",
-        "stalls_count_total": "商店：{PALESILVER}<NUMBER>",
-        "facilities_count_total": "设施：{PALESILVER}<NUMBER>",
+        "stalls_and_facilities_count_total": "总数：{PALESILVER}{UINT16}",
+        "stalls_count_total": "商店：{PALESILVER}{UINT16}",
+        "facilities_count_total": "设施：{PALESILVER}{UINT16}",
 
-        "ride_count_total": "总数：{PALESILVER}",
-        "ride_count_flat": "平面：{PALESILVER}",
-        "ride_count_tracked": "有轨：{PALESILVER}",
+        "ride_count_total": "总数：{PALESILVER}{UINT16}",
+        "ride_count_flat": "平面：{PALESILVER}{UINT16}",
+        "ride_count_tracked": "有轨：{PALESILVER}{UINT16}",
 
-        "crash_count_total": "总数：{PALESILVER}",
-        "crash_count_into_vehicle": "撞车：{PALESILVER}",
-        "crash_count_into_land": "撞地：{PALESILVER}",
-        "crash_count_into_water": "撞水：{PALESILVER}",
+        "crash_count_total": "总数：{PALESILVER}{UINT16}",
+        "crash_count_into_vehicle": "撞车：{PALESILVER}{UINT16}",
+        "crash_count_into_land": "撞地：{PALESILVER}{UINT16}",
+        "crash_count_into_water": "撞水：{PALESILVER}{UINT16}",
 
-        "ride_excitement_ave": "兴奋度平均值：{PALESILVER}",
-        "ride_intensity_ave": "强度平均值：{PALESILVER}",
-        "ride_nausea_ave": "眩晕度平均值：{PALESILVER}",
-        "ride_value_ave": "价值平均值：{PALESILVER}",
-        "ride_price_ave": "价格平均值：{PALESILVER}",
-        "ride_admission_ave": "总顾客平均值：{PALESILVER}",
-        "ride_age_ave": "平均年龄：{PALESILVER}<NUMBER> 个月",
-        "ride_downtime_ave": "平均关停率：{PALESILVER}<NUMBER>%",
+        "ride_excitement_ave": "兴奋度平均值：{PALESILVER}{COMMA2DP32}",
+        "ride_intensity_ave": "强度平均值：{PALESILVER}{COMMA2DP32}",
+        "ride_nausea_ave": "眩晕度平均值：{PALESILVER{COMMA2DP32}}",
+        "ride_value_ave": "价值平均值：{PALESILVER}{CURRENCY2DP}",
+        "ride_price_ave": "价格平均值：{PALESILVER}{CURRENCY2DP}",
+        "ride_admission_ave": "总顾客平均值：{PALESILVER}{COMMA2DP32}",
+        "ride_age_ave": "平均年龄：{PALESILVER}{COMMA2DP32} 个月",
+        "ride_downtime_ave": "平均关停率：{PALESILVER}{COMMA16}%",
 
-        "guest_generation_total": "总顾客生成：{PALESILVER}",
-        "guest_admission_total": "总顾客入园：{PALESILVER}",
-        "guest_count_current": "当前顾客：{PALESILVER}",
-        "guest_soft_cap": "软上限：{PALESILVER}",
-        "guest_weight_ave": "平均体重：{PALESILVER}",
-        "guest_wealth_ave": "平均财富：{PALESILVER}<NUMBER&UNIT>",
-        "guest_happiness_ave": "平均快乐度：{PALESILVER}",
-        "guest_energy_ave": "平均精力：{PALESILVER}",
-        "guest_nausea_ave": "平均眩晕度：{PALESILVER}",
-        "guest_hunger_ave": "平均饥饿度：{PALESILVER}",
-        "guest_thirst_ave": "平均口渴度：{PALESILVER}",
-        "guest_toilet_ave": "平均厕所需求：{PALESILVER}",
+        "guest_generation_total": "总顾客生成：{PALESILVER}{COMMA32}",
+        "guest_admission_total": "总顾客入园：{PALESILVER}{COMMA32}",
+        "guest_count_current": "当前顾客：{PALESILVER}{COMMA32}",
+        "guest_soft_cap": "软上限：{PALESILVER}{COMMA32}",
+        "guest_weight_ave": "平均体重：{PALESILVER}{COMMA2DP32}",
+        "guest_wealth_ave": "平均财富：{PALESILVER}{CURRENCY2DP}",
+        "guest_happiness_ave": "平均快乐度：{PALESILVER}{COMMA2DP32}",
+        "guest_energy_ave": "平均精力值：{PALESILVER}{COMMA2DP32}",
+        "guest_nausea_ave": "平均眩晕度：{PALESILVER}{COMMA2DP32}",
+        "guest_hunger_ave": "平均饥饿度：{PALESILVER}{COMMA2DP32}",
+        "guest_thirst_ave": "平均口渴度：{PALESILVER}{COMMA2DP32}",
+        "guest_toilet_ave": "平均厕所需求：{PALESILVER}{COMMA2DP32}",
 
-        "finance_total_income": "总收入：{PALESILVER}<NUMBER&UNIT>",
-        "finance_total_expenditure": "总支出：{PALESILVER}<NUMBER&UNIT>",
-        "finance_total_profit": "总利润：{PALESILVER}<NUMBER&UNIT>",
-        "finance_company_value": "公司价值：{PALESILVER}<NUMBER&UNIT>",
-        "finance_company_value_record": "公司价值最高纪录：{PALESILVER}<NUMBER&UNIT>",
+        "finance_total_income": "总收入：{PALESILVER}{CURRENCY2DP}",
+        "finance_total_expenditure": "总支出：{PALESILVER}{CURRENCY2DP}",
+        "finance_total_profit": "总利润：{PALESILVER}{CURRENCY2DP}",
+        "finance_company_value": "公司价值：{PALESILVER}{CURRENCY2DP}",
+        "finance_company_value_record": "公司价值最高纪录：{PALESILVER}{CURRENCY2DP}",
+        "finance_park_value": "园区价值：{PALESILVER}{CURRENCY2DP}",
+        "finance_park_value_record": "园区价值最高纪录：{PALESILVER}{CURRENCY2DP}",
 
         "options_update_running": "{GREEN}运行中",
         "options_update_manual": "{YELLOW}手动更新",
@@ -129,14 +122,90 @@
         "options_sync_now": "立即同步",
         "options_display_progress_bar": "显示进度条",
         "options_display_value": "显示数值",
-        "options_delete_data": "删除所有数据"
+        "options_advanced_options": "高级设置"
       },
       "tooltip": {
+        "action_track_design": "包括轨道放置、拆除、设计和刹车速度设置。",
+        "action_stall_and_facility_placement": "包括游乐设施及店铺放置、拆除。",
+
         "entity_count_total_limitation": "16位无符号整数的取值范围限制是0~65535。如果实体数量超过这个值，这个数字就会停止变化。",
+
+        "research_invented_items": "已发明的项目数量。",
+        "research_uninvented_items": "未发明的项目数量。",
+
         "park_rating_warning_days": "一旦游乐园评分低于700，你会有30天时间改善评分，否则游乐园会被强制关闭。",
+
+        "ride_value_ave": "游乐设施的价值决定了游客愿意为其支付的最高金额，也决定了游客愿意为公园门票支付的最高金额。",
+
+        "finance_company_value_record": "公司价值的最高纪录。仅在达成剧情目标时记录。",
+
         "options_update_running": "动态仪表正在运行。数据将自动刷新。",
         "options_update_manual": "动态仪表正在运行。部分数据需要手动刷新。",
         "options_update_paused": "动态仪表已暂停。数据不会刷新。"
+      }
+    },
+    "advanced": {
+      "toolbox_title": "动态仪表",
+      "title": "高级设置",
+      "tabs": {
+        "general": {
+          "groupbox": {
+            "title": "常规"
+          },
+          "label": {
+            "delete_data": "删除所有数据",
+            "set_frequency": "设置更新频率："
+          },
+          "button": {
+            "set_frequency": "确定"
+          },
+          "checkbox": {
+            "show_advanced_statistics": "Show advanced statistics"
+          }
+        },
+        "colours": {
+          "groupbox": {
+            "title": "配色"
+          },
+          "label": {
+            "primary": "主要",
+            "secondary": "次要",
+            "tertiary": "第三",
+            "progressbar_normal": "进度条（正常）",
+            "progressbar_warning": "进度条（警告）"
+          },
+          "button": {
+            "reset": "重置配色"
+          }
+        },
+        "info": {
+          "label": {
+            "description": "动态仪表，实时洞察和统计数据尽在指尖。",
+            "licence": "许可：{WHITE}",
+            "version": "版本：{WHITE}",
+            "author": "作者：{WHITE}",
+            "special_thanks": "特别鸣谢：{WHITE}",
+            "github": "GitHub：{WHITE}"
+          },
+          "button": {
+            "contributors": "贡献者……",
+            "changelog": "更新日志……"
+          }
+        }
+      },
+      "windows": {
+        "contributors": {
+          "title": "贡献者",
+          "label": {
+            "description": "这个项目是由以下人员共同努力完成的："
+          }
+        },
+        "changelog": {
+          "title": "更新日志",
+          "label": {
+            "description": "本项目在不断地更新迭代。以下是每个版本所做的更改："
+          }
+        }
       }
     },
     "generic": {
@@ -147,6 +216,22 @@
           "confirm": "{WHITE}确定",
           "cancel": "{WHITE}取消"
         }
+      },
+      "advanced_statistics": {
+        "title": "高级统计数据 - {STRING}"
+      },
+      "statistical_analysis": {
+        "min": "最小值",
+        "q1": "Q1",
+        "median": "中位数",
+        "q3": "Q3",
+        "max": "最大值",
+        "mean": "平均值",
+        "mode": "众数",
+        "range": "范围",
+        "variance": "方差",
+        "standard_deviation": "标准差",
+        "box_plot": "箱线图"
       }
     }
   }

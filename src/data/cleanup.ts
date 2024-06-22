@@ -1,4 +1,7 @@
 namespace Cleanup {
+  /**
+   * The keys that are deprecated and should be removed from the park storage.
+   */
   const deprecatedKeys: string[] = [
     "park_rating_ave_sample_count",
     "park_rating_ave",
@@ -24,9 +27,25 @@ namespace Cleanup {
     "dynamicdashboard.branch.ride_age_ave_sum",
     "dynamicdashboard.branch.ride_downtime_ave_sum"
   ]
+
+  /**
+   * The keys that are deprecated and should be removed from the global storage.
+   */
+  const deprecatedGLobalKeys: string[] = [
+    "dynamicdashboard_global.update_ratio"
+  ]
+
+  /**
+   * Removes deprecated keys from the park storage.
+   */
   export function execute() {
     for (const key of deprecatedKeys) {
-      context.getParkStorage().set(key, undefined)
+      if (context.getParkStorage().has(key))
+        context.getParkStorage().set(key, undefined)
+    }
+    for (const key of deprecatedGLobalKeys) {
+      if (context.sharedStorage.has(key))
+        context.sharedStorage.set(key, undefined)
     }
   }
 }

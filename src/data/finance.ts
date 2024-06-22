@@ -67,8 +67,24 @@ namespace FinanceData {
   }
 
   function updateCompanyValueRecord(): void {
+    if (interval.isPaused) return
     baseData.local.finance.company_value_record.store.set(
-      scenario.companyValueRecord
+      Math.max(
+        baseData.local.finance.company_value_record.store.get(),
+        park.companyValue
+      )
+    )
+  }
+
+  function updateParkValue(): void {
+    if (interval.isPaused) return
+    baseData.local.finance.park_value.store.set(park.value)
+  }
+
+  function updateParkValueRecord(): void {
+    if (interval.isPaused) return
+    baseData.local.finance.park_value_record.store.set(
+      Math.max(baseData.local.finance.park_value_record.store.get(), park.value)
     )
   }
 
@@ -84,6 +100,8 @@ namespace FinanceData {
     updateExpenditure()
     updateCompanyValue()
     updateCompanyValueRecord()
+    updateParkValue()
+    updateParkValueRecord()
   }
 
   /**
@@ -99,13 +117,15 @@ namespace FinanceData {
         tick = 0
         updateCompanyValue()
         updateCompanyValueRecord()
+        updateParkValue()
+        updateParkValueRecord()
       }
     })
 
     interval.register(() => {
       updateParkIE()
       updateExpenditure()
-    }, baseData.global.update_frequency.get() * 1000)
+    })
   }
 }
 

@@ -1,13 +1,5 @@
 {
   "ui": {
-    "toolbox": {
-      "title": "Dynamic Dashboard",
-      "language_selection_label": "Select your preferred language:",
-      "language_item": "English (US)",
-      "update_frequency_spinner": "Update frequency:",
-      "update_frequency_spinner_unit": "seconds",
-      "require_restart": "Restart the game to apply changes."
-    },
     "main": {
       "title": "Dynamic Dashboard",
       "groupbox": {
@@ -41,87 +33,88 @@
         }
       },
       "label": {
-        "player_name": "Name: {PALESILVER}",
-        "player_id": "ID: {PALESILVER}",
-        "game_time_real": "Game time (real-life): {PALESILVER}<NUMBER> minutes",
-        "game_time_fake": "Game time (in-game): {PALESILVER}<NUMBER> days",
+        "player_name": "Name: {PALESILVER}{STRING}",
+        "player_id": "ID: {PALESILVER}{UINT16}",
+        "game_time_real": "Game time (real-life): {PALESILVER}{REALTIME}",
+        "game_time_fake": "Game time (in-game): {PALESILVER}{UINT16} days",
 
-        "action_track_design": "Track design: {PALESILVER}",
-        "action_stall_and_facility_placement": "Stall / facility placement: {PALESILVER}",
-        "action_footpath_placement": "Footpath placement: {PALESILVER}",
-        "action_scenery_placement": "Scenery placement: {PALESILVER}",
-        "action_landscaping": "Landscaping: {PALESILVER}",
-        "action_staff": "Staff action: {PALESILVER}",
-        "action_relocate_peep": "Peep relocation: {PALESILVER}",
-        "action_pop_balloon": "Pop balloon: {PALESILVER}",
-        "action_set_cheats": "Set cheats: {PALESILVER}",
-        "action_server_join": "Join server: {PALESILVER}",
-        "action_server_chat": "Chat: {PALESILVER}",
+        "action_track_design": "Track design: {PALESILVER}{INT32}",
+        "action_stall_and_facility_placement": "Ride/stall placement: {PALESILVER}{INT32}",
+        "action_footpath_placement": "Footpath placement: {PALESILVER}{INT32}",
+        "action_scenery_placement": "Scenery placement: {PALESILVER}{INT32}",
+        "action_landscaping": "Landscaping: {PALESILVER}{INT32}",
+        "action_staff": "Staff configuration: {PALESILVER}{INT32}",
+        "action_relocate_peep": "Peep relocation: {PALESILVER}{INT32}",
+        "action_pop_balloon": "Pop balloon: {PALESILVER}{INT32}",
+        "action_set_cheats": "Set cheats: {PALESILVER}{INT32}",
+        "action_server_join": "Join server: {PALESILVER}{INT32}",
+        "action_server_chat": "Chat: {PALESILVER}{INT32}",
 
-        "park_value": "Park value: {PALESILVER}<NUMBER&UNIT>",
-        "park_size": "Park size: {PALESILVER}<NUMBER> tiles",
-        "park_rating_current": "Current: {PALESILVER}",
-        "park_rating_ave": "Average (all time): {PALESILVER}",
-        "park_rating_year_ave": "Average (year): {PALESILVER}",
-        "park_rating_month_ave": "Average (month): {PALESILVER}",
-        "park_rating_warning_days": "Warning countdown: {PALESILVER}",
+        "park_size": "Park size: {PALESILVER}{COMMA32} tiles",
+        "park_rating_current": "Current: {PALESILVER}{COMMA2DP32}",
+        "park_rating_ave": "Average (all time): {PALESILVER}{COMMA2DP32}",
+        "park_rating_year_ave": "Average (year): {PALESILVER}{COMMA2DP32}",
+        "park_rating_month_ave": "Average (month): {PALESILVER}{COMMA2DP32}",
+        "park_rating_warning_days": "Warning countdown: {PALESILVER}{UINT16}",
 
-        "objective_status": "Status: {PALESILVER}",
+        "objective_status": "Status: {PALESILVER}{STRING}",
         "objective_status_inProgress": "In progress",
         "objective_status_completed": "Completed",
         "objective_status_failed": "Failed",
-        "objective_status_days_left": "Days left: {PALESILVER}",
+        "objective_status_days_left": "Days left: {PALESILVER}{UINT16}",
 
-        "entity_count_total": "Total: {PALESILVER}",
-        "entity_count_guest": "Guest: {PALESILVER}",
-        "entity_count_staff": "Staff: {PALESILVER}",
-        "entity_count_balloon": "Balloon: {PALESILVER}",
-        "entity_count_duck": "Duck: {PALESILVER}",
-        "entity_count_litter": "Litter: {PALESILVER}",
+        "entity_count_total": "Total: {PALESILVER}{UINT16}",
+        "entity_count_guest": "Guest: {PALESILVER}{UINT16}",
+        "entity_count_staff": "Staff: {PALESILVER}{UINT16}",
+        "entity_count_balloon": "Balloon: {PALESILVER}{UINT16}",
+        "entity_count_duck": "Duck: {PALESILVER}{UINT16}",
+        "entity_count_litter": "Litter: {PALESILVER}{UINT16}",
 
-        "research_invented_items": "Invented items: {PALESILVER}",
-        "research_uninvented_items": "Uninvented items: {PALESILVER}",
+        "research_invented_items": "Invented items: {PALESILVER}{UINT16}",
+        "research_uninvented_items": "Uninvented items: {PALESILVER}{UINT16}",
 
-        "stalls_and_facilities_count_total": "Total: {PALESILVER}<NUMBER>",
-        "stalls_count_total": "Stalls: {PALESILVER}<NUMBER>",
-        "facilities_count_total": "Facilities: {PALESILVER}<NUMBER>",
+        "stalls_and_facilities_count_total": "Total: {PALESILVER}{UINT16}",
+        "stalls_count_total": "Stalls: {PALESILVER}{UINT16}",
+        "facilities_count_total": "Facilities: {PALESILVER}{UINT16}",
 
-        "ride_count_total": "Total: {PALESILVER}",
-        "ride_count_flat": "Flat: {PALESILVER}",
-        "ride_count_tracked": "Tracked: {PALESILVER}",
+        "ride_count_total": "Total: {PALESILVER}{UINT16}",
+        "ride_count_flat": "Flat: {PALESILVER}{UINT16}",
+        "ride_count_tracked": "Tracked: {PALESILVER}{UINT16}",
 
-        "crash_count_total": "Total: {PALESILVER}",
-        "crash_count_into_vehicle": "Into vehicle: {PALESILVER}",
-        "crash_count_into_land": "Into land: {PALESILVER}",
-        "crash_count_into_water": "Into water: {PALESILVER}",
+        "crash_count_total": "Total: {PALESILVER}{UINT16}",
+        "crash_count_into_vehicle": "Into vehicle: {PALESILVER}{UINT16}",
+        "crash_count_into_land": "Into land: {PALESILVER}{UINT16}",
+        "crash_count_into_water": "Into water: {PALESILVER}{UINT16}",
 
-        "ride_excitement_ave": "Average excitement: {PALESILVER}",
-        "ride_intensity_ave": "Average intensity: {PALESILVER}",
-        "ride_nausea_ave": "Average nausea: {PALESILVER}",
-        "ride_value_ave": "Average value: {PALESILVER}",
-        "ride_price_ave": "Average price: {PALESILVER}",
-        "ride_admission_ave": "Average admission: {PALESILVER}",
-        "ride_age_ave": "Average age: {PALESILVER}<NUMBER> months",
-        "ride_downtime_ave": "Average downtime: {PALESILVER}<NUMBER>%",
+        "ride_excitement_ave": "Average excitement: {PALESILVER}{COMMA2DP32}",
+        "ride_intensity_ave": "Average intensity: {PALESILVER}{COMMA2DP32}",
+        "ride_nausea_ave": "Average nausea: {PALESILVER}{COMMA2DP32}",
+        "ride_value_ave": "Average value: {PALESILVER}{CURRENCY2DP}",
+        "ride_price_ave": "Average price: {PALESILVER}{CURRENCY2DP}",
+        "ride_admission_ave": "Average admission: {PALESILVER}{COMMA2DP32}",
+        "ride_age_ave": "Average age: {PALESILVER}{COMMA2DP32} months",
+        "ride_downtime_ave": "Average downtime: {PALESILVER}{COMMA16}%",
 
-        "guest_generation_total": "Total Guest Generation: {PALESILVER}",
-        "guest_admission_total": "Total Guest Admission: {PALESILVER}",
-        "guest_count_current": "Current Guest Count: {PALESILVER}",
-        "guest_soft_cap": "Soft Cap: {PALESILVER}",
-        "guest_weight_ave": "Average Weight: {PALESILVER}",
-        "guest_wealth_ave": "Average Wealth: {PALESILVER}<NUMBER&UNIT>",
-        "guest_happiness_ave": "Average Happiness: {PALESILVER}",
-        "guest_energy_ave": "Average Energy: {PALESILVER}",
-        "guest_nausea_ave": "Average Nausea: {PALESILVER}",
-        "guest_hunger_ave": "Average Hunger: {PALESILVER}",
-        "guest_thirst_ave": "Average Thirst: {PALESILVER}",
-        "guest_toilet_ave": "Average Toilet: {PALESILVER}",
+        "guest_generation_total": "Total Guest Generation: {PALESILVER}{COMMA32}",
+        "guest_admission_total": "Total Guest Admission: {PALESILVER}{COMMA32}",
+        "guest_count_current": "Current Guest Count: {PALESILVER}{COMMA32}",
+        "guest_soft_cap": "Soft Cap: {PALESILVER}{COMMA32}",
+        "guest_weight_ave": "Average Weight: {PALESILVER}{COMMA2DP32}",
+        "guest_wealth_ave": "Average Wealth: {PALESILVER}{CURRENCY2DP}",
+        "guest_happiness_ave": "Average Happiness: {PALESILVER}{COMMA2DP32}",
+        "guest_energy_ave": "Average Energy: {PALESILVER}{COMMA2DP32}",
+        "guest_nausea_ave": "Average Nausea: {PALESILVER}{COMMA2DP32}",
+        "guest_hunger_ave": "Average Hunger: {PALESILVER}{COMMA2DP32}",
+        "guest_thirst_ave": "Average Thirst: {PALESILVER}{COMMA2DP32}",
+        "guest_toilet_ave": "Average Toilet: {PALESILVER}{COMMA2DP32}",
 
-        "finance_total_income": "Total Income: {PALESILVER}<NUMBER&UNIT>",
-        "finance_total_expenditure": "Total Expenditure: {PALESILVER}<NUMBER&UNIT>",
-        "finance_total_profit": "Total Profit: {PALESILVER}<NUMBER&UNIT>",
-        "finance_company_value": "Company Value: {PALESILVER}<NUMBER&UNIT>",
-        "finance_company_value_record": "Company Value Record: {PALESILVER}<NUMBER&UNIT>",
+        "finance_total_income": "Total Income: {PALESILVER}{CURRENCY2DP}",
+        "finance_total_expenditure": "Total Expenditure: {PALESILVER}{CURRENCY2DP}",
+        "finance_total_profit": "Total Profit: {PALESILVER}{CURRENCY2DP}",
+        "finance_company_value": "Company Value: {PALESILVER}{CURRENCY2DP}",
+        "finance_company_value_record": "Company Value Record: {PALESILVER}{CURRENCY2DP}",
+        "finance_park_value": "Park Value: {PALESILVER}{CURRENCY2DP}",
+        "finance_park_value_record": "Park Value Record: {PALESILVER}{CURRENCY2DP}",
 
         "options_update_running": "{GREEN}Running",
         "options_update_manual": "{YELLOW}Manual",
@@ -129,14 +122,90 @@
         "options_sync_now": "Sync now",
         "options_display_progress_bar": "Show progress bar",
         "options_display_value": "Show value",
-        "options_delete_data": "Delete all data"
+        "options_advanced_options": "Advanced options"
       },
       "tooltip": {
+        "action_track_design": "Includes track placement, track removal, track design and setting brake speed.",
+        "action_stall_and_facility_placement": "Includes placing and demolishing rides, stalls and facilities.",
+
         "entity_count_total_limitation": "An unsigned 16-bit integer has a range limit of 0~65535. If the entity count goes beyond that, the number ceases to change.",
+
+        "research_invented_items": "Number of items that have been invented.",
+        "research_uninvented_items": "Number of items that have not been invented yet.",
+
         "park_rating_warning_days": "When the park rating drops below 700, you will have 30 days to improve it before the park is forced to close.",
+
+        "ride_value_ave": "The value of a ride contributes to the maximum amount of money a guest is willing to pay for it, and the maximum amount of money a guest is willing to pay for the park entrance fee.",
+
+        "finance_company_value_record": "The highest company value ever achieved when achieving the objective.",
+
         "options_update_running": "Dynamic Dashboard is running and updating automatically.",
         "options_update_manual": "Dynamic Dashboard is partially paused. Update manually by clicking the 'Sync now' button.",
         "options_update_paused": "Dynamic Dashboard is paused and not updating any data."
+      }
+    },
+    "advanced": {
+      "toolbox_title": "Dynamic Dashboard",
+      "title": "Advanced Options",
+      "tabs": {
+        "general": {
+          "groupbox": {
+            "title": "General"
+          },
+          "label": {
+            "delete_data": "Delete all data",
+            "set_frequency": "Set update frequency:"
+          },
+          "button": {
+            "set_frequency": "Set"
+          },
+          "checkbox": {
+            "show_advanced_statistics": "Show advanced statistics"
+          }
+        },
+        "colours": {
+          "groupbox": {
+            "title": "Colour Scheme"
+          },
+          "label": {
+            "primary": "Primary",
+            "secondary": "Secondary",
+            "tertiary": "Tertiary",
+            "progressbar_normal": "Progress Bar (Normal)",
+            "progressbar_warning": "Progress Bar (Warning)"
+          },
+          "button": {
+            "reset": "Reset colour schemes"
+          }
+        },
+        "info": {
+          "label": {
+            "description": "Dynamic Dashboard, real-time insights and stats at your fingertips.",
+            "licence": "Licence: {WHITE}",
+            "version": "Version: {WHITE}",
+            "author": "Author: {WHITE}",
+            "special_thanks": "Special \nThanks: {WHITE}",
+            "github": "GitHub: {WHITE}"
+          },
+          "button": {
+            "contributors": "Contributors...",
+            "changelog": "Changelog..."
+          }
+        }
+      },
+      "windows": {
+        "contributors": {
+          "title": "Contributors",
+          "label": {
+            "description": "This project is made possible by the following contributors:"
+          }
+        },
+        "changelog": {
+          "title": "Changelog",
+          "label": {
+            "description": "This project is constantly evolving. Here are the changes made in each version:"
+          }
+        }
       }
     },
     "generic": {
@@ -147,6 +216,22 @@
           "confirm": "{WHITE}Yes",
           "cancel": "{WHITE}No"
         }
+      },
+      "advanced_statistics": {
+        "title": "Advanced Statistics - {STRING}"
+      },
+      "statistical_analysis": {
+        "min": "Min",
+        "q1": "Q1",
+        "median": "Median",
+        "q3": "Q3",
+        "max": "Max",
+        "mean": "Mean",
+        "mode": "Mode",
+        "range": "Range",
+        "variance": "Variance",
+        "standard_deviation": "Standard Deviation",
+        "box_plot": "Box Plot"
       }
     }
   }
