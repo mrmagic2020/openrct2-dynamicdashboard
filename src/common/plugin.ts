@@ -13,15 +13,16 @@ namespace DynamicDashboard {
     "Basssiiie",
     "Marcel Vos",
     "Isoitiro",
-    "Manticore_007"
+    "Manticore_007",
+    "the OpenRCT2 Developer Team",
+    "the OpenRCT2 Community"
   ]
   export const specialThanksWrapped: string = specialThanks.reduce(
     (acc, cur, i) => {
-      if (i === specialThanks.length - 1) {
-        if (i % 3 === 0) {
-          return acc + "\nand " + cur
-        }
-        return acc + ", and " + cur
+      if (i === specialThanks.length - 2) {
+        return acc + ",\n" + cur
+      } else if (i === specialThanks.length - 1) {
+        return acc + ",\nand " + cur
       } else {
         if (i % 3 === 0) {
           return acc + "\n" + cur

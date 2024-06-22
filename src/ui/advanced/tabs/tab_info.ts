@@ -55,7 +55,7 @@ export const tab_info = function () {
               text: language.ui.advanced.tabs.info.label.special_thanks
             }),
             label({
-              height: 28,
+              height: 14 * 3,
               text: "{WHITE}" + DynamicDashboard.specialThanksWrapped
             })
           ]),
