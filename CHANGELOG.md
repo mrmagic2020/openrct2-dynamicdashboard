@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+- /
+
+## [1.0.0-pre.8] - 2024-06-22
+
 ### Added
 
 - Add tooltips to some statistic entries for better clarity.
@@ -42,8 +46,6 @@ and this project adheres to [Semantic Versioning].
 - Company value record is now dynamically updated and reflects the highest value achieved within the save file.
 
 - Move park value record to group Finance.
-
-### Removed
 
 ### Fixed
 
@@ -229,7 +231,8 @@ Initial release.
 
 <!-- Versions -->
 
-[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.7...HEAD
+[unreleased]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/compare/v1.0.0-pre.8...HEAD
+[1.0.0-pre.8]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.8
 [1.0.0-pre.7]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.7
 [1.0.0-pre.6]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.6
 [1.0.0-pre.5]: https://github.com/mrmagic2020/openrct2-dynamicdashboard/releases/v1.0.0-pre.5
