@@ -1873,9 +1873,10 @@ function updateColourScheme(type: number, colour: Colour) {
     windowParams.colours[type] = colour
   }
   // Reopen the window with the new colour scheme
+  let needsReopen = isOpen
   windowTemplate.close()
   windowTemplate = window(windowParams)
-  open()
+  if (needsReopen) windowTemplate.open()
 }
 
 function init(): void {
