@@ -20,6 +20,10 @@ class Window<T extends AnyWindowParams> {
   }
 
   constructor(windowParams: T) {
+    windowParams.onClose = () => {
+      this._isOpen = false
+      windowParams.onClose?.()
+    }
     this._windowParams = windowParams
     if (this.isTabWindowParams(windowParams)) {
       this._windowTemplate = tabwindow(windowParams)
@@ -54,13 +58,16 @@ class Window<T extends AnyWindowParams> {
   }
 
   redefine() {
+    let needsReopen = this._isOpen
     this.close()
     if (this.isTabWindowParams(this._windowParams)) {
       this._windowTemplate = tabwindow(this._windowParams)
     } else {
       this._windowTemplate = window(this._windowParams)
     }
-    this.open()
+    if (needsReopen) {
+      this.open()
+    }
   }
 
   setProperties(properties: Partial<AnyWindowParams>) {
