@@ -14,9 +14,6 @@ on:
       - ".gitignore"
       - ".prettierignore"
       - ".vscode/**"
-defaults:
-  run:
-    shell: zsh
 
 jobs:
   check-code-formatting:
