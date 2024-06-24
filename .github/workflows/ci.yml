@@ -6,6 +6,8 @@ on:
       - ".gitignore"
       - ".prettierignore"
       - ".vscode/**"
+    branches:
+      - develop
   pull_request:
     paths-ignore:
       - ".github/*_TEMPLATE/**"
@@ -39,6 +41,8 @@ jobs:
           node-version: 20.14.0
           cache: npm
       - run: npm ci --prefer-offline --no-audit --no-save
+      - name: Fetch API reference
+        run: npm run fetch-api-reference
       - name: Build project
         run: npm run build:silent
       - name: Run tests

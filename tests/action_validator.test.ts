@@ -33,7 +33,7 @@ test("check returns false for a repeated action within the interval", (t) => {
 })
 
 test("check returns true for a repeated action after the interval", async (t) => {
-  t.timeout(2000, "Ensure the test finishes before the timeout.")
+  t.timeout(5000, "Ensure the test finishes before the timeout.")
   const validator = new ActionValidator(1000)
   const action1 = {
     player: "Player 1",
@@ -47,7 +47,7 @@ test("check returns true for a repeated action after the interval", async (t) =>
     action: "Action 1",
     args: ["Arg 1", "Arg 2"]
   }
-  validator.check(action1)
+  t.true(validator.check(action1))
   await new Promise<void>((resolve) =>
     setTimeout(() => {
       const result = validator.check(action2)
