@@ -31,7 +31,7 @@
     "rollup": "^4.21.2",
     "tsimp": "^2.0.11",
     "tslib": "^2.7.0",
-    "typedoc": "^0.26.6"
+    "typedoc": "^0.26.7"
   },
   "dependencies": {
     "@rollup/plugin-replace": "^5.0.7",
