@@ -20,7 +20,7 @@
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "ava": "^6.1.3",
